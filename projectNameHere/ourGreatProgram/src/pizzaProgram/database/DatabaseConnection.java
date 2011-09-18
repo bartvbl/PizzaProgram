@@ -20,6 +20,6 @@ public class DatabaseConnection {
 	}
 	public DatabaseTable databaseQuery(String tutorial)
 	{
-		
+		return null;
 	}
 }
