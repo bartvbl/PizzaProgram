@@ -18,6 +18,10 @@ public class DatabaseConnection {
 	{
 		
 	}
+	public void isCOnnected()
+	{
+		
+	}
 	public DatabaseTable databaseQuery(String tutorial)
 	{
 		return null;
