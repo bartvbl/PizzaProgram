@@ -23,7 +23,7 @@ CREATE TABLE Order (
 OrderID INT PRIMARY KEY NOT NULL,
 CustomerID INT PRIMARY KEY NOT NULL,
 TimeRegistered DATETIME NOT NULL,
-OrderStatus enum ('registered', 'cooked', 'delivered') NOT NULL,
+OrderStatus enum ('registered', 'being cooked', 'has been cooked', 'being delivered', 'delivered') NOT NULL,
 DeliveryMethod enum ('deliverAtHome', 'pickupAtRestaurant') NOT NULL,
 commentID INT
 );
