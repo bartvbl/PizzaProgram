@@ -20,7 +20,7 @@ DishExtrasID INT PRIMARY KEY NOT NULL
 );
 
 CREATE TABLE Order (
-OrderID INT PRIMARY KEY NOT NULL,
+OrderID INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
 CustomerID INT PRIMARY KEY NOT NULL,
 TimeRegistered DATETIME NOT NULL,
 OrderStatus enum ('registered', 'being cooked', 'has been cooked', 'being delivered', 'delivered') NOT NULL,
