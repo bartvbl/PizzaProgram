@@ -7,9 +7,9 @@ import pizzaProgram.events.EventHandler;
 public class Module implements EventHandler{
 	private EventDispatcher eventDispatcher;
  
-	public Module()
+	public Module(EventDispatcher eventDispatcher)
 	{
-	 
+		this.eventDispatcher = eventDispatcher;
 	}
 	
 	//methods to be overridden by child classes
