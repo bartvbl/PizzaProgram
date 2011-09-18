@@ -1,4 +1,4 @@
-package pizzaProgram.gui;
+package pizzaProgram.modules;
 
 public class GUIModule {
 

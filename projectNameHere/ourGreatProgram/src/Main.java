@@ -1,12 +1,26 @@
+import pizzaProgram.events.EventDispatcher;
+import pizzaProgram.modules.GUIModule;
+
 
 public class Main {
-
-	/**
-	 * @param args
-	 */
+	public EventDispatcher eventDispatcher;
+	private GUIModule currentActiveGUIModule;
+	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		System.out.println("testttest");
+		
+	}
+	
+	public void initialize()
+	{
+		
+	}
+	public void urn()
+	{
+		
+	}
+	public void switchGUI(GUIModule newModule)
+	{
+		
 	}
 
 }
