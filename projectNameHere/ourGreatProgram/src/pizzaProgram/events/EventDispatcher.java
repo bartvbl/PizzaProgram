@@ -16,7 +16,7 @@ public class EventDispatcher {
 		int index = eventTypes.indexOf(event.eventType);
 		for(EventHandler i : listeners.get(index))
 		{
-			if(event.hasStoppedPropagating())
+			if(event.isPropagating())
 			{
 				break;
 			}
