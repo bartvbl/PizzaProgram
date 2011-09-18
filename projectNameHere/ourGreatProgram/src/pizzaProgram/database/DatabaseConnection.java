@@ -16,7 +16,7 @@ public class DatabaseConnection {
 	}
 	public void disconnect()
 	{
-		
+		//bye!
 	}
 	public void isCOnnected()
 	{
