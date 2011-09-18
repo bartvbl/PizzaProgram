@@ -34,7 +34,7 @@ public class DatabaseConnection {
     }
 
     public void connect() {
-
+        System.out.println("lol! Committest!");
     }
 
     public void disconnect() {
