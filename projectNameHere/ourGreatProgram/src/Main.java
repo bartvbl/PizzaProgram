@@ -1,3 +1,5 @@
+import javax.swing.JFrame;
+
 import pizzaProgram.events.EventDispatcher;
 import pizzaProgram.modules.GUIModule;
 
@@ -5,6 +7,7 @@ import pizzaProgram.modules.GUIModule;
 public class Main {
 	public EventDispatcher eventDispatcher;
 	private GUIModule currentActiveGUIModule;
+	private JFrame programWindow;
 	
 	public static void main(String[] args) {
 		
@@ -22,5 +25,8 @@ public class Main {
 	{
 		
 	}
-
+	public JFrame getProgramWindow()
+	{
+		return this.programWindow;
+	}
 }
