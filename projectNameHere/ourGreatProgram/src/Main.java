@@ -14,7 +14,7 @@ public class Main {
 	{
 		
 	}
-	public void urn()
+	public void run()
 	{
 		
 	}
