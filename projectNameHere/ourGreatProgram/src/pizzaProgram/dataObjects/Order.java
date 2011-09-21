@@ -6,7 +6,7 @@ public class Order {
 
 	private int orderID;
 	private Customer customer;
-	private ArrayList<Dish> dishes;
+	private ArrayList<OrderDish> dishes;
 	private String status;
 	private String deliveryMethod;
 	private String comment = "";
@@ -28,7 +28,7 @@ public class Order {
 	 * @param deliveryMethod - the method of delivery, must be Order.DELIVER_AT_HOME or Order.PICKUP_AT_RESTAURANT
 	 * @param comment - a comment for the order, can be empty but not null
 	 */
-	public Order(int id, Customer customer, ArrayList<Dish> dishes, String status, String deliveryMethod, String comment) {
+	public Order(int id, Customer customer, ArrayList<OrderDish> dishes, String status, String deliveryMethod, String comment) {
 		if(id < 0){
 			throw new IllegalArgumentException("id cannot be less than 0");
 		}
@@ -73,7 +73,7 @@ public class Order {
 	/**
 	 * @return - the dishes contained in this order
 	 */
-	public ArrayList<Dish> getDishes() {
+	public ArrayList<OrderDish> getDishes() {
 		return dishes;
 	}
 	

@@ -2,7 +2,7 @@ package pizzaProgram.dataObjects;
 
 import java.util.ArrayList;
 
-public class Dish {
+public class OrderDish {
 
 	private int price;
 	private String name;
@@ -13,7 +13,7 @@ public class Dish {
 	private String description;
 	private ArrayList<Extra> extras;
 	
-	public Dish(int price, String name, boolean containsGluten, boolean containsDiary, boolean isVegetarian, boolean isSpicy, String description, ArrayList<Extra> extras) {
+	public OrderDish(int price, String name, boolean containsGluten, boolean containsDiary, boolean isVegetarian, boolean isSpicy, String description, ArrayList<Extra> extras) {
 		this.price = price;
 		this.name = name;
 		this.containsGluten = containsGluten;
