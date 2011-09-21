@@ -5,16 +5,26 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class DatabaseConnection {
+import pizzaProgram.events.Event;
+import pizzaProgram.events.EventHandler;
+
+public class DatabaseConnection implements EventHandler{
     public static final String DATABASE_HOST = "jdbc:mysql://mysql.stud.ntnu.no/henninwo_it1901";
     public static final String DATABASE_USERNAME = "henninwo_it1901";
     public static final String DATABASE_PASSWORD = "pizzalulz";
+    
+    private Connection connection;
+    private QueryHandler queryHandler;
 
     public DatabaseConnection() {
-        Connection con = null;
+        this.queryHandler = new QueryHandler();
+    }
+
+    public void connect() {
+    	Connection connection = null;
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
-            con = DriverManager.getConnection(DATABASE_HOST, DATABASE_USERNAME, DATABASE_PASSWORD);
+            connection = DriverManager.getConnection(DATABASE_HOST, DATABASE_USERNAME, DATABASE_PASSWORD);
             System.out.println("Tilkoblingen fungerte.");
         } catch (SQLException ex) {
             System.out.println("Tilkobling feilet: " + ex.getMessage());
@@ -25,31 +35,43 @@ public class DatabaseConnection {
         } catch (IllegalAccessException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         } finally {
-            try {
-                if (con != null) con.close();
-            } catch (SQLException ex) {
-                System.out.println("Epic fail: " + ex.getMessage());
-            }
+            if (connection != null) this.connection = connection;
         }
     }
 
-    public void connect() {
-        System.out.println("lol! Committest!");
-    }
-
     public void disconnect() {
-        //bye!
+        try {
+			this.connection.close();
+		} catch (SQLException e) {
+			System.out.println("Failed to clise MySQL connection!");
+		}
     }
 
-    public void isConnected() {
-
+    public boolean isConnected(int timeoutInMilliseconds) {
+    	if(this.connection != null)
+    	{
+    		try {
+				if(this.connection.isValid(timeoutInMilliseconds))
+				{
+					return true;
+				}
+			} catch (SQLException e) {
+				return false;
+			}
+    	}
+    	return false;
     }
 
-    public DatabaseTable databaseQuery(String tutorial) {
+    public DatabaseTable databaseQuery(String query) {
         return null;
     }
 
     public static void main(String[] args) {
         DatabaseConnection connection = new DatabaseConnection();
     }
+
+	public void handleEvent(Event event) {
+		
+		this.queryHandler.handleEvent(event);
+	}
 }
