@@ -2,14 +2,14 @@ package pizzaProgram.dataObjects;
 
 public class Extra {
 
+	private int id;
 	private int price;
 	private String name;
-	private String description;
-	
-	public Extra(int price, String name, String description) {
+
+	public Extra(int id, int price, String name) {
+		this.id = id;
 		this.price = price;
 		this.name = name;
-		this.description = description;
 	}
 
 	public int getPrice() {
@@ -20,8 +20,12 @@ public class Extra {
 		return name;
 	}
 
-	public String getDescription() {
-		return description;
+	public int getId() {
+		return id;
 	}
 	
-}//END
+	public String toString() {
+		return id + " " + price + " " + name;
+	}
+
+}// END

@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import pizzaProgram.dataObjects.Customer;
+import pizzaProgram.dataObjects.Dish;
+import pizzaProgram.dataObjects.Extra;
 import pizzaProgram.dataObjects.Order;
 import pizzaProgram.events.Event;
 import pizzaProgram.events.EventHandler;
@@ -18,7 +20,10 @@ public class DatabaseConnection implements EventHandler {
 	private Connection connection;
 	private QueryHandler queryHandler;
 	private ArrayList<Customer> customers;
-	private HashMap<Integer, String> comments;
+	private HashMap<Integer, String> customerComments;
+	private HashMap<Integer, String> orderComments;
+	private ArrayList<Dish> dishes;
+	private ArrayList<Extra> extras;
 
 	public DatabaseConnection() throws SQLException {
 		// this.queryHandler = new QueryHandler();
@@ -56,7 +61,7 @@ public class DatabaseConnection implements EventHandler {
 			try {
 				this.connection.close();
 			} catch (SQLException e) {
-				System.out.println("Failed to clise MySQL connection!");
+				System.out.println("Failed to close MySQL connection!");
 			}
 		}
 	}
@@ -114,23 +119,61 @@ public class DatabaseConnection implements EventHandler {
 		while (results.next()) {
 			customers.add(new Customer(results.getInt(1), results.getString(2),
 					results.getString(3), results.getString(4), results
-							.getInt(5), comments.get(results.getInt(6))));
+							.getInt(5), customerComments.get(results.getInt(6))));
 		}
 		results.close();
 	}
 
-	public void createCommentList() throws SQLException {
-		comments = new HashMap<Integer, String>();
-		ResultSet results = executeQuery("SELECT * FROM Comments;");
-		comments.put(-1, "");
-		while (results.next()){
-			comments.put(results.getInt(1), results.getString(2));
+	public void createCustomerCommentList() throws SQLException {
+		customerComments = new HashMap<Integer, String>();
+		ResultSet results = executeQuery("SELECT * FROM CustomerNotes;");
+		customerComments.put(-1, "");
+		while (results.next()) {
+			customerComments.put(results.getInt(1), results.getString(2));
+		}
+		results.close();
+	}
+	
+	public void createOrderCommentList() throws SQLException {
+		orderComments = new HashMap<Integer, String>();
+		ResultSet results = executeQuery("SELECT * FROM OrderComments;");
+		orderComments.put(-1, "");
+		while (results.next()) {
+			orderComments.put(results.getInt(1), results.getString(2));
+		}
+		results.close();
+	}
+
+	public void createDishList() throws SQLException {
+		dishes = new ArrayList<Dish>();
+		ResultSet results = executeQuery("SELECT * FROM Dishes;");
+		while (results.next()) {
+			dishes.add(new Dish(results.getInt(1), results.getInt(2), results
+					.getString(3), results.getBoolean(4),
+					results.getBoolean(5), results.getBoolean(6), results
+							.getBoolean(7), results.getBoolean(8), results.getString(9)));
+		}
+		results.close();
+	}
+	
+	public void createExtrasList() throws SQLException {
+		extras = new ArrayList<Extra>();
+		ResultSet results = executeQuery("SELECT * FROM Extras;");
+		while (results.next()) {
+			extras.add(new Extra(results.getInt(1), results.getInt(1), results.getString(2)));
 		}
 		results.close();
 	}
 
 	public ArrayList<Customer> getCustomers() {
 		return this.customers;
+	}
+
+	public ArrayList<Dish> getDishes() {
+		return dishes;
+	}
+	public ArrayList<Extra> getExtras(){
+		return extras;
 	}
 
 	public void newOrder(Order order) {
@@ -142,7 +185,6 @@ public class DatabaseConnection implements EventHandler {
 	}
 
 	public void changeOrder(Order order) {
-
 	}
 
 	// SLUTT P� JUKSEMETODER
@@ -153,12 +195,21 @@ public class DatabaseConnection implements EventHandler {
 
 	public static void main(String[] args) throws SQLException {
 		DatabaseConnection connection = new DatabaseConnection();
-		connection.createCommentList();
+		connection.createCustomerCommentList();
+		connection.createOrderCommentList();
 		connection.createCustomerList();
+		connection.createDishList();
+		connection.createExtrasList();
 		for (Customer c : connection.getCustomers()) {
 			System.out.println(c.toString());
 		}
-		
+		for (Dish d : connection.getDishes()) {
+			System.out.println(d.toString());
+		}
+		for (Extra e : connection.getExtras()){
+			System.out.println(e.toString());
+		}
+
 		connection.disconnect();
 	}
 

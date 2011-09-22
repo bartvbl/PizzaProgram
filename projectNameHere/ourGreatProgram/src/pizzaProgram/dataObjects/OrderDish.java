@@ -3,58 +3,19 @@ package pizzaProgram.dataObjects;
 import java.util.ArrayList;
 
 public class OrderDish {
-
-	private int price;
-	private String name;
-	private boolean containsGluten;
-	private boolean containsDiary;
-	private boolean isVegetarian;
-	private boolean isSpicy;
-	private String description;
+	private Dish dish;
 	private ArrayList<Extra> extras;
-	
-	public OrderDish(int price, String name, boolean containsGluten, boolean containsDiary, boolean isVegetarian, boolean isSpicy, String description, ArrayList<Extra> extras) {
-		this.price = price;
-		this.name = name;
-		this.containsGluten = containsGluten;
-		this.containsDiary = containsDiary;
-		this.isVegetarian = isVegetarian;
-		this.isSpicy = isSpicy;
-		this.description = description;
+
+	public OrderDish(Dish dish, ArrayList<Extra> extras) {
+		this.dish = dish;
 		this.extras = extras;
 	}
 
-	public int getPrice() {
-		return price;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public boolean isContainsGluten() {
-		return containsGluten;
-	}
-
-	public boolean isContainsDiary() {
-		return containsDiary;
-	}
-
-	public boolean isVegetarian() {
-		return isVegetarian;
-	}
-
-	public boolean isSpicy() {
-		return isSpicy;
-	}
-
-	public String getDescription() {
-		return description;
+	public Dish getDish() {
+		return dish;
 	}
 
 	public ArrayList<Extra> getExtras() {
 		return extras;
 	}
-	
-}//END
-
+}
