@@ -27,7 +27,7 @@ public class DatabaseConnection implements EventHandler {
 
 	public DatabaseConnection() throws SQLException {
 		// this.queryHandler = new QueryHandler();
-		connect();
+		
 
 	}
 

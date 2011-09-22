@@ -1,21 +1,19 @@
 import javax.swing.JFrame;
 
 import pizzaProgram.events.EventDispatcher;
+import pizzaProgram.gui.ProgramWindow;
 import pizzaProgram.modules.GUIModule;
 
 
 public class Main {
 	public EventDispatcher eventDispatcher;
 	private GUIModule currentActiveGUIModule;
-	private JFrame programWindow;
-	
-	public static void main(String[] args) {
-		
-	}
+	private ProgramWindow programWindow;
 	
 	public void initialize()
 	{
-		
+		this.programWindow = new ProgramWindow();
+		this.programWindow.createMainWindow(640, 480);
 	}
 	public void run()
 	{
@@ -25,7 +23,7 @@ public class Main {
 	{
 		
 	}
-	public JFrame getProgramWindow()
+	public ProgramWindow getProgramWindow()
 	{
 		return this.programWindow;
 	}
