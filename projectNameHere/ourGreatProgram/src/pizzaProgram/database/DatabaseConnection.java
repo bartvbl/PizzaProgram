@@ -3,8 +3,12 @@ package pizzaProgram.database;
 import java.lang.String;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
+import pizzaProgram.dataObjects.Customer;
+import pizzaProgram.dataObjects.Order;
 import pizzaProgram.events.Event;
 import pizzaProgram.events.EventHandler;
 
@@ -64,6 +68,53 @@ public class DatabaseConnection implements EventHandler{
     	return false;
     }
 
+    
+    //HERE BE JUKSEMETODER
+    private ResultSet executeQuery(String q){
+    	try {
+			java.sql.Statement statement = connection.createStatement();
+			return statement.executeQuery(q);
+		} catch (SQLException e) {
+			System.out.println("Query Failed: " + e.getMessage());
+		}
+		return null;
+    }
+    
+    public ArrayList<Order> getOrders(){
+    	ArrayList<Order> orders = new ArrayList<Order>();
+    	ResultSet results = executeQuery("");
+    	
+    	
+    	try {
+    		
+			for(int i = 0; results.next(); i++){
+				results.getString(i);
+				
+				
+				//TODO her leser vi inn 
+				
+			}
+			results.close();
+			
+		} catch (SQLException e) {
+		}
+    	
+    	return null;
+    }
+    public ArrayList<Customer> getCustomers(){
+    	return null;
+    }
+    public void newOrder(Order order){
+    	
+    }
+    public void newCustomer(Customer customer){
+    	
+    }
+    public void changeOrder(Order order){
+    	
+    }
+    //SLUTT PÅ JUKSEMETODER
+    
     public DatabaseTable databaseQuery(String query) {
         return null;
     }
