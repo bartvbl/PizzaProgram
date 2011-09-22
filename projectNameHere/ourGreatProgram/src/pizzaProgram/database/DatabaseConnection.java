@@ -3,6 +3,7 @@ package pizzaProgram.database;
 import java.lang.String;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import pizzaProgram.dataObjects.Customer;
 import pizzaProgram.dataObjects.Order;
@@ -16,21 +17,25 @@ public class DatabaseConnection implements EventHandler {
 
 	private Connection connection;
 	private QueryHandler queryHandler;
-	private Statement databaseStatement;
+	private ArrayList<Customer> customers;
+	private HashMap<Integer, String> comments;
 
 	public DatabaseConnection() throws SQLException {
 		// this.queryHandler = new QueryHandler();
 		connect();
-		
+
 	}
 
+	/**
+	 * Method that attempt to make a connection to the mySQL database that
+	 * contains the data.
+	 */
 	public void connect() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			connection = DriverManager.getConnection(DATABASE_HOST, DATABASE_USERNAME, DATABASE_PASSWORD);
-			System.out.println("The connection was a success!.");
-			databaseStatement = connection.createStatement();
-			ResultSet queryResults = databaseStatement.executeQuery("SELECT * FROM Dishes");
+			connection = DriverManager.getConnection(DATABASE_HOST,
+					DATABASE_USERNAME, DATABASE_PASSWORD);
+			System.out.println("The connection was a success!");
 
 		} catch (SQLException e) {
 			System.out.println("Connection failed: " + e.getMessage());
@@ -38,10 +43,10 @@ public class DatabaseConnection implements EventHandler {
 			System.out.println("Failed during driverinitialization: "
 					+ e.getMessage());
 		} catch (InstantiationException e) {
-			System.out.println("Failed during driverinstantiation:"
+			System.out.println("Failed during driverinstantiation: "
 					+ e.getMessage());
 		} catch (IllegalAccessException e) {
-			System.out.println("Failed during driverinstantiation:"
+			System.out.println("Failed during driverinstantiation: "
 					+ e.getMessage());
 		}
 	}
@@ -59,10 +64,10 @@ public class DatabaseConnection implements EventHandler {
 	public boolean isConnected(int timeoutInMilliseconds) {
 		if (this.connection != null) {
 			try {
-				if (this.connection.isValid(timeoutInMilliseconds)) {
-					return true;
-				}
+				return this.connection.isValid(timeoutInMilliseconds);
 			} catch (SQLException e) {
+				System.err.println("Something is wrong with the connection: "
+						+ e.getMessage());
 				return false;
 			}
 		}
@@ -70,12 +75,14 @@ public class DatabaseConnection implements EventHandler {
 	}
 
 	// HERE BE JUKSEMETODER
-	private ResultSet executeQuery(String q) {
+	/**
+	 * 
+	 */
+	private ResultSet executeQuery(String query) {
 		try {
-			Statement statement = connection.createStatement();
-			return statement.executeQuery(q);
+			return connection.createStatement().executeQuery(query);
 		} catch (SQLException e) {
-			System.out.println("Query Failed: " + e.getMessage());
+			System.err.println("Query Failed: " + e.getMessage());
 		}
 		return null;
 	}
@@ -101,8 +108,29 @@ public class DatabaseConnection implements EventHandler {
 		return null;
 	}
 
+	public void createCustomerList() throws SQLException {
+		customers = new ArrayList<Customer>();
+		ResultSet results = executeQuery("SELECT * FROM Customer;");
+		while (results.next()) {
+			customers.add(new Customer(results.getInt(1), results.getString(2),
+					results.getString(3), results.getString(4), results
+							.getInt(5), comments.get(results.getInt(6))));
+		}
+		results.close();
+	}
+
+	public void createCommentList() throws SQLException {
+		comments = new HashMap<Integer, String>();
+		ResultSet results = executeQuery("SELECT * FROM Comments;");
+		comments.put(-1, "");
+		while (results.next()){
+			comments.put(results.getInt(1), results.getString(2));
+		}
+		results.close();
+	}
+
 	public ArrayList<Customer> getCustomers() {
-		return null;
+		return this.customers;
 	}
 
 	public void newOrder(Order order) {
@@ -125,15 +153,13 @@ public class DatabaseConnection implements EventHandler {
 
 	public static void main(String[] args) throws SQLException {
 		DatabaseConnection connection = new DatabaseConnection();
-		
-		//TESTER HER
-		ResultSet rs = connection.executeQuery("SELECT * FROM Dishes;");
-		while(rs.next()){
-			System.out.println(rs.getInt(1));
-			System.out.println(rs.getString(2));
-			System.out.println(rs.getString(3));
+		connection.createCommentList();
+		connection.createCustomerList();
+		for (Customer c : connection.getCustomers()) {
+			System.out.println(c.toString());
 		}
-		rs.close();
+		
+		connection.disconnect();
 	}
 
 	public void handleEvent(Event event) {

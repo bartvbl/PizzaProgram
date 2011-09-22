@@ -42,6 +42,10 @@ public class Customer {
 		return comment;
 	}
 	
+	public String toString() {
+		return customerID + " " + firstName + " " + lastName + " " + address + " " + phoneNumber + " " + comment;
+	}
+	
 	
 	
 }//END
