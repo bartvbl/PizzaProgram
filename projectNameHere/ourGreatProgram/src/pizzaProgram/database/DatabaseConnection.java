@@ -12,6 +12,8 @@ public class DatabaseConnection implements EventHandler{
     public static final String DATABASE_HOST = "jdbc:mysql://mysql.stud.ntnu.no/henninwo_it1901";
     public static final String DATABASE_USERNAME = "henninwo_it1901";
     public static final String DATABASE_PASSWORD = "pizzalulz";
+    //TODO: add the database name
+    public static final String DATABASE_NAME = "???";
     
     private Connection connection;
     private QueryHandler queryHandler;
