@@ -57,20 +57,25 @@ INSERT INTO DishExtras VALUES (NULL, 15, 0.00, 'Free Cola/Fanta/7-up', 8, 9);
 INSERT INTO DishExtras VALUES (NULL, 16, 0.00, 'Free Cola/Fanta/7-up', 8, 9);
 INSERT INTO DishExtras VALUES (NULL, 17, 0.00, 'Free Cola/Fanta/7-up', 8, 9);
 
-#CREATE TABLE OrderContents ( 
-#OrderID INT PRIMARY KEY NOT NULL,
-#DishID INT PRIMARY KEY NOT NULL,
-#OrderExtrasID INT PRIMARY KEY NOT NULL
-#);
+#--OrderContents
+INSERT INTO OrderContents VALUES (1, 3, 1);
+INSERT INTO OrderContents VALUES (2, 9, NULL);
+INSERT INTO OrderContents VALUES (2, 4, NULL);
+INSERT INTO OrderContents VALUES (2, 8, NULL);
+INSERT INTO OrderContents VALUES (3, 9, NULL);
+INSERT INTO OrderContents VALUES (4, 15, 2);
+INSERT INTO OrderContents VALUES (5, 7, NULL);
+INSERT INTO OrderContents VALUES (6, 5, NULL);
+INSERT INTO OrderContents VALUES (6, 3, NULL);
+INSERT INTO OrderContents VALUES (7, 9, NULL);
+INSERT INTO OrderContents VALUES (8, 10, NULL);
+INSERT INTO OrderContents VALUES (9, 14, NULL);
+INSERT INTO OrderContents VALUES (9, 13, NULL);
+INSERT INTO OrderContents VALUES (10, 12, NULL);
 
-#CREATE TABLE OrderExtrasContent (
-#OrderExtrasID INT PRIMARY KEY NOT NULL,
-#DishExtrasID INT PRIMARY KEY NOT NULL
-#);
-
-INSERT INTO OrderContents VALUES (1, 3, )
-
-
+#--OrderExtrasContent
+INSERT INTO OrderExtraContents VALUES (1, 1);
+INSERT INTO OrderExtraContents VALUES (2, 4);
 
 #--Config
 INSERT INTO Config VALUES('restaurantName', 'The Awesome Pizza Restaurant');
