@@ -24,3 +24,67 @@ INSERT INTO Order VALUES (NULL, 10, '2011-09-23 19:25:27', 'being delivered', 'd
 INSERT INTO Order VALUES (NULL, 6, '2011-09-22 12:57:32', 'delivered', 'picupAtRestaurant', NULL);
 INSERT INTO Order VALUES (NULL, 9, '2011-09-23 07:33:56', 'delivered', 'deliverAtHome', NULL);
 
+#--Dishes
+INSERT INTO Dishes VALUES (NULL, 100.00, 'Small Pepperroni pizza', 		'yes', 	'no', 	'yes', 	'no', 	'yes', 1, NULL);
+INSERT INTO Dishes VALUES (NULL, 120.00, 'Medium Pepperroni pizza', 	'yes', 	'no', 	'yes', 	'no', 	'yes', 1, NULL);
+INSERT INTO Dishes VALUES (NULL, 150.00, 'Large Pepperroni pizza', 		'yes', 	'no', 	'yes', 	'no', 	'yes', 1, NULL);
+
+INSERT INTO Dishes VALUES (NULL, 150.00, 'Small Meat pizza', 			'yes', 	'no', 	'yes', 	'no', 	'no', 2, NULL);
+INSERT INTO Dishes VALUES (NULL, 170.00, 'Medium Meat pizza', 			'yes', 	'no', 	'yes', 	'no', 	'no', 2, NULL);
+INSERT INTO Dishes VALUES (NULL, 190.00, 'Large Meat pizza', 			'yes', 	'no', 	'yes', 	'no', 	'no', 2, NULL);
+
+INSERT INTO Dishes VALUES (NULL, 70.00, 'Small Kids pizza', 			'no', 	'no', 	'no', 	'yes', 	'no', 3, NULL);
+INSERT INTO Dishes VALUES (NULL, 90.00, 'Medium Kids pizza', 			'no', 	'no', 	'no', 	'yes', 	'no', 3, NULL);
+
+INSERT INTO Dishes VALUES (NULL, 130.00, 'Small Extremely hot pizza', 	'yes', 	'yes', 	'yes', 	'no', 	'yes', 4, NULL);
+INSERT INTO Dishes VALUES (NULL, 145.00, 'Medium Extremely hot pizza', 	'yes', 	'yes', 	'yes', 	'no', 	'yes', 4, NULL);
+INSERT INTO Dishes VALUES (NULL, 160.00, 'Large Extremely hot pizza', 	'yes', 	'yes', 	'yes', 	'no', 	'yes', 4, NULL);
+
+INSERT INTO Dishes VALUES (NULL, 100.00, 'Small Regular pizza', 		'no', 	'no', 	'no', 	'no', 	'no', 5, NULL);
+INSERT INTO Dishes VALUES (NULL, 120.00, 'Medium Regular pizza', 		'no', 	'no', 	'no', 	'no', 	'no', 5, NULL);
+INSERT INTO Dishes VALUES (NULL, 135.00, 'Large Regular pizza', 		'no', 	'no', 	'no', 	'no', 	'no', 5, NULL);
+
+INSERT INTO Dishes VALUES (NULL, 150.00, 'Small Lots-of-stuff pizza', 	'yes', 	'yes', 	'yes', 	'no', 	'no', 6, NULL);
+INSERT INTO Dishes VALUES (NULL, 170.00, 'Medium Lots-of-stuff pizza', 	'yes', 	'yes', 	'yes', 	'no', 	'no', 6, NULL);
+INSERT INTO Dishes VALUES (NULL, 190.00, 'Large Lots-of-stuff pizza', 	'yes', 	'yes', 	'yes', 	'no', 	'no', 6, NULL);
+
+#--DishExtras
+INSERT INTO DishExtras VALUES (NULL, 1, 10.00, 'some extra pepperroni', 7, NULL);
+INSERT INTO DishExtras VALUES (NULL, 2, 10.00, 'some extra pepperroni', 7, NULL);
+INSERT INTO DishExtras VALUES (NULL, 3, 10.00, 'some extra pepperroni', 7, NULL);
+
+INSERT INTO DishExtras VALUES (NULL, 15, 0.00, 'Free Cola/Fanta/7-up', 8, 9);
+INSERT INTO DishExtras VALUES (NULL, 16, 0.00, 'Free Cola/Fanta/7-up', 8, 9);
+INSERT INTO DishExtras VALUES (NULL, 17, 0.00, 'Free Cola/Fanta/7-up', 8, 9);
+
+#CREATE TABLE OrderContents ( 
+#OrderID INT PRIMARY KEY NOT NULL,
+#DishID INT PRIMARY KEY NOT NULL,
+#OrderExtrasID INT PRIMARY KEY NOT NULL
+#);
+
+#CREATE TABLE OrderExtrasContent (
+#OrderExtrasID INT PRIMARY KEY NOT NULL,
+#DishExtrasID INT PRIMARY KEY NOT NULL
+#);
+
+INSERT INTO OrderContents VALUES (1, 3, )
+
+
+
+#--Config
+INSERT INTO Config VALUES('restaurantName', 'The Awesome Pizza Restaurant');
+INSERT INTO Config VALUES('deliveryCost', '50.00');
+INSERT INTO Config VALUES('freeDeliveryBoundary', '100.00');
+
+#--Comments
+INSERT INTO Comments VALUES (NULL, 'A nice, spicy pizza. Can also be used as frisbee.');
+INSERT INTO Comments VALUES (NULL, 'It is a pizza. With meat on it.');
+INSERT INTO Comments VALUES (NULL, 'See that? It is a toy. For children. And now SHE lives in it!');
+INSERT INTO Comments VALUES (NULL, 'We resisted the urge to actually pour some white spirit on it, and light it. It should taste just as hot either way.');
+INSERT INTO Comments VALUES (NULL, 'A pizza with some yummy stuff on it');
+INSERT INTO Comments VALUES (NULL, 'This one literally barely fits in the oven');
+
+INSERT INTO Comments VALUES (NULL, 'We\'ll put a more generous amount of pepperoni on your pizza');
+INSERT INTO Comments VALUES (NULL, 'Buy a lots-of-stuff pizza, and get a free soda bottle!');
+INSERT INTO Comments VALUES (NULL, 'Max 1 bottle per pizza');
