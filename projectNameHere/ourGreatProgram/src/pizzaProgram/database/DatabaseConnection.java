@@ -1,10 +1,7 @@
 package pizzaProgram.database;
 
 import java.lang.String;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 import pizzaProgram.dataObjects.Customer;
@@ -13,14 +10,13 @@ import pizzaProgram.events.Event;
 import pizzaProgram.events.EventHandler;
 
 public class DatabaseConnection implements EventHandler{
-    public static final String DATABASE_HOST = "jdbc:mysql://mysql.stud.ntnu.no/henninwo_it1901";
-    public static final String DATABASE_USERNAME = "henninwo_it1901";
-    public static final String DATABASE_PASSWORD = "pizzalulz";
-    //TODO: add the database name
-    public static final String DATABASE_NAME = "???";
+    public static final String DATABASE_HOST = "jdbc:mysql://mysql.stud.ntnu.no/it1901g03_PizzaBase";
+    public static final String DATABASE_USERNAME = "it1901g03_admin";
+    public static final String DATABASE_PASSWORD = "batman";
     
     private Connection connection;
     private QueryHandler queryHandler;
+    private Statement databaseStatement;
 
     public DatabaseConnection() {
         this.queryHandler = new QueryHandler();
@@ -31,17 +27,18 @@ public class DatabaseConnection implements EventHandler{
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
             connection = DriverManager.getConnection(DATABASE_HOST, DATABASE_USERNAME, DATABASE_PASSWORD);
-            System.out.println("Tilkoblingen fungerte.");
-        } catch (SQLException ex) {
-            System.out.println("Tilkobling feilet: " + ex.getMessage());
-        } catch (ClassNotFoundException ex) {
-            System.out.println("Feilet under driverlasting: " + ex.getMessage());
+            System.out.println("The connection was a success!.");
+            databaseStatement = connection.createStatement();
+            ResultSet queryResults = databaseStatement.executeQuery("SELECT * FROM Dishes");
+
+        } catch (SQLException e) {
+            System.out.println("Connection failed: " + e.getMessage());
+        } catch (ClassNotFoundException e) {
+            System.out.println("Failed during driverinitialization: " + e.getMessage());
         } catch (InstantiationException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            System.out.println("Failed during driverinstantiation:" + e.getMessage());
         } catch (IllegalAccessException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        } finally {
-            if (connection != null) this.connection = connection;
+            System.out.println("Failed during driverinstantiation:" + e.getMessage());
         }
     }
 
@@ -113,7 +110,7 @@ public class DatabaseConnection implements EventHandler{
     public void changeOrder(Order order){
     	
     }
-    //SLUTT PÅ JUKSEMETODER
+    //SLUTT Pï¿½ JUKSEMETODER
     
     public DatabaseTable databaseQuery(String query) {
         return null;
