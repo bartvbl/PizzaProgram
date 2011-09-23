@@ -1,7 +1,9 @@
 package pizzaProgram.database;
 
-import java.lang.String;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -9,13 +11,23 @@ import pizzaProgram.dataObjects.Customer;
 import pizzaProgram.dataObjects.Dish;
 import pizzaProgram.dataObjects.Extra;
 import pizzaProgram.dataObjects.Order;
+import pizzaProgram.dataObjects.OrderDish;
 import pizzaProgram.events.Event;
 import pizzaProgram.events.EventHandler;
 
+/**
+ * TODO: Create class javadoc TODO: Add input sanitation
+ * 
+ * @author Håvard Eidheim, Henning M. Wold
+ * 
+ */
 public class DatabaseConnection implements EventHandler {
-	public static final String DATABASE_HOST = "jdbc:mysql://mysql.stud.ntnu.no/it1901g03_PizzaBase";
-	public static final String DATABASE_USERNAME = "it1901g03_admin";
-	public static final String DATABASE_PASSWORD = "batman";
+	private static final String DATABASE_HOST = "jdbc:mysql://mysql.stud.ntnu.no/it1901g03_PizzaBase";
+	private static final String DATABASE_USERNAME = "it1901g03_admin";
+	private static final String DATABASE_PASSWORD = "batman";
+	private static final int DEFAULT_TIMEOUT = 3000;
+	private static final int VARCHAR_MAX_LENGTH_SHORT = 50;
+	private static final int VARCHAR_MAX_LENGTH_LONG = 100;
 
 	private Connection connection;
 	private QueryHandler queryHandler;
@@ -26,7 +38,9 @@ public class DatabaseConnection implements EventHandler {
 	private ArrayList<Dish> dishes;
 	private HashMap<Integer, Dish> dishMap;
 	private ArrayList<Extra> extras;
+	private HashMap<Integer, Extra> extrasMap;
 	private ArrayList<Order> orders;
+	private HashMap<Integer, Order> ordermap;
 
 	public DatabaseConnection() throws SQLException {
 		// this.queryHandler = new QueryHandler();
@@ -57,16 +71,36 @@ public class DatabaseConnection implements EventHandler {
 		}
 	}
 
-	public void disconnect() {
-		if (connection != null) {
+	/**
+	 * Method that tries to disconnect from the database if there is a valid
+	 * connection
+	 * 
+	 * @return returns true if there was no valid connection, or the
+	 *         disconnection was successful. Returns false if the method was
+	 *         unable to disconnect from the database.
+	 */
+	public boolean disconnect() {
+		if (connection != null
+				&& isConnected(DatabaseConnection.DEFAULT_TIMEOUT)) {
 			try {
 				this.connection.close();
 			} catch (SQLException e) {
-				System.out.println("Failed to close MySQL connection!");
+				System.out.println("Failed to close MySQL connection: "
+						+ e.getMessage());
+				return false;
 			}
 		}
+		return true;
 	}
 
+	/**
+	 * Method that checks if the the client is still connected to the database.
+	 * 
+	 * @param timeoutInMilliseconds
+	 *            The time in milliseconds as an int to wait for an answer from
+	 *            the server
+	 * @return true if the connection is still valid, false if not
+	 */
 	public boolean isConnected(int timeoutInMilliseconds) {
 		if (this.connection != null) {
 			try {
@@ -80,11 +114,16 @@ public class DatabaseConnection implements EventHandler {
 		return false;
 	}
 
-	// HERE BE JUKSEMETODER
 	/**
+	 * Method to fetch data from the the mySQL database using the provided query
 	 * 
+	 * @param query
+	 *            - a {@link java.lang.String String} containing the query that
+	 *            is to be sent to the database
+	 * @return a {@link java.sql.ResultSet ResultSet} containing the result of
+	 *         the query
 	 */
-	private ResultSet executeQuery(String query) {
+	private ResultSet fetchData(String query) {
 		try {
 			return connection.createStatement().executeQuery(query);
 		} catch (SQLException e) {
@@ -93,31 +132,36 @@ public class DatabaseConnection implements EventHandler {
 		return null;
 	}
 
-	public ArrayList<Order> getOrders() {
-		ArrayList<Order> orders = new ArrayList<Order>();
-
-		ResultSet results = executeQuery("");
-
+	/**
+	 * Method to insert data into the mySQL database using the provided query
+	 * 
+	 * @param query
+	 *            - a {@link java.lang.String String} containing the query that
+	 *            is to be sent to the database
+	 * @return true if the insertion was a success, false in all other cases
+	 */
+	private boolean insertIntoDB(String query) {
 		try {
-
-			for (int i = 0; results.next(); i++) {
-				results.getString(i);
-
-				// TODO her leser vi inn
-
-			}
-			results.close();
-
+			return connection.createStatement().execute(query);
 		} catch (SQLException e) {
+			System.err.println("Query Failed: " + e.getMessage());
+			return false;
 		}
-
-		return null;
 	}
 
+	/**
+	 * Method that purges the existing {@link java.util.ArrayList ArrayList} and
+	 * the existing {@link java.util.HashMap HashMap} of
+	 * {@link pizzaProgram.dataObjects.Customer customers}, and then creates new
+	 * ones based on the data fetched from the database.
+	 * 
+	 * @throws SQLException
+	 */
 	public void createCustomerList() throws SQLException {
 		customers = new ArrayList<Customer>();
+
 		customerMap = new HashMap<Integer, Customer>();
-		ResultSet results = executeQuery("SELECT * FROM Customer;");
+		ResultSet results = fetchData("SELECT * FROM Customer;");
 		while (results.next()) {
 			Customer tempCustomer = new Customer(results.getInt(1),
 					results.getString(2), results.getString(3),
@@ -130,9 +174,16 @@ public class DatabaseConnection implements EventHandler {
 		results.close();
 	}
 
+	/**
+	 * Method that purges the existing the existing {@link java.util.HashMap
+	 * HashMap} of customer notes, and then creates a new one based on the data
+	 * fetched from the database.
+	 * 
+	 * @throws SQLException
+	 */
 	public void createCustomerCommentList() throws SQLException {
 		customerComments = new HashMap<Integer, String>();
-		ResultSet results = executeQuery("SELECT * FROM CustomerNotes;");
+		ResultSet results = fetchData("SELECT * FROM CustomerNotes;");
 		customerComments.put(-1, "");
 		while (results.next()) {
 			customerComments.put(results.getInt(1), results.getString(2));
@@ -140,20 +191,72 @@ public class DatabaseConnection implements EventHandler {
 		results.close();
 	}
 
-	public void createOrderCommentList() throws SQLException {
-		orderComments = new HashMap<Integer, String>();
-		ResultSet results = executeQuery("SELECT * FROM OrderComments;");
-		orderComments.put(-1, "");
-		while (results.next()) {
-			orderComments.put(results.getInt(1), results.getString(2));
+	public boolean addCustomer(String firstName, String lastName,
+			String address, int phoneNumber, String comment)
+			throws SQLException {
+		if (firstName.length() > DatabaseConnection.VARCHAR_MAX_LENGTH_SHORT
+				|| lastName.length() > DatabaseConnection.VARCHAR_MAX_LENGTH_SHORT
+				|| address.length() > DatabaseConnection.VARCHAR_MAX_LENGTH_LONG) {
+			throw new IllegalArgumentException(
+					"Names cannot contain more than "
+							+ DatabaseConnection.VARCHAR_MAX_LENGTH_SHORT
+							+ " characters and addresses cannot contain more than "
+							+ DatabaseConnection.VARCHAR_MAX_LENGTH_LONG
+							+ " characters.");
 		}
-		results.close();
+		/*
+		 * Unique identifier composed from the first name, last nameand phone
+		 * number of the customer. It is not possible tocreate a new customer
+		 * who has bothh the same first name,last name and phone number as
+		 * another customer.
+		 */
+		String identifier = firstName.toLowerCase() + lastName.toLowerCase()
+				+ phoneNumber;
+		if (!fetchData(
+				"SELECT Identifier FROM Customer WHERE Identifier='"
+						+ identifier + "';").next()) {
+			int commentID = -1;
+			if (!(comment == null || comment.equals(""))) {
+				insertIntoDB("INSERT INTO CustomerNotes (Note) VALUES ('"
+						+ comment + "');");
+				ResultSet commentIDset = fetchData("SELECT NoteID FROM CustomerNotes WHERE Note='"
+						+ comment + "';");
+				if (commentIDset.next()) {
+					commentID = commentIDset.getInt(1);
+				}
+			}
+			return insertIntoDB("INSERT INTO Customer (FirstName, LastName, Address, TelephoneNumber, CommentID, Identifier) VALUES ('"
+					+ firstName
+					+ "', '"
+					+ lastName
+					+ "', '"
+					+ address
+					+ "', "
+					+ phoneNumber
+					+ ", "
+					+ commentID
+					+ ", '"
+					+ identifier
+					+ "');");
+		}
+		return false;
+	}
+
+	public boolean addDish(int price, String name, boolean containsGluten,
+			boolean containsNuts, boolean containsDairy, boolean isVegetarian,
+			boolean isSpicy, String description) {
+		return true;
+	}
+
+	public void addCustomer(String firstName, String lastName, String address,
+			int phoneNumber) throws SQLException {
+		addCustomer(firstName, lastName, address, phoneNumber, null);
 	}
 
 	public void createDishList() throws SQLException {
 		dishes = new ArrayList<Dish>();
 		dishMap = new HashMap<Integer, Dish>();
-		ResultSet results = executeQuery("SELECT * FROM Dishes;");
+		ResultSet results = fetchData("SELECT * FROM Dishes;");
 		while (results.next()) {
 			Dish tempDish = new Dish(results.getInt(1), results.getInt(2),
 					results.getString(3), results.getBoolean(4),
@@ -169,18 +272,23 @@ public class DatabaseConnection implements EventHandler {
 
 	public void createExtrasList() throws SQLException {
 		extras = new ArrayList<Extra>();
-		ResultSet results = executeQuery("SELECT * FROM Extras;");
+		extrasMap = new HashMap<Integer, Extra>();
+		ResultSet results = fetchData("SELECT * FROM Extras;");
 		while (results.next()) {
-			extras.add(new Extra(results.getInt(1), results.getInt(1), results
-					.getString(2)));
+			Extra tempExtra = new Extra(results.getInt(1),
+					results.getString(2), results.getInt(3));
+			extras.add(tempExtra);
+			extrasMap.put(tempExtra.getId(), tempExtra);
 		}
 		results.close();
 	}
 
 	public void createOrdersList() throws SQLException {
 		orders = new ArrayList<Order>();
-		
-		ResultSet results = executeQuery("SELECT Orders.OrdersID,"
+		ordermap = new HashMap<Integer, Order>();
+		HashMap<Integer, OrderDish> tempOrderDishMap = new HashMap<Integer, OrderDish>();
+
+		ResultSet results = fetchData("SELECT Orders.OrdersID,"
 				+ " Orders.CustomerID, Orders.TimeRegistered,"
 				+ " Orders.OrdersStatus, Orders.DeliveryMethod,"
 				+ " Orders.CommentID, OrdersContents.OrdersContentsID,"
@@ -192,13 +300,51 @@ public class DatabaseConnection implements EventHandler {
 				+ "ORDER BY Orders.OrdersID;");
 
 		while (results.next()) {
+			if (ordermap.get(results.getInt(1)) == null) {
+				Order tempOrder = new Order(results.getInt(1),
+						customerMap.get(results.getInt(2)), results.getDate(3),
+						results.getString(4), results.getString(5),
+						orderComments.get(results.getInt(6)));
+				orders.add(tempOrder);
+				ordermap.put(results.getInt(1), tempOrder);
 
+			}
+			if (tempOrderDishMap.get(results.getInt(7)) == null) {
+				if (dishMap.get(results.getInt(8)) != null) {
+					tempOrderDishMap.put(results.getInt(7), new OrderDish(
+							results.getInt(1), dishMap.get(results.getInt(8))));
+					System.out.println(tempOrderDishMap.get(results.getInt(7))
+							.toString());
+				}
+			}
+			if (extrasMap.get(results.getInt(9)) != null) {
+				tempOrderDishMap.get(results.getInt(7)).addExtra(
+						extrasMap.get(results.getInt(9)));
+			}
+		}
+		for (OrderDish d : tempOrderDishMap.values()) {
+			if (ordermap.get(d.getOrderID()) != null)
+				ordermap.get(d.getOrderID()).addOrderDish(d);
+		}
+		results.close();
+	}
+
+	public void createOrderCommentList() throws SQLException {
+		orderComments = new HashMap<Integer, String>();
+		ResultSet results = fetchData("SELECT * FROM OrderComments;");
+		orderComments.put(-1, "");
+		while (results.next()) {
+			orderComments.put(results.getInt(1), results.getString(2));
 		}
 		results.close();
 	}
 
 	public ArrayList<Customer> getCustomers() {
 		return this.customers;
+	}
+
+	public ArrayList<Order> getOrders() {
+		return this.orders;
 	}
 
 	public ArrayList<Dish> getDishes() {
@@ -229,21 +375,26 @@ public class DatabaseConnection implements EventHandler {
 	public static void main(String[] args) throws SQLException {
 		DatabaseConnection connection = new DatabaseConnection();
 		connection.connect();
+		long starttid = System.currentTimeMillis();
 		connection.createCustomerCommentList();
 		connection.createOrderCommentList();
 		connection.createCustomerList();
 		connection.createDishList();
 		connection.createExtrasList();
-		for (Customer c : connection.getCustomers()) {
-			System.out.println(c.toString());
+		connection.createOrdersList();
+		for (Order o : connection.getOrders()) {
+			System.out.print(o.toString());
 		}
-		for (Dish d : connection.getDishes()) {
-			System.out.println(d.toString());
-		}
-		for (Extra e : connection.getExtras()) {
-			System.out.println(e.toString());
-		}
-
+		connection.addCustomer("Mr.", "T", "Pitydatfoo Blvd 16278", 908123423,
+				null);
+		connection.addCustomer("Egil Roger", "Olsen", "Drillosvingen 33",
+				2564849, "LOL I LIKE FOTBALL!");
+		connection.addCustomer("Hermann", "Friele", "Drillosvingen 33",
+				2564849, "OMNOM KAFFE");
+		for (Customer c : connection.getCustomers())
+			System.out.println(c);
+		System.out.println(System.currentTimeMillis() - starttid);
+		System.out.println();
 		connection.disconnect();
 	}
 

@@ -6,7 +6,7 @@ public class Extra {
 	private int price;
 	private String name;
 
-	public Extra(int id, int price, String name) {
+	public Extra(int id, String name, int price) {
 		this.id = id;
 		this.price = price;
 		this.name = name;

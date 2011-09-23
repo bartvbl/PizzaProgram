@@ -1,5 +1,9 @@
 package pizzaProgram.dataObjects;
-
+/**
+ * TODO: Insert Class Javadoc here
+ * @author IT1903 Gruppe 03
+ *
+ */
 public class Customer {
 
 	private int customerID;
