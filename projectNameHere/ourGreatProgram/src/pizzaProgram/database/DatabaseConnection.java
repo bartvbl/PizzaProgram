@@ -20,15 +20,16 @@ public class DatabaseConnection implements EventHandler {
 	private Connection connection;
 	private QueryHandler queryHandler;
 	private ArrayList<Customer> customers;
+	private HashMap<Integer, Customer> customerMap;
 	private HashMap<Integer, String> customerComments;
 	private HashMap<Integer, String> orderComments;
 	private ArrayList<Dish> dishes;
+	private HashMap<Integer, Dish> dishMap;
 	private ArrayList<Extra> extras;
+	private ArrayList<Order> orders;
 
 	public DatabaseConnection() throws SQLException {
 		// this.queryHandler = new QueryHandler();
-		
-
 	}
 
 	/**
@@ -115,11 +116,16 @@ public class DatabaseConnection implements EventHandler {
 
 	public void createCustomerList() throws SQLException {
 		customers = new ArrayList<Customer>();
+		customerMap = new HashMap<Integer, Customer>();
 		ResultSet results = executeQuery("SELECT * FROM Customer;");
 		while (results.next()) {
-			customers.add(new Customer(results.getInt(1), results.getString(2),
-					results.getString(3), results.getString(4), results
-							.getInt(5), customerComments.get(results.getInt(6))));
+			Customer tempCustomer = new Customer(results.getInt(1),
+					results.getString(2), results.getString(3),
+					results.getString(4), results.getInt(5),
+					customerComments.get(results.getInt(6)));
+
+			customers.add(tempCustomer);
+			customerMap.put(tempCustomer.getCustomerID(), tempCustomer);
 		}
 		results.close();
 	}
@@ -133,7 +139,7 @@ public class DatabaseConnection implements EventHandler {
 		}
 		results.close();
 	}
-	
+
 	public void createOrderCommentList() throws SQLException {
 		orderComments = new HashMap<Integer, String>();
 		ResultSet results = executeQuery("SELECT * FROM OrderComments;");
@@ -146,21 +152,47 @@ public class DatabaseConnection implements EventHandler {
 
 	public void createDishList() throws SQLException {
 		dishes = new ArrayList<Dish>();
+		dishMap = new HashMap<Integer, Dish>();
 		ResultSet results = executeQuery("SELECT * FROM Dishes;");
 		while (results.next()) {
-			dishes.add(new Dish(results.getInt(1), results.getInt(2), results
-					.getString(3), results.getBoolean(4),
-					results.getBoolean(5), results.getBoolean(6), results
-							.getBoolean(7), results.getBoolean(8), results.getString(9)));
+			Dish tempDish = new Dish(results.getInt(1), results.getInt(2),
+					results.getString(3), results.getBoolean(4),
+					results.getBoolean(5), results.getBoolean(6),
+					results.getBoolean(7), results.getBoolean(8),
+					results.getString(9));
+
+			dishes.add(tempDish);
+			dishMap.put(tempDish.getDishID(), tempDish);
 		}
 		results.close();
 	}
-	
+
 	public void createExtrasList() throws SQLException {
 		extras = new ArrayList<Extra>();
 		ResultSet results = executeQuery("SELECT * FROM Extras;");
 		while (results.next()) {
-			extras.add(new Extra(results.getInt(1), results.getInt(1), results.getString(2)));
+			extras.add(new Extra(results.getInt(1), results.getInt(1), results
+					.getString(2)));
+		}
+		results.close();
+	}
+
+	public void createOrdersList() throws SQLException {
+		orders = new ArrayList<Order>();
+		
+		ResultSet results = executeQuery("SELECT Orders.OrdersID,"
+				+ " Orders.CustomerID, Orders.TimeRegistered,"
+				+ " Orders.OrdersStatus, Orders.DeliveryMethod,"
+				+ " Orders.CommentID, OrdersContents.OrdersContentsID,"
+				+ " OrdersContents.DishID, DishExtrasChosen.DishExtraID"
+				+ " FROM Orders LEFT JOIN OrdersContents ON"
+				+ " Orders.OrdersID=OrdersContents.OrdersID"
+				+ " LEFT JOIN DishExtrasChosen ON"
+				+ " OrdersContents.OrdersContentsID=DishExtrasChosen.OrdersContentsID "
+				+ "ORDER BY Orders.OrdersID;");
+
+		while (results.next()) {
+
 		}
 		results.close();
 	}
@@ -172,7 +204,8 @@ public class DatabaseConnection implements EventHandler {
 	public ArrayList<Dish> getDishes() {
 		return dishes;
 	}
-	public ArrayList<Extra> getExtras(){
+
+	public ArrayList<Extra> getExtras() {
 		return extras;
 	}
 
@@ -195,6 +228,7 @@ public class DatabaseConnection implements EventHandler {
 
 	public static void main(String[] args) throws SQLException {
 		DatabaseConnection connection = new DatabaseConnection();
+		connection.connect();
 		connection.createCustomerCommentList();
 		connection.createOrderCommentList();
 		connection.createCustomerList();
@@ -206,7 +240,7 @@ public class DatabaseConnection implements EventHandler {
 		for (Dish d : connection.getDishes()) {
 			System.out.println(d.toString());
 		}
-		for (Extra e : connection.getExtras()){
+		for (Extra e : connection.getExtras()) {
 			System.out.println(e.toString());
 		}
 
