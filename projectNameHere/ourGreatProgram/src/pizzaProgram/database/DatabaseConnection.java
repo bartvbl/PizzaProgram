@@ -26,7 +26,13 @@ public class DatabaseConnection implements EventHandler {
 	private static final String DATABASE_USERNAME = "it1901g03_admin";
 	private static final String DATABASE_PASSWORD = "batman";
 	private static final int DEFAULT_TIMEOUT = 3000;
+	/**
+	 * The maximum amount of allowed characters in a short VARCHAR column in the database
+	 */
 	private static final int VARCHAR_MAX_LENGTH_SHORT = 50;
+	/**
+	 * The maximum amount of allowed characters in a long VARCHAR column in the database
+	 */
 	private static final int VARCHAR_MAX_LENGTH_LONG = 100;
 
 	private Connection connection;
@@ -190,7 +196,18 @@ public class DatabaseConnection implements EventHandler {
 		}
 		results.close();
 	}
-
+	/**
+	 * Method for adding a new customer to the database. The method checks if the exact combination of firstName+lastName+phoneNumber already exists
+	 * in the database by creating a unique identifier (see below for details), and does not add any new rows if such a combination already exists in the database.
+	 * 
+	 * @param firstName The first, and middle, name of the customer as a String no longer than {@link pizzaProgram.database.DatabaseConnection.VARCHAR_MAX_LENGTH_SHORT VARCHAR_MAX_LENGTH_SHORT} 
+	 * @param lastName The last name of the customer as a String no longer than {@link pizzaProgram.database.DatabaseConnection.VARCHAR_MAX_LENGTH_SHORT VARCHAR_MAX_LENGTH_SHORT}
+	 * @param address The address of the customer as a String no longer than {@link pizzaProgram.database.DatabaseConnection.VARCHAR_MAX_LENGTH_LONG VARCHAR_MAX_LENGTH_LONG}
+	 * @param phoneNumber
+	 * @param comment
+	 * @return
+	 * @throws SQLException
+	 */
 	public boolean addCustomer(String firstName, String lastName,
 			String address, int phoneNumber, String comment)
 			throws SQLException {
