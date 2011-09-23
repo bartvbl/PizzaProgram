@@ -242,15 +242,44 @@ public class DatabaseConnection implements EventHandler {
 		return false;
 	}
 
+	public boolean addCustomer(String firstName, String lastName,
+			String address, int phoneNumber) throws SQLException {
+		return addCustomer(firstName, lastName, address, phoneNumber, null);
+	}
+
 	public boolean addDish(int price, String name, boolean containsGluten,
 			boolean containsNuts, boolean containsDairy, boolean isVegetarian,
 			boolean isSpicy, String description) {
-		return true;
+		if (name.length() > DatabaseConnection.VARCHAR_MAX_LENGTH_LONG) {
+			throw new IllegalArgumentException(
+					"The name of the dish cannot be more than "
+							+ DatabaseConnection.VARCHAR_MAX_LENGTH_LONG
+							+ " characters long.");
+		}
+		return insertIntoDB("INSERT IGNORE INTO Dishes (Price, Name, ContainsGluten, ContainsNuts, ContainsDairy, IsVegetarian, IsSpicy, Description) VALUES ("
+				+ price
+				+ ", '"
+				+ name
+				+ "', "
+				+ containsGluten
+				+ ", "
+				+ containsNuts
+				+ ", "
+				+ containsDairy
+				+ ", "
+				+ isVegetarian
+				+ ", " + isSpicy + ", '" + description + "');");
 	}
 
-	public void addCustomer(String firstName, String lastName, String address,
-			int phoneNumber) throws SQLException {
-		addCustomer(firstName, lastName, address, phoneNumber, null);
+	public boolean addExtra(String name, String price) {
+		if (name.length() > DatabaseConnection.VARCHAR_MAX_LENGTH_LONG) {
+			throw new IllegalArgumentException(
+					"The name of the extra cannot be more than "
+							+ DatabaseConnection.VARCHAR_MAX_LENGTH_LONG
+							+ " characters long.");
+		}
+		return insertIntoDB("INSERT IGNORE INTO Extras (Name, Price) VALUES ('"
+				+ name + "', '" + price + "');");
 	}
 
 	public void createDishList() throws SQLException {
@@ -276,7 +305,7 @@ public class DatabaseConnection implements EventHandler {
 		ResultSet results = fetchData("SELECT * FROM Extras;");
 		while (results.next()) {
 			Extra tempExtra = new Extra(results.getInt(1),
-					results.getString(2), results.getInt(3));
+					results.getString(2), results.getString(3));
 			extras.add(tempExtra);
 			extrasMap.put(tempExtra.getId(), tempExtra);
 		}
@@ -391,7 +420,12 @@ public class DatabaseConnection implements EventHandler {
 				2564849, "LOL I LIKE FOTBALL!");
 		connection.addCustomer("Hermann", "Friele", "Drillosvingen 33",
 				2564849, "OMNOM KAFFE");
-		for (Customer c : connection.getCustomers())
+		connection.addDish(144, "Whatever", true, true, false, false, true,
+				"Whatever. Lol. I can haz ÆØÅæøå?");
+		connection.addExtra("Glutenfri", "+40");
+		connection.addExtra("Stor Pizza", "*1.25");
+		connection.addExtra("Uten Ost", "-20");
+		for (Extra c : connection.getExtras())
 			System.out.println(c);
 		System.out.println(System.currentTimeMillis() - starttid);
 		System.out.println();

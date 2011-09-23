@@ -3,17 +3,23 @@ package pizzaProgram.dataObjects;
 public class Extra {
 
 	private int id;
-	private int price;
+	private double priceValPart;
+	private char priceFuncPart;
 	private String name;
 
-	public Extra(int id, String name, int price) {
+	public Extra(int id, String name, String priceFunc) {
 		this.id = id;
-		this.price = price;
 		this.name = name;
+		this.priceFuncPart = priceFunc.charAt(0);
+		this.priceValPart = Double.parseDouble(priceFunc.substring(1));
 	}
 
-	public int getPrice() {
-		return price;
+	public double getPriceValPart() {
+		return priceValPart;
+	}
+
+	public char getPriceFuncPart() {
+		return priceFuncPart;
 	}
 
 	public String getName() {
@@ -25,7 +31,7 @@ public class Extra {
 	}
 	
 	public String toString() {
-		return id + " " + price + " " + name;
+		return id + " " + priceFuncPart + " " + priceValPart + " " + name;
 	}
 
 }// END
