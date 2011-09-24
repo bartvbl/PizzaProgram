@@ -3,22 +3,17 @@ package pizzaProgram.dataObjects;
 import java.util.ArrayList;
 
 public class OrderDish {
-	private int orderID;
-	private Dish dish;
-	private ArrayList<Extra> extras;
+	public final int orderID;
+	public final Dish dish;
+	
+	//TODO: this field needs a more proper way to operate. Returning the object upon request is improper publication.
+	//ideally, you should pass in the finished ArrayList from the function that creates it, the only expose methods that allow the iterator and get() method to be retrieved.
+	private final ArrayList<Extra> extras;
 
 	public OrderDish(int orderID, Dish dish) {
 		this.orderID = orderID;
 		this.dish = dish;
 		extras = new ArrayList<Extra>();
-	}
-
-	public int getOrderID() {
-		return orderID;
-	}
-
-	public Dish getDish() {
-		return dish;
 	}
 
 	public ArrayList<Extra> getExtras() {
@@ -31,9 +26,9 @@ public class OrderDish {
 		}
 	}
 	public String toString() {
-		String tempString = "Dish Ordered = " + dish.getName() + ", Extras ordered = ";
+		String tempString = "Dish Ordered = " + dish.name + ", Extras ordered = ";
 		for (Extra e : extras){
-			tempString += e.getName() + " ";
+			tempString += e.name + " ";
 		}
 		tempString += "\n";
 		return tempString;

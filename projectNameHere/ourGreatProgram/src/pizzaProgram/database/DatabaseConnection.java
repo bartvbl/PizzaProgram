@@ -177,7 +177,7 @@ public class DatabaseConnection implements EventHandler {
 					customerComments.get(results.getInt(6)));
 
 			customers.add(tempCustomer);
-			customerMap.put(tempCustomer.getCustomerID(), tempCustomer);
+			customerMap.put(tempCustomer.customerID, tempCustomer);
 		}
 		results.close();
 	}
@@ -400,7 +400,7 @@ public class DatabaseConnection implements EventHandler {
 					results.getString(9));
 
 			dishes.add(tempDish);
-			dishMap.put(tempDish.getDishID(), tempDish);
+			dishMap.put(tempDish.dishID, tempDish);
 		}
 		results.close();
 	}
@@ -420,7 +420,7 @@ public class DatabaseConnection implements EventHandler {
 			Extra tempExtra = new Extra(results.getInt(1),
 					results.getString(2), results.getString(3));
 			extras.add(tempExtra);
-			extrasMap.put(tempExtra.getId(), tempExtra);
+			extrasMap.put(tempExtra.id, tempExtra);
 		}
 		results.close();
 	}
@@ -472,8 +472,8 @@ public class DatabaseConnection implements EventHandler {
 			}
 		}
 		for (OrderDish d : tempOrderDishMap.values()) {
-			if (ordermap.get(d.getOrderID()) != null)
-				ordermap.get(d.getOrderID()).addOrderDish(d);
+			if (ordermap.get(d.orderID) != null)
+				ordermap.get(d.orderID).addOrderDish(d);
 		}
 		results.close();
 	}
@@ -527,10 +527,6 @@ public class DatabaseConnection implements EventHandler {
 	}
 
 	public void changeOrder(Order order) {
-	}
-
-	public DatabaseTable databaseQuery(String query) {
-		return null;
 	}
 
 	public static void main(String[] args) throws SQLException {

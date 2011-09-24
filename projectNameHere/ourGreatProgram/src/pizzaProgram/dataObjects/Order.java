@@ -133,7 +133,7 @@ public class Order {
 
 	public String toString() {
 		String tempString = "Order ID: " + orderID + ", Name: "
-				+ customer.getFirstName() + " " + customer.getLastName()
+				+ customer.firstName + " " + customer.lastName
 				+ ", Time registered: " + timeRegistered.toString()
 				+ ", Order status: " + status + ", Delivery method: "
 				+ deliveryMethod + ". The contents of the order is:\n";

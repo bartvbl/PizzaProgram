@@ -11,6 +11,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JRadioButtonMenuItem;
 
+import pizzaProgram.events.Event;
 import pizzaProgram.events.EventDispatcher;
 
 public class WindowMenuBar implements ActionListener {
@@ -56,6 +57,7 @@ public class WindowMenuBar implements ActionListener {
 		JMenuItem newItem = new JMenuItem(name);
 		newItem.addActionListener(this);
 		this.currentMenu.add(newItem);
+		this.registerComponentEvent(newItem, eventName);
 	}
 	
 	public void createButtonGroup()
@@ -73,6 +75,7 @@ public class WindowMenuBar implements ActionListener {
 		}
 		this.currentButtonGroup.add(newItem);
 		this.currentMenu.add(newItem);
+		this.registerComponentEvent(newItem, eventName);
 	}
 	
 	public void pack()
@@ -82,7 +85,25 @@ public class WindowMenuBar implements ActionListener {
 	
 	public void actionPerformed(ActionEvent actionEvent) 
 	{
-		//TODO: convert ActionEvent into an Event object that can be read by the rest of the system. Mostly a matter of converting one string to a system wide accepted string.
+		if(!(actionEvent.getSource() instanceof JMenuItem))
+		{
+			System.out.println("ERROR: events handled by the MenuBar class can only originate from JMenuItem instances!");
+			return;
+		}
+		
+		String eventType = this.getEventNameByMenuItem((JMenuItem)actionEvent.getSource());
+		this.eventDispatcher.dispatchEvent(new Event<Object>(eventType));
 		System.out.println("Event received: " + actionEvent.getActionCommand());
+		
+	}
+	
+	private String getEventNameByMenuItem(JMenuItem menuItem)
+	{
+		return this.menuItems.get(menuItem);
+	}
+	
+	private void registerComponentEvent(JMenuItem menuItem, String eventName)
+	{
+		this.menuItems.put(menuItem, eventName);
 	}
 }
