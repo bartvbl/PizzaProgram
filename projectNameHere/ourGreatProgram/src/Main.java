@@ -12,7 +12,8 @@ public class Main {
 	
 	public void initialize()
 	{
-		this.programWindow = new ProgramWindow();
+		this.eventDispatcher = new EventDispatcher();
+		this.programWindow = new ProgramWindow(this.eventDispatcher);
 		this.programWindow.createMainWindow(640, 480);
 	}
 	public void run()
