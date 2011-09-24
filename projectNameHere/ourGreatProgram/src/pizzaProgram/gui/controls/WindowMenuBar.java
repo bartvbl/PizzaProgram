@@ -4,10 +4,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Hashtable;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JRadioButtonMenuItem;
 
 import pizzaProgram.events.EventDispatcher;
 
@@ -18,6 +20,7 @@ public class WindowMenuBar implements ActionListener {
 	private JFrame window;
 	private JMenuBar menuBar;
 	private JMenu currentMenu;
+	private ButtonGroup currentButtonGroup;
 	
 	
 	public WindowMenuBar(EventDispatcher eventDispatcher, JFrame window)
@@ -43,10 +46,32 @@ public class WindowMenuBar implements ActionListener {
 		this.menuBar.add(newMenu);
 	}
 	
+	public void addMenuSeparator()
+	{
+		this.currentMenu.addSeparator();
+	}
+	
 	public void addMenuItem(String name, String eventName)
 	{
 		JMenuItem newItem = new JMenuItem(name);
 		newItem.addActionListener(this);
+		this.currentMenu.add(newItem);
+	}
+	
+	public void createButtonGroup()
+	{
+		this.currentButtonGroup = new ButtonGroup();
+	}
+	
+	public void addRadioMenuItem(String name, String eventName, boolean isSelected)
+	{
+		JRadioButtonMenuItem newItem = new JRadioButtonMenuItem(name);
+		newItem.addActionListener(this);
+		if(isSelected == true)
+		{
+			newItem.setSelected(true);
+		}
+		this.currentButtonGroup.add(newItem);
 		this.currentMenu.add(newItem);
 	}
 	

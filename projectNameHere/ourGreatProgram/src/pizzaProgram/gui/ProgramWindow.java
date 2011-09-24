@@ -46,9 +46,10 @@ public class ProgramWindow {
 		this.canvas.addComponentListener(adapter);
 		this.jframe.setSize(width, height);
 		this.jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//this.jframe.getContentPane().add(canvas);
+		this.jframe.getContentPane().add(canvas);
 		this.jframe.setVisible(true);
 	}
+	
 	public void resize()
 	{
 		Dimension dim = this.canvas.getSize();
@@ -65,9 +66,10 @@ public class ProgramWindow {
 		this.menuBar.addMenu("Edit");
 		this.menuBar.addMenuItem("Settings", "OpenSettingsWindowRequested");
 		this.menuBar.addMenu("View");
-		this.menuBar.addMenuItem("Cook", "CookGUIRequested");
-		this.menuBar.addMenuItem("Orders", "OrderGUIRequested");
-		this.menuBar.addMenuItem("Delivery", "DeliveryGUIRequested");
+		this.menuBar.createButtonGroup();
+		this.menuBar.addRadioMenuItem("Orders", "OrderGUIRequested", true);
+		this.menuBar.addRadioMenuItem("Cook", "CookGUIRequested", false);
+		this.menuBar.addRadioMenuItem("Delivery", "DeliveryGUIRequested", false);
 		this.menuBar.pack();
 	}
 }
