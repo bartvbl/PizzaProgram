@@ -50,10 +50,19 @@ public class DatabaseConnection implements EventHandler {
 	private ArrayList<Order> orders;
 	private HashMap<Integer, Order> ordermap;
 
-	public DatabaseConnection() throws SQLException {
+	public DatabaseConnection() {
 		// this.queryHandler = new QueryHandler();
 	}
 
+	public void buildContents() throws SQLException{
+		createCustomerCommentList();
+		createOrderCommentList();
+		createCustomerList();
+		createDishList();
+		createExtrasList();
+		createOrdersList();
+	}
+	
 	/**
 	 * Method that attempt to make a connection to the mySQL database that
 	 * contains the data.

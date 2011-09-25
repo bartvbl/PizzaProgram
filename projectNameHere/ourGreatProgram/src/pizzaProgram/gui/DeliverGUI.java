@@ -7,7 +7,7 @@ import pizzaProgram.modules.GUIModule;
 public class DeliverGUI implements GUIModule, EventHandler{
 
 	@Override
-	public void handleEvent(Event<?> event) {
+	public void handleEvent(Event<Object> event) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -8,6 +8,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import javax.swing.JFrame;
 
+import pizzaProgram.database.DatabaseConnection;
 import pizzaProgram.events.EventDispatcher;
 import pizzaProgram.events.EventType;
 import pizzaProgram.gui.controls.WindowMenuBar;
@@ -69,6 +70,9 @@ public class ProgramWindow {
 		
 		
 	}
+	public void showOrder(DatabaseConnection dbc){
+		OrderGUI orderGUI = new OrderGUI(jframe, dbc);
+	}
 	
 	/**
 	 * Creates the main window
@@ -85,7 +89,7 @@ public class ProgramWindow {
 		this.canvas.addComponentListener(adapter);
 		this.jframe.setSize(width, height);
 		this.jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.jframe.getContentPane().add(canvas);
+		//this.jframe.getContentPane().add(canvas);
 		this.jframe.setVisible(true);
 	}
 	/**
@@ -107,14 +111,6 @@ public class ProgramWindow {
 		dim = null;
 	}
 	
-	public void createCommonGUI() {
-		
-		this.commonGUI = new CommonGUI(eventDispatcher);
-		this.jframe.add(commonGUI);
-
-	}
-	
-	//---
 	
 	/**
 	 * Generates the contents of the menu bar

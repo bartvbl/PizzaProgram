@@ -1,3 +1,6 @@
+import java.sql.SQLException;
+
+import pizzaProgram.database.DatabaseConnection;
 import pizzaProgram.events.EventDispatcher;
 import pizzaProgram.gui.ProgramWindow;
 
@@ -17,15 +20,26 @@ public class Main {
 	 */
 	private ProgramWindow programWindow;
 	
+	
+	private DatabaseConnection databaseConnection;
+	
 	/**
 	 * creates every part of the program, and sets it up correctly
 	 */
 	public void initialize()
 	{
 		this.eventDispatcher = new EventDispatcher();
+		try {
+			this.databaseConnection = new DatabaseConnection();
+			this.databaseConnection.connect();
+			this.databaseConnection.buildContents();
+		} catch (SQLException e) {
+			System.err.println(e.getMessage());
+		}
 		this.programWindow = new ProgramWindow(this.eventDispatcher);
 		this.programWindow.createMenuBar();
 		this.programWindow.createMainWindow(640, 480);
+		this.programWindow.showOrder(databaseConnection);
 		
 	}
 }

@@ -19,12 +19,14 @@ public class EventDispatcher {
 	 * Notifies (e.g. calls all listener functions) all event listeners about the event passed into the function
 	 * @param event The event to be dispatched
 	 */
-	public void dispatchEvent(Event<?> event)
+	public void dispatchEvent(Event<Object> event)
 	{
 		if(!eventTypeExists(event.eventType))
 		{
 			System.out.println("WARNING: dispatch attempted of event with event type '"+event.eventType+"', which has no listeners");
 			return;
+		}else{
+			System.out.println("dispatched event: "+ event.eventType);
 		}
 		
 		ArrayList<EventHandler> eventHandlersList = this.listeners.get(event.eventType);
@@ -48,6 +50,7 @@ public class EventDispatcher {
 		this.addEventTypeIfNotExistent(eventType);
 		ArrayList<EventHandler> listenerList = this.listeners.get(eventType);
 		listenerList.add(listenerModule);
+
 	}
 	
 	/**
