@@ -39,7 +39,7 @@ public class Main {
 		this.programWindow = new ProgramWindow(this.eventDispatcher);
 		this.programWindow.createMenuBar();
 		this.programWindow.createMainWindow(640, 480);
-		this.programWindow.showOrder(databaseConnection);
+		this.programWindow.createGUIViews(databaseConnection);
 		
 	}
 }
