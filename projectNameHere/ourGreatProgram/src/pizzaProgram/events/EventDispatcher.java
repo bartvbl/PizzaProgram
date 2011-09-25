@@ -32,7 +32,7 @@ public class EventDispatcher {
 		ArrayList<EventHandler> eventHandlersList = this.listeners.get(event.eventType);
 		for(EventHandler i : eventHandlersList)
 		{
-			if(event.isPropagating())
+			if(!event.isPropagating())
 			{
 				break;
 			}
