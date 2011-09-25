@@ -29,6 +29,21 @@ public class Main {
 	public void initialize()
 	{
 		this.eventDispatcher = new EventDispatcher();
+		this.connectToDatabase();
+		this.createMainWindow();
+		
+	}
+	
+	private void createMainWindow()
+	{
+		this.programWindow = new ProgramWindow(this.eventDispatcher);
+		this.programWindow.createMenuBar();
+		this.programWindow.createMainWindow(640, 480);
+		this.programWindow.showOrder(databaseConnection);
+	}
+	
+	private void connectToDatabase()
+	{
 		try {
 			this.databaseConnection = new DatabaseConnection();
 			this.databaseConnection.connect();
@@ -36,10 +51,5 @@ public class Main {
 		} catch (SQLException e) {
 			System.err.println(e.getMessage());
 		}
-		this.programWindow = new ProgramWindow(this.eventDispatcher);
-		this.programWindow.createMenuBar();
-		this.programWindow.createMainWindow(640, 480);
-		this.programWindow.showOrder(databaseConnection);
-		
 	}
 }
