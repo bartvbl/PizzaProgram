@@ -18,6 +18,14 @@ import pizzaProgram.gui.controls.WindowMenuBar;
  *
  */
 public class ProgramWindow {
+	
+	
+	//håvard prøvert stuff
+	private CommonGUI commonGUI;
+	
+	
+	//håvard prøvert stuff
+	
 	/**
 	 * The window's canvas could potantionally be used to draw custom drawings that the swing library does not support (if we would ever need this)
 	 */
@@ -97,6 +105,13 @@ public class ProgramWindow {
 		Dimension dim = this.canvas.getSize();
 		canvasSize.set(dim);
 		dim = null;
+	}
+	
+	public void createCommonGUI() {
+		
+		this.commonGUI = new CommonGUI(eventDispatcher);
+		this.jframe.add(commonGUI);
+
 	}
 	
 	//---

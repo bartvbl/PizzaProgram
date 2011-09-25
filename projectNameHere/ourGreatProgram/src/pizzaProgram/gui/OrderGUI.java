@@ -4,9 +4,23 @@ import pizzaProgram.events.Event;
 import pizzaProgram.events.EventHandler;
 import pizzaProgram.modules.GUIModule;
 
-public class OrderGUI extends GUIModule implements EventHandler {
-	public void handleEvent(Event event)
-	{
+public class OrderGUI implements GUIModule, EventHandler {
+
+	@Override
+	public void handleEvent(Event<?> event) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void draw() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void clear() {
+		// TODO Auto-generated method stub
 		
 	}
 }

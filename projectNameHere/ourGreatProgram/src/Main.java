@@ -1,8 +1,5 @@
-import javax.swing.JFrame;
-
 import pizzaProgram.events.EventDispatcher;
 import pizzaProgram.gui.ProgramWindow;
-import pizzaProgram.modules.GUIModule;
 
 /**
  * The Main class acts as the root of the system. Its main task is to hold references and initialize various parts/modules

@@ -1,6 +1,6 @@
 package pizzaProgram.modules;
 
-public class GUIModule {
-	public void draw(){}
-	public void clear(){}
+public interface GUIModule {
+	public void draw();
+	public void clear();
 }
