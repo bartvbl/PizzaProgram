@@ -1,6 +1,7 @@
 package pizzaProgram.database;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -380,11 +381,12 @@ public class DatabaseConnection implements EventHandler {
 		return insertIntoDB("INSERT IGNORE INTO Extras (Name, Price) VALUES ('"
 				+ name + "', '" + price + "');");
 	}
+
 	/**
 	 * Method that purges the existing {@link java.util.ArrayList ArrayList} and
 	 * the existing {@link java.util.HashMap HashMap} of
-	 * {@link pizzaProgram.dataObjects.Dish dishes}, and then creates new
-	 * ones based on the data fetched from the database.
+	 * {@link pizzaProgram.dataObjects.Dish dishes}, and then creates new ones
+	 * based on the data fetched from the database.
 	 * 
 	 * @throws SQLException
 	 */
@@ -404,11 +406,12 @@ public class DatabaseConnection implements EventHandler {
 		}
 		results.close();
 	}
+
 	/**
 	 * Method that purges the existing {@link java.util.ArrayList ArrayList} and
 	 * the existing {@link java.util.HashMap HashMap} of
-	 * {@link pizzaProgram.dataObjects.Extra extras}, and then creates new
-	 * ones based on the data fetched from the database.
+	 * {@link pizzaProgram.dataObjects.Extra extras}, and then creates new ones
+	 * based on the data fetched from the database.
 	 * 
 	 * @throws SQLException
 	 */
@@ -424,11 +427,12 @@ public class DatabaseConnection implements EventHandler {
 		}
 		results.close();
 	}
+
 	/**
 	 * Method that purges the existing {@link java.util.ArrayList ArrayList} and
 	 * the existing {@link java.util.HashMap HashMap} of
-	 * {@link pizzaProgram.dataObjects.Order orders}, and then creates new
-	 * ones based on the data fetched from the database.
+	 * {@link pizzaProgram.dataObjects.Order orders}, and then creates new ones
+	 * based on the data fetched from the database.
 	 * 
 	 * @throws SQLException
 	 */
@@ -462,8 +466,6 @@ public class DatabaseConnection implements EventHandler {
 				if (dishMap.get(results.getInt(8)) != null) {
 					tempOrderDishMap.put(results.getInt(7), new OrderDish(
 							results.getInt(1), dishMap.get(results.getInt(8))));
-					System.out.println(tempOrderDishMap.get(results.getInt(7))
-							.toString());
 				}
 			}
 			if (extrasMap.get(results.getInt(9)) != null) {
@@ -477,6 +479,7 @@ public class DatabaseConnection implements EventHandler {
 		}
 		results.close();
 	}
+
 	/**
 	 * Method that purges the existing the existing {@link java.util.HashMap
 	 * HashMap} of order comments, and then creates a new one based on the data
@@ -493,40 +496,123 @@ public class DatabaseConnection implements EventHandler {
 		}
 		results.close();
 	}
+
 	/**
-	 * @return returns the list of customers as an {@link java.util.ArrayList ArrayList}
+	 * Method that adds a new order to the database if, and only if, the
+	 * database does not already contain an order that is not yet completed
+	 * (that is the OrdersStatus field has been set to delivered)
+	 * 
+	 * @param customer
+	 *            The {@link pizzaProgram.dataObjects.Customer Customer} object
+	 *            that has made the order
+	 * @param isDeliverAtHome
+	 *            A boolean set to true if this is a delivery, false if it is a
+	 *            pickup order
+	 * @param comment
+	 *            A String containing any additional info for this particular
+	 *            order
+	 * @return Returns true if the order was successfully added to the database,
+	 *         false in all other cases
+	 * @throws SQLException
 	 */
-	public ArrayList<Customer> getCustomers() {
-		return this.customers;
-	}
-	/**
-	 * @return returns the list of orders as an {@link java.util.ArrayList ArrayList}
-	 */
-	public ArrayList<Order> getOrders() {
-		return this.orders;
-	}
-	/**
-	 * @return returns the list of dishes as an {@link java.util.ArrayList ArrayList}
-	 */
-	public ArrayList<Dish> getDishes() {
-		return dishes;
-	}
-	/**
-	 * @return returns the list of dish extras as an {@link java.util.ArrayList ArrayList}
-	 */
-	public ArrayList<Extra> getExtras() {
-		return extras;
+	public boolean addOrder(Customer customer, boolean isDeliverAtHome,
+			String comment) throws SQLException {
+		String deliverymethod = (isDeliverAtHome ? "deliver at home"
+				: "pickup at restaurant");
+		if (!fetchData(
+				"SELECT * FROM Orders WHERE CustomerID=" + customer.customerID
+						+ " AND OrdersStatus<>'delivered';").next()) {
+			int commentID = -1;
+			if (!(comment == null || comment.equals(""))) {
+				insertIntoDB("INSERT INTO OrderComments (Comment) VALUES ('"
+						+ comment + "');");
+				ResultSet commentIDset = fetchData("SELECT CommentID FROM OrderComments WHERE Note='"
+						+ comment + "';");
+				if (commentIDset.next()) {
+					commentID = commentIDset.getInt(1);
+				}
+			}
+			return insertIntoDB("INSERT INTO Orders (CustomerID, TimeRegistered, DeliveryMethod, CommentID) VALUES ("
+					+ customer.customerID
+					+ ", NOW(), '"
+					+ deliverymethod
+					+ "', " + commentID + ");");
+		}
+		return false;
+
 	}
 
-	public void newOrder(Order order) {
-
-	}
-
-	public void newCustomer(Customer customer) {
+	/**
+	 * Method that adds one dish, and its associated extras to an existing order
+	 * 
+	 * @param order
+	 *            The {@link pizzaProgram.dataObjects.Order Order} that is
+	 *            having a {@link pizzaProgram.dataObjects.Dish Dish} added to
+	 *            it
+	 * @param dish
+	 *            The {@link pizzaProgram.dataObjects.Dish Dish} to be added to
+	 *            the {@link pizzaProgram.dataObjects.Order Order}
+	 * @param extras
+	 *            An {@link java.util.ArrayList ArrayList} containing the
+	 *            {@link pizzaProgram.dataObjects.Extra Extras} ordered to
+	 *            modify the current {@link pizzaProgram.dataObjects.Dish Dish}
+	 * @throws SQLException
+	 */
+	public void addDishToOrder(Order order, Dish dish, ArrayList<Extra> extras)
+			throws SQLException {
+		int ordersContentsID = -1;
+		insertIntoDB("INSERT INTO OrdersContents (OrdersID, DishID) VALUES ("
+				+ order.getID() + ", " + dish.dishID + ");");
+		if (!(extras == null || extras.isEmpty())) {
+			ResultSet currentOrderContentsID = fetchData("SELECT OrdersContentsID FROM OrdersContents WHERE OrdersID="
+					+ order.getID()
+					+ " AND DishID="
+					+ dish.dishID
+					+ " ORDER BY OrdersContentsID;");
+			if (currentOrderContentsID.last()) {
+				ordersContentsID = currentOrderContentsID.getInt(1);
+			}
+			for (Extra e : extras) {
+				insertIntoDB("INSERT INTO DishExtrasChosen (OrdersContentsID, DishExtraID) VALUES ("
+						+ ordersContentsID + ", " + e.id + ");");
+			}
+		}
 
 	}
 
 	public void changeOrder(Order order) {
+	}
+
+	/**
+	 * @return returns the list of customers as an {@link java.util.ArrayList
+	 *         ArrayList}
+	 */
+	public ArrayList<Customer> getCustomers() {
+		return this.customers;
+	}
+
+	/**
+	 * @return returns the list of orders as an {@link java.util.ArrayList
+	 *         ArrayList}
+	 */
+	public ArrayList<Order> getOrders() {
+		return this.orders;
+	}
+
+	/**
+	 * @return returns the list of dishes as an {@link java.util.ArrayList
+	 *         ArrayList}
+	 */
+	public ArrayList<Dish> getDishes() {
+		return dishes;
+	}
+
+	/**
+	 * @return returns the list of dish extras as an {@link java.util.ArrayList
+	 *         ArrayList}
+	 */
+	public ArrayList<Extra> getExtras() {
+		return extras;
 	}
 
 	public static void main(String[] args) throws SQLException {
@@ -542,17 +628,6 @@ public class DatabaseConnection implements EventHandler {
 		for (Order o : connection.getOrders()) {
 			System.out.print(o.toString());
 		}
-		connection.addCustomer("Mr.", "T", "Pitydatfoo Blvd 16278", 908123423,
-				null);
-		connection.addCustomer("Egil Roger", "Olsen", "Drillosvingen 33",
-				2564849, "LOL I LIKE FOTBALL!");
-		connection.addCustomer("Hermann", "Friele", "Drillosvingen 33",
-				2564849, "OMNOM KAFFE");
-		connection.addDish(144, "Whatever", true, true, false, false, true,
-				"Whatever. Lol. I can haz ÆØÅæøå?");
-		connection.addExtra("Glutenfri", "+40");
-		connection.addExtra("Stor Pizza", "*1.25");
-		connection.addExtra("Uten Ost", "-20");
 		for (Extra c : connection.getExtras())
 			System.out.println(c);
 		System.out.println(System.currentTimeMillis() - starttid);
