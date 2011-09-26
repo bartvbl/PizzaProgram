@@ -31,7 +31,6 @@ public class Main {
 		this.eventDispatcher = new EventDispatcher();
 		this.connectToDatabase();
 		this.createMainWindow();
-		
 	}
 	
 	private void createMainWindow()
@@ -51,5 +50,10 @@ public class Main {
 		} catch (SQLException e) {
 			System.err.println(e.getMessage());
 		}
+	}
+	
+	private void createGUIModules()
+	{
+		
 	}
 }

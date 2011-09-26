@@ -25,7 +25,7 @@ public class DatabaseConnection implements EventHandler {
 	private static final String DATABASE_HOST = "jdbc:mysql://mysql.stud.ntnu.no/it1901g03_PizzaBase";
 	private static final String DATABASE_USERNAME = "it1901g03_admin";
 	private static final String DATABASE_PASSWORD = "batman";
-	private static final int DEFAULT_TIMEOUT = 3000;
+	private static final int DEFAULT_TIMEOUT = 10000;
 	/**
 	 * The maximum amount of allowed characters in a short VARCHAR column in the
 	 * database
