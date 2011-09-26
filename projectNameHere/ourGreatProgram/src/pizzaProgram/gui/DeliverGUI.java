@@ -13,16 +13,14 @@ import pizzaProgram.events.EventHandler;
 import pizzaProgram.modules.GUIModule;
 import pizzaProgram.modules.Module;
 
-public class DeliverGUI extends Module implements GUIModule, EventHandler{
+public class DeliverGUI extends GUIModule implements EventHandler{
 
-	JFrame jFrame;
 	
 	DatabaseConnection database;
 	
 	
-	public DeliverGUI(JFrame jFrame, DatabaseConnection dbc, EventDispatcher eventDispatcher) {
+	public DeliverGUI(DatabaseConnection dbc, EventDispatcher eventDispatcher) {
 		super(eventDispatcher);
-		this.jFrame = jFrame;
 		this.database = dbc;
 		
 		

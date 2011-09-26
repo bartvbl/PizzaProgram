@@ -18,10 +18,7 @@ import pizzaProgram.events.EventHandler;
 import pizzaProgram.modules.GUIModule;
 import pizzaProgram.modules.Module;
 
-public class CookGUI extends Module implements GUIModule, EventHandler{
-	
-	JFrame jFrame;
-	
+public class CookGUI extends GUIModule implements EventHandler{
 	List orderList;
 	HashMap<String, Order> orderMap = new HashMap<String, Order>();
 	List currentOrderList;
@@ -29,9 +26,8 @@ public class CookGUI extends Module implements GUIModule, EventHandler{
 	
 	DatabaseConnection database;
 	
-	public CookGUI(JFrame jFrame, DatabaseConnection dbc, EventDispatcher eventDispatcher) {
+	public CookGUI(DatabaseConnection dbc, EventDispatcher eventDispatcher) {
 		super(eventDispatcher);
-		this.jFrame = jFrame;
 		this.database = dbc;
 		
 		orderList = new List();
@@ -53,7 +49,7 @@ public class CookGUI extends Module implements GUIModule, EventHandler{
 		orderListConstraints.gridwidth = 1;
 		orderListConstraints.gridheight = 2;
 		orderListConstraints.fill = GridBagConstraints.BOTH;
-		jFrame.add(orderList, orderListConstraints);
+		this.programWindowFrame.add(orderList, orderListConstraints);
 		
 		currentOrderList = new List();
 		GridBagConstraints currentOrderListConstraints = new GridBagConstraints();
@@ -63,7 +59,7 @@ public class CookGUI extends Module implements GUIModule, EventHandler{
 		currentOrderListConstraints.weighty = 0.8;
 		currentOrderListConstraints.gridwidth = 1;
 		currentOrderListConstraints.fill = GridBagConstraints.BOTH;
-		jFrame.add(currentOrderList, currentOrderListConstraints);
+		this.programWindowFrame.add(currentOrderList, currentOrderListConstraints);
 		
 		commentArea = new TextArea();
 		commentArea.setEditable(false);
@@ -75,7 +71,7 @@ public class CookGUI extends Module implements GUIModule, EventHandler{
 		commentAreaConstraints.weighty = 0.2;
 		commentAreaConstraints.gridwidth = 1;
 		commentAreaConstraints.fill = GridBagConstraints.HORIZONTAL;
-		jFrame.add(commentArea, commentAreaConstraints);
+		this.programWindowFrame.add(commentArea, commentAreaConstraints);
 	}
 	
 	@Override

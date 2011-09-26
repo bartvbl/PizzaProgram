@@ -1,5 +1,7 @@
 import java.sql.SQLException;
 
+import javax.swing.JFrame;
+
 import pizzaProgram.database.DatabaseConnection;
 import pizzaProgram.events.EventDispatcher;
 import pizzaProgram.gui.CookGUI;
@@ -35,7 +37,7 @@ public class Main {
 		this.eventDispatcher = new EventDispatcher();
 		this.connectToDatabase();
 		this.createMainWindow();
-		//this.createGUIModules();
+		this.createGUIModules();
 	}
 	
 	private void createMainWindow()
@@ -56,14 +58,23 @@ public class Main {
 		}
 	}
 	
-	/*private void createGUIModules()
+	/**
+	 * This function instantiates all the GUI modules of the program. 
+	 * After they are operational, they will dispatch events to the event dispatcher when the user interacts with the program
+	 */
+	private void createGUIModules()
 	{
-		OrderGUI orderGUI = new OrderGUI(jframe, dbc);
+		//TODO: remove database connection parameter when database events are operational
+		
+		OrderGUI orderGUI = new OrderGUI(this.databaseConnection, this.eventDispatcher);
+		this.programWindow.setWindowFrame(orderGUI);
 		orderGUI.clear();
-		CookGUI cookGUI  = new CookGUI(jframe, dbc);
+		CookGUI cookGUI  = new CookGUI(this.databaseConnection, this.eventDispatcher);
+		this.programWindow.setWindowFrame(cookGUI);
 		cookGUI.clear();
-		DeliverGUI deliverGUI  = new DeliverGUI(jframe, dbc);
+		DeliverGUI deliverGUI  = new DeliverGUI(this.databaseConnection, this.eventDispatcher);
+		this.programWindow.setWindowFrame(deliverGUI);
 		deliverGUI.draw();
-	}*/
+	}
 	//this function will be available soon
 }

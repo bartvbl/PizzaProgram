@@ -15,6 +15,7 @@ import pizzaProgram.events.EventDispatcher;
 import pizzaProgram.events.EventHandler;
 import pizzaProgram.events.EventType;
 import pizzaProgram.gui.controls.WindowMenuBar;
+import pizzaProgram.modules.GUIModule;
 
 /**
  * The ProgramWindow class creates the application's main window, with several features attached to it
@@ -69,6 +70,15 @@ public class ProgramWindow implements EventHandler{
 		this.eventDispatcher.addEventListener(this, EventType.ORDER_GUI_REQUESTED);
 		this.eventDispatcher.addEventListener(this, EventType.COOK_GUI_REQUESTED);
 		this.eventDispatcher.addEventListener(this, EventType.DELIVERY_GUI_REQUESTED);
+	}
+	
+	/**
+	 * Inserts the window's JFrame into the entered GUI module
+	 * @param guiModule The instance of GUIModule that requires the reference to the window's JFrame
+	 */
+	public void setWindowFrame(GUIModule guiModule)
+	{
+		
 	}
 	
 	/**

@@ -20,7 +20,7 @@ import pizzaProgram.events.EventHandler;
 import pizzaProgram.modules.GUIModule;
 import pizzaProgram.modules.Module;
 
-public class OrderGUI extends Module implements GUIModule, EventHandler, ItemListener {
+public class OrderGUI extends GUIModule implements EventHandler, ItemListener {
 
 	DatabaseConnection database;
 	
@@ -35,11 +35,9 @@ public class OrderGUI extends Module implements GUIModule, EventHandler, ItemLis
 	
 	
 	HashMap<String, Customer> testmap = new HashMap<String, Customer>();
-	JFrame jFrame;
 	
-	public OrderGUI(JFrame jFrame, DatabaseConnection dbc, EventDispatcher eventDispatcher) {
+	public OrderGUI(DatabaseConnection dbc, EventDispatcher eventDispatcher) {
 		super(eventDispatcher);
-		this.jFrame = jFrame;
 		this.database = dbc;
 		
 		newCutomerButton = new Button();
@@ -50,7 +48,7 @@ public class OrderGUI extends Module implements GUIModule, EventHandler, ItemLis
 		newCustomerConstraints.weightx = 0.3;
 		newCustomerConstraints.gridwidth = 1;
 		newCustomerConstraints.fill = GridBagConstraints.HORIZONTAL;
-		jFrame.add(newCutomerButton, newCustomerConstraints); 
+		this.programWindowFrame.add(newCutomerButton, newCustomerConstraints); 
 		
 		customerSearchArea = new TextField();
 		customerSearchArea.setText("Søk etter kunde...");
@@ -60,7 +58,7 @@ public class OrderGUI extends Module implements GUIModule, EventHandler, ItemLis
 		searchAreaConstraints.weightx = 0.3;
 		searchAreaConstraints.gridwidth = 1;
 		searchAreaConstraints.fill = GridBagConstraints.HORIZONTAL;
-		jFrame.add(customerSearchArea, searchAreaConstraints); 
+		this.programWindowFrame.add(customerSearchArea, searchAreaConstraints); 
 		
 		customerList = new List();
 		customerList.addItemListener(this);
@@ -71,7 +69,7 @@ public class OrderGUI extends Module implements GUIModule, EventHandler, ItemLis
 		customerListConstraints.weighty = 1;
 		customerListConstraints.gridwidth = 1;
 		customerListConstraints.fill = GridBagConstraints.BOTH;
-		jFrame.add(customerList, customerListConstraints);
+		this.programWindowFrame.add(customerList, customerListConstraints);
 		
 		customerDetails = new List();
 		GridBagConstraints customerDetailsConstraints = new GridBagConstraints();
@@ -80,7 +78,7 @@ public class OrderGUI extends Module implements GUIModule, EventHandler, ItemLis
 		customerDetailsConstraints.gridwidth = 1;
 		customerDetailsConstraints.gridheight = 2;
 		customerDetailsConstraints.fill = GridBagConstraints.HORIZONTAL;
-		jFrame.add(customerDetails, customerDetailsConstraints);
+		this.programWindowFrame.add(customerDetails, customerDetailsConstraints);
 		
 		dishSearchArea = new TextField();
 		dishSearchArea.setText("Søk etter rett...");
@@ -90,7 +88,7 @@ public class OrderGUI extends Module implements GUIModule, EventHandler, ItemLis
 		dishSearchAreaConstraints.weightx = 0.3;
 		dishSearchAreaConstraints.gridwidth = 1;
 		dishSearchAreaConstraints.fill = GridBagConstraints.HORIZONTAL;
-		jFrame.add(dishSearchArea, dishSearchAreaConstraints); 
+		this.programWindowFrame.add(dishSearchArea, dishSearchAreaConstraints); 
 		
 		dishList = new Choice();
 		GridBagConstraints dishListConstraints = new GridBagConstraints();
@@ -100,7 +98,7 @@ public class OrderGUI extends Module implements GUIModule, EventHandler, ItemLis
 		dishListConstraints.weighty = 0.3;
 		dishListConstraints.gridwidth = 1;
 		dishListConstraints.fill = GridBagConstraints.HORIZONTAL;
-		jFrame.add(dishList, dishListConstraints);
+		this.programWindowFrame.add(dishList, dishListConstraints);
 	}
 	
 	private void populateLists(){
