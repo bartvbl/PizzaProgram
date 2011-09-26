@@ -15,10 +15,12 @@ import pizzaProgram.dataObjects.Customer;
 import pizzaProgram.dataObjects.Dish;
 import pizzaProgram.database.DatabaseConnection;
 import pizzaProgram.events.Event;
+import pizzaProgram.events.EventDispatcher;
 import pizzaProgram.events.EventHandler;
 import pizzaProgram.modules.GUIModule;
+import pizzaProgram.modules.Module;
 
-public class OrderGUI implements GUIModule, EventHandler, ItemListener {
+public class OrderGUI extends Module implements GUIModule, EventHandler, ItemListener {
 
 	DatabaseConnection database;
 	
@@ -35,7 +37,8 @@ public class OrderGUI implements GUIModule, EventHandler, ItemListener {
 	HashMap<String, Customer> testmap = new HashMap<String, Customer>();
 	JFrame jFrame;
 	
-	public OrderGUI(JFrame jFrame, DatabaseConnection dbc) {
+	public OrderGUI(JFrame jFrame, DatabaseConnection dbc, EventDispatcher eventDispatcher) {
+		super(eventDispatcher);
 		this.jFrame = jFrame;
 		this.database = dbc;
 		

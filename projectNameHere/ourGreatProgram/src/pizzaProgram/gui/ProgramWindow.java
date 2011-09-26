@@ -23,11 +23,7 @@ import pizzaProgram.gui.controls.WindowMenuBar;
  */
 public class ProgramWindow implements EventHandler{
 	
-	//håvard prøvert stuff
-	private OrderGUI orderGUI;
-	private CookGUI cookGUI;
-	private DeliverGUI deliverGUI;
-	//håvard prøvert stuff
+	
 	
 	/**
 	 * The window's canvas could potantionally be used to draw custom drawings that the swing library does not support (if we would ever need this)
@@ -73,19 +69,6 @@ public class ProgramWindow implements EventHandler{
 		this.eventDispatcher.addEventListener(this, EventType.ORDER_GUI_REQUESTED);
 		this.eventDispatcher.addEventListener(this, EventType.COOK_GUI_REQUESTED);
 		this.eventDispatcher.addEventListener(this, EventType.DELIVERY_GUI_REQUESTED);
-	}
-	
-	/**
-	 * creates the different views(but does not display them)
-	 * the databaseparameter is just for testing
-	 */
-	public void createGUIViews(DatabaseConnection dbc){
-		orderGUI = new OrderGUI(jframe, dbc);
-		orderGUI.clear();
-		cookGUI  = new CookGUI(jframe, dbc);
-		cookGUI.clear();
-		deliverGUI  = new DeliverGUI(jframe, dbc);
-		deliverGUI.draw();
 	}
 	
 	/**
@@ -140,7 +123,7 @@ public class ProgramWindow implements EventHandler{
 	}
 	@Override
 	public void handleEvent(Event<?> event) {
-		
+		/*
 		if(event.eventType.equals(EventType.COOK_GUI_REQUESTED)){
 			orderGUI.clear();
 			deliverGUI.clear();
@@ -153,7 +136,7 @@ public class ProgramWindow implements EventHandler{
 			cookGUI.clear();
 			orderGUI.clear();
 			deliverGUI.draw();
-		}
+		}*/
 	}
 	
 }//END

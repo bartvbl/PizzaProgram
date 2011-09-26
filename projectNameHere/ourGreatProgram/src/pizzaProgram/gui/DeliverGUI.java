@@ -8,17 +8,20 @@ import javax.swing.JFrame;
 import pizzaProgram.dataObjects.Customer;
 import pizzaProgram.database.DatabaseConnection;
 import pizzaProgram.events.Event;
+import pizzaProgram.events.EventDispatcher;
 import pizzaProgram.events.EventHandler;
 import pizzaProgram.modules.GUIModule;
+import pizzaProgram.modules.Module;
 
-public class DeliverGUI implements GUIModule, EventHandler{
+public class DeliverGUI extends Module implements GUIModule, EventHandler{
 
 	JFrame jFrame;
 	
 	DatabaseConnection database;
 	
 	
-	public DeliverGUI(JFrame jFrame, DatabaseConnection dbc) {
+	public DeliverGUI(JFrame jFrame, DatabaseConnection dbc, EventDispatcher eventDispatcher) {
+		super(eventDispatcher);
 		this.jFrame = jFrame;
 		this.database = dbc;
 		

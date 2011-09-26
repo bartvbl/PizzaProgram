@@ -13,10 +13,12 @@ import pizzaProgram.dataObjects.Order;
 import pizzaProgram.dataObjects.OrderDish;
 import pizzaProgram.database.DatabaseConnection;
 import pizzaProgram.events.Event;
+import pizzaProgram.events.EventDispatcher;
 import pizzaProgram.events.EventHandler;
 import pizzaProgram.modules.GUIModule;
+import pizzaProgram.modules.Module;
 
-public class CookGUI implements GUIModule, EventHandler{
+public class CookGUI extends Module implements GUIModule, EventHandler{
 	
 	JFrame jFrame;
 	
@@ -27,7 +29,8 @@ public class CookGUI implements GUIModule, EventHandler{
 	
 	DatabaseConnection database;
 	
-	public CookGUI(JFrame jFrame, DatabaseConnection dbc) {
+	public CookGUI(JFrame jFrame, DatabaseConnection dbc, EventDispatcher eventDispatcher) {
+		super(eventDispatcher);
 		this.jFrame = jFrame;
 		this.database = dbc;
 		

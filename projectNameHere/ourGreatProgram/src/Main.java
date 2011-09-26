@@ -2,6 +2,9 @@ import java.sql.SQLException;
 
 import pizzaProgram.database.DatabaseConnection;
 import pizzaProgram.events.EventDispatcher;
+import pizzaProgram.gui.CookGUI;
+import pizzaProgram.gui.DeliverGUI;
+import pizzaProgram.gui.OrderGUI;
 import pizzaProgram.gui.ProgramWindow;
 
 /**
@@ -32,7 +35,7 @@ public class Main {
 		this.eventDispatcher = new EventDispatcher();
 		this.connectToDatabase();
 		this.createMainWindow();
-		
+		//this.createGUIModules();
 	}
 	
 	private void createMainWindow()
@@ -40,7 +43,6 @@ public class Main {
 		this.programWindow = new ProgramWindow(this.eventDispatcher);
 		this.programWindow.createMenuBar();
 		this.programWindow.createMainWindow(640, 480);
-		this.programWindow.createGUIViews(databaseConnection);
 	}
 	
 	private void connectToDatabase()
@@ -53,4 +55,15 @@ public class Main {
 			System.err.println(e.getMessage());
 		}
 	}
+	
+	/*private void createGUIModules()
+	{
+		OrderGUI orderGUI = new OrderGUI(jframe, dbc);
+		orderGUI.clear();
+		CookGUI cookGUI  = new CookGUI(jframe, dbc);
+		cookGUI.clear();
+		DeliverGUI deliverGUI  = new DeliverGUI(jframe, dbc);
+		deliverGUI.draw();
+	}*/
+	//this function will be available soon
 }
