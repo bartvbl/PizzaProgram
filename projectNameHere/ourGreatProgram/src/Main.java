@@ -10,6 +10,7 @@ import pizzaProgram.gui.ProgramWindow;
  *
  */
 public class Main {
+	//
 	/**
 	 * A reference to the main event dispatcher, which represents the communication backbone of the program
 	 */
@@ -31,6 +32,7 @@ public class Main {
 		this.eventDispatcher = new EventDispatcher();
 		this.connectToDatabase();
 		this.createMainWindow();
+		
 	}
 	
 	private void createMainWindow()
@@ -38,7 +40,7 @@ public class Main {
 		this.programWindow = new ProgramWindow(this.eventDispatcher);
 		this.programWindow.createMenuBar();
 		this.programWindow.createMainWindow(640, 480);
-		this.programWindow.showOrder(databaseConnection);
+		this.programWindow.createGUIViews(databaseConnection);
 	}
 	
 	private void connectToDatabase()
@@ -50,10 +52,5 @@ public class Main {
 		} catch (SQLException e) {
 			System.err.println(e.getMessage());
 		}
-	}
-	
-	private void createGUIModules()
-	{
-		
 	}
 }

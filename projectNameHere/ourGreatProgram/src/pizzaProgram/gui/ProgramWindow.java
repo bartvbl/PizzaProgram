@@ -2,6 +2,7 @@ package pizzaProgram.gui;
 
 import java.awt.Canvas;
 import java.awt.Dimension;
+import java.awt.GridBagLayout;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.util.concurrent.atomic.AtomicReference;
@@ -9,7 +10,9 @@ import java.util.concurrent.atomic.AtomicReference;
 import javax.swing.JFrame;
 
 import pizzaProgram.database.DatabaseConnection;
+import pizzaProgram.events.Event;
 import pizzaProgram.events.EventDispatcher;
+import pizzaProgram.events.EventHandler;
 import pizzaProgram.events.EventType;
 import pizzaProgram.gui.controls.WindowMenuBar;
 
@@ -18,13 +21,12 @@ import pizzaProgram.gui.controls.WindowMenuBar;
  * @author Bart
  *
  */
-public class ProgramWindow {
-	
+public class ProgramWindow implements EventHandler{
 	
 	//håvard prøvert stuff
-	private CommonGUI commonGUI;
-	
-	
+	private OrderGUI orderGUI;
+	private CookGUI cookGUI;
+	private DeliverGUI deliverGUI;
 	//håvard prøvert stuff
 	
 	/**
@@ -59,19 +61,31 @@ public class ProgramWindow {
 	 * The constructor of the program takes in the event dispatcher, and creates t
 	 * @param eventDispatcher
 	 */
-	public ProgramWindow(EventDispatcher eventDispatcher)
-	{
+	public ProgramWindow(EventDispatcher eventDispatcher){
 		this.eventDispatcher = eventDispatcher;
 		
 		Canvas canvas = new Canvas();
 		JFrame frame = new JFrame(ProgramWindow.MAIN_WINDOW_NAME);
+		frame.setLayout(new GridBagLayout());
 		this.canvas = canvas;
 		this.jframe = frame;
 		
-		
+		this.eventDispatcher.addEventListener(this, EventType.ORDER_GUI_REQUESTED);
+		this.eventDispatcher.addEventListener(this, EventType.COOK_GUI_REQUESTED);
+		this.eventDispatcher.addEventListener(this, EventType.DELIVERY_GUI_REQUESTED);
 	}
-	public void showOrder(DatabaseConnection dbc){
-		OrderGUI orderGUI = new OrderGUI(jframe, dbc);
+	
+	/**
+	 * creates the different views(but does not display them)
+	 * the databaseparameter is just for testing
+	 */
+	public void createGUIViews(DatabaseConnection dbc){
+		orderGUI = new OrderGUI(jframe, dbc);
+		orderGUI.clear();
+		cookGUI  = new CookGUI(jframe, dbc);
+		cookGUI.clear();
+		deliverGUI  = new DeliverGUI(jframe, dbc);
+		deliverGUI.draw();
 	}
 	
 	/**
@@ -79,8 +93,7 @@ public class ProgramWindow {
 	 * @param width The width of the window
 	 * @param height The height of the window
 	 */
-	public void createMainWindow(int width, int height)
-	{
+	public void createMainWindow(int width, int height){
 		ComponentAdapter adapter = new ComponentAdapter() {
 			public void componentResized(ComponentEvent e) {
 				resize();
@@ -95,8 +108,7 @@ public class ProgramWindow {
 	/**
 	 * Creates the menu bar of the window, and adds it to the JFrame
 	 */
-	public void createMenuBar()
-	{
+	public void createMenuBar(){
 		this.menuBar = new WindowMenuBar(eventDispatcher, this.jframe);
 		this.createMenuBar(eventDispatcher);
 	}
@@ -104,8 +116,7 @@ public class ProgramWindow {
 	/**
 	 * Is called when the window is being resized. Updates the canvas size
 	 */
-	public void resize()
-	{
+	public void resize(){
 		Dimension dim = this.canvas.getSize();
 		canvasSize.set(dim);
 		dim = null;
@@ -115,8 +126,7 @@ public class ProgramWindow {
 	/**
 	 * Generates the contents of the menu bar
 	 */
-	private void createMenuBar(EventDispatcher eventDispatcher)
-	{
+	private void createMenuBar(EventDispatcher eventDispatcher){
 		this.menuBar.addMenu("File");
 		this.menuBar.addMenuItem("Exit", EventType.PROGRAM_EXIT_REQUESTED);
 		this.menuBar.addMenu("Edit");
@@ -128,4 +138,22 @@ public class ProgramWindow {
 		this.menuBar.addRadioMenuItem("Delivery", EventType.DELIVERY_GUI_REQUESTED, false);
 		this.menuBar.pack();
 	}
-}
+	@Override
+	public void handleEvent(Event<Object> event) {
+		
+		if(event.eventType.equals(EventType.COOK_GUI_REQUESTED)){
+			orderGUI.clear();
+			deliverGUI.clear();
+			cookGUI.draw();
+		}else if(event.eventType.equals(EventType.ORDER_GUI_REQUESTED)){
+			cookGUI.clear();
+			deliverGUI.clear();
+			orderGUI.draw();
+		}else if(event.eventType.equals(EventType.DELIVERY_GUI_REQUESTED)){
+			cookGUI.clear();
+			orderGUI.clear();
+			deliverGUI.draw();
+		}
+	}
+	
+}//END
