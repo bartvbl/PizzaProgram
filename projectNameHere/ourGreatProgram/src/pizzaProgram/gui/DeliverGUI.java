@@ -10,47 +10,58 @@ import pizzaProgram.database.DatabaseConnection;
 import pizzaProgram.events.Event;
 import pizzaProgram.events.EventDispatcher;
 import pizzaProgram.events.EventHandler;
+import pizzaProgram.events.EventType;
 import pizzaProgram.modules.GUIModule;
-import pizzaProgram.modules.Module;
 
 public class DeliverGUI extends GUIModule implements EventHandler{
 
 	
-	DatabaseConnection database;
+	private DatabaseConnection database;
+	private JFrame jFrame;
 	
 	
-	public DeliverGUI(DatabaseConnection dbc, EventDispatcher eventDispatcher) {
+	public DeliverGUI(DatabaseConnection dbc, JFrame jFrame, EventDispatcher eventDispatcher) {
 		super(eventDispatcher);
 		this.database = dbc;
+		this.jFrame = jFrame;
+		eventDispatcher.addEventListener(this, EventType.COOK_GUI_REQUESTED);
+		eventDispatcher.addEventListener(this, EventType.ORDER_GUI_REQUESTED);
+		eventDispatcher.addEventListener(this, EventType.DELIVERY_GUI_REQUESTED);
+		initialize();
+		hide();
+	}
+	/**
+	 * Her skal koden for å lage og legge til komponenter ligger
+	 */
+	@Override
+	public void initialize() {
 		
 		
-		List liste = new List();
-		GridBagConstraints llisteConstraint = new GridBagConstraints();
-		llisteConstraint.gridx = 0;
-		llisteConstraint.gridy = 0;
-		llisteConstraint.weightx = 0.5;
-		llisteConstraint.fill = GridBagConstraints.HORIZONTAL;
-		
-		
-		for(Customer c : database.getCustomers()){
-			liste.add(c.firstName + " " + c.lastName);
-		}
-		//jFrame.add(liste, llisteConstraint);
-		
-		
+	}
+	/**
+	 * Her skal koden for å vise komponentene ligge
+	 */
+	@Override
+	public void show() {
+		//komponent.setVisible(true)
+	}
+	/**
+	 * Her skal koden for å skjule komponentene ligge
+	 */
+	@Override
+	public void hide() {
+		//komponent.setVisible(false)
 	}
 	
 	@Override
 	public void handleEvent(Event<?> event) {
-		// TODO Auto-generated method stub
+		if(event.eventType.equals(EventType.COOK_GUI_REQUESTED)){
+			hide();
+		}else if(event.eventType.equals(EventType.DELIVERY_GUI_REQUESTED)){
+			show();
+		}else if(event.eventType.equals(EventType.ORDER_GUI_REQUESTED)){
+			hide();
+		}
 	}
-
-	@Override
-	public void draw() {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void clear() {
-	}
+	
 }

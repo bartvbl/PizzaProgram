@@ -1,7 +1,5 @@
 import java.sql.SQLException;
 
-import javax.swing.JFrame;
-
 import pizzaProgram.database.DatabaseConnection;
 import pizzaProgram.events.EventDispatcher;
 import pizzaProgram.gui.CookGUI;
@@ -32,23 +30,20 @@ public class Main {
 	/**
 	 * creates every part of the program, and sets it up correctly
 	 */
-	public void initialize()
-	{
+	public void initialize(){
 		this.eventDispatcher = new EventDispatcher();
 		this.connectToDatabase();
 		this.createMainWindow();
 		this.createGUIModules();
 	}
 	
-	private void createMainWindow()
-	{
+	private void createMainWindow(){
 		this.programWindow = new ProgramWindow(this.eventDispatcher);
 		this.programWindow.createMenuBar();
 		this.programWindow.createMainWindow(640, 480);
 	}
 	
-	private void connectToDatabase()
-	{
+	private void connectToDatabase(){
 		try {
 			this.databaseConnection = new DatabaseConnection();
 			this.databaseConnection.connect();
@@ -62,19 +57,14 @@ public class Main {
 	 * This function instantiates all the GUI modules of the program. 
 	 * After they are operational, they will dispatch events to the event dispatcher when the user interacts with the program
 	 */
-	private void createGUIModules()
-	{
+	private void createGUIModules(){
 		//TODO: remove database connection parameter when database events are operational
+		//TODO: remove jframe parameter
 		
-		OrderGUI orderGUI = new OrderGUI(this.databaseConnection, this.eventDispatcher);
-		this.programWindow.setWindowFrame(orderGUI);
-		orderGUI.clear();
-		CookGUI cookGUI  = new CookGUI(this.databaseConnection, this.eventDispatcher);
-		this.programWindow.setWindowFrame(cookGUI);
-		cookGUI.clear();
-		DeliverGUI deliverGUI  = new DeliverGUI(this.databaseConnection, this.eventDispatcher);
-		this.programWindow.setWindowFrame(deliverGUI);
-		deliverGUI.draw();
+		OrderGUI orderGUI = new OrderGUI(this.databaseConnection, this.programWindow.getWindowFrame(), this.eventDispatcher);
+		CookGUI cookGUI  = new CookGUI(this.databaseConnection, this.programWindow.getWindowFrame(), this.eventDispatcher);
+		DeliverGUI deliverGUI  = new DeliverGUI(this.databaseConnection, this.programWindow.getWindowFrame(), this.eventDispatcher);
+		//cookGUI.show();
 	}
 	//this function will be available soon
 }

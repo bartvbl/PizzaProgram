@@ -67,9 +67,9 @@ public class ProgramWindow implements EventHandler{
 		this.canvas = canvas;
 		this.jframe = frame;
 		
-		this.eventDispatcher.addEventListener(this, EventType.ORDER_GUI_REQUESTED);
-		this.eventDispatcher.addEventListener(this, EventType.COOK_GUI_REQUESTED);
-		this.eventDispatcher.addEventListener(this, EventType.DELIVERY_GUI_REQUESTED);
+	}
+	public JFrame getWindowFrame(){
+		return jframe;
 	}
 	
 	/**
@@ -133,20 +133,7 @@ public class ProgramWindow implements EventHandler{
 	}
 	@Override
 	public void handleEvent(Event<?> event) {
-		/*
-		if(event.eventType.equals(EventType.COOK_GUI_REQUESTED)){
-			orderGUI.clear();
-			deliverGUI.clear();
-			cookGUI.draw();
-		}else if(event.eventType.equals(EventType.ORDER_GUI_REQUESTED)){
-			cookGUI.clear();
-			deliverGUI.clear();
-			orderGUI.draw();
-		}else if(event.eventType.equals(EventType.DELIVERY_GUI_REQUESTED)){
-			cookGUI.clear();
-			orderGUI.clear();
-			deliverGUI.draw();
-		}*/
+
 	}
 	
 }//END

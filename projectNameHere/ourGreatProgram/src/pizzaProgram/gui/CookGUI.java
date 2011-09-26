@@ -15,21 +15,32 @@ import pizzaProgram.database.DatabaseConnection;
 import pizzaProgram.events.Event;
 import pizzaProgram.events.EventDispatcher;
 import pizzaProgram.events.EventHandler;
+import pizzaProgram.events.EventType;
 import pizzaProgram.modules.GUIModule;
-import pizzaProgram.modules.Module;
 
 public class CookGUI extends GUIModule implements EventHandler{
-	List orderList;
-	HashMap<String, Order> orderMap = new HashMap<String, Order>();
-	List currentOrderList;
-	TextArea commentArea;
 	
-	DatabaseConnection database;
+	private List orderList;
+	private HashMap<String, Order> orderMap = new HashMap<String, Order>();
+	private List currentOrderList;
+	private TextArea commentArea;
 	
-	public CookGUI(DatabaseConnection dbc, EventDispatcher eventDispatcher) {
+	private DatabaseConnection database;
+	private JFrame jFrame;
+	
+	public CookGUI(DatabaseConnection dbc, JFrame jFrame, EventDispatcher eventDispatcher) {
 		super(eventDispatcher);
 		this.database = dbc;
-		
+		this.jFrame = jFrame;
+		eventDispatcher.addEventListener(this, EventType.COOK_GUI_REQUESTED);
+		eventDispatcher.addEventListener(this, EventType.ORDER_GUI_REQUESTED);
+		eventDispatcher.addEventListener(this, EventType.DELIVERY_GUI_REQUESTED);
+		initialize();
+		hide();
+	}
+	
+	@Override
+	public void initialize() {
 		orderList = new List();
 		orderList.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
@@ -49,7 +60,7 @@ public class CookGUI extends GUIModule implements EventHandler{
 		orderListConstraints.gridwidth = 1;
 		orderListConstraints.gridheight = 2;
 		orderListConstraints.fill = GridBagConstraints.BOTH;
-		this.programWindowFrame.add(orderList, orderListConstraints);
+		this.jFrame.add(orderList, orderListConstraints);
 		
 		currentOrderList = new List();
 		GridBagConstraints currentOrderListConstraints = new GridBagConstraints();
@@ -59,7 +70,7 @@ public class CookGUI extends GUIModule implements EventHandler{
 		currentOrderListConstraints.weighty = 0.8;
 		currentOrderListConstraints.gridwidth = 1;
 		currentOrderListConstraints.fill = GridBagConstraints.BOTH;
-		this.programWindowFrame.add(currentOrderList, currentOrderListConstraints);
+		this.jFrame.add(currentOrderList, currentOrderListConstraints);
 		
 		commentArea = new TextArea();
 		commentArea.setEditable(false);
@@ -71,12 +82,19 @@ public class CookGUI extends GUIModule implements EventHandler{
 		commentAreaConstraints.weighty = 0.2;
 		commentAreaConstraints.gridwidth = 1;
 		commentAreaConstraints.fill = GridBagConstraints.HORIZONTAL;
-		this.programWindowFrame.add(commentArea, commentAreaConstraints);
+		this.jFrame.add(commentArea, commentAreaConstraints);
+		
 	}
 	
 	@Override
 	public void handleEvent(Event<?> event){
-		
+		if(event.eventType.equals(EventType.COOK_GUI_REQUESTED)){
+			show();
+		}else if(event.eventType.equals(EventType.DELIVERY_GUI_REQUESTED)){
+			hide();
+		}else if(event.eventType.equals(EventType.ORDER_GUI_REQUESTED)){
+			hide();
+		}
 	}
 	
 	private void populateLists(){
@@ -90,7 +108,8 @@ public class CookGUI extends GUIModule implements EventHandler{
 	}
 
 	@Override
-	public void draw() {
+	public void show() {
+		System.out.println("show");
 		populateLists();
 		orderList.setVisible(true);
 		currentOrderList.setVisible(true);
@@ -98,7 +117,7 @@ public class CookGUI extends GUIModule implements EventHandler{
 	}
 
 	@Override
-	public void clear() {
+	public void hide() {
 		orderList.setVisible(false);
 		currentOrderList.setVisible(false);
 		commentArea.setVisible(false);

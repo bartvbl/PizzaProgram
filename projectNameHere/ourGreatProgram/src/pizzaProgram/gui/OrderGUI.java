@@ -17,29 +17,38 @@ import pizzaProgram.database.DatabaseConnection;
 import pizzaProgram.events.Event;
 import pizzaProgram.events.EventDispatcher;
 import pizzaProgram.events.EventHandler;
+import pizzaProgram.events.EventType;
 import pizzaProgram.modules.GUIModule;
-import pizzaProgram.modules.Module;
 
 public class OrderGUI extends GUIModule implements EventHandler, ItemListener {
 
-	DatabaseConnection database;
+	private DatabaseConnection database;
+	private JFrame jFrame;
 	
 	//GUI-components
-	Button newCutomerButton;
-	TextField customerSearchArea;
-	List customerList;
-	List customerDetails;
+	private Button newCutomerButton;
+	private TextField customerSearchArea;
+	private List customerList;
+	private List customerDetails;
 	
-	TextField dishSearchArea;
-	Choice dishList;
+	private TextField dishSearchArea;
+	private Choice dishList;
 	
+	private HashMap<String, Customer> testmap = new HashMap<String, Customer>();
 	
-	HashMap<String, Customer> testmap = new HashMap<String, Customer>();
-	
-	public OrderGUI(DatabaseConnection dbc, EventDispatcher eventDispatcher) {
+	public OrderGUI(DatabaseConnection dbc, JFrame jFrame, EventDispatcher eventDispatcher) {
 		super(eventDispatcher);
 		this.database = dbc;
-		
+		this.jFrame = jFrame;
+		eventDispatcher.addEventListener(this, EventType.COOK_GUI_REQUESTED);
+		eventDispatcher.addEventListener(this, EventType.ORDER_GUI_REQUESTED);
+		eventDispatcher.addEventListener(this, EventType.DELIVERY_GUI_REQUESTED);
+		initialize();
+		hide();
+	}
+	
+	@Override
+	public void initialize() {
 		newCutomerButton = new Button();
 		newCutomerButton.setLabel("Ny Kunde");
 		GridBagConstraints newCustomerConstraints = new GridBagConstraints();
@@ -48,7 +57,7 @@ public class OrderGUI extends GUIModule implements EventHandler, ItemListener {
 		newCustomerConstraints.weightx = 0.3;
 		newCustomerConstraints.gridwidth = 1;
 		newCustomerConstraints.fill = GridBagConstraints.HORIZONTAL;
-		this.programWindowFrame.add(newCutomerButton, newCustomerConstraints); 
+		this.jFrame.add(newCutomerButton, newCustomerConstraints); 
 		
 		customerSearchArea = new TextField();
 		customerSearchArea.setText("Søk etter kunde...");
@@ -58,7 +67,7 @@ public class OrderGUI extends GUIModule implements EventHandler, ItemListener {
 		searchAreaConstraints.weightx = 0.3;
 		searchAreaConstraints.gridwidth = 1;
 		searchAreaConstraints.fill = GridBagConstraints.HORIZONTAL;
-		this.programWindowFrame.add(customerSearchArea, searchAreaConstraints); 
+		this.jFrame.add(customerSearchArea, searchAreaConstraints); 
 		
 		customerList = new List();
 		customerList.addItemListener(this);
@@ -69,7 +78,7 @@ public class OrderGUI extends GUIModule implements EventHandler, ItemListener {
 		customerListConstraints.weighty = 1;
 		customerListConstraints.gridwidth = 1;
 		customerListConstraints.fill = GridBagConstraints.BOTH;
-		this.programWindowFrame.add(customerList, customerListConstraints);
+		this.jFrame.add(customerList, customerListConstraints);
 		
 		customerDetails = new List();
 		GridBagConstraints customerDetailsConstraints = new GridBagConstraints();
@@ -78,7 +87,7 @@ public class OrderGUI extends GUIModule implements EventHandler, ItemListener {
 		customerDetailsConstraints.gridwidth = 1;
 		customerDetailsConstraints.gridheight = 2;
 		customerDetailsConstraints.fill = GridBagConstraints.HORIZONTAL;
-		this.programWindowFrame.add(customerDetails, customerDetailsConstraints);
+		this.jFrame.add(customerDetails, customerDetailsConstraints);
 		
 		dishSearchArea = new TextField();
 		dishSearchArea.setText("Søk etter rett...");
@@ -88,7 +97,7 @@ public class OrderGUI extends GUIModule implements EventHandler, ItemListener {
 		dishSearchAreaConstraints.weightx = 0.3;
 		dishSearchAreaConstraints.gridwidth = 1;
 		dishSearchAreaConstraints.fill = GridBagConstraints.HORIZONTAL;
-		this.programWindowFrame.add(dishSearchArea, dishSearchAreaConstraints); 
+		this.jFrame.add(dishSearchArea, dishSearchAreaConstraints); 
 		
 		dishList = new Choice();
 		GridBagConstraints dishListConstraints = new GridBagConstraints();
@@ -98,7 +107,8 @@ public class OrderGUI extends GUIModule implements EventHandler, ItemListener {
 		dishListConstraints.weighty = 0.3;
 		dishListConstraints.gridwidth = 1;
 		dishListConstraints.fill = GridBagConstraints.HORIZONTAL;
-		this.programWindowFrame.add(dishList, dishListConstraints);
+		this.jFrame.add(dishList, dishListConstraints);
+		
 	}
 	
 	private void populateLists(){
@@ -124,10 +134,16 @@ public class OrderGUI extends GUIModule implements EventHandler, ItemListener {
 	}
 	@Override
 	public void handleEvent(Event<?> event) {
-		// TODO Auto-generated method stub
+		if(event.eventType.equals(EventType.COOK_GUI_REQUESTED)){
+			hide();
+		}else if(event.eventType.equals(EventType.DELIVERY_GUI_REQUESTED)){
+			hide();
+		}else if(event.eventType.equals(EventType.ORDER_GUI_REQUESTED)){
+			show();
+		}
 	}
 	@Override
-	public void draw() {
+	public void show() {
 		newCutomerButton.setVisible(true);
 		customerSearchArea.setVisible(true);
 		customerList.setVisible(true);
@@ -136,7 +152,7 @@ public class OrderGUI extends GUIModule implements EventHandler, ItemListener {
 		dishList.setVisible(true);
 	}
 	@Override
-	public void clear() {
+	public void hide() {
 		newCutomerButton.setVisible(false);
 		customerSearchArea.setVisible(false);
 		customerList.setVisible(false);
