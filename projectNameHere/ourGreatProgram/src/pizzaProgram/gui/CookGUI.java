@@ -9,7 +9,6 @@ import java.util.HashMap;
 
 import javax.swing.JFrame;
 
-import pizzaProgram.dataObjects.Dish;
 import pizzaProgram.dataObjects.Order;
 import pizzaProgram.dataObjects.OrderDish;
 import pizzaProgram.database.DatabaseConnection;
@@ -31,25 +30,7 @@ public class CookGUI implements GUIModule, EventHandler{
 	public CookGUI(JFrame jFrame, DatabaseConnection dbc) {
 		this.jFrame = jFrame;
 		this.database = dbc;
-	}
-	
-	@Override
-	public void handleEvent(Event<Object> event){
 		
-	}
-	
-	private void populateLists(){
-		for(Order o : database.getOrders()){
-			if(o.getStatus().equals(Order.REGISTERED) || o.getStatus().equals(Order.BEING_COOKED)){
-				String sc = o.getOrderedDishes().size() + " Retter, Ordrenummer:" + o.getID();
-				orderList.add(sc);
-				orderMap.put(sc, o);
-			}
-		}
-	}
-
-	@Override
-	public void draw() {
 		orderList = new List();
 		orderList.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
@@ -92,11 +73,35 @@ public class CookGUI implements GUIModule, EventHandler{
 		commentAreaConstraints.gridwidth = 1;
 		commentAreaConstraints.fill = GridBagConstraints.HORIZONTAL;
 		jFrame.add(commentArea, commentAreaConstraints);
+	}
+	
+	@Override
+	public void handleEvent(Event<Object> event){
 		
+	}
+	
+	private void populateLists(){
+		for(Order o : database.getOrders()){
+			if(o.getStatus().equals(Order.REGISTERED) || o.getStatus().equals(Order.BEING_COOKED)){
+				String sc = o.getOrderedDishes().size() + " Retter, Ordrenummer:" + o.getID();
+				orderList.add(sc);
+				orderMap.put(sc, o);
+			}
+		}
+	}
+
+	@Override
+	public void draw() {
 		populateLists();
+		orderList.setVisible(true);
+		currentOrderList.setVisible(true);
+		commentArea.setVisible(true);
 	}
 
 	@Override
 	public void clear() {
+		orderList.setVisible(false);
+		currentOrderList.setVisible(false);
+		commentArea.setVisible(false);
 	}
 }

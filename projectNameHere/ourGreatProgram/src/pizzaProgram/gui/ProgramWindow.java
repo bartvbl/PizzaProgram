@@ -80,11 +80,12 @@ public class ProgramWindow implements EventHandler{
 	 * the databaseparameter is just for testing
 	 */
 	public void createGUIViews(DatabaseConnection dbc){
-		orderGUI = new OrderGUI(jframe);
+		orderGUI = new OrderGUI(jframe, dbc);
+		orderGUI.clear();
 		cookGUI  = new CookGUI(jframe, dbc);
-		deliverGUI  = new DeliverGUI(jframe);
-		//orderGUI.draw();
-		cookGUI.draw();
+		cookGUI.clear();
+		deliverGUI  = new DeliverGUI(jframe, dbc);
+		deliverGUI.draw();
 	}
 	
 	/**
