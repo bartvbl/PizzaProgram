@@ -139,7 +139,7 @@ public class ProgramWindow implements EventHandler{
 		this.menuBar.pack();
 	}
 	@Override
-	public void handleEvent(Event<Object> event) {
+	public void handleEvent(Event<?> event) {
 		
 		if(event.eventType.equals(EventType.COOK_GUI_REQUESTED)){
 			orderGUI.clear();

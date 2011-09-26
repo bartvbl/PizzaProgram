@@ -122,7 +122,7 @@ public class OrderGUI implements GUIModule, EventHandler, ItemListener {
 		
 	}
 	@Override
-	public void handleEvent(Event<Object> event) {
+	public void handleEvent(Event<?> event) {
 		// TODO Auto-generated method stub
 	}
 	@Override

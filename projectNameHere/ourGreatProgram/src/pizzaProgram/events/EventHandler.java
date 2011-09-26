@@ -11,5 +11,5 @@ public interface EventHandler {
 	 * This function is called by the event dispatcher when the event the implementing class registered for occurs
 	 * @param event The event to be handled by the object
 	 */
-	public void handleEvent(Event<Object> event);
+	public void handleEvent(Event<?> event);
 }

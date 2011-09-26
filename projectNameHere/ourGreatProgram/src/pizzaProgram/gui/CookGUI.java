@@ -76,7 +76,7 @@ public class CookGUI implements GUIModule, EventHandler{
 	}
 	
 	@Override
-	public void handleEvent(Event<Object> event){
+	public void handleEvent(Event<?> event){
 		
 	}
 	

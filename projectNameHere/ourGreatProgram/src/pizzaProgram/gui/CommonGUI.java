@@ -36,7 +36,7 @@ public class CommonGUI extends JPanel implements EventHandler, GUIModule{
 		System.out.println("listeners added");
 	}
 	
-	public void handleEvent(Event<Object> event){
+	public void handleEvent(Event<?> event){
 		System.out.println("fikk en event");
 		if(event.eventType.equalsIgnoreCase(EventType.ORDER_GUI_REQUESTED)){
 			System.out.println("fikk beskjed om å vise order");

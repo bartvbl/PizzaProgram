@@ -40,7 +40,7 @@ public class DeliverGUI implements GUIModule, EventHandler{
 	}
 	
 	@Override
-	public void handleEvent(Event<Object> event) {
+	public void handleEvent(Event<?> event) {
 		// TODO Auto-generated method stub
 	}
 
