@@ -64,7 +64,7 @@ public class Main {
 		OrderGUI orderGUI = new OrderGUI(this.databaseConnection, this.programWindow.getWindowFrame(), this.eventDispatcher);
 		CookGUI cookGUI  = new CookGUI(this.databaseConnection, this.programWindow.getWindowFrame(), this.eventDispatcher);
 		DeliverGUI deliverGUI  = new DeliverGUI(this.databaseConnection, this.programWindow.getWindowFrame(), this.eventDispatcher);
-		//cookGUI.show();
+		cookGUI.show();
 	}
 	//this function will be available soon
 }
