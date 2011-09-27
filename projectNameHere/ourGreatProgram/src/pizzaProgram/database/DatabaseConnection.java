@@ -25,17 +25,17 @@ public class DatabaseConnection implements EventHandler {
 	private static final String DATABASE_HOST = "jdbc:mysql://mysql.stud.ntnu.no/it1901g03_PizzaBase";
 	private static final String DATABASE_USERNAME = "it1901g03_admin";
 	private static final String DATABASE_PASSWORD = "batman";
-	private static final int DEFAULT_TIMEOUT = 10000;
+	public static final int DEFAULT_TIMEOUT = 3000;
 	/**
 	 * The maximum amount of allowed characters in a short VARCHAR column in the
 	 * database
 	 */
-	private static final int VARCHAR_MAX_LENGTH_SHORT = 50;
+	protected static final int VARCHAR_MAX_LENGTH_SHORT = 50;
 	/**
 	 * The maximum amount of allowed characters in a long VARCHAR column in the
 	 * database
 	 */
-	private static final int VARCHAR_MAX_LENGTH_LONG = 100;
+	protected static final int VARCHAR_MAX_LENGTH_LONG = 100;
 
 	private Connection connection;
 	private QueryHandler queryHandler;
@@ -140,7 +140,7 @@ public class DatabaseConnection implements EventHandler {
 	 * @return a {@link java.sql.ResultSet ResultSet} containing the result of
 	 *         the query
 	 */
-	private ResultSet fetchData(String query) {
+	protected ResultSet fetchData(String query) {
 		try {
 			return connection.createStatement().executeQuery(query);
 		} catch (SQLException e) {
@@ -157,7 +157,7 @@ public class DatabaseConnection implements EventHandler {
 	 *            is to be sent to the database
 	 * @return true if the insertion was a success, false in all other cases
 	 */
-	private boolean insertIntoDB(String query) {
+	protected boolean insertIntoDB(String query) {
 		try {
 			return connection.createStatement().execute(query);
 		} catch (SQLException e) {
@@ -623,25 +623,25 @@ public class DatabaseConnection implements EventHandler {
 		return extras;
 	}
 
-	public static void main(String[] args) throws SQLException {
-		DatabaseConnection connection = new DatabaseConnection();
-		connection.connect();
-		long starttid = System.currentTimeMillis();
-		connection.createCustomerCommentList();
-		connection.createOrderCommentList();
-		connection.createCustomerList();
-		connection.createDishList();
-		connection.createExtrasList();
-		connection.createOrdersList();
-		for (Order o : connection.getOrders()) {
-			System.out.print(o.toString());
-		}
-		for (Extra c : connection.getExtras())
-			System.out.println(c);
-		System.out.println(System.currentTimeMillis() - starttid);
-		System.out.println();
-		connection.disconnect();
-	}
+//	public static void main(String[] args) throws SQLException {
+//		DatabaseConnection connection = new DatabaseConnection();
+//		connection.connect();
+//		long starttid = System.currentTimeMillis();
+//		connection.createCustomerCommentList();
+//		connection.createOrderCommentList();
+//		connection.createCustomerList();
+//		connection.createDishList();
+//		connection.createExtrasList();
+//		connection.createOrdersList();
+//		for (Order o : connection.getOrders()) {
+//			System.out.print(o.toString());
+//		}
+//		for (Extra c : connection.getExtras())
+//			System.out.println(c);
+//		System.out.println(System.currentTimeMillis() - starttid);
+//		System.out.println();
+//		connection.disconnect();
+//	}
 
 	public void handleEvent(Event event) {
 

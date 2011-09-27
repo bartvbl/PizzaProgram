@@ -1,22 +1,14 @@
 package pizzaProgram.modules;
 
-import javax.swing.JFrame;
-
 import pizzaProgram.events.EventDispatcher;
 
-public class GUIModule extends Module {
-	protected JFrame programWindowFrame;
+public abstract class GUIModule extends Module {
 	
-	public GUIModule(EventDispatcher eventDispatcher)
-	{
+	public GUIModule(EventDispatcher eventDispatcher){
 		super(eventDispatcher);
 	}
 	
-	public void setJFrameReference(JFrame frame)
-	{
-		this.programWindowFrame = frame;
-	}
-	
-	public void draw() {}
-	public void clear() {}
+	public abstract void show();
+	public abstract void hide();
+	public abstract void initialize();
 }
