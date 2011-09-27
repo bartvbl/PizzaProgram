@@ -58,7 +58,7 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 				Customer c = o.getCustomer();
 				
 				//Customer c = orderMap.get(orderList.getSelectedItem()).getCustomer();
-				currentInfoList.add(c.firstName + " " + c.lastName + "\n" + c.address + "\n" + c.phoneNumber);
+				currentInfoList.add(c.firstName + " " + c.lastName + "\r\n" + c.address + "\r\n" + c.phoneNumber);
 					
 				//System.out.println(orderMap.get(orderList.getSelectedItem()).getComment());
 			}
