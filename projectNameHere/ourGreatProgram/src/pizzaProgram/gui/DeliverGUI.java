@@ -11,8 +11,10 @@ import java.util.Comparator;
 import java.util.HashMap;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import pizzaProgram.dataObjects.Customer;
+import pizzaProgram.dataObjects.Extra;
 import pizzaProgram.dataObjects.Order;
 import pizzaProgram.dataObjects.OrderDish;
 import pizzaProgram.database.DatabaseConnection;
@@ -24,9 +26,10 @@ import pizzaProgram.modules.GUIModule;
 
 public class DeliverGUI extends GUIModule implements EventHandler{
 
-	private List orderList = new List();
-	private List infoList = new List();
+	private List orderList;
 	private List currentInfoList = new List();
+	private List orderContentList = new List();
+	private TextArea chartArea;
 	private HashMap<String, Order> orderMap = new HashMap<String, Order>();
 	
 	private DatabaseConnection database;
@@ -49,16 +52,27 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 	 */
 	@Override
 	public void initialize() {
-		
+		orderList = new List();
 		orderList.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				currentInfoList.removeAll();
+				orderContentList.removeAll();
 				
 				Order o = orderMap.get(orderList.getSelectedItem());
+				if (o == null){
+					return;
+				}
+				
 				Customer c = o.getCustomer();
 				
-				//Customer c = orderMap.get(orderList.getSelectedItem()).getCustomer();
 				currentInfoList.add(c.firstName + " " + c.lastName + "\r\n" + c.address + "\r\n" + c.phoneNumber);
+				for (OrderDish od : o.getOrderedDishes()){
+					orderContentList.add(od.dish.name);
+					for (Extra ex : od.getExtras()){
+						orderContentList.add("  - " + ex.name);
+					}
+				}
+				
 					
 				//System.out.println(orderMap.get(orderList.getSelectedItem()).getComment());
 			}
@@ -67,7 +81,7 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 		GridBagConstraints orderListConstraints = new GridBagConstraints();
 		orderListConstraints.gridx = 0;
 		orderListConstraints.gridy = 0;
-		orderListConstraints.weightx = 0.5;
+		orderListConstraints.weightx = 1;
 		orderListConstraints.weighty = 1;
 		orderListConstraints.gridwidth = 1;
 		orderListConstraints.gridheight = 2;
@@ -78,12 +92,38 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 		GridBagConstraints currentInfoListConstraints = new GridBagConstraints();
 		currentInfoListConstraints.gridx = 1;
 		currentInfoListConstraints.gridy = 0;
-		currentInfoListConstraints.weightx = 0.5;
-		currentInfoListConstraints.weighty = 0.8;
+		currentInfoListConstraints.weightx = 0.25;
+		currentInfoListConstraints.weighty = 1;
 		currentInfoListConstraints.gridwidth = 1;
+		currentInfoListConstraints.gridheight = 1;
 		currentInfoListConstraints.fill = GridBagConstraints.BOTH;
 		this.jFrame.add(currentInfoList, currentInfoListConstraints);
-
+		
+		
+		GridBagConstraints orderContentListConstraints = new GridBagConstraints();
+		orderContentListConstraints.gridx = 2;
+		orderContentListConstraints.gridy = 0;
+		orderContentListConstraints.weightx = 0.25;
+		orderContentListConstraints.weighty = 1;
+		orderContentListConstraints.gridwidth = 1;
+		orderContentListConstraints.gridheight = 1;
+		orderContentListConstraints.fill = GridBagConstraints.BOTH;
+		this.jFrame.add(orderContentList, orderContentListConstraints);
+		
+		chartArea = new TextArea("", 15, 40, TextArea.SCROLLBARS_NONE);
+		chartArea.setEditable(false);
+		chartArea.setText("Kart plasseres her!");
+		GridBagConstraints chartAreaConstraints = new GridBagConstraints();
+		chartAreaConstraints.gridx = 1;
+		chartAreaConstraints.gridy = 1;
+		chartAreaConstraints.weightx = 0;
+		chartAreaConstraints.weighty = 0;
+		chartAreaConstraints.gridwidth = 2;
+		chartAreaConstraints.gridheight = 1;
+		chartAreaConstraints.fill = GridBagConstraints.BOTH;
+		this.jFrame.add(chartArea, chartAreaConstraints);
+		
+		
 	}
 	
 	public void populateLists(){
@@ -109,6 +149,7 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 			orderList.add("Order " + o.getID() + ": " + o.getCustomer().firstName + " " + o.getCustomer().lastName);
 			//infoList.add(o.getCustomer().firstName);
 		}
+		
 	}
 	/**
 	 * Her skal koden for å vise komponentene ligge
@@ -118,6 +159,8 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 		System.out.println("show");
 		orderList.setVisible(true);
 		currentInfoList.setVisible(true);
+		orderContentList.setVisible(true);
+		chartArea.setVisible(true);
 		jFrame.setVisible(true);
 	}
 	
@@ -129,6 +172,8 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 		System.out.println("show");
 		orderList.setVisible(false);
 		currentInfoList.setVisible(false);
+		orderContentList.setVisible(false);
+		chartArea.setVisible(false);
 		jFrame.setVisible(true);
 	}
 	

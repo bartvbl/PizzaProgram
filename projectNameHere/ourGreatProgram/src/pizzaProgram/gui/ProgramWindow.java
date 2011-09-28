@@ -63,7 +63,9 @@ public class ProgramWindow implements EventHandler{
 		
 		Canvas canvas = new Canvas();
 		JFrame frame = new JFrame(ProgramWindow.MAIN_WINDOW_NAME);
-		frame.setLayout(new GridBagLayout());
+		GridBagLayout gbl = new GridBagLayout();
+
+		frame.setLayout(gbl);
 		this.canvas = canvas;
 		this.jframe = frame;
 		
