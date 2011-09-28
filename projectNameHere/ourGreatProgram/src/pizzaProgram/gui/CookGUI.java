@@ -143,6 +143,7 @@ public class CookGUI extends GUIModule implements EventHandler{
 		orderList.setVisible(true);
 		currentOrderList.setVisible(true);
 		commentArea.setVisible(true);
+		descriptionArea.setVisible(true);
 		jFrame.setVisible(true);
 	}
 
@@ -151,6 +152,7 @@ public class CookGUI extends GUIModule implements EventHandler{
 		orderList.setVisible(false);
 		currentOrderList.setVisible(false);
 		commentArea.setVisible(false);
+		descriptionArea.setVisible(false);
 		jFrame.setVisible(true);
 	}
 }
