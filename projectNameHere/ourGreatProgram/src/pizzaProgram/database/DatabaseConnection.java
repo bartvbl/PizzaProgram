@@ -539,7 +539,7 @@ public class DatabaseConnection implements EventHandler {
 			if (!(comment == null || comment.equals(""))) {
 				insertIntoDB("INSERT INTO OrderComments (Comment) VALUES ('"
 						+ comment + "');");
-				ResultSet commentIDset = fetchData("SELECT CommentID FROM OrderComments WHERE Note='"
+				ResultSet commentIDset = fetchData("SELECT CommentID FROM OrderComments WHERE Comment='"
 						+ comment + "';");
 				if (commentIDset.next()) {
 					commentID = commentIDset.getInt(1);
@@ -638,11 +638,26 @@ public class DatabaseConnection implements EventHandler {
 		connection.createDishList();
 		connection.createExtrasList();
 		connection.createOrdersList();
-		for (Order o : connection.getOrders()) {
-			System.out.print(o.toString());
+		connection.addOrder(connection.getCustomers().get(0), true, "Kunden truer med å \"drepe dere alle\" om vi ikke klarer å levere pizzaen innen 20min!!");
+		connection.createOrdersList();
+		Order tempOrder = null;
+		for (Order o : connection.getOrders()){
+			if (o.getCustomer() == connection.getCustomers().get(0)){
+				tempOrder = o;
+				break;
+			}
 		}
-		for (Extra c : connection.getExtras())
-			System.out.println(c);
+		for (Order o : connection.getOrders()){
+			System.out.println(o.toString());
+		}
+//		ArrayList<Extra> tempextras1 = new ArrayList<Extra>();
+//		tempextras1.add(connection.getExtras().get(0));
+//		ArrayList<Extra> tempextras2 = new ArrayList<Extra>();
+//		tempextras2.add(connection.getExtras().get(1));
+//		if (tempOrder != null){
+//			connection.addDishToOrder(tempOrder, connection.getDishes().get(4), tempextras1);
+//			connection.addDishToOrder(tempOrder, connection.getDishes().get(3), tempextras2);
+//		}
 		System.out.println(System.currentTimeMillis() - starttid);
 		System.out.println();
 		connection.disconnect();
