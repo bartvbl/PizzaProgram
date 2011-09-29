@@ -10,6 +10,7 @@ import java.util.HashMap;
 import javax.swing.*;
 
 import pizzaProgram.dataObjects.*;
+import pizzaProgram.database.DatabaseConnection;
 import pizzaProgram.events.Event;
 import pizzaProgram.events.EventDispatcher;
 import pizzaProgram.events.EventHandler;

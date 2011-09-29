@@ -1,5 +1,6 @@
 import java.sql.SQLException;
 
+import pizzaProgram.database.DatabaseConnection;
 import pizzaProgram.events.EventDispatcher;
 import pizzaProgram.gui.CookGUI;
 import pizzaProgram.gui.DeliverGUI;
