@@ -177,8 +177,8 @@ public class DatabaseConnection implements EventHandler {
 	 */
 	public void createCustomerList() throws SQLException {
 		customers = new ArrayList<Customer>();
-
 		customerMap = new HashMap<Integer, Customer>();
+		createCustomerCommentList();
 		ResultSet results = fetchData("SELECT * FROM Customer;");
 		while (results.next()) {
 			Customer tempCustomer = new Customer(results.getInt(1),
@@ -455,7 +455,7 @@ public class DatabaseConnection implements EventHandler {
 		ordermap = new HashMap<Integer, Order>();
 		customerToOrderMap = new HashMap<Customer, Order>();
 		HashMap<Integer, OrderDish> tempOrderDishMap = new HashMap<Integer, OrderDish>();
-
+		createOrderCommentList();
 		ResultSet results = fetchData("SELECT Orders.OrdersID,"
 				+ " Orders.CustomerID, Orders.TimeRegistered,"
 				+ " Orders.OrdersStatus, Orders.DeliveryMethod,"
@@ -638,6 +638,13 @@ public class DatabaseConnection implements EventHandler {
 		return customerToOrderMap;
 	}
 
+	public void updateList() throws SQLException {
+		createCustomerList();
+		createDishList();
+		createExtrasList();
+		createOrdersList();
+	}
+
 	public static void main(String[] args) throws SQLException {
 		DatabaseConnection connection = new DatabaseConnection();
 		connection.connect();
@@ -648,19 +655,7 @@ public class DatabaseConnection implements EventHandler {
 		connection.createDishList();
 		connection.createExtrasList();
 		connection.createOrdersList();
-		connection
-				.addOrder(
-						connection.getCustomers().get(0),
-						true,
-						"Kunden truer med å \"drepe dere alle\" om vi ikke klarer å levere pizzaen innen 20min!!");
-		connection.createOrdersList();
-		Order tempOrder = null;
-		for (Order o : connection.getOrders()) {
-			if (o.getCustomer() == connection.getCustomers().get(0)) {
-				tempOrder = o;
-				break;
-			}
-		}
+
 		for (Order o : connection.getOrders()) {
 			System.out.println(o.toString());
 		}
