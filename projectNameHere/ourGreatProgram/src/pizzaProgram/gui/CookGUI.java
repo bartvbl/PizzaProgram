@@ -2,7 +2,6 @@ package pizzaProgram.gui;
 
 import java.awt.GridBagConstraints;
 import java.awt.List;
-import java.awt.PopupMenu;
 import java.awt.TextArea;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
@@ -14,7 +13,6 @@ import pizzaProgram.dataObjects.Dish;
 import pizzaProgram.dataObjects.Extra;
 import pizzaProgram.dataObjects.Order;
 import pizzaProgram.dataObjects.OrderDish;
-import pizzaProgram.database.DatabaseConnection;
 import pizzaProgram.events.Event;
 import pizzaProgram.events.EventDispatcher;
 import pizzaProgram.events.EventHandler;

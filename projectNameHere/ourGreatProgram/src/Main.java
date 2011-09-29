@@ -1,6 +1,5 @@
 import java.sql.SQLException;
 
-import pizzaProgram.database.DatabaseConnection;
 import pizzaProgram.events.EventDispatcher;
 import pizzaProgram.gui.CookGUI;
 import pizzaProgram.gui.DeliverGUI;
@@ -48,10 +47,13 @@ public class Main {
 			this.databaseConnection = new DatabaseConnection();
 			this.databaseConnection.connect();
 			this.databaseConnection.buildContents();
+            Thread.sleep(1000);
 		} catch (SQLException e) {
 			System.err.println(e.getMessage());
-		}
-	}
+		} catch (InterruptedException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+    }
 	
 	/**
 	 * This function instantiates all the GUI modules of the program. 

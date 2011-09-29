@@ -9,7 +9,6 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import javax.swing.JFrame;
 
-import pizzaProgram.database.DatabaseConnection;
 import pizzaProgram.events.Event;
 import pizzaProgram.events.EventDispatcher;
 import pizzaProgram.events.EventHandler;
