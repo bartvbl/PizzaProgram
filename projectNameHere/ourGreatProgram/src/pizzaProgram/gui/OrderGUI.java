@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.swing.*;
@@ -17,32 +19,33 @@ import pizzaProgram.events.EventHandler;
 import pizzaProgram.events.EventType;
 import pizzaProgram.modules.GUIModule;
 
-public class OrderGUI extends GUIModule implements EventHandler, ItemListener {
+public class OrderGUI extends GUIModule implements EventHandler {
 
 	private DatabaseConnection database;
 	private JFrame jFrame;
 	
 	//GUI-components
-    Button newCustomerButton;
+    JButton newCustomerButton;
     List customerList;
-    Button addDishButton;
+    JButton addDishButton;
     List dishList;
     List dishExtraList;
     TextArea orderComment;
     Label customerLabel;
-    Button finishOrderButton;
+    JButton finishOrderButton;
     List orderedDishesList;
     HashMap<String, Customer> customerMap = new HashMap<String, Customer>();
     HashMap<String, Dish> dishMap = new HashMap<String, Dish>();
     HashMap<String, Extra> extraMap = new HashMap<String, Extra>();
+    
+    int orderContentCounter = 1;
+    HashMap<String, ArrayList<Extra>> dishToExtrasMap = new HashMap<String, ArrayList<Extra>>();
+    ArrayList<OrderDish> dishesInOrder = new ArrayList<OrderDish>();
 	
 	
 	public OrderGUI(DatabaseConnection dbc, JFrame jFrame, EventDispatcher eventDispatcher) {
 		super(eventDispatcher);
 		this.database = dbc;
-        if(dbc == null){
-           System.out.println("nullllllllllllllll");
-        }
 		this.jFrame = jFrame;
 		eventDispatcher.addEventListener(this, EventType.COOK_GUI_REQUESTED);
 		eventDispatcher.addEventListener(this, EventType.ORDER_GUI_REQUESTED);
@@ -54,7 +57,7 @@ public class OrderGUI extends GUIModule implements EventHandler, ItemListener {
 	
 	@Override
 	public void initialize() {
-	    newCustomerButton = new Button("Ny kunde");
+	    newCustomerButton = new JButton("Ny kunde");
         GridBagConstraints newCustomerButtonConstraints = new GridBagConstraints();
         newCustomerButtonConstraints.gridx = 0;
         newCustomerButtonConstraints.gridy = 0;
@@ -69,7 +72,7 @@ public class OrderGUI extends GUIModule implements EventHandler, ItemListener {
                orderedDishesList.removeAll();
                Customer c = customerMap.get(customerList.getSelectedItem());
                customerLabel.setText(c.firstName + " " + c.lastName);
-
+               dishesInOrder.clear();
             }
         });
 
@@ -83,16 +86,22 @@ public class OrderGUI extends GUIModule implements EventHandler, ItemListener {
         customerListConstraints.fill = GridBagConstraints.BOTH;
         this.jFrame.add(customerList, customerListConstraints);
 
-        addDishButton = new Button("Legg til rett");
+        addDishButton = new JButton("Legg til rett");
         addDishButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
                 OrderDish o = new OrderDish(-1, dishMap.get(dishList.getSelectedItem()));
-                orderedDishesList.add(o.dish.name);
+                String dishDisplay = orderContentCounter + " " +o.dish.name;
+                orderContentCounter++;
+                orderedDishesList.add(dishDisplay);
+                ArrayList<Extra> extras = new ArrayList<Extra>();
                 for(String s : dishExtraList.getSelectedItems()){
+                	extras.add(extraMap.get(s));
                     o.addExtra(extraMap.get(s));
+                    orderedDishesList.add("   - " + extraMap.get(s).name);
                 }
-
-
+                orderedDishesList.add("");
+                dishToExtrasMap.put(dishDisplay, extras);
+                dishesInOrder.add(o);
             }
         });
         GridBagConstraints addDishButtonConstraints = new GridBagConstraints();
@@ -115,6 +124,7 @@ public class OrderGUI extends GUIModule implements EventHandler, ItemListener {
         this.jFrame.add(dishList, dishListConstraints);
 
         dishExtraList = new List();
+        dishExtraList.setMultipleMode(true);
         GridBagConstraints  dishExtraConstraints = new GridBagConstraints();
         dishExtraConstraints.gridx = 2;
         dishExtraConstraints.gridy = 1;
@@ -125,7 +135,8 @@ public class OrderGUI extends GUIModule implements EventHandler, ItemListener {
         dishExtraConstraints.fill = GridBagConstraints.BOTH;
         this.jFrame.add(dishExtraList, dishExtraConstraints);
 
-        orderComment = new TextArea("Comment", 4, 20, TextArea.SCROLLBARS_NONE);
+        orderComment = new TextArea("", 4, 20, TextArea.SCROLLBARS_NONE);
+        orderComment.setText("dette er en tekst");
         GridBagConstraints orderCommentConstraints = new GridBagConstraints();
         orderCommentConstraints.gridx = 1;
         orderCommentConstraints.gridy = 4;
@@ -146,7 +157,31 @@ public class OrderGUI extends GUIModule implements EventHandler, ItemListener {
         customerLabelConstraints.fill = GridBagConstraints.BOTH;
         this.jFrame.add(customerLabel, customerLabelConstraints);
 
-        finishOrderButton = new Button("Ferdigstill");
+        finishOrderButton = new JButton("Ferdigstill");
+        finishOrderButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				orderContentCounter = 1;
+				
+				Customer c = customerMap.get(customerList.getSelectedItem());
+				try {
+					database.addOrder(c, true, orderComment.getText());
+					database.createOrderCommentList();
+					database.createOrdersList();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+				Order o = database.getCustomerToOrderMap().get(c);
+				try{
+					for(OrderDish od : dishesInOrder){
+						database.addDishToOrder(o, od.dish, od.getExtras());
+					}
+				}catch(SQLException ex){
+					ex.printStackTrace();
+				}
+				
+				
+			}
+		});
         GridBagConstraints finishOrderButtonConstraints = new GridBagConstraints();
         finishOrderButtonConstraints.gridx = 2;
         finishOrderButtonConstraints.gridy = 6;
@@ -156,7 +191,6 @@ public class OrderGUI extends GUIModule implements EventHandler, ItemListener {
         this.jFrame.add(finishOrderButton, finishOrderButtonConstraints);
 
         orderedDishesList = new List();
-        orderedDishesList.add("List Entry: Ordered dishes");
         GridBagConstraints orderedDishesListConstraints = new GridBagConstraints();
         orderedDishesListConstraints.gridx = 1;
         orderCommentConstraints.gridy = 7;
@@ -177,9 +211,6 @@ public class OrderGUI extends GUIModule implements EventHandler, ItemListener {
             customerList.add(s);
             customerMap.put(s, c);
         }
-        if(database.getDishes() == null){
-             System.out.print("sdkjhfdskj");
-        }
         for(Dish d : database.getDishes()){
             String s = d.name;
             dishList.add(s);
@@ -193,11 +224,6 @@ public class OrderGUI extends GUIModule implements EventHandler, ItemListener {
 	}
 
 	
-	//@Override
-	public void itemStateChanged(ItemEvent e) {
-		
-		
-	}
 	@Override
 	public void handleEvent(Event<?> event) {
 		if(event.eventType.equals(EventType.COOK_GUI_REQUESTED)){
