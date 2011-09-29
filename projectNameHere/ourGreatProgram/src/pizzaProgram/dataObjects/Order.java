@@ -5,14 +5,14 @@ import java.util.ArrayList;
 
 public class Order {
 
-	private int orderID;
-	private Customer customer;
-	private Date timeRegistered;
-	private ArrayList<OrderDish> orderedDishes;
+	public final int orderID;
+	public final Customer customer;
+	public final Date timeRegistered;
+	public final ArrayList<OrderDish> orderedDishes;
 
-	private String status;
-	private String deliveryMethod;
-	private String comment = "";
+	public final String status;
+	public final String deliveryMethod;
+	public final String comment;
 
 	public static final String REGISTERED = "registered";
 	public static final String BEING_COOKED = "being cooked";

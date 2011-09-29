@@ -49,6 +49,7 @@ public class DatabaseConnection implements EventHandler {
 	private HashMap<Integer, Extra> extrasMap;
 	private ArrayList<Order> orders;
 	private HashMap<Integer, Order> ordermap;
+	private HashMap<Customer, Order> customerToOrderMap;
 
 	public DatabaseConnection() {
 		// this.queryHandler = new QueryHandler();
@@ -452,6 +453,7 @@ public class DatabaseConnection implements EventHandler {
 	public void createOrdersList() throws SQLException {
 		orders = new ArrayList<Order>();
 		ordermap = new HashMap<Integer, Order>();
+		customerToOrderMap = new HashMap<Customer, Order>();
 		HashMap<Integer, OrderDish> tempOrderDishMap = new HashMap<Integer, OrderDish>();
 
 		ResultSet results = fetchData("SELECT Orders.OrdersID,"
@@ -473,6 +475,9 @@ public class DatabaseConnection implements EventHandler {
 						orderComments.get(results.getInt(6)));
 				orders.add(tempOrder);
 				ordermap.put(results.getInt(1), tempOrder);
+				if (!tempOrder.status.equals(Order.DELIVERED)) {
+					customerToOrderMap.put(tempOrder.customer, tempOrder);
+				}
 
 			}
 			if (tempOrderDishMap.get(results.getInt(7)) == null) {
@@ -487,8 +492,9 @@ public class DatabaseConnection implements EventHandler {
 			}
 		}
 		for (OrderDish d : tempOrderDishMap.values()) {
-			if (ordermap.get(d.orderID) != null)
+			if (ordermap.get(d.orderID) != null) {
 				ordermap.get(d.orderID).addOrderDish(d);
+			}
 		}
 		results.close();
 	}
@@ -628,6 +634,10 @@ public class DatabaseConnection implements EventHandler {
 		return extras;
 	}
 
+	public HashMap<Customer, Order> getCustomerToOrderMap() {
+		return customerToOrderMap;
+	}
+
 	public static void main(String[] args) throws SQLException {
 		DatabaseConnection connection = new DatabaseConnection();
 		connection.connect();
@@ -638,26 +648,32 @@ public class DatabaseConnection implements EventHandler {
 		connection.createDishList();
 		connection.createExtrasList();
 		connection.createOrdersList();
-		connection.addOrder(connection.getCustomers().get(0), true, "Kunden truer med å \"drepe dere alle\" om vi ikke klarer å levere pizzaen innen 20min!!");
+		connection
+				.addOrder(
+						connection.getCustomers().get(0),
+						true,
+						"Kunden truer med å \"drepe dere alle\" om vi ikke klarer å levere pizzaen innen 20min!!");
 		connection.createOrdersList();
 		Order tempOrder = null;
-		for (Order o : connection.getOrders()){
-			if (o.getCustomer() == connection.getCustomers().get(0)){
+		for (Order o : connection.getOrders()) {
+			if (o.getCustomer() == connection.getCustomers().get(0)) {
 				tempOrder = o;
 				break;
 			}
 		}
-		for (Order o : connection.getOrders()){
+		for (Order o : connection.getOrders()) {
 			System.out.println(o.toString());
 		}
-//		ArrayList<Extra> tempextras1 = new ArrayList<Extra>();
-//		tempextras1.add(connection.getExtras().get(0));
-//		ArrayList<Extra> tempextras2 = new ArrayList<Extra>();
-//		tempextras2.add(connection.getExtras().get(1));
-//		if (tempOrder != null){
-//			connection.addDishToOrder(tempOrder, connection.getDishes().get(4), tempextras1);
-//			connection.addDishToOrder(tempOrder, connection.getDishes().get(3), tempextras2);
-//		}
+		// ArrayList<Extra> tempextras1 = new ArrayList<Extra>();
+		// tempextras1.add(connection.getExtras().get(0));
+		// ArrayList<Extra> tempextras2 = new ArrayList<Extra>();
+		// tempextras2.add(connection.getExtras().get(1));
+		// if (tempOrder != null){
+		// connection.addDishToOrder(tempOrder, connection.getDishes().get(4),
+		// tempextras1);
+		// connection.addDishToOrder(tempOrder, connection.getDishes().get(3),
+		// tempextras2);
+		// }
 		System.out.println(System.currentTimeMillis() - starttid);
 		System.out.println();
 		connection.disconnect();
