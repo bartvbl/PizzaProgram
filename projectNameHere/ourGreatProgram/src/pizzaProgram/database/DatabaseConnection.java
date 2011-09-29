@@ -30,12 +30,12 @@ public class DatabaseConnection implements EventHandler {
 	 * The maximum amount of allowed characters in a short VARCHAR column in the
 	 * database
 	 */
-	protected static final int VARCHAR_MAX_LENGTH_SHORT = 50;
+	static final int VARCHAR_MAX_LENGTH_SHORT = 50;
 	/**
 	 * The maximum amount of allowed characters in a long VARCHAR column in the
 	 * database
 	 */
-	protected static final int VARCHAR_MAX_LENGTH_LONG = 100;
+	static final int VARCHAR_MAX_LENGTH_LONG = 100;
 
 	private Connection connection;
 	private QueryHandler queryHandler;
@@ -54,7 +54,7 @@ public class DatabaseConnection implements EventHandler {
 		// this.queryHandler = new QueryHandler();
 	}
 
-	public void buildContents() throws SQLException{
+	public void buildContents() throws SQLException {
 		createCustomerCommentList();
 		createOrderCommentList();
 		createCustomerList();
@@ -62,7 +62,7 @@ public class DatabaseConnection implements EventHandler {
 		createExtrasList();
 		createOrdersList();
 	}
-	
+
 	/**
 	 * Method that attempt to make a connection to the mySQL database that
 	 * contains the data.
@@ -140,7 +140,7 @@ public class DatabaseConnection implements EventHandler {
 	 * @return a {@link java.sql.ResultSet ResultSet} containing the result of
 	 *         the query
 	 */
-	protected ResultSet fetchData(String query) {
+	ResultSet fetchData(String query) {
 		try {
 			return connection.createStatement().executeQuery(query);
 		} catch (SQLException e) {
@@ -157,7 +157,7 @@ public class DatabaseConnection implements EventHandler {
 	 *            is to be sent to the database
 	 * @return true if the insertion was a success, false in all other cases
 	 */
-	protected boolean insertIntoDB(String query) {
+	boolean insertIntoDB(String query) {
 		try {
 			return connection.createStatement().execute(query);
 		} catch (SQLException e) {
@@ -183,7 +183,8 @@ public class DatabaseConnection implements EventHandler {
 			Customer tempCustomer = new Customer(results.getInt(1),
 					results.getString(2), results.getString(3),
 					results.getString(4), results.getInt(5),
-					customerComments.get(results.getInt(6)));
+					results.getString(6), results.getInt(7),
+					customerComments.get(results.getInt(8)));
 
 			customers.add(tempCustomer);
 			customerMap.put(tempCustomer.customerID, tempCustomer);
@@ -237,13 +238,14 @@ public class DatabaseConnection implements EventHandler {
 	 * @throws SQLException
 	 */
 	public boolean addCustomer(String firstName, String lastName,
-			String address, int phoneNumber, String comment)
-			throws SQLException {
+			String address, int postalCode, String city, int phoneNumber,
+			String comment) throws SQLException {
 		if (firstName.length() > DatabaseConnection.VARCHAR_MAX_LENGTH_SHORT
 				|| lastName.length() > DatabaseConnection.VARCHAR_MAX_LENGTH_SHORT
-				|| address.length() > DatabaseConnection.VARCHAR_MAX_LENGTH_LONG) {
+				|| address.length() > DatabaseConnection.VARCHAR_MAX_LENGTH_LONG
+				|| city.length() > DatabaseConnection.VARCHAR_MAX_LENGTH_SHORT) {
 			throw new IllegalArgumentException(
-					"Names cannot contain more than "
+					"Names and cities cannot contain more than "
 							+ DatabaseConnection.VARCHAR_MAX_LENGTH_SHORT
 							+ " characters and addresses cannot contain more than "
 							+ DatabaseConnection.VARCHAR_MAX_LENGTH_LONG
@@ -270,19 +272,20 @@ public class DatabaseConnection implements EventHandler {
 					commentID = commentIDset.getInt(1);
 				}
 			}
-			return insertIntoDB("INSERT INTO Customer (FirstName, LastName, Address, TelephoneNumber, CommentID, Identifier) VALUES ('"
+			return insertIntoDB("INSERT INTO Customer (FirstName, LastName, Address, PostalCode, City, TelephoneNumber, CommentID, Identifier) VALUES ('"
 					+ firstName
 					+ "', '"
 					+ lastName
 					+ "', '"
 					+ address
 					+ "', "
+					+ postalCode
+					+ ", '"
+					+ city
+					+ "', "
 					+ phoneNumber
 					+ ", "
-					+ commentID
-					+ ", '"
-					+ identifier
-					+ "');");
+					+ commentID + ", '" + identifier + "');");
 		}
 		return false;
 	}
@@ -311,8 +314,10 @@ public class DatabaseConnection implements EventHandler {
 	 * @throws SQLException
 	 */
 	public boolean addCustomer(String firstName, String lastName,
-			String address, int phoneNumber) throws SQLException {
-		return addCustomer(firstName, lastName, address, phoneNumber, null);
+			String address, int postalCode, String city, int phoneNumber)
+			throws SQLException {
+		return addCustomer(firstName, lastName, address, postalCode, city,
+				phoneNumber, null);
 	}
 
 	/**
@@ -623,25 +628,25 @@ public class DatabaseConnection implements EventHandler {
 		return extras;
 	}
 
-//	public static void main(String[] args) throws SQLException {
-//		DatabaseConnection connection = new DatabaseConnection();
-//		connection.connect();
-//		long starttid = System.currentTimeMillis();
-//		connection.createCustomerCommentList();
-//		connection.createOrderCommentList();
-//		connection.createCustomerList();
-//		connection.createDishList();
-//		connection.createExtrasList();
-//		connection.createOrdersList();
-//		for (Order o : connection.getOrders()) {
-//			System.out.print(o.toString());
-//		}
-//		for (Extra c : connection.getExtras())
-//			System.out.println(c);
-//		System.out.println(System.currentTimeMillis() - starttid);
-//		System.out.println();
-//		connection.disconnect();
-//	}
+	public static void main(String[] args) throws SQLException {
+		DatabaseConnection connection = new DatabaseConnection();
+		connection.connect();
+		long starttid = System.currentTimeMillis();
+		connection.createCustomerCommentList();
+		connection.createOrderCommentList();
+		connection.createCustomerList();
+		connection.createDishList();
+		connection.createExtrasList();
+		connection.createOrdersList();
+		for (Order o : connection.getOrders()) {
+			System.out.print(o.toString());
+		}
+		for (Extra c : connection.getExtras())
+			System.out.println(c);
+		System.out.println(System.currentTimeMillis() - starttid);
+		System.out.println();
+		connection.disconnect();
+	}
 
 	public void handleEvent(Event event) {
 
