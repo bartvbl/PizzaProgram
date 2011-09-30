@@ -11,7 +11,6 @@ import java.util.Comparator;
 import java.util.HashMap;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 import pizzaProgram.dataObjects.Customer;
 import pizzaProgram.dataObjects.Extra;
@@ -48,7 +47,7 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 		populateLists();
 	}
 	/**
-	 * Her skal koden for å lage og legge til komponenter ligger
+	 * Her skal koden for ï¿½ lage og legge til komponenter ligger
 	 */
 	@Override
 	public void initialize() {
@@ -152,7 +151,7 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 		
 	}
 	/**
-	 * Her skal koden for å vise komponentene ligge
+	 * Her skal koden for ï¿½ vise komponentene ligge
 	 */
 	@Override
 	public void show() {
@@ -165,7 +164,7 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 	}
 	
 	/**
-	 * Her skal koden for å skjule komponentene ligge
+	 * Her skal koden for ï¿½ skjule komponentene ligge
 	 */
 	@Override
 	public void hide() {

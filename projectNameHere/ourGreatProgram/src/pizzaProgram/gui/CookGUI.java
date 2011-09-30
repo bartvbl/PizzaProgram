@@ -2,7 +2,6 @@ package pizzaProgram.gui;
 
 import java.awt.GridBagConstraints;
 import java.awt.List;
-import java.awt.PopupMenu;
 import java.awt.TextArea;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;

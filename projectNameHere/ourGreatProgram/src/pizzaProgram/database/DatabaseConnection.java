@@ -30,12 +30,12 @@ public class DatabaseConnection implements EventHandler {
 	 * The maximum amount of allowed characters in a short VARCHAR column in the
 	 * database
 	 */
-	protected static final int VARCHAR_MAX_LENGTH_SHORT = 50;
+	static final int VARCHAR_MAX_LENGTH_SHORT = 50;
 	/**
 	 * The maximum amount of allowed characters in a long VARCHAR column in the
 	 * database
 	 */
-	protected static final int VARCHAR_MAX_LENGTH_LONG = 100;
+	static final int VARCHAR_MAX_LENGTH_LONG = 100;
 
 	private Connection connection;
 	private QueryHandler queryHandler;
@@ -49,12 +49,13 @@ public class DatabaseConnection implements EventHandler {
 	private HashMap<Integer, Extra> extrasMap;
 	private ArrayList<Order> orders;
 	private HashMap<Integer, Order> ordermap;
+	private HashMap<Customer, Order> customerToOrderMap;
 
 	public DatabaseConnection() {
 		// this.queryHandler = new QueryHandler();
 	}
 
-	public void buildContents() throws SQLException{
+	public void buildContents() throws SQLException {
 		createCustomerCommentList();
 		createOrderCommentList();
 		createCustomerList();
@@ -62,7 +63,7 @@ public class DatabaseConnection implements EventHandler {
 		createExtrasList();
 		createOrdersList();
 	}
-	
+
 	/**
 	 * Method that attempt to make a connection to the mySQL database that
 	 * contains the data.
@@ -140,7 +141,7 @@ public class DatabaseConnection implements EventHandler {
 	 * @return a {@link java.sql.ResultSet ResultSet} containing the result of
 	 *         the query
 	 */
-	protected ResultSet fetchData(String query) {
+	ResultSet fetchData(String query) {
 		try {
 			return connection.createStatement().executeQuery(query);
 		} catch (SQLException e) {
@@ -157,7 +158,7 @@ public class DatabaseConnection implements EventHandler {
 	 *            is to be sent to the database
 	 * @return true if the insertion was a success, false in all other cases
 	 */
-	protected boolean insertIntoDB(String query) {
+	boolean insertIntoDB(String query) {
 		try {
 			return connection.createStatement().execute(query);
 		} catch (SQLException e) {
@@ -176,14 +177,15 @@ public class DatabaseConnection implements EventHandler {
 	 */
 	public void createCustomerList() throws SQLException {
 		customers = new ArrayList<Customer>();
-
 		customerMap = new HashMap<Integer, Customer>();
+		createCustomerCommentList();
 		ResultSet results = fetchData("SELECT * FROM Customer;");
 		while (results.next()) {
 			Customer tempCustomer = new Customer(results.getInt(1),
 					results.getString(2), results.getString(3),
 					results.getString(4), results.getInt(5),
-					customerComments.get(results.getInt(6)));
+					results.getString(6), results.getInt(7),
+					customerComments.get(results.getInt(8)));
 
 			customers.add(tempCustomer);
 			customerMap.put(tempCustomer.customerID, tempCustomer);
@@ -237,13 +239,14 @@ public class DatabaseConnection implements EventHandler {
 	 * @throws SQLException
 	 */
 	public boolean addCustomer(String firstName, String lastName,
-			String address, int phoneNumber, String comment)
-			throws SQLException {
+			String address, int postalCode, String city, int phoneNumber,
+			String comment) throws SQLException {
 		if (firstName.length() > DatabaseConnection.VARCHAR_MAX_LENGTH_SHORT
 				|| lastName.length() > DatabaseConnection.VARCHAR_MAX_LENGTH_SHORT
-				|| address.length() > DatabaseConnection.VARCHAR_MAX_LENGTH_LONG) {
+				|| address.length() > DatabaseConnection.VARCHAR_MAX_LENGTH_LONG
+				|| city.length() > DatabaseConnection.VARCHAR_MAX_LENGTH_SHORT) {
 			throw new IllegalArgumentException(
-					"Names cannot contain more than "
+					"Names and cities cannot contain more than "
 							+ DatabaseConnection.VARCHAR_MAX_LENGTH_SHORT
 							+ " characters and addresses cannot contain more than "
 							+ DatabaseConnection.VARCHAR_MAX_LENGTH_LONG
@@ -270,19 +273,20 @@ public class DatabaseConnection implements EventHandler {
 					commentID = commentIDset.getInt(1);
 				}
 			}
-			return insertIntoDB("INSERT INTO Customer (FirstName, LastName, Address, TelephoneNumber, CommentID, Identifier) VALUES ('"
+			return insertIntoDB("INSERT INTO Customer (FirstName, LastName, Address, PostalCode, City, TelephoneNumber, CommentID, Identifier) VALUES ('"
 					+ firstName
 					+ "', '"
 					+ lastName
 					+ "', '"
 					+ address
 					+ "', "
+					+ postalCode
+					+ ", '"
+					+ city
+					+ "', "
 					+ phoneNumber
 					+ ", "
-					+ commentID
-					+ ", '"
-					+ identifier
-					+ "');");
+					+ commentID + ", '" + identifier + "');");
 		}
 		return false;
 	}
@@ -311,8 +315,10 @@ public class DatabaseConnection implements EventHandler {
 	 * @throws SQLException
 	 */
 	public boolean addCustomer(String firstName, String lastName,
-			String address, int phoneNumber) throws SQLException {
-		return addCustomer(firstName, lastName, address, phoneNumber, null);
+			String address, int postalCode, String city, int phoneNumber)
+			throws SQLException {
+		return addCustomer(firstName, lastName, address, postalCode, city,
+				phoneNumber, null);
 	}
 
 	/**
@@ -447,8 +453,9 @@ public class DatabaseConnection implements EventHandler {
 	public void createOrdersList() throws SQLException {
 		orders = new ArrayList<Order>();
 		ordermap = new HashMap<Integer, Order>();
+		customerToOrderMap = new HashMap<Customer, Order>();
 		HashMap<Integer, OrderDish> tempOrderDishMap = new HashMap<Integer, OrderDish>();
-
+		createOrderCommentList();
 		ResultSet results = fetchData("SELECT Orders.OrdersID,"
 				+ " Orders.CustomerID, Orders.TimeRegistered,"
 				+ " Orders.OrdersStatus, Orders.DeliveryMethod,"
@@ -468,6 +475,9 @@ public class DatabaseConnection implements EventHandler {
 						orderComments.get(results.getInt(6)));
 				orders.add(tempOrder);
 				ordermap.put(results.getInt(1), tempOrder);
+				if (!tempOrder.status.equals(Order.DELIVERED)) {
+					customerToOrderMap.put(tempOrder.customer, tempOrder);
+				}
 
 			}
 			if (tempOrderDishMap.get(results.getInt(7)) == null) {
@@ -482,8 +492,9 @@ public class DatabaseConnection implements EventHandler {
 			}
 		}
 		for (OrderDish d : tempOrderDishMap.values()) {
-			if (ordermap.get(d.orderID) != null)
+			if (ordermap.get(d.orderID) != null) {
 				ordermap.get(d.orderID).addOrderDish(d);
+			}
 		}
 		results.close();
 	}
@@ -534,7 +545,7 @@ public class DatabaseConnection implements EventHandler {
 			if (!(comment == null || comment.equals(""))) {
 				insertIntoDB("INSERT INTO OrderComments (Comment) VALUES ('"
 						+ comment + "');");
-				ResultSet commentIDset = fetchData("SELECT CommentID FROM OrderComments WHERE Note='"
+				ResultSet commentIDset = fetchData("SELECT CommentID FROM OrderComments WHERE Comment='"
 						+ comment + "';");
 				if (commentIDset.next()) {
 					commentID = commentIDset.getInt(1);
@@ -623,25 +634,45 @@ public class DatabaseConnection implements EventHandler {
 		return extras;
 	}
 
-//	public static void main(String[] args) throws SQLException {
-//		DatabaseConnection connection = new DatabaseConnection();
-//		connection.connect();
-//		long starttid = System.currentTimeMillis();
-//		connection.createCustomerCommentList();
-//		connection.createOrderCommentList();
-//		connection.createCustomerList();
-//		connection.createDishList();
-//		connection.createExtrasList();
-//		connection.createOrdersList();
-//		for (Order o : connection.getOrders()) {
-//			System.out.print(o.toString());
-//		}
-//		for (Extra c : connection.getExtras())
-//			System.out.println(c);
-//		System.out.println(System.currentTimeMillis() - starttid);
-//		System.out.println();
-//		connection.disconnect();
-//	}
+	public HashMap<Customer, Order> getCustomerToOrderMap() {
+		return customerToOrderMap;
+	}
+
+	public void updateList() throws SQLException {
+		createCustomerList();
+		createDishList();
+		createExtrasList();
+		createOrdersList();
+	}
+
+	public static void main(String[] args) throws SQLException {
+		DatabaseConnection connection = new DatabaseConnection();
+		connection.connect();
+		long starttid = System.currentTimeMillis();
+		connection.createCustomerCommentList();
+		connection.createOrderCommentList();
+		connection.createCustomerList();
+		connection.createDishList();
+		connection.createExtrasList();
+		connection.createOrdersList();
+
+		for (Order o : connection.getOrders()) {
+			System.out.println(o.toString());
+		}
+		// ArrayList<Extra> tempextras1 = new ArrayList<Extra>();
+		// tempextras1.add(connection.getExtras().get(0));
+		// ArrayList<Extra> tempextras2 = new ArrayList<Extra>();
+		// tempextras2.add(connection.getExtras().get(1));
+		// if (tempOrder != null){
+		// connection.addDishToOrder(tempOrder, connection.getDishes().get(4),
+		// tempextras1);
+		// connection.addDishToOrder(tempOrder, connection.getDishes().get(3),
+		// tempextras2);
+		// }
+		System.out.println(System.currentTimeMillis() - starttid);
+		System.out.println();
+		connection.disconnect();
+	}
 
 	public void handleEvent(Event event) {
 

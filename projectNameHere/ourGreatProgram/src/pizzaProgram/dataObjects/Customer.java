@@ -23,6 +23,15 @@ public class Customer {
 	 */
 	public final String address;
 	/**
+	 * The customer's postal code
+	 */
+	public final int postalCode;
+	/**
+	 * The customer's city, derived from his postalCode
+	 */
+	//TODO: Find an easy way to fetch the city from a table based on the postalCode
+	public final String city;
+	/**
 	 * The customer's phone number
 	 */
 	public final int phoneNumber;
@@ -37,23 +46,24 @@ public class Customer {
 	 * @param firstName The customer's first name
 	 * @param lastName The customer's last name
 	 * @param address The customer's address
+	 * @param postalCode The customer's postal code
+	 * @param city The customer's city
 	 * @param phoneNumber The customer's phone number
 	 * @param comment Any comments about this customer
 	 */
-	public Customer(int customerID, String firstName, String lastName, String address, int phoneNumber, String comment) {
+	public Customer(int customerID, String firstName, String lastName, String address, int postalCode, String city, int phoneNumber, String comment) {
 		this.customerID = customerID;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.address = address;
+		this.postalCode = postalCode;
+		this.city = city;
 		this.phoneNumber = phoneNumber;
 		this.comment = comment;
 	}
 	
-	/**
-	 * Creates a readable string from the data stored in the object
-	 */
 	public String toString() {
-		return customerID + " " + firstName + " " + lastName + " " + address + " " + phoneNumber + " " + comment;
+		return customerID + " " + firstName + " " + lastName + " " + address + " " + postalCode + " " + city + " " + phoneNumber + " " + comment;
 	}
 	
 	
