@@ -161,7 +161,9 @@ public class OrderGUI extends GUIModule implements EventHandler {
         finishOrderButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				orderContentCounter = 1;
-				
+				if(dishesInOrder.size()<1){
+					return;
+				}
 				Customer c = customerMap.get(customerList.getSelectedItem());
 				try {
 					database.addOrder(c, true, orderComment.getText());
@@ -175,6 +177,7 @@ public class OrderGUI extends GUIModule implements EventHandler {
 					for(OrderDish od : dishesInOrder){
 						database.addDishToOrder(o, od.dish, od.getExtras());
 					}
+					orderedDishesList.removeAll();
 				}catch(SQLException ex){
 					ex.printStackTrace();
 				}

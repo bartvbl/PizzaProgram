@@ -64,9 +64,12 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 				
 				Customer c = o.getCustomer();
 				
-				currentInfoList.add(c.firstName + " " + c.lastName + "\r\n" + c.address + "\r\n" + c.phoneNumber);
+				currentInfoList.add(c.firstName + " " + c.lastName);
+				currentInfoList.add(c.address);
+				currentInfoList.add(c.postalCode + " " + c.city);
+				currentInfoList.add("+47 " + c.phoneNumber);
 				for (OrderDish od : o.getOrderedDishes()){
-					orderContentList.add(od.dish.name);
+					orderContentList.add(od.dish.name + od.dish.price);
 					for (Extra ex : od.getExtras()){
 						orderContentList.add("  - " + ex.name);
 					}
