@@ -1,7 +1,10 @@
 import java.sql.SQLException;
 
 import pizzaProgram.database.DatabaseConnection;
+import pizzaProgram.events.Event;
 import pizzaProgram.events.EventDispatcher;
+import pizzaProgram.events.EventHandler;
+import pizzaProgram.events.EventType;
 import pizzaProgram.gui.CookGUI;
 import pizzaProgram.gui.DeliverGUI;
 import pizzaProgram.gui.OrderGUI;
@@ -12,7 +15,7 @@ import pizzaProgram.gui.ProgramWindow;
  * @author Bart
  *
  */
-public class Main {
+public class Main implements EventHandler {
 	//
 	/**
 	 * A reference to the main event dispatcher, which represents the communication backbone of the program
@@ -35,6 +38,7 @@ public class Main {
 		this.connectToDatabase();
 		this.createMainWindow();
 		this.createGUIModules();
+		this.eventDispatcher.addEventListener(this, EventType.PROGRAM_EXIT_REQUESTED);
 	}
 	
 	private void createMainWindow(){
@@ -48,13 +52,10 @@ public class Main {
 			this.databaseConnection = new DatabaseConnection();
 			this.databaseConnection.connect();
 			this.databaseConnection.buildContents();
-            Thread.sleep(1000);
 		} catch (SQLException e) {
 			System.err.println(e.getMessage());
-		} catch (InterruptedException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
-    }
+		}
+	}
 	
 	/**
 	 * This function instantiates all the GUI modules of the program. 
@@ -69,5 +70,9 @@ public class Main {
 		DeliverGUI deliverGUI  = new DeliverGUI(this.databaseConnection, this.programWindow.getWindowFrame(), this.eventDispatcher);
 		cookGUI.show();
 	}
-	//this function will be available soon
+	
+	public void handleEvent(Event<?> event) {
+		this.databaseConnection.disconnect();
+		System.exit(0);
+	}
 }
