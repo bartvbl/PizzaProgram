@@ -11,6 +11,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import pizzaProgram.dataObjects.Customer;
 import pizzaProgram.dataObjects.Extra;
@@ -28,7 +29,7 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 	private List orderList;
 	private List currentInfoList = new List();
 	private List orderContentList = new List();
-	private TextArea chartArea;
+	private DeliveryMap chartArea;
 	private HashMap<String, Order> orderMap = new HashMap<String, Order>();
 	
 	private DatabaseConnection database;
@@ -74,9 +75,7 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 						orderContentList.add("  - " + ex.name);
 					}
 				}
-				
-					
-				//System.out.println(orderMap.get(orderList.getSelectedItem()).getComment());
+				chartArea.loadImage(c.address);
 			}
 		});
 		
@@ -94,7 +93,7 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 		GridBagConstraints currentInfoListConstraints = new GridBagConstraints();
 		currentInfoListConstraints.gridx = 1;
 		currentInfoListConstraints.gridy = 0;
-		currentInfoListConstraints.weightx = 0.25;
+		currentInfoListConstraints.weightx = 0;
 		currentInfoListConstraints.weighty = 1;
 		currentInfoListConstraints.gridwidth = 1;
 		currentInfoListConstraints.gridheight = 1;
@@ -105,16 +104,14 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 		GridBagConstraints orderContentListConstraints = new GridBagConstraints();
 		orderContentListConstraints.gridx = 2;
 		orderContentListConstraints.gridy = 0;
-		orderContentListConstraints.weightx = 0.25;
+		orderContentListConstraints.weightx = 0;
 		orderContentListConstraints.weighty = 1;
 		orderContentListConstraints.gridwidth = 1;
 		orderContentListConstraints.gridheight = 1;
 		orderContentListConstraints.fill = GridBagConstraints.BOTH;
 		this.jFrame.add(orderContentList, orderContentListConstraints);
 		
-		chartArea = new TextArea("", 15, 40, TextArea.SCROLLBARS_NONE);
-		chartArea.setEditable(false);
-		chartArea.setText("Kart plasseres her!");
+		chartArea = new DeliveryMap();
 		GridBagConstraints chartAreaConstraints = new GridBagConstraints();
 		chartAreaConstraints.gridx = 1;
 		chartAreaConstraints.gridy = 1;
