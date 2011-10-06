@@ -2,12 +2,16 @@ package pizzaProgram.gui;
 
 import java.awt.GridBagConstraints;
 import java.awt.List;
+import java.awt.PopupMenu;
 import java.awt.TextArea;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.HashMap;
 
 import javax.swing.JFrame;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 import pizzaProgram.dataObjects.Dish;
 import pizzaProgram.dataObjects.Extra;
@@ -22,9 +26,12 @@ import pizzaProgram.modules.GUIModule;
 
 public class CookGUI extends GUIModule implements EventHandler{
 	
-	private List orderList;
+	//private List orderList;
+	private JTable orderTable;
+	private DefaultTableModel orderModel;
 	private HashMap<String, Order> orderMap = new HashMap<String, Order>();
-	private List currentOrderList;
+	//private List currentOrderList;
+	private JTable currentOrderTable;
 	private TextArea commentArea;
 	private TextArea descriptionArea;
 	
@@ -46,24 +53,36 @@ public class CookGUI extends GUIModule implements EventHandler{
 	
 	@Override
 	public void initialize() {
-		orderList = new List();
-		orderList.addItemListener(new ItemListener() {
+		orderModel = new DefaultTableModel();
+		orderModel.addColumn("ID");
+		orderModel.addColumn("Dish name");
+		orderModel.addColumn("Extras");
+		orderTable = new JTable(orderModel);
+		//orderList = new List();
+		/*orderList.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent evt) {
-				currentOrderList.removeAll();
+				currentOrderTable.removeAll();
+				//currentOrderList.removeAll();
 				descriptionArea.setText("");
+				DefaultTableModel model = new DefaultTableModel();
+				model.addColumn("ID");
+				model.addColumn("Dish name");
+				model.addColumn("Extras");
 				for(OrderDish d : orderMap.get(orderList.getSelectedItem()).getOrderedDishes()){
-					currentOrderList.add(d.dish.name);
+					model.addRow(new Object[]{d.dish.dishID, d.dish.name, ""});
+					//currentOrderList.add(d.dish.name);
 					dishMap.put(d.dish.name, d.dish);
 					for(Extra e : d.getExtras()){
 						String str = "   - " + e.name;
-						currentOrderList.add(str);
+						model.addRow(new Object[]{"", "", e.name});
 						dishMap.put(str, d.dish);
 					}
 					
 					commentArea.setText(orderMap.get(orderList.getSelectedItem()).getComment());
 				}
+				currentOrderTable = new JTable(model);
 			}
-		});
+		});*/
 		GridBagConstraints orderListConstraints = new GridBagConstraints();
 		orderListConstraints.gridx = 0;
 		orderListConstraints.gridy = 0;
@@ -72,16 +91,21 @@ public class CookGUI extends GUIModule implements EventHandler{
 		orderListConstraints.gridwidth = 1;
 		orderListConstraints.gridheight = 6;
 		orderListConstraints.fill = GridBagConstraints.BOTH;
-		this.jFrame.add(orderList, orderListConstraints);
+		this.jFrame.add(orderTable, orderListConstraints);
+		//		this.jFrame.add(orderList, orderListConstraints);
 		
-		currentOrderList = new List();
-		currentOrderList.addItemListener(new ItemListener() {
+		currentOrderTable = new JTable();
+		//currentOrderList = new List();
+		
+		
+		
+		/*currentOrderList.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				Dish diplayDish = dishMap.get(currentOrderList.getSelectedItem());
 				descriptionArea.setText("Pizza nr: " + diplayDish.dishID + "\n" + diplayDish.name + "\n\n" + diplayDish.description);
 				
 			}
-		});
+		});*/
 		GridBagConstraints currentOrderListConstraints = new GridBagConstraints();
 		currentOrderListConstraints.gridx = 1;
 		currentOrderListConstraints.gridy = 0;
@@ -90,7 +114,8 @@ public class CookGUI extends GUIModule implements EventHandler{
 		currentOrderListConstraints.gridwidth = 1;
 		currentOrderListConstraints.gridheight = 3;
 		currentOrderListConstraints.fill = GridBagConstraints.BOTH;
-		this.jFrame.add(currentOrderList, currentOrderListConstraints);
+		this.jFrame.add(currentOrderTable, currentOrderListConstraints);
+		//this.jFrame.add(currentOrderList, currentOrderListConstraints);
 		
 		commentArea = new TextArea("", 2, 10, TextArea.SCROLLBARS_NONE);
 		commentArea.setEditable(false);
@@ -103,6 +128,14 @@ public class CookGUI extends GUIModule implements EventHandler{
 		commentAreaConstraints.fill = GridBagConstraints.HORIZONTAL;
 		this.jFrame.add(commentArea, commentAreaConstraints);
 		
+		
+		this.addConstrainedDescriptionAreaToFrame();
+	}
+	
+	
+	
+	private void addConstrainedDescriptionAreaToFrame()
+	{
 		descriptionArea = new TextArea("", 8, 10, TextArea.SCROLLBARS_NONE);
 		descriptionArea.setEditable(false);
 		GridBagConstraints descriptionAreaConstraints = new GridBagConstraints();
@@ -113,7 +146,6 @@ public class CookGUI extends GUIModule implements EventHandler{
 		descriptionAreaConstraints.gridheight = 1;
 		descriptionAreaConstraints.fill = GridBagConstraints.HORIZONTAL;
 		this.jFrame.add(descriptionArea, descriptionAreaConstraints);
-		
 	}
 	
 	@Override
@@ -131,7 +163,8 @@ public class CookGUI extends GUIModule implements EventHandler{
 		for(Order o : database.getOrders()){
 			if(o.getStatus().equals(Order.REGISTERED) || o.getStatus().equals(Order.BEING_COOKED)){
 				String sc = "Ordre nr: " + o.getID() + " Antall Retter: " + o.getOrderedDishes().size(); 
-				orderList.add(sc);
+				this.orderModel.addRow(new Object[]{o.getID(), o.getOrderedDishes().size(), o.getStatus()});
+				//orderList.add(sc);
 				orderMap.put(sc, o);
 			}
 		}
@@ -139,8 +172,10 @@ public class CookGUI extends GUIModule implements EventHandler{
 
 	@Override
 	public void show() {
-		orderList.setVisible(true);
-		currentOrderList.setVisible(true);
+		orderTable.setVisible(true);
+		//orderList.setVisible(true);
+		currentOrderTable.setVisible(true);
+		//currentOrderList.setVisible(true);
 		commentArea.setVisible(true);
 		descriptionArea.setVisible(true);
 		jFrame.setVisible(true);
@@ -148,8 +183,10 @@ public class CookGUI extends GUIModule implements EventHandler{
 
 	@Override
 	public void hide() {
-		orderList.setVisible(false);
-		currentOrderList.setVisible(false);
+		orderTable.setVisible(false);
+		//orderList.setVisible(false);
+		currentOrderTable.setVisible(false);
+		//currentOrderList.setVisible(false);
 		commentArea.setVisible(false);
 		descriptionArea.setVisible(false);
 		jFrame.setVisible(true);
