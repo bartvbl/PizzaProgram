@@ -10,12 +10,13 @@ import pizzaProgram.dataObjects.Dish;
 /**
  * Object for handling dishes in the database. At construction the object
  * creates an {@link java.util.ArrayList ArrayList} and a
- * {@link java.util.HashMap HaspMap} of all the different
+ * {@link java.util.HashMap HashMap} of all the different
  * {@link pizzaProgram.dataObject.Dish dishes} based on a fetch from the
- * database. For now it is suggested to discard this object any time a change
- * occurs to a dish in the database, and construct the dish again. The class
- * also handles removal of existing dishes from the database, as well as changes
- * to currently existing dishes.
+ * database; these lists are publically available through the getter methods. 
+ * For now it is suggested to discard this object any time a change
+ * occurs to a dish in the database, and reconstruct it by a call to the 
+ * constructor. The methods of the class handles removal of existing dishes 
+ * from the database, as well as adding new dishes to the database.
  * 
  * @author IT1901 Group 03, Fall 2011
  */
@@ -34,6 +35,7 @@ public class DishList {
 	 *            to the SQL database
 	 * @throws SQLException
 	 */
+	
 	public DishList(DatabaseConnection dbCon) throws SQLException {
 		dishList = new ArrayList<Dish>();
 		dishMap = new HashMap<Integer, Dish>();
@@ -89,6 +91,7 @@ public class DishList {
 	 * @return returns true if the dish was successfully added to the database,
 	 *         false in all other cases
 	 */
+	
 	public boolean addDish(DatabaseConnection dbCon, int price, String name, boolean containsGluten, boolean containsNuts, 
 							boolean containsDairy, boolean isVegetarian, boolean isSpicy, String description) {
 		if (!(dbCon != null && dbCon.isConnected(DatabaseConnection.DEFAULT_TIMEOUT))) {
@@ -118,6 +121,7 @@ public class DishList {
 	 * @return returns true if the deletion of the dish was a success, returns
 	 *         false in all other cases.
 	 */
+	
 	public boolean removeDish(DatabaseConnection dbCon, Dish dish) {
 		if (!(dbCon != null && dbCon.isConnected(DatabaseConnection.DEFAULT_TIMEOUT))) {
 			System.err.println("No valid database connection specified; no dish removed from the database.");

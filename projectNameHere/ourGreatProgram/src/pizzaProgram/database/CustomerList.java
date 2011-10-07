@@ -12,9 +12,9 @@ import pizzaProgram.dataObjects.Customer;
  * creates an {@link java.util.ArrayList ArrayList} and a
  * {@link java.util.HashMap HashMap} of all the different
  * {@link pizzaProgram.dataObject.Customer customers} based on a fetch from the
- * database; these lists are publically available. For now it is 
- * suggested to discard this object any time a change
- * occurs to a customer in the database, and reconstruct it by a call to its 
+ * database; these lists are publically available through the getter methods.
+ * For now it is suggested to discard this object any time a change
+ * occurs to a customer in the database, and reconstruct it by a call to the 
  * constructor. The methods of the class handles removal of existing customers 
  * from the database, as well as adding new customers to the database.
  * 
@@ -205,6 +205,8 @@ public class CustomerList {
 	 * @return returns true if the removal of the customer was a success, returns
 	 *         false in all other cases.
 	 */
+	
+	//TODO: Find out if we want to remove the comment as well, and if so remove it in the method
 	
 	public boolean removeCustomer(DatabaseConnection dbCon, Customer customer) {
 		if (!(dbCon != null && dbCon.isConnected(DatabaseConnection.DEFAULT_TIMEOUT))) {
