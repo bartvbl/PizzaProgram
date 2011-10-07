@@ -66,28 +66,28 @@ public class DishList {
 	 * Method for adding a new dish to the mySQL database.
 	 * 
 	 * @param dbCon
-	 *            the {@link pizzaProgram.database.DatabaseConnection
+	 *            - the {@link pizzaProgram.database.DatabaseConnection
 	 *            DatabaseConnection} object with the current active connection
 	 *            to the SQL database
 	 * @param price
-	 *            the price of the dish as an integer
+	 *            - the price of the dish as an integer
 	 * @param name
-	 *            the name of the dish as a String no longer than
+	 *            - the name of the dish as a String no longer than
 	 *            {@link pizzaProgram.database.DatabaseConnection.VARCHAR_MAX_LENGTH_LONG
 	 *            VARCHAR_MAX_LENGTH_LONG}
 	 * @param containsGluten
-	 *            set to true if the dish contains gluten, false if not
+	 *            - set to true if the dish contains gluten, false if not
 	 * @param containsNuts
-	 *            set to true if the dish contains nuts, false if not
+	 *            - set to true if the dish contains nuts, false if not
 	 * @param containsDairy
-	 *            set to true if the dish contains dairy products, false if not
+	 *            - set to true if the dish contains dairy products, false if not
 	 * @param isVegetarian
-	 *            set to true if the dish is fully vegetarian in nature, false
+	 *            - set to true if the dish is fully vegetarian in nature, false
 	 *            if not
 	 * @param isSpicy
-	 *            set to true if the dish is spicy in nature, false if not
+	 *            - set to true if the dish is spicy in nature, false if not
 	 * @param description
-	 *            a description of the dish as a String
+	 *            - a description of the dish as a String
 	 * @return returns true if the dish was successfully added to the database,
 	 *         false in all other cases
 	 */
@@ -112,11 +112,11 @@ public class DishList {
 	 * Method to remove a dish from the database
 	 * 
 	 * @param dbCon
-	 *            the {@link pizzaProgram.database.DatabaseConnection
+	 *            - the {@link pizzaProgram.database.DatabaseConnection
 	 *            DatabaseConnection} object with the current active connection
 	 *            to the SQL database
 	 * @param dish
-	 *            the {@link pizzaProgram.dataObjects.Dish dish} to be removed
+	 *            - the {@link pizzaProgram.dataObjects.Dish dish} to be removed
 	 *            from the database
 	 * @return returns true if the deletion of the dish was a success, returns
 	 *         false in all other cases.

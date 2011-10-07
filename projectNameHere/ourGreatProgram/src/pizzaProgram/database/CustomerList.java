@@ -75,9 +75,7 @@ public class CustomerList {
 		ResultSet results = dbCon.fetchData("SELECT * FROM CustomerNotes;");
 		customerComments.put(-1, "");
 		while (results.next()) {
-			if (results.getInt(1) > -1){
-				customerComments.put(results.getInt(1), results.getString(2));
-			}
+			customerComments.put(results.getInt(1), results.getString(2));
 		}
 		results.close();
 		return customerComments;
