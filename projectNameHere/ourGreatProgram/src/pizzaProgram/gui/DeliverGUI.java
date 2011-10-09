@@ -2,7 +2,6 @@ package pizzaProgram.gui;
 
 import java.awt.GridBagConstraints;
 import java.awt.List;
-import java.awt.TextArea;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
@@ -11,7 +10,6 @@ import java.util.Comparator;
 import java.util.HashMap;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 import pizzaProgram.dataObjects.Customer;
 import pizzaProgram.dataObjects.Extra;
