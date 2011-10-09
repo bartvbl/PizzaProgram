@@ -92,7 +92,7 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 		GridBagConstraints currentInfoListConstraints = new GridBagConstraints();
 		currentInfoListConstraints.gridx = 1;
 		currentInfoListConstraints.gridy = 0;
-		currentInfoListConstraints.weightx = 1;
+		currentInfoListConstraints.weightx = 0.01;
 		currentInfoListConstraints.weighty = 1;
 		currentInfoListConstraints.gridwidth = 1;
 		currentInfoListConstraints.gridheight = 1;
@@ -103,7 +103,7 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 		GridBagConstraints orderContentListConstraints = new GridBagConstraints();
 		orderContentListConstraints.gridx = 2;
 		orderContentListConstraints.gridy = 0;
-		orderContentListConstraints.weightx = 1;
+		orderContentListConstraints.weightx = 0.01;
 		orderContentListConstraints.weighty = 1;
 		orderContentListConstraints.gridwidth = 1;
 		orderContentListConstraints.gridheight = 1;
