@@ -77,6 +77,7 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 			}
 		});
 		
+		// Gridden som inneholder Ordre
 		GridBagConstraints orderListConstraints = new GridBagConstraints();
 		orderListConstraints.gridx = 0;
 		orderListConstraints.gridy = 0;
@@ -87,28 +88,29 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 		orderListConstraints.fill = GridBagConstraints.BOTH;
 		this.jFrame.add(orderList, orderListConstraints);
 		
-		
+		// Gridden som inneholder Adresse
 		GridBagConstraints currentInfoListConstraints = new GridBagConstraints();
 		currentInfoListConstraints.gridx = 1;
 		currentInfoListConstraints.gridy = 0;
-		currentInfoListConstraints.weightx = 0;
+		currentInfoListConstraints.weightx = 1;
 		currentInfoListConstraints.weighty = 1;
 		currentInfoListConstraints.gridwidth = 1;
 		currentInfoListConstraints.gridheight = 1;
 		currentInfoListConstraints.fill = GridBagConstraints.BOTH;
 		this.jFrame.add(currentInfoList, currentInfoListConstraints);
 		
-		
+		// Gridden som inneholder innholdet i ordren
 		GridBagConstraints orderContentListConstraints = new GridBagConstraints();
 		orderContentListConstraints.gridx = 2;
 		orderContentListConstraints.gridy = 0;
-		orderContentListConstraints.weightx = 0;
+		orderContentListConstraints.weightx = 1;
 		orderContentListConstraints.weighty = 1;
 		orderContentListConstraints.gridwidth = 1;
 		orderContentListConstraints.gridheight = 1;
 		orderContentListConstraints.fill = GridBagConstraints.BOTH;
 		this.jFrame.add(orderContentList, orderContentListConstraints);
 		
+		// Gridden som inneholder kart
 		chartArea = new DeliveryMap();
 		GridBagConstraints chartAreaConstraints = new GridBagConstraints();
 		chartAreaConstraints.gridx = 1;
