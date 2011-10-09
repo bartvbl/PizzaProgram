@@ -598,8 +598,14 @@ public class DatabaseConnection implements EventHandler {
 		}
 
 	}
-
-	public void changeOrder(Order order) {
+	/**
+	 * Oppdaterer OrdersStatus i Orders tabellen.
+	 * @param order
+	 * 
+	 * @param status
+	 */
+	public void changeOrderStatus(Order order, String status) {
+		insertIntoDB("UPDATE Orders SET OrdersStatus='" + status + "' WHERE OrdersID=" + order.orderID + ";");
 	}
 
 	/**
