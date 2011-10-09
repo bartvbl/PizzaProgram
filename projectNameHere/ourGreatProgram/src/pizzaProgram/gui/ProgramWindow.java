@@ -63,8 +63,10 @@ public class ProgramWindow implements EventHandler{
 		Canvas canvas = new Canvas();
 		JFrame frame = new JFrame(ProgramWindow.MAIN_WINDOW_NAME);
 		GridBagLayout gbl = new GridBagLayout();
-
+		frame.setMinimumSize(new Dimension(800, 600));
 		frame.setLayout(gbl);
+		
+		frame.setResizable(false);
 		this.canvas = canvas;
 		this.jframe = frame;
 		
