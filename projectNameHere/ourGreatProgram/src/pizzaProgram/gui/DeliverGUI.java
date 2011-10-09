@@ -99,7 +99,7 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 		currentInfoListConstraints.fill = GridBagConstraints.BOTH;
 		this.jFrame.add(currentInfoList, currentInfoListConstraints);
 		
-		// Gridden som inneholder innholdet i ordren
+		// Gridden som inneholder innholdet i ordren f
 		GridBagConstraints orderContentListConstraints = new GridBagConstraints();
 		orderContentListConstraints.gridx = 2;
 		orderContentListConstraints.gridy = 0;
