@@ -3,6 +3,8 @@ package pizzaProgram.gui;
 import java.awt.GridBagConstraints;
 import java.awt.List;
 import java.awt.TextArea;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.HashMap;
@@ -124,9 +126,19 @@ public class CookGUI extends GUIModule implements EventHandler{
 		this.jFrame.add(descriptionArea, createConstrints(2, 3, 2, 2, 0.6, 0.0));
 		
 		beingMadeButton = new JButton("Sett under laging");
+		beingMadeButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				databaseOrders.changeOrderStatus(orderMap.get(orderList.getSelectedItem()), Order.BEING_COOKED);
+			}
+		});
 		this.jFrame.add(beingMadeButton, createConstrints(0, 6, 1, 1, 0.14, 0.0));
 		
 		finishedButton = new JButton("Ferdig");
+		finishedButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				databaseOrders.changeOrderStatus(orderMap.get(orderList.getSelectedItem()), Order.HAS_BEEN_COOKED);
+			}
+		});
 		this.jFrame.add(finishedButton, createConstrints(1, 6, 1, 1, 0.26, 0.0));
 	}
 	
