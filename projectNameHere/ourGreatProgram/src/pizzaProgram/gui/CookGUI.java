@@ -1,5 +1,6 @@
 package pizzaProgram.gui;
 
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.List;
 import java.awt.TextArea;
@@ -39,6 +40,8 @@ public class CookGUI extends GUIModule implements EventHandler{
 	private JButton beingMadeButton;
 	private JButton finishedButton;
 	
+	private List valgtliste;
+	
 	public CookGUI(OrderList ol, JFrame jFrame, EventDispatcher eventDispatcher) {
 		super(eventDispatcher);
 		this.databaseOrders = ol;
@@ -53,77 +56,50 @@ public class CookGUI extends GUIModule implements EventHandler{
 	
 	@Override
 	public void initialize() {
-		//orderModel = new DefaultTableModel();
-		//orderModel.addColumn("ID");
-		//orderModel.addColumn("Dish name");
-		//orderModel.addColumn("Extras");
-		//orderTable = new JTable(orderModel);
+		
+		valgtliste = new List();
+		valgtliste.setMinimumSize(new Dimension(10, 100));
+		valgtliste.setPreferredSize(new Dimension(20, 100));
+		this.jFrame.add(valgtliste, createConstrints(0, 0, 2, 6, 0.0, 1, GridBagConstraints.VERTICAL));
+		
 		orderList = new List();
 		orderList.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent evt) {
-				//currentOrderTable.removeAll();
 				currentOrderList.removeAll();
 				descriptionArea.setText("");
 				DefaultTableModel model = new DefaultTableModel();
-				//model.addColumn("ID");
-				//model.addColumn("Dish name");
-				//model.addColumn("Extras");
 				for(OrderDish d : orderMap.get(orderList.getSelectedItem()).getOrderedDishes()){
 					model.addRow(new Object[]{d.dish.dishID, d.dish.name, ""});
 					currentOrderList.add(d.dish.name);
 					dishMap.put(d.dish.name, d.dish);
 					for(Extra e : d.getExtras()){
 						String str = "   - " + e.name;
-						//model.addRow(new Object[]{"", "", e.name});
 						currentOrderList.add(str);
 						dishMap.put(str, d.dish);
 					}
 					
 					commentArea.setText(orderMap.get(orderList.getSelectedItem()).getComment());
 				}
-				//currentOrderTable = new JTable(model);
 			}
 		});
-		GridBagConstraints orderListConstraints = new GridBagConstraints();
-		orderListConstraints.gridx = 0;
-		orderListConstraints.gridy = 0;
-		orderListConstraints.weightx = 0.4;
-		orderListConstraints.weighty = 1;
-		orderListConstraints.gridwidth = 2;
-		orderListConstraints.gridheight = 6;
-		orderListConstraints.fill = GridBagConstraints.BOTH;
-		//this.jFrame.add(orderTable, orderListConstraints);
-		this.jFrame.add(orderList, orderListConstraints);
+		this.jFrame.add(orderList, createConstrints(2, 0, 20, 6, 0.4, 1.0, GridBagConstraints.BOTH));
 		
-		//currentOrderTable = new JTable();
 		currentOrderList = new List();
-		
-		
-		
 		currentOrderList.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				Dish diplayDish = dishMap.get(currentOrderList.getSelectedItem());
 				descriptionArea.setText("Pizza nr: " + diplayDish.dishID + "\n" + diplayDish.name + "\n\n" + diplayDish.description);
 			}
 		});
-		GridBagConstraints currentOrderListConstraints = new GridBagConstraints();
-		currentOrderListConstraints.gridx = 2;
-		currentOrderListConstraints.gridy = 0;
-		currentOrderListConstraints.weightx = 0.6;
-		currentOrderListConstraints.weighty = 0.5;
-		currentOrderListConstraints.gridwidth = 2;
-		currentOrderListConstraints.gridheight = 3;
-		currentOrderListConstraints.fill = GridBagConstraints.BOTH;
-		//this.jFrame.add(currentOrderTable, currentOrderListConstraints);
-		this.jFrame.add(currentOrderList, currentOrderListConstraints);
+		this.jFrame.add(currentOrderList, createConstrints(22, 0, 23, 3, 0.6, 0.5, GridBagConstraints.BOTH));
 		
 		commentArea = new TextArea("", 3, 10, TextArea.SCROLLBARS_NONE);
 		commentArea.setEditable(false);
-		this.jFrame.add(commentArea, createConstrints(2, 5, 2, 1, 0.6, 0.0));
+		this.jFrame.add(commentArea, createConstrints(22, 5, 23, 1, 0.6, 0.0, GridBagConstraints.BOTH));
 		
 		descriptionArea = new TextArea("", 8, 10, TextArea.SCROLLBARS_NONE);
 		descriptionArea.setEditable(false);
-		this.jFrame.add(descriptionArea, createConstrints(2, 3, 2, 2, 0.6, 0.0));
+		this.jFrame.add(descriptionArea, createConstrints(22, 3, 23, 2, 0.6, 0.0, GridBagConstraints.BOTH));
 		
 		beingMadeButton = new JButton("Sett under laging");
 		beingMadeButton.addActionListener(new ActionListener() {
@@ -131,7 +107,7 @@ public class CookGUI extends GUIModule implements EventHandler{
 				databaseOrders.changeOrderStatus(orderMap.get(orderList.getSelectedItem()), Order.BEING_COOKED);
 			}
 		});
-		this.jFrame.add(beingMadeButton, createConstrints(0, 6, 1, 1, 0.14, 0.0));
+		this.jFrame.add(beingMadeButton, createConstrints(3, 6, 1, 1, 0.14, 0.0, GridBagConstraints.BOTH));
 		
 		finishedButton = new JButton("Ferdig");
 		finishedButton.addActionListener(new ActionListener() {
@@ -139,10 +115,10 @@ public class CookGUI extends GUIModule implements EventHandler{
 				databaseOrders.changeOrderStatus(orderMap.get(orderList.getSelectedItem()), Order.HAS_BEEN_COOKED);
 			}
 		});
-		this.jFrame.add(finishedButton, createConstrints(1, 6, 1, 1, 0.26, 0.0));
+		this.jFrame.add(finishedButton, createConstrints(4, 6, 18, 1, 0.26, 0.0, GridBagConstraints.BOTH));
 	}
 	
-	private GridBagConstraints createConstrints(int xx, int yy, int width, int height, double xweight, double yweight){
+	private GridBagConstraints createConstrints(int xx, int yy, int width, int height, double xweight, double yweight, int fill){
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.gridx = xx;
 		gbc.gridy = yy;
@@ -150,7 +126,7 @@ public class CookGUI extends GUIModule implements EventHandler{
 		gbc.gridheight = height;
 		gbc.weightx = xweight;
 		gbc.weighty = yweight;
-		gbc.fill = GridBagConstraints.BOTH;
+		gbc.fill = fill;
 		return gbc;
 	}
 	
@@ -168,8 +144,9 @@ public class CookGUI extends GUIModule implements EventHandler{
 		for(Order o : databaseOrders.getOrderList()){
 			if(o.getStatus().equals(Order.REGISTERED) || o.getStatus().equals(Order.BEING_COOKED)){
 				String sc = "Ordre nr: " + o.getID() + " Antall Retter: " + o.getOrderedDishes().size(); 
-				//this.orderModel.addRow(new Object[]{o.getID(), o.getOrderedDishes().size(), o.getStatus()});
 				orderList.add(sc);
+				String status = (o.getStatus().equals(Order.BEING_COOKED) ? "Lages" : "Ledig");
+				valgtliste.add(status);
 				orderMap.put(sc, o);
 			}
 		}
@@ -177,27 +154,25 @@ public class CookGUI extends GUIModule implements EventHandler{
 
 	@Override
 	public void show() {
-		//orderTable.setVisible(true);
 		orderList.setVisible(true);
-		//currentOrderTable.setVisible(true);
 		currentOrderList.setVisible(true);
 		commentArea.setVisible(true);
 		descriptionArea.setVisible(true);
 		beingMadeButton.setVisible(true);
 		finishedButton.setVisible(true);
+		valgtliste.setVisible(true);
 		jFrame.setVisible(true);
 	}
 
 	@Override
 	public void hide() {
-		//orderTable.setVisible(false);
 		orderList.setVisible(false);
-		//currentOrderTable.setVisible(false);
 		currentOrderList.setVisible(false);
 		commentArea.setVisible(false);
 		descriptionArea.setVisible(false);
 		beingMadeButton.setVisible(false);
 		finishedButton.setVisible(false);
+		valgtliste.setVisible(false);
 		jFrame.setVisible(true);
 	}
 }
