@@ -31,6 +31,7 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 	private List orderList;
 	private List currentInfoList = new List();
 	private List orderContentList = new List();
+	private List orderStatusList = new List();
 	private DeliveryMap chartArea;
 	private HashMap<String, Order> orderMap = new HashMap<String, Order>();
 	
@@ -63,6 +64,7 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 				currentInfoList.removeAll();
 				orderContentList.removeAll();
 				
+				
 				Order o = orderMap.get(orderList.getSelectedItem());
 				if (o == null){
 					return;
@@ -84,13 +86,24 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 			}
 		});
 		
+		// Gridden som inneholder Status
+		GridBagConstraints statusListConstraints = new GridBagConstraints();
+		statusListConstraints.gridx = 0;
+		statusListConstraints.gridy = 0;
+		statusListConstraints.weightx = 0;
+		statusListConstraints.weighty = 1;
+		statusListConstraints.gridwidth = 2;
+		statusListConstraints.gridheight = 2;
+		statusListConstraints.fill = GridBagConstraints.BOTH;
+		this.jFrame.add(orderStatusList, statusListConstraints);
+		
 		// Gridden som inneholder Ordre
 		GridBagConstraints orderListConstraints = new GridBagConstraints();
-		orderListConstraints.gridx = 0;
+		orderListConstraints.gridx = 2;
 		orderListConstraints.gridy = 0;
-		orderListConstraints.weightx = 1;
+		orderListConstraints.weightx = 0.1;
 		orderListConstraints.weighty = 1;
-		orderListConstraints.gridwidth = 3;
+		orderListConstraints.gridwidth = 16;
 		orderListConstraints.gridheight = 2;
 		orderListConstraints.fill = GridBagConstraints.BOTH;
 		this.jFrame.add(orderList, orderListConstraints);
@@ -128,7 +141,7 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 		            }
 				});
 		        GridBagConstraints onRouteConstraints = new GridBagConstraints();
-		        onRouteConstraints.gridx = 1;
+		        onRouteConstraints.gridx = 6;
 		        onRouteConstraints.gridy = 2;
 		        onRouteConstraints.gridheight = 1;
 		        onRouteConstraints.gridwidth = 1;
@@ -145,7 +158,7 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 		            }
 				});
 		        GridBagConstraints deliveredConstraints = new GridBagConstraints();
-		        deliveredConstraints.gridx = 2;
+		        deliveredConstraints.gridx = 12;
 		        deliveredConstraints.gridy = 2;
 		        deliveredConstraints.gridheight = 1;
 		        deliveredConstraints.gridwidth = 1;
@@ -155,22 +168,22 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 		
 		// Gridden som inneholder Adresse
 		GridBagConstraints currentInfoListConstraints = new GridBagConstraints();
-		currentInfoListConstraints.gridx = 3;
+		currentInfoListConstraints.gridx = 18;
 		currentInfoListConstraints.gridy = 0;
 		currentInfoListConstraints.weightx = 0.01;
 		currentInfoListConstraints.weighty = 1;
-		currentInfoListConstraints.gridwidth = 1;
+		currentInfoListConstraints.gridwidth = 11;
 		currentInfoListConstraints.gridheight = 1;
 		currentInfoListConstraints.fill = GridBagConstraints.BOTH;
 		this.jFrame.add(currentInfoList, currentInfoListConstraints);
 		
 		// Gridden som inneholder innholdet i ordren
 		GridBagConstraints orderContentListConstraints = new GridBagConstraints();
-		orderContentListConstraints.gridx = 4;
+		orderContentListConstraints.gridx = 29;
 		orderContentListConstraints.gridy = 0;
 		orderContentListConstraints.weightx = 0.01;
 		orderContentListConstraints.weighty = 1;
-		orderContentListConstraints.gridwidth = 1;
+		orderContentListConstraints.gridwidth = 11;
 		orderContentListConstraints.gridheight = 1;
 		orderContentListConstraints.fill = GridBagConstraints.BOTH;
 		this.jFrame.add(orderContentList, orderContentListConstraints);
@@ -178,11 +191,11 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 		// Gridden som inneholder kart
 		chartArea = new DeliveryMap();
 		GridBagConstraints chartAreaConstraints = new GridBagConstraints();
-		chartAreaConstraints.gridx = 3;
+		chartAreaConstraints.gridx = 18;
 		chartAreaConstraints.gridy = 1;
 		chartAreaConstraints.weightx = 0;
 		chartAreaConstraints.weighty = 0;
-		chartAreaConstraints.gridwidth = 2;
+		chartAreaConstraints.gridwidth = 22;
 		chartAreaConstraints.gridheight = 1;
 		chartAreaConstraints.fill = GridBagConstraints.BOTH;
 		this.jFrame.add(chartArea, chartAreaConstraints);
@@ -210,6 +223,8 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 		
 		for (Order o : tempSort){
 			orderList.add("Order " + o.getID() + ": " + o.getCustomer().firstName + " " + o.getCustomer().lastName);
+			String status = (o.status.equals(Order.HAS_BEEN_COOKED) ? "Ledig" : "Kj¿res");
+			orderStatusList.add(status);
 			//infoList.add(o.getCustomer().firstName);
 		}
 		
@@ -220,6 +235,7 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 	@Override
 	public void show() {
 		System.out.println("show");
+		orderStatusList.setVisible(true);
 		receipt.setVisible(true);
 		onRoute.setVisible(true);
 		delivered.setVisible(true);
@@ -236,6 +252,7 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 	@Override
 	public void hide() {
 		System.out.println("show");
+		orderStatusList.setVisible(false);
 		receipt.setVisible(false);
 		onRoute.setVisible(false);
 		delivered.setVisible(false);
