@@ -15,7 +15,7 @@ import pizzaProgram.dataObjects.Dish;
 import pizzaProgram.dataObjects.Extra;
 import pizzaProgram.dataObjects.Order;
 import pizzaProgram.dataObjects.OrderDish;
-import pizzaProgram.database.DatabaseConnection;
+import pizzaProgram.database.OrderList;
 import pizzaProgram.events.Event;
 import pizzaProgram.events.EventDispatcher;
 import pizzaProgram.events.EventHandler;
@@ -30,16 +30,16 @@ public class CookGUI extends GUIModule implements EventHandler{
 	private TextArea commentArea;
 	private TextArea descriptionArea;
 	
-	private DatabaseConnection database;
+	private OrderList databaseOrders;
 	private JFrame jFrame;
 	private HashMap<String, Dish> dishMap = new HashMap<String, Dish>();
 	
 	private JButton beingMadeButton;
 	private JButton finishedButton;
 	
-	public CookGUI(DatabaseConnection dbc, JFrame jFrame, EventDispatcher eventDispatcher) {
+	public CookGUI(OrderList ol, JFrame jFrame, EventDispatcher eventDispatcher) {
 		super(eventDispatcher);
-		this.database = dbc;
+		this.databaseOrders = ol;
 		this.jFrame = jFrame;
 		eventDispatcher.addEventListener(this, EventType.COOK_GUI_REQUESTED);
 		eventDispatcher.addEventListener(this, EventType.ORDER_GUI_REQUESTED);
@@ -153,7 +153,7 @@ public class CookGUI extends GUIModule implements EventHandler{
 	}
 	
 	private void populateLists(){
-		for(Order o : database.getOrders()){
+		for(Order o : databaseOrders.getOrderList()){
 			if(o.getStatus().equals(Order.REGISTERED) || o.getStatus().equals(Order.BEING_COOKED)){
 				String sc = "Ordre nr: " + o.getID() + " Antall Retter: " + o.getOrderedDishes().size(); 
 				//this.orderModel.addRow(new Object[]{o.getID(), o.getOrderedDishes().size(), o.getStatus()});

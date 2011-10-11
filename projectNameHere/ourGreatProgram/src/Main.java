@@ -77,7 +77,7 @@ public class Main implements EventHandler {
 		//TODO: remove jframe parameter
 		
 		OrderGUI orderGUI = new OrderGUI(this.customerList, this.dishList, this.extraList, this.orderList, this.programWindow.getWindowFrame(), this.eventDispatcher);
-		CookGUI cookGUI  = new CookGUI(this.databaseConnection, this.programWindow.getWindowFrame(), this.eventDispatcher);
+		CookGUI cookGUI  = new CookGUI(this.orderList, this.programWindow.getWindowFrame(), this.eventDispatcher);
 		DeliverGUI deliverGUI  = new DeliverGUI(this.orderList, this.programWindow.getWindowFrame(), this.eventDispatcher);
 		orderGUI.show();
 	}
