@@ -1,6 +1,10 @@
 import java.sql.SQLException;
 
+import pizzaProgram.database.CustomerList;
 import pizzaProgram.database.DatabaseConnection;
+import pizzaProgram.database.DishList;
+import pizzaProgram.database.ExtraList;
+import pizzaProgram.database.OrderList;
 import pizzaProgram.events.Event;
 import pizzaProgram.events.EventDispatcher;
 import pizzaProgram.events.EventHandler;
@@ -29,6 +33,10 @@ public class Main implements EventHandler {
 	
 	
 	private DatabaseConnection databaseConnection;
+	private CustomerList customerList;
+	private DishList dishList;
+	private ExtraList extraList;
+	private OrderList orderList;
 	
 	/**
 	 * creates every part of the program, and sets it up correctly
@@ -51,7 +59,10 @@ public class Main implements EventHandler {
 		try {
 			this.databaseConnection = new DatabaseConnection();
 			this.databaseConnection.connect();
-			this.databaseConnection.buildContents();
+			customerList = new CustomerList(databaseConnection);
+			dishList = new DishList(databaseConnection);
+			extraList = new ExtraList(databaseConnection);
+			orderList = new OrderList(databaseConnection, customerList, dishList, extraList);
 		} catch (SQLException e) {
 			System.err.println(e.getMessage());
 		}
@@ -65,10 +76,10 @@ public class Main implements EventHandler {
 		//TODO: remove database connection parameter when database events are operational
 		//TODO: remove jframe parameter
 		
-		OrderGUI orderGUI = new OrderGUI(this.databaseConnection, this.programWindow.getWindowFrame(), this.eventDispatcher);
+		OrderGUI orderGUI = new OrderGUI(this.customerList, this.dishList, this.extraList, this.orderList, this.programWindow.getWindowFrame(), this.eventDispatcher);
 		CookGUI cookGUI  = new CookGUI(this.databaseConnection, this.programWindow.getWindowFrame(), this.eventDispatcher);
-		DeliverGUI deliverGUI  = new DeliverGUI(this.databaseConnection, this.programWindow.getWindowFrame(), this.eventDispatcher);
-		cookGUI.show();
+		DeliverGUI deliverGUI  = new DeliverGUI(this.orderList, this.programWindow.getWindowFrame(), this.eventDispatcher);
+		orderGUI.show();
 	}
 	
 	public void handleEvent(Event<?> event) {

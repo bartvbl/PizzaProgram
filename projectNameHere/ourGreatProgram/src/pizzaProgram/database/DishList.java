@@ -12,45 +12,62 @@ import pizzaProgram.dataObjects.Dish;
  * creates an {@link java.util.ArrayList ArrayList} and a
  * {@link java.util.HashMap HashMap} of all the different
  * {@link pizzaProgram.dataObject.Dish dishes} based on a fetch from the
- * database; these lists are publically available through the getter methods. 
- * For now it is suggested to discard this object any time a change
- * occurs to a dish in the database, and reconstruct it by a call to the 
- * constructor. The methods of the class handles removal of existing dishes 
- * from the database, as well as adding new dishes to the database.
+ * database; these lists are publically available through the getter methods.
+ * For now it is suggested to discard this object any time a change occurs to a
+ * dish in the database, and reconstruct it by a call to the constructor. The
+ * methods of the class handles removal of existing dishes from the database, as
+ * well as adding new dishes to the database.
  * 
  * @author IT1901 Group 03, Fall 2011
  */
 
-//TODO: Dispatch an event whenever the lists are updated
+// TODO: Dispatch an event whenever the lists are updated
 
 public class DishList {
 	private ArrayList<Dish> dishList;
 	private HashMap<Integer, Dish> dishMap;
+	private DatabaseConnection dbCon;
 
 	/**
-	 * Constructor that creates the list objects as specified in the class javadoc
+	 * Constructor that creates the list objects as specified in the class
+	 * javadoc
 	 * 
-	 * @param dbCon - the {@link pizzaProgram.database.DatabaseConnection
+	 * @param dbCon
+	 *            - the {@link pizzaProgram.database.DatabaseConnection
 	 *            DatabaseConnection} object with the current active connection
 	 *            to the SQL database
 	 * @throws SQLException
 	 */
-	
-	public DishList(DatabaseConnection dbCon) throws SQLException {
+
+	public DishList(DatabaseConnection dbCon) {
+		this.dbCon = dbCon;
+		if (!(dbCon != null && dbCon
+				.isConnected(DatabaseConnection.DEFAULT_TIMEOUT))) {
+			System.err
+					.println("No active database connection: please try again!");
+			return;
+		}
+		this.updateDishes();
+	}
+
+	public void updateDishes() {
 		dishList = new ArrayList<Dish>();
 		dishMap = new HashMap<Integer, Dish>();
-		if (!(dbCon != null && dbCon.isConnected(DatabaseConnection.DEFAULT_TIMEOUT))) {
-			System.err.println("No active database connection: please try again!");
-		} else {
-			ResultSet results = dbCon.fetchData("SELECT * FROM Dishes;");			
+		try {
+			ResultSet results = dbCon.fetchData("SELECT * FROM Dishes;");
 			while (results.next()) {
-				Dish tempDish = new Dish(
-					results.getInt(1), results.getInt(2), results.getString(3), results.getBoolean(4), results.getBoolean(5), 
-						results.getBoolean(6), results.getBoolean(7), results.getBoolean(8), results.getString(9));
+				Dish tempDish = new Dish(results.getInt(1), results.getInt(2),
+						results.getString(3), results.getBoolean(4),
+						results.getBoolean(5), results.getBoolean(6),
+						results.getBoolean(7), results.getBoolean(8),
+						results.getString(9));
 				dishList.add(tempDish);
 				dishMap.put(tempDish.dishID, tempDish);
-			}			
+			}
 			results.close();
+		} catch (SQLException e) {
+			System.err.println("An error occured during your query: "
+					+ e.getMessage());
 		}
 	}
 
@@ -80,7 +97,8 @@ public class DishList {
 	 * @param containsNuts
 	 *            - set to true if the dish contains nuts, false if not
 	 * @param containsDairy
-	 *            - set to true if the dish contains dairy products, false if not
+	 *            - set to true if the dish contains dairy products, false if
+	 *            not
 	 * @param isVegetarian
 	 *            - set to true if the dish is fully vegetarian in nature, false
 	 *            if not
@@ -91,21 +109,40 @@ public class DishList {
 	 * @return returns true if the dish was successfully added to the database,
 	 *         false in all other cases
 	 */
-	
-	public boolean addDish(DatabaseConnection dbCon, int price, String name, boolean containsGluten, boolean containsNuts, 
-							boolean containsDairy, boolean isVegetarian, boolean isSpicy, String description) {
-		if (!(dbCon != null && dbCon.isConnected(DatabaseConnection.DEFAULT_TIMEOUT))) {
-			System.err.println("No valid database connection specified; dish not added to the database.");
+
+	public boolean addDish(int price, String name, boolean containsGluten,
+			boolean containsNuts, boolean containsDairy, boolean isVegetarian,
+			boolean isSpicy, String description) {
+		if (!(dbCon != null && dbCon
+				.isConnected(DatabaseConnection.DEFAULT_TIMEOUT))) {
+			System.err
+					.println("No valid database connection specified; dish not added to the database.");
 			return false;
 		}
 		if (name.length() > DatabaseConnection.VARCHAR_MAX_LENGTH_LONG) {
-			throw new IllegalArgumentException("The name of the dish cannot be more than " 
-												+ DatabaseConnection.VARCHAR_MAX_LENGTH_LONG + " characters long.");
+			throw new IllegalArgumentException(
+					"The name of the dish cannot be more than "
+							+ DatabaseConnection.VARCHAR_MAX_LENGTH_LONG
+							+ " characters long.");
 		}
-		return dbCon.insertIntoDB(
-			"INSERT IGNORE INTO Dishes (Price, Name, ContainsGluten, ContainsNuts, ContainsDairy, IsVegetarian, IsSpicy, Description) VALUES ("
-				+ price + ", '" + name + "', " + containsGluten + ", " + containsNuts + ", " + containsDairy + ", " + isVegetarian 
-					+ ", " + isSpicy + ", '" + description + "');");
+		return dbCon
+				.insertIntoDB("INSERT IGNORE INTO Dishes (Price, Name, ContainsGluten, ContainsNuts, ContainsDairy, IsVegetarian, IsSpicy, Description) VALUES ("
+						+ price
+						+ ", '"
+						+ name
+						+ "', "
+						+ containsGluten
+						+ ", "
+						+ containsNuts
+						+ ", "
+						+ containsDairy
+						+ ", "
+						+ isVegetarian
+						+ ", "
+						+ isSpicy
+						+ ", '"
+						+ description
+						+ "');");
 	}
 
 	/**
@@ -121,12 +158,15 @@ public class DishList {
 	 * @return returns true if the deletion of the dish was a success, returns
 	 *         false in all other cases.
 	 */
-	
-	public boolean removeDish(DatabaseConnection dbCon, Dish dish) {
-		if (!(dbCon != null && dbCon.isConnected(DatabaseConnection.DEFAULT_TIMEOUT))) {
-			System.err.println("No valid database connection specified; no dish removed from the database.");
+
+	public boolean removeDish(Dish dish) {
+		if (!(dbCon != null && dbCon
+				.isConnected(DatabaseConnection.DEFAULT_TIMEOUT))) {
+			System.err
+					.println("No valid database connection specified; no dish removed from the database.");
 			return false;
 		}
-		return dbCon.insertIntoDB("DELETE FROM Dishes WHERE DishID=" + dish.dishID + ");");
+		return dbCon.insertIntoDB("DELETE FROM Dishes WHERE DishID="
+				+ dish.dishID + ");");
 	}
 }

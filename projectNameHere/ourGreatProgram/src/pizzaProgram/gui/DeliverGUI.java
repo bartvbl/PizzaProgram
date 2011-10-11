@@ -19,7 +19,7 @@ import pizzaProgram.dataObjects.Customer;
 import pizzaProgram.dataObjects.Extra;
 import pizzaProgram.dataObjects.Order;
 import pizzaProgram.dataObjects.OrderDish;
-import pizzaProgram.database.DatabaseConnection;
+import pizzaProgram.database.OrderList;
 import pizzaProgram.events.Event;
 import pizzaProgram.events.EventDispatcher;
 import pizzaProgram.events.EventHandler;
@@ -34,15 +34,15 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 	private DeliveryMap chartArea;
 	private HashMap<String, Order> orderMap = new HashMap<String, Order>();
 	
-	private DatabaseConnection database;
+	private OrderList databaseOrder;
 	private JFrame jFrame;
 	JButton onRoute;
 	JButton delivered;
 	JButton receipt;
 	
-	public DeliverGUI(DatabaseConnection dbc, JFrame jFrame, EventDispatcher eventDispatcher) {
+	public DeliverGUI(OrderList ol, JFrame jFrame, EventDispatcher eventDispatcher) {
 		super(eventDispatcher);
-		this.database = dbc;
+		this.databaseOrder = ol;
 		this.jFrame = jFrame;
 		eventDispatcher.addEventListener(this, EventType.COOK_GUI_REQUESTED);
 		eventDispatcher.addEventListener(this, EventType.ORDER_GUI_REQUESTED);
@@ -124,7 +124,7 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 				onRoute.addActionListener(new ActionListener() {
 		            public void actionPerformed(ActionEvent actionEvent) {
 		            	Order o = orderMap.get(orderList.getSelectedItem());
-		            	database.changeOrderStatus(o, Order.BEING_DELIVERED);
+		            	databaseOrder.changeOrderStatus(o, Order.BEING_DELIVERED);
 		            }
 				});
 		        GridBagConstraints onRouteConstraints = new GridBagConstraints();
@@ -141,7 +141,7 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 				delivered.addActionListener(new ActionListener() {
 		            public void actionPerformed(ActionEvent actionEvent) {
 		            	Order o = orderMap.get(orderList.getSelectedItem());
-		            	database.changeOrderStatus(o, Order.DELIVERED);
+		            	databaseOrder.changeOrderStatus(o, Order.DELIVERED);
 		            }
 				});
 		        GridBagConstraints deliveredConstraints = new GridBagConstraints();
@@ -192,7 +192,7 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 	public void populateLists(){
 		ArrayList<Order> tempSort = new ArrayList<Order>();
 		
-		for (Order o : database.getOrders()){
+		for (Order o : databaseOrder.getOrderList()){
 			if (o.getStatus().equals(Order.HAS_BEEN_COOKED) || o.getStatus().equals(Order.BEING_DELIVERED)){
 				String sc = ("Order " + o.getID() + ": " + o.getCustomer().firstName + " " + o.getCustomer().lastName);
 				tempSort.add(o);
