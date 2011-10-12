@@ -1,6 +1,5 @@
 package pizzaProgram.gui;
 
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.List;
 import java.awt.TextArea;
@@ -51,15 +50,12 @@ public class CookGUI extends GUIModule implements EventHandler{
 		eventDispatcher.addEventListener(this, EventType.DELIVERY_GUI_REQUESTED);
 		initialize();
 		hide();
-		populateLists();
 	}
 	
 	@Override
 	public void initialize() {
 		
 		valgtliste = new List();
-		valgtliste.setMinimumSize(new Dimension(10, 100));
-		valgtliste.setPreferredSize(new Dimension(20, 100));
 		this.jFrame.add(valgtliste, createConstrints(0, 0, 2, 6, 0.0, 1, GridBagConstraints.VERTICAL));
 		
 		orderList = new List();
@@ -105,6 +101,7 @@ public class CookGUI extends GUIModule implements EventHandler{
 		beingMadeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				databaseOrders.changeOrderStatus(orderMap.get(orderList.getSelectedItem()), Order.BEING_COOKED);
+				populateLists();
 			}
 		});
 		this.jFrame.add(beingMadeButton, createConstrints(3, 6, 1, 1, 0.14, 0.0, GridBagConstraints.BOTH));
@@ -113,6 +110,7 @@ public class CookGUI extends GUIModule implements EventHandler{
 		finishedButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				databaseOrders.changeOrderStatus(orderMap.get(orderList.getSelectedItem()), Order.HAS_BEEN_COOKED);
+				populateLists();
 			}
 		});
 		this.jFrame.add(finishedButton, createConstrints(4, 6, 18, 1, 0.26, 0.0, GridBagConstraints.BOTH));
@@ -141,6 +139,10 @@ public class CookGUI extends GUIModule implements EventHandler{
 	}
 	
 	private void populateLists(){
+		databaseOrders.updateOrders();
+		orderMap.clear();
+		orderList.removeAll();
+		valgtliste.removeAll();
 		for(Order o : databaseOrders.getOrderList()){
 			if(o.getStatus().equals(Order.REGISTERED) || o.getStatus().equals(Order.BEING_COOKED)){
 				String sc = "Ordre nr: " + o.getID() + " Antall Retter: " + o.getOrderedDishes().size(); 
@@ -154,6 +156,7 @@ public class CookGUI extends GUIModule implements EventHandler{
 
 	@Override
 	public void show() {
+		populateLists();
 		orderList.setVisible(true);
 		currentOrderList.setVisible(true);
 		commentArea.setVisible(true);
