@@ -1,6 +1,7 @@
 package pizzaProgram.gui;
 
 import java.awt.GridBagConstraints;
+import java.awt.Label;
 import java.awt.List;
 import java.awt.TextArea;
 import java.awt.event.ActionEvent;
@@ -56,7 +57,7 @@ public class CookGUI extends GUIModule implements EventHandler{
 	public void initialize() {
 		
 		valgtliste = new List();
-		this.jFrame.add(valgtliste, createConstrints(0, 0, 2, 6, 0.0, 1, GridBagConstraints.VERTICAL));
+		this.jFrame.add(valgtliste, createConstrints(0, 0, 1, 6, 0.0, 1, GridBagConstraints.VERTICAL));
 		
 		orderList = new List();
 		orderList.addItemListener(new ItemListener() {
@@ -97,7 +98,7 @@ public class CookGUI extends GUIModule implements EventHandler{
 		descriptionArea.setEditable(false);
 		this.jFrame.add(descriptionArea, createConstrints(22, 3, 23, 2, 0.6, 0.0, GridBagConstraints.BOTH));
 		
-		beingMadeButton = new JButton("Sett under laging");
+		beingMadeButton = new JButton("Begynn tilbereding");
 		beingMadeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				databaseOrders.changeOrderStatus(orderMap.get(orderList.getSelectedItem()), Order.BEING_COOKED);
@@ -143,11 +144,15 @@ public class CookGUI extends GUIModule implements EventHandler{
 		orderMap.clear();
 		orderList.removeAll();
 		valgtliste.removeAll();
+		currentOrderList.removeAll();
+		descriptionArea.setText("");
+		commentArea.setText("");
+		
 		for(Order o : databaseOrders.getOrderList()){
 			if(o.getStatus().equals(Order.REGISTERED) || o.getStatus().equals(Order.BEING_COOKED)){
 				String sc = "Ordre nr: " + o.getID() + " Antall Retter: " + o.getOrderedDishes().size(); 
 				orderList.add(sc);
-				String status = (o.getStatus().equals(Order.BEING_COOKED) ? "Lages" : "Ledig");
+				String status = (o.getStatus().equals(Order.BEING_COOKED) ? "Bestilling registert" : "Under tilbereding");
 				valgtliste.add(status);
 				orderMap.put(sc, o);
 			}

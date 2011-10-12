@@ -31,7 +31,7 @@ import pizzaProgram.modules.GUIModule;
 public class DeliverGUI extends GUIModule implements EventHandler{
 
 	private List orderList;
-	private List currentInfoList = new List();
+	private TextArea currentInfoList;
 	private TextArea orderContentList;
 	private List orderStatusList = new List();
 	private DeliveryMap chartArea;
@@ -81,7 +81,7 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 		orderList = new List();
 		orderList.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
-				currentInfoList.removeAll();
+				currentInfoList.setText("");
 				orderContentList.setText("");
 				
 				
@@ -92,10 +92,10 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 				
 				Customer c = o.getCustomer();
 				
-				currentInfoList.add(c.firstName + " " + c.lastName);
-				currentInfoList.add(c.address);
-				currentInfoList.add(c.postalCode + " " + c.city);
-				currentInfoList.add("+47 " + c.phoneNumber);
+				currentInfoList.append(c.firstName + " " + c.lastName);
+				currentInfoList.append(c.address);
+				currentInfoList.append(c.postalCode + " " + c.city);
+				currentInfoList.append("+47 " + c.phoneNumber);
 				
 				int pizzaPrice = 0;
 				int totalPrice = 0; 
@@ -179,7 +179,7 @@ public class DeliverGUI extends GUIModule implements EventHandler{
         this.jFrame.add(receipt, receiptConstraints);
 		
 		//Utkj¿rt knappen
-		onRoute = new JButton("Utkj¿rt");
+		onRoute = new JButton("Kjør");
 		onRoute.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
             	Order o = orderMap.get(orderList.getSelectedItem());
@@ -215,6 +215,8 @@ public class DeliverGUI extends GUIModule implements EventHandler{
         this.jFrame.add(delivered, deliveredConstraints);
 		
 		// Gridden som inneholder Adresse
+        currentInfoList = new TextArea("", 6, 12, TextArea.SCROLLBARS_NONE);
+        currentInfoList.setEditable(false);
 		GridBagConstraints currentInfoListConstraints = new GridBagConstraints();
 		currentInfoListConstraints.gridx = 18;
 		currentInfoListConstraints.gridy = 0;
@@ -254,7 +256,7 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 	
 	public void populateLists(){
 		orderList.removeAll();
-		currentInfoList.removeAll();
+		currentInfoList.setText("");
 		orderContentList.setText("");
 		orderMap.clear();
 		orderStatusList.removeAll();
@@ -280,7 +282,7 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 		
 		for (Order o : tempSort){
 			orderList.add("Order " + o.getID() + ": " + o.getCustomer().firstName + " " + o.getCustomer().lastName);
-			String status = (o.status.equals(Order.HAS_BEEN_COOKED) ? "Ledig" : "Kj¿res");
+			String status = (o.status.equals(Order.HAS_BEEN_COOKED) ? "Klar for levering" : "Under leveranse");
 			orderStatusList.add(status);
 		}
 		
