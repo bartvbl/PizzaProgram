@@ -86,7 +86,7 @@ public class OrderGUI extends GUIModule implements EventHandler {
 		});
 		GridBagConstraints newCustomerButtonConstraints = new GridBagConstraints();
 		newCustomerButtonConstraints.gridx = 0;
-		newCustomerButtonConstraints.gridy = 0;
+		newCustomerButtonConstraints.gridy = 10;
 		newCustomerButtonConstraints.gridheight = 1;
 		newCustomerButtonConstraints.gridwidth = 1;
 		newCustomerButtonConstraints.fill = GridBagConstraints.BOTH;
@@ -106,7 +106,7 @@ public class OrderGUI extends GUIModule implements EventHandler {
 		GridBagConstraints customerListConstraints = new GridBagConstraints();
 		customerListConstraints.gridx = 0;
 		customerListConstraints.gridy = 1;
-		customerListConstraints.gridheight = 10;
+		customerListConstraints.gridheight = 9;
 		customerListConstraints.gridwidth = 1;
 		customerListConstraints.weightx = 0.3;
 		customerListConstraints.weighty = 1;

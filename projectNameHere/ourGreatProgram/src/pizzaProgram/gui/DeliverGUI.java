@@ -1,7 +1,9 @@
 package pizzaProgram.gui;
 
+
 import java.awt.GridBagConstraints;
 import java.awt.List;
+import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -30,7 +32,7 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 
 	private List orderList;
 	private List currentInfoList = new List();
-	private List orderContentList = new List();
+	private TextArea orderContentList;
 	private List orderStatusList = new List();
 	private DeliveryMap chartArea;
 	private HashMap<String, Order> orderMap = new HashMap<String, Order>();
@@ -52,6 +54,25 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 		hide();
 		populateLists();
 	}
+	
+	public String addSpace(String name){
+		if (name.length() < 8){
+			return name + "\t\t\t";
+		}else{
+			return name + "\t\t";
+		}
+	}
+	
+	public int calculatePrice(int pizzaPrice, double extraPrice, char operator){
+		if (operator == '+'){
+			return (int)extraPrice;
+		}else if(operator == '-'){
+			return (int)-extraPrice;
+		}else{
+			return (int)(pizzaPrice*extraPrice)-pizzaPrice;
+		}
+	}
+	
 	/**
 	 * Her skal koden for � lage og legge til komponenter ligger
 	 */
@@ -62,7 +83,7 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 		orderList.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				currentInfoList.removeAll();
-				orderContentList.removeAll();
+				orderContentList.setText("");
 				
 				
 				Order o = orderMap.get(orderList.getSelectedItem());
@@ -76,12 +97,38 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 				currentInfoList.add(c.address);
 				currentInfoList.add(c.postalCode + " " + c.city);
 				currentInfoList.add("+47 " + c.phoneNumber);
+				
+				int pizzaPrice = 0;
+				int totalPrice = 0; 
+				int shipCost, midPrice;
 				for (OrderDish od : o.getOrderedDishes()){
-					orderContentList.add(od.dish.name + od.dish.price + "kr");
+					orderContentList.append(addSpace(od.dish.name) + "  " + od.dish.price + "kr\n");
+					String op;
 					for (Extra ex : od.getExtras()){
-						orderContentList.add("  - " + ex.name + ex.priceFuncPart + ex.priceValPart + "kr");
+						//char op = ex.priceFuncPart == '+' || ex.priceFuncPart == '*' ? '+';
+						if (ex.priceFuncPart == '+' || ex.priceFuncPart == '*'){
+							op = "+";
+						}else{
+							op = "";
+						}
+						midPrice = calculatePrice(od.dish.price, ex.priceValPart, ex.priceFuncPart);
+						pizzaPrice += midPrice;
+						orderContentList.append(addSpace("  - " + ex.name) + op + midPrice + "kr\n");
 					}
+					pizzaPrice += od.dish.price;
+					totalPrice += pizzaPrice;
+					orderContentList.append(addSpace("Sum pizza") + "  " + pizzaPrice + "kr\n");
+					orderContentList.append("\n");
+					pizzaPrice = 0;
 				}
+				if (totalPrice > 500){
+					shipCost = 0;
+				}else{
+					shipCost = 50;
+				}
+				orderContentList.append(addSpace("Frakt") + "+" + shipCost + "kr\n");
+				totalPrice += shipCost;
+				orderContentList.append(addSpace("Sum Total") + "  " + totalPrice + "kr\n");
 				chartArea.loadImage(c.address);
 			}
 		});
@@ -178,6 +225,8 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 		this.jFrame.add(currentInfoList, currentInfoListConstraints);
 		
 		// Gridden som inneholder innholdet i ordren
+		orderContentList = new TextArea("", 6, 12, TextArea.SCROLLBARS_NONE);
+		orderContentList.setEditable(false);
 		GridBagConstraints orderContentListConstraints = new GridBagConstraints();
 		orderContentListConstraints.gridx = 29;
 		orderContentListConstraints.gridy = 0;
@@ -273,5 +322,4 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 			hide();
 		}
 	}
-	
 }
