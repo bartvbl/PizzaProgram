@@ -1,5 +1,8 @@
 import java.sql.SQLException;
 
+import javax.swing.JPopupMenu;
+import javax.swing.ToolTipManager;
+
 import pizzaProgram.database.CustomerList;
 import pizzaProgram.database.DatabaseConnection;
 import pizzaProgram.database.DishList;
@@ -42,6 +45,10 @@ public class Main implements EventHandler {
 	 * creates every part of the program, and sets it up correctly
 	 */
 	public void initialize(){
+		//this is a fix for the jmenu appearing behind lists :) 
+		JPopupMenu.setDefaultLightWeightPopupEnabled(false);
+		ToolTipManager.sharedInstance().setLightWeightPopupEnabled(false);
+		
 		this.eventDispatcher = new EventDispatcher();
 		this.connectToDatabase();
 		this.createMainWindow();

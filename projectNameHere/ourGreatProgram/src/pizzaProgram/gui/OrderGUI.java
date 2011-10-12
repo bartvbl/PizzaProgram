@@ -73,7 +73,6 @@ public class OrderGUI extends GUIModule implements EventHandler {
 				.addEventListener(this, EventType.DELIVERY_GUI_REQUESTED);
 		initialize();
 		hide();
-		populateLists();
 	}
 
 	@Override
@@ -195,12 +194,15 @@ public class OrderGUI extends GUIModule implements EventHandler {
 				if (dishesInOrder.size() < 1) {
 					return;
 				}
-				Customer c = customerMap.get(customerList.getSelectedItem());
-
+				
+				String selectedCustomerString = customerList.getSelectedItem();
+				Customer c = customerMap.get(selectedCustomerString);
+				
 				databaseOrder.addOrder(c, true, orderComment.getText());
-				databaseOrder.updateOrders(databaseCustomer, databaseDish,
-						databaseExtra);
-
+				
+				populateLists();
+				c = customerMap.get(selectedCustomerString);
+			
 				Order o = databaseOrder.getCustomerToOrderMap().get(c);
 				try {
 					for (OrderDish od : dishesInOrder) {
@@ -241,12 +243,15 @@ public class OrderGUI extends GUIModule implements EventHandler {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		populateLists();
 	}
 
 	private void populateLists() {
 		customerList.removeAll();
+		customerMap.clear();
 		dishList.removeAll();
 		dishExtraList.removeAll();
+		databaseOrder.updateOrders();
 		for (Customer c : databaseCustomer.getCustomerList()) {
 			String s = c.customerID + " " + c.firstName + " " + c.lastName;
 			customerList.add(s);
@@ -277,6 +282,7 @@ public class OrderGUI extends GUIModule implements EventHandler {
 
 	@Override
 	public void show() {
+		populateLists();
 		newCustomerButton.setVisible(true);
 		customerList.setVisible(true);
 		addDishButton.setVisible(true);
@@ -286,9 +292,7 @@ public class OrderGUI extends GUIModule implements EventHandler {
 		customerLabel.setVisible(true);
 		finishOrderButton.setVisible(true);
 		orderedDishesList.setVisible(true);
-
 		jFrame.setVisible(true);
-
 	}
 
 	@Override

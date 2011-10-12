@@ -52,7 +52,6 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 		eventDispatcher.addEventListener(this, EventType.DELIVERY_GUI_REQUESTED);
 		initialize();
 		hide();
-		populateLists();
 	}
 	
 	public String addSpace(String name){
@@ -155,63 +154,65 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 		orderListConstraints.fill = GridBagConstraints.BOTH;
 		this.jFrame.add(orderList, orderListConstraints);
 		
-				//Kvitterings knappen
-				receipt = new JButton("Kvittering");
-				receipt.addActionListener(new ActionListener() {
-		            public void actionPerformed(ActionEvent actionEvent) {
-		            	Order o = orderMap.get(orderList.getSelectedItem());
-		            	String toJOption = "";
-		            	for (OrderDish od : o.orderedDishes){
-		            		toJOption += od.dish.name + "\t" + od.dish.price + "\n";
-		            		for (Extra ex : od.getExtras()){
-		            			toJOption += "\t- " + ex.name + "\t" + ex.priceFuncPart + ex.priceValPart + "\n";
-		            		}
-		            	}
-		            	JOptionPane.showMessageDialog(null, "Kunde:\n" + o.customer.firstName + " " + o.customer.lastName + "\n" + o.customer.address + "\n" + o.customer.postalCode + "\n" + o.customer.phoneNumber + "\n\nOrdre:\n" + toJOption);
-		            }
-				});
-		        GridBagConstraints receiptConstraints = new GridBagConstraints();
-		        receiptConstraints.gridx = 0;
-		        receiptConstraints.gridy = 2;
-		        receiptConstraints.gridheight = 1;
-		        receiptConstraints.gridwidth = 1;
-		        receiptConstraints.weightx = 0.1;
-		        receiptConstraints.fill = GridBagConstraints.BOTH;
-		        this.jFrame.add(receipt, receiptConstraints);
-				
-				//Utkj퓊t knappen
-				onRoute = new JButton("Utkj퓊t");
-				onRoute.addActionListener(new ActionListener() {
-		            public void actionPerformed(ActionEvent actionEvent) {
-		            	Order o = orderMap.get(orderList.getSelectedItem());
-		            	databaseOrder.changeOrderStatus(o, Order.BEING_DELIVERED);
-		            }
-				});
-		        GridBagConstraints onRouteConstraints = new GridBagConstraints();
-		        onRouteConstraints.gridx = 6;
-		        onRouteConstraints.gridy = 2;
-		        onRouteConstraints.gridheight = 1;
-		        onRouteConstraints.gridwidth = 1;
-		        onRouteConstraints.weightx = 0.1;
-		        onRouteConstraints.fill = GridBagConstraints.BOTH;
-		        this.jFrame.add(onRoute, onRouteConstraints);
-		        
-		      //Levert knappen
-				delivered = new JButton("Levert");
-				delivered.addActionListener(new ActionListener() {
-		            public void actionPerformed(ActionEvent actionEvent) {
-		            	Order o = orderMap.get(orderList.getSelectedItem());
-		            	databaseOrder.changeOrderStatus(o, Order.DELIVERED);
-		            }
-				});
-		        GridBagConstraints deliveredConstraints = new GridBagConstraints();
-		        deliveredConstraints.gridx = 12;
-		        deliveredConstraints.gridy = 2;
-		        deliveredConstraints.gridheight = 1;
-		        deliveredConstraints.gridwidth = 1;
-		        deliveredConstraints.weightx = 0.1;
-		        deliveredConstraints.fill = GridBagConstraints.BOTH;
-		        this.jFrame.add(delivered, deliveredConstraints);
+		//Kvitterings knappen
+		receipt = new JButton("Kvittering");
+		receipt.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent actionEvent) {
+            	Order o = orderMap.get(orderList.getSelectedItem());
+            	String toJOption = "";
+            	for (OrderDish od : o.orderedDishes){
+            		toJOption += od.dish.name + "\t" + od.dish.price + "\n";
+            		for (Extra ex : od.getExtras()){
+            			toJOption += "\t- " + ex.name + "\t" + ex.priceFuncPart + ex.priceValPart + "\n";
+            		}
+            	}
+            	JOptionPane.showMessageDialog(null, "Kunde:\n" + o.customer.firstName + " " + o.customer.lastName + "\n" + o.customer.address + "\n" + o.customer.postalCode + "\n" + o.customer.phoneNumber + "\n\nOrdre:\n" + toJOption);
+            }
+		});
+        GridBagConstraints receiptConstraints = new GridBagConstraints();
+        receiptConstraints.gridx = 0;
+        receiptConstraints.gridy = 2;
+        receiptConstraints.gridheight = 1;
+        receiptConstraints.gridwidth = 1;
+        receiptConstraints.weightx = 0.1;
+        receiptConstraints.fill = GridBagConstraints.BOTH;
+        this.jFrame.add(receipt, receiptConstraints);
+		
+		//Utkj퓊t knappen
+		onRoute = new JButton("Utkj퓊t");
+		onRoute.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent actionEvent) {
+            	Order o = orderMap.get(orderList.getSelectedItem());
+            	databaseOrder.changeOrderStatus(o, Order.BEING_DELIVERED);
+            	populateLists();
+            }
+		});
+        GridBagConstraints onRouteConstraints = new GridBagConstraints();
+        onRouteConstraints.gridx = 6;
+        onRouteConstraints.gridy = 2;
+        onRouteConstraints.gridheight = 1;
+        onRouteConstraints.gridwidth = 1;
+        onRouteConstraints.weightx = 0.1;
+        onRouteConstraints.fill = GridBagConstraints.BOTH;
+        this.jFrame.add(onRoute, onRouteConstraints);
+        
+        //Levert knappen
+		delivered = new JButton("Levert");
+		delivered.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent actionEvent) {
+            	Order o = orderMap.get(orderList.getSelectedItem());
+            	databaseOrder.changeOrderStatus(o, Order.DELIVERED);
+            	populateLists();
+            }
+		});
+        GridBagConstraints deliveredConstraints = new GridBagConstraints();
+        deliveredConstraints.gridx = 12;
+        deliveredConstraints.gridy = 2;
+        deliveredConstraints.gridheight = 1;
+        deliveredConstraints.gridwidth = 1;
+        deliveredConstraints.weightx = 0.1;
+        deliveredConstraints.fill = GridBagConstraints.BOTH;
+        this.jFrame.add(delivered, deliveredConstraints);
 		
 		// Gridden som inneholder Adresse
 		GridBagConstraints currentInfoListConstraints = new GridBagConstraints();
@@ -252,6 +253,13 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 	}
 	
 	public void populateLists(){
+		orderList.removeAll();
+		currentInfoList.removeAll();
+		orderContentList.setText("");
+		orderMap.clear();
+		orderStatusList.removeAll();
+		
+		databaseOrder.updateOrders();
 		ArrayList<Order> tempSort = new ArrayList<Order>();
 		
 		for (Order o : databaseOrder.getOrderList()){
@@ -274,7 +282,6 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 			orderList.add("Order " + o.getID() + ": " + o.getCustomer().firstName + " " + o.getCustomer().lastName);
 			String status = (o.status.equals(Order.HAS_BEEN_COOKED) ? "Ledig" : "Kj퓊es");
 			orderStatusList.add(status);
-			//infoList.add(o.getCustomer().firstName);
 		}
 		
 	}
@@ -283,7 +290,7 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 	 */
 	@Override
 	public void show() {
-		System.out.println("show");
+		populateLists();
 		orderStatusList.setVisible(true);
 		receipt.setVisible(true);
 		onRoute.setVisible(true);
@@ -300,7 +307,6 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 	 */
 	@Override
 	public void hide() {
-		System.out.println("show");
 		orderStatusList.setVisible(false);
 		receipt.setVisible(false);
 		onRoute.setVisible(false);

@@ -37,12 +37,17 @@ import pizzaProgram.dataObjects.OrderDish;
 
 // TODO: Dispatch an event whenever the lists are updated
 
+//TODO: customertoordermap should use string customerid + orderstatus, one order pr status
 public class OrderList {
 	private ArrayList<Order> orderList;
 	private HashMap<Integer, Order> orderMap;
 	private HashMap<Customer, Order> customerToOrderMap;
 	private DatabaseConnection dbCon;
-
+	
+	private CustomerList cl;
+	private DishList dl;
+	private ExtraList el;
+	
 	/**
 	 * Constructor that creates the list objects as specified in the class
 	 * javadoc
@@ -65,6 +70,9 @@ public class OrderList {
 
 	public OrderList(DatabaseConnection dbCon, CustomerList cl, DishList dl,
 			ExtraList el) throws SQLException {
+		this.cl = cl;
+		this.dl = dl;
+		this.el = el;
 		this.dbCon = dbCon;
 		if (!(dbCon != null && dbCon
 				.isConnected(DatabaseConnection.DEFAULT_TIMEOUT))) {
@@ -72,10 +80,10 @@ public class OrderList {
 					.println("No active database connection: please try again!");
 			return;
 		}
-		this.updateOrders(cl, dl, el);
+		this.updateOrders();
 	}
 
-	public void updateOrders(CustomerList cl, DishList dl, ExtraList el) {
+	public void updateOrders() {
 		orderList = new ArrayList<Order>();
 		orderMap = new HashMap<Integer, Order>();
 		customerToOrderMap = new HashMap<Customer, Order>();
