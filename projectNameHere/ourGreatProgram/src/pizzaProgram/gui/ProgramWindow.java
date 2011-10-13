@@ -76,7 +76,7 @@ public class ProgramWindow implements EventHandler{
 			e.printStackTrace();
 		}
 		GridBagLayout gbl = new GridBagLayout();
-		frame.setMinimumSize(new Dimension(804, 595));
+		frame.setMinimumSize(new Dimension(850, 595));
 		
 		frame.setLayout(gbl);
 		

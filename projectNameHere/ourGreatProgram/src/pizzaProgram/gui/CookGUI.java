@@ -1,7 +1,6 @@
 package pizzaProgram.gui;
 
 import java.awt.GridBagConstraints;
-import java.awt.Label;
 import java.awt.List;
 import java.awt.TextArea;
 import java.awt.event.ActionEvent;
@@ -152,7 +151,7 @@ public class CookGUI extends GUIModule implements EventHandler{
 			if(o.getStatus().equals(Order.REGISTERED) || o.getStatus().equals(Order.BEING_COOKED)){
 				String sc = "Ordre nr: " + o.getID() + " Antall Retter: " + o.getOrderedDishes().size(); 
 				orderList.add(sc);
-				String status = (o.getStatus().equals(Order.BEING_COOKED) ? "Bestilling registert" : "Under tilbereding");
+				String status = (o.getStatus().equals(Order.BEING_COOKED) ? "Under tilbereding" : "Bestilling registert");
 				valgtliste.add(status);
 				orderMap.put(sc, o);
 			}

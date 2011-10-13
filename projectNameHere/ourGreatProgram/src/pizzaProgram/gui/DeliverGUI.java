@@ -92,10 +92,10 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 				
 				Customer c = o.getCustomer();
 				
-				currentInfoList.append(c.firstName + " " + c.lastName);
-				currentInfoList.append(c.address);
-				currentInfoList.append(c.postalCode + " " + c.city);
-				currentInfoList.append("+47 " + c.phoneNumber);
+				currentInfoList.append(c.firstName + " " + c.lastName +"\n");
+				currentInfoList.append(c.address + "\n");
+				currentInfoList.append(c.postalCode + " " + c.city + "\n");
+				currentInfoList.append("+47 " + c.phoneNumber+ "\n");
 				
 				int pizzaPrice = 0;
 				int totalPrice = 0; 
@@ -228,7 +228,7 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 		this.jFrame.add(currentInfoList, currentInfoListConstraints);
 		
 		// Gridden som inneholder innholdet i ordren
-		orderContentList = new TextArea("", 6, 12, TextArea.SCROLLBARS_NONE);
+		orderContentList = new TextArea("", 6, 12, TextArea.SCROLLBARS_VERTICAL_ONLY);
 		orderContentList.setEditable(false);
 		GridBagConstraints orderContentListConstraints = new GridBagConstraints();
 		orderContentListConstraints.gridx = 29;
