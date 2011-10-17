@@ -8,6 +8,8 @@ import java.awt.event.ComponentEvent;
 import java.util.concurrent.atomic.AtomicReference;
 
 import javax.swing.JFrame;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 import pizzaProgram.events.Event;
 import pizzaProgram.events.EventDispatcher;
@@ -62,9 +64,23 @@ public class ProgramWindow implements EventHandler{
 		
 		Canvas canvas = new Canvas();
 		JFrame frame = new JFrame(ProgramWindow.MAIN_WINDOW_NAME);
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (UnsupportedLookAndFeelException e) {
+			e.printStackTrace();
+		}
 		GridBagLayout gbl = new GridBagLayout();
-
+		frame.setMinimumSize(new Dimension(850, 595));
+		
 		frame.setLayout(gbl);
+		
+		frame.setResizable(false);
 		this.canvas = canvas;
 		this.jframe = frame;
 		
