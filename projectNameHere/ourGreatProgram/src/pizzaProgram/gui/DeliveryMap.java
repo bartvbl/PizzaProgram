@@ -15,10 +15,10 @@ import javax.swing.JPanel;
 public class DeliveryMap extends JPanel {
 	
 	
-	BufferedImage kart = new BufferedImage(500, 300, BufferedImage.TYPE_INT_RGB);
+	BufferedImage kart = new BufferedImage(400, 300, BufferedImage.TYPE_INT_RGB);
 	
 	public DeliveryMap() {	
-		setPreferredSize(new Dimension(500, 300));
+		setPreferredSize(new Dimension(400, 300));
 		loadImage(adresse());
 	}
 	
@@ -43,7 +43,7 @@ public class DeliveryMap extends JPanel {
 	public void loadImage (String til){
 		
 		try {
-			URL url = new URL("http://maps.googleapis.com/maps/api/staticmap?size=500x300&sensor=false&markers="+ formatAdress(adresse())+"&markers="+formatAdress(til));
+			URL url = new URL("http://maps.googleapis.com/maps/api/staticmap?size=400x300&sensor=false&markers="+ formatAdress(adresse())+"&markers="+formatAdress(til));
 			kart = ImageIO.read(url);
 			
 		} catch (MalformedURLException e) {
