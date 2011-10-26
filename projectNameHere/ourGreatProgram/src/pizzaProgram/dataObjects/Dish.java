@@ -12,10 +12,11 @@ public class Dish {
 	public final boolean isVegetarian;
 	public final boolean isSpicy;
 	public final String description;
+	public final boolean isActive;
 
 	public Dish(int dishID, int price, String name, boolean containsGluten, boolean containsNuts,
 			boolean containsDiary, boolean isVegetarian, boolean isSpicy,
-			String description) {
+			String description, boolean isActive) {
 		this.dishID = dishID;
 		this.price = price;
 		this.name = name;
@@ -25,6 +26,7 @@ public class Dish {
 		this.isVegetarian = isVegetarian;
 		this.isSpicy = isSpicy;
 		this.description = description;
+		this.isActive = isActive;
 	}
 	
 	public String toString(){

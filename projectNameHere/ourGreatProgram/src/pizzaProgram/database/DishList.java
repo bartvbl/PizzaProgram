@@ -37,7 +37,7 @@ public class DishList {
 						results.getString(3), results.getBoolean(4),
 						results.getBoolean(5), results.getBoolean(6),
 						results.getBoolean(7), results.getBoolean(8),
-						results.getString(9));
+						results.getString(9), results.getBoolean(10));
 				dishList.add(tempDish);
 				dishMap.put(tempDish.dishID, tempDish);
 			}
@@ -129,5 +129,14 @@ public class DishList {
 		}
 		return DatabaseConnection.insertIntoDB("DELETE FROM Dishes WHERE DishID="
 				+ dish.dishID + ");");
+	}
+	public static boolean changeDishStatus(Dish dish, boolean newStatus) {
+		if (!DatabaseConnection
+				.isConnected(DatabaseConnection.DEFAULT_TIMEOUT)) {
+			System.err
+					.println("No valid database connection specified; dish status not changed.");
+			return false;
+		}
+		return DatabaseConnection.insertIntoDB("UPDATE Dishes SET isActive=" + newStatus + " WHERE DishID=" + dish.dishID + ";");
 	}
 }
