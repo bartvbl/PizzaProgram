@@ -24,37 +24,15 @@ import pizzaProgram.dataObjects.Customer;
 // TODO: Dispatch an event whenever the lists are updated
 
 public class CustomerList {
-	private ArrayList<Customer> customerList;
-	private HashMap<Integer, Customer> customerMap;
-	private DatabaseConnection dbCon;
+	private static ArrayList<Customer> customerList;
+	private static HashMap<Integer, Customer> customerMap;
 
-	/**
-	 * Constructor that creates the list objects as specified in the class
-	 * javadoc
-	 * 
-	 * @param dbCon
-	 *            - the {@link pizzaProgram.database.DatabaseConnection
-	 *            DatabaseConnection} object with the current active connection
-	 *            to the SQL database
-	 * @throws SQLException
-	 */
-
-	public CustomerList(DatabaseConnection dbCon) {
-		this.dbCon = dbCon;
-		if (!(dbCon != null && dbCon
-				.isConnected(DatabaseConnection.DEFAULT_TIMEOUT))) {
-			System.err
-					.println("No active database connection: please try again!");
-			return;
-		}
-		this.updateCustomers();
-	}
-
-	public void updateCustomers() {
+	public static void updateCustomers() {
 		customerList = new ArrayList<Customer>();
 		customerMap = new HashMap<Integer, Customer>();
 		HashMap<Integer, String> customerCommentsMap = createCustomerCommentMap();
-		ResultSet results = dbCon.fetchData("SELECT * FROM Customer;");
+		ResultSet results = DatabaseConnection
+				.fetchData("SELECT * FROM Customer;");
 		try {
 			while (results.next()) {
 				Customer tempCustomer = new Customer(results.getInt(1),
@@ -85,9 +63,10 @@ public class CustomerList {
 	 * @throws SQLException
 	 */
 
-	private HashMap<Integer, String> createCustomerCommentMap() {
+	private static HashMap<Integer, String> createCustomerCommentMap() {
 		HashMap<Integer, String> customerComments = new HashMap<Integer, String>();
-		ResultSet results = dbCon.fetchData("SELECT * FROM CustomerNotes;");
+		ResultSet results = DatabaseConnection
+				.fetchData("SELECT * FROM CustomerNotes;");
 		customerComments.put(-1, "");
 		try {
 			while (results.next()) {
@@ -101,11 +80,11 @@ public class CustomerList {
 		return customerComments;
 	}
 
-	public ArrayList<Customer> getCustomerList() {
+	public static ArrayList<Customer> getCustomerList() {
 		return customerList;
 	}
 
-	public HashMap<Integer, Customer> getCustomerMap() {
+	public static HashMap<Integer, Customer> getCustomerMap() {
 		return customerMap;
 	}
 
@@ -147,7 +126,7 @@ public class CustomerList {
 	 * @throws SQLException
 	 */
 
-	public boolean addCustomer(String firstName, String lastName,
+	public static boolean addCustomer(String firstName, String lastName,
 			String address, int postalCode, String city, int phoneNumber,
 			String comment) throws SQLException {
 		if (firstName.length() > DatabaseConnection.VARCHAR_MAX_LENGTH_SHORT
@@ -169,21 +148,22 @@ public class CustomerList {
 		 */
 		String identifier = firstName.toLowerCase() + lastName.toLowerCase()
 				+ phoneNumber;
-		if (!dbCon.fetchData(
+		if (!DatabaseConnection.fetchData(
 				"SELECT Identifier FROM Customer WHERE Identifier='"
 						+ identifier + "';").next()) {
 			int commentID = -1;
 			if (!(comment == null || comment.equals(""))) {
-				dbCon.insertIntoDB("INSERT INTO CustomerNotes (Note) VALUES ('"
-						+ comment + "');");
-				ResultSet commentIDset = dbCon
+				DatabaseConnection
+						.insertIntoDB("INSERT INTO CustomerNotes (Note) VALUES ('"
+								+ comment + "');");
+				ResultSet commentIDset = DatabaseConnection
 						.fetchData("SELECT NoteID FROM CustomerNotes WHERE Note='"
 								+ comment + "';");
 				if (commentIDset.next()) {
 					commentID = commentIDset.getInt(1);
 				}
 			}
-			return dbCon
+			return DatabaseConnection
 					.insertIntoDB("INSERT INTO Customer (FirstName, LastName, Address, PostalCode, City, TelephoneNumber, CommentID, Identifier) VALUES ('"
 							+ firstName
 							+ "', '"
@@ -239,7 +219,7 @@ public class CustomerList {
 	 * @throws SQLException
 	 */
 
-	public boolean addCustomer(String firstName, String lastName,
+	public static boolean addCustomer(String firstName, String lastName,
 			String address, int postalCode, String city, int phoneNumber)
 			throws SQLException {
 		return addCustomer(firstName, lastName, address, postalCode, city,
@@ -263,14 +243,14 @@ public class CustomerList {
 	// TODO: Find out if we want to remove the comment as well, and if so remove
 	// it in the method
 
-	public boolean removeCustomer(Customer customer) {
-		if (!(dbCon != null && dbCon
-				.isConnected(DatabaseConnection.DEFAULT_TIMEOUT))) {
+	public static boolean removeCustomer(Customer customer) {
+		if (!DatabaseConnection.isConnected(DatabaseConnection.DEFAULT_TIMEOUT)) {
 			System.err
 					.println("No valid database connection specified; no customer removed from the database.");
 			return false;
 		}
-		return dbCon.insertIntoDB("DELETE FROM Customer WHERE CustomerID="
-				+ customer.customerID + ");");
+		return DatabaseConnection
+				.insertIntoDB("DELETE FROM Customer WHERE CustomerID="
+						+ customer.customerID + ");");
 	}
 }

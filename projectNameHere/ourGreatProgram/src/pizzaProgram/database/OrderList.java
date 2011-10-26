@@ -37,65 +37,25 @@ import pizzaProgram.dataObjects.OrderDish;
 
 // TODO: Dispatch an event whenever the lists are updated
 
-//TODO: customertoordermap should use string customerid + orderstatus, one order pr status
+// TODO: customertoordermap should use string customerid + orderstatus, one order pr status
 public class OrderList {
-	private ArrayList<Order> orderList;
-	private HashMap<Integer, Order> orderMap;
-	private HashMap<Customer, Order> customerToOrderMap;
-	private DatabaseConnection dbCon;
+	private static ArrayList<Order> orderList;
+	private static HashMap<Integer, Order> orderMap;
+	private static HashMap<Customer, Order> customerToOrderMap;
 	
-	private CustomerList cl;
-	private DishList dl;
-	private ExtraList el;
-	
-	/**
-	 * Constructor that creates the list objects as specified in the class
-	 * javadoc
-	 * 
-	 * @param dbCon
-	 *            - the {@link pizzaProgram.database.DatabaseConnection
-	 *            DatabaseConnection} object with the current active connection
-	 *            to the SQL database
-	 * @param cl
-	 *            - the {@link pizzaProgram.database.CustomerList customer list}
-	 *            this order list is based upon.
-	 * @param dl
-	 *            - the {@link pizzaProgram.database.DishList dish list} this
-	 *            order list is based upon.
-	 * @param el
-	 *            - the {@link pizzaProgram.database.ExtraList extra list} this
-	 *            order list is based upon.
-	 * @throws SQLException
-	 */
-
-	public OrderList(DatabaseConnection dbCon, CustomerList cl, DishList dl,
-			ExtraList el) throws SQLException {
-		this.cl = cl;
-		this.dl = dl;
-		this.el = el;
-		this.dbCon = dbCon;
-		if (!(dbCon != null && dbCon
-				.isConnected(DatabaseConnection.DEFAULT_TIMEOUT))) {
-			System.err
-					.println("No active database connection: please try again!");
-			return;
-		}
-		this.updateOrders();
-	}
-
-	public void updateOrders() {
+	public static void updateOrders() {
 		orderList = new ArrayList<Order>();
 		orderMap = new HashMap<Integer, Order>();
 		customerToOrderMap = new HashMap<Customer, Order>();
-		cl.updateCustomers();
-		dl.updateDishes();
-		el.updateExtras();
-		HashMap<Integer, Customer> customerMap = cl.getCustomerMap();
-		HashMap<Integer, Dish> dishMap = dl.getDishMap();
-		HashMap<Integer, Extra> extraMap = el.getExtraMap();
+		CustomerList.updateCustomers();
+		DishList.updateDishes();
+		ExtraList.updateExtras();
+		HashMap<Integer, Customer> customerMap = CustomerList.getCustomerMap();
+		HashMap<Integer, Dish> dishMap = DishList.getDishMap();
+		HashMap<Integer, Extra> extraMap = ExtraList.getExtraMap();
 		HashMap<Integer, OrderDish> tempOrderDishMap = new HashMap<Integer, OrderDish>();
 		HashMap<Integer, String> orderComments = createOrderCommentList();
-		ResultSet results = dbCon
+		ResultSet results = DatabaseConnection
 				.fetchData("SELECT Orders.OrdersID,"
 						+ " Orders.CustomerID, Orders.TimeRegistered,"
 						+ " Orders.OrdersStatus, Orders.DeliveryMethod,"
@@ -160,9 +120,9 @@ public class OrderList {
 	 * @throws SQLException
 	 */
 
-	private HashMap<Integer, String> createOrderCommentList() {
+	private static HashMap<Integer, String> createOrderCommentList() {
 		HashMap<Integer, String> orderComments = new HashMap<Integer, String>();
-		ResultSet results = dbCon.fetchData("SELECT * FROM OrderComments;");
+		ResultSet results = DatabaseConnection.fetchData("SELECT * FROM OrderComments;");
 		orderComments.put(-1, "");
 		try {
 			while (results.next()) {
@@ -176,15 +136,15 @@ public class OrderList {
 		return orderComments;
 	}
 
-	public ArrayList<Order> getOrderList() {
+	public static ArrayList<Order> getOrderList() {
 		return orderList;
 	}
 
-	public HashMap<Integer, Order> getOrderMap() {
+	public static HashMap<Integer, Order> getOrderMap() {
 		return orderMap;
 	}
 
-	public HashMap<Customer, Order> getCustomerToOrderMap() {
+	public static HashMap<Customer, Order> getCustomerToOrderMap() {
 		return customerToOrderMap;
 	}
 
@@ -210,10 +170,10 @@ public class OrderList {
 	 * @throws SQLException
 	 */
 
-	public boolean addOrder(Customer customer, boolean isDeliverAtHome,
+	public static boolean addOrder(Customer customer, boolean isDeliverAtHome,
 			String comment) {
-		if (!(dbCon != null && dbCon
-				.isConnected(DatabaseConnection.DEFAULT_TIMEOUT))) {
+		if (!DatabaseConnection
+				.isConnected(DatabaseConnection.DEFAULT_TIMEOUT)) {
 			System.err
 					.println("No active database connection: please try again!");
 			return false;
@@ -221,22 +181,22 @@ public class OrderList {
 		String deliverymethod = (isDeliverAtHome ? "deliver at home"
 				: "pickup at restaurant");
 		try {
-			if (!dbCon.fetchData(
+			if (!DatabaseConnection.fetchData(
 					"SELECT * FROM Orders WHERE CustomerID="
 							+ customer.customerID
 							+ " AND OrdersStatus<>'delivered';").next()) {
 				int commentID = -1;
 				if (!(comment == null || comment.equals(""))) {
-					dbCon.insertIntoDB("INSERT INTO OrderComments (Comment) VALUES ('"
+					DatabaseConnection.insertIntoDB("INSERT INTO OrderComments (Comment) VALUES ('"
 							+ comment + "');");
-					ResultSet commentIDset = dbCon
+					ResultSet commentIDset = DatabaseConnection
 							.fetchData("SELECT CommentID FROM OrderComments WHERE Comment='"
 									+ comment + "';");
 					if (commentIDset.next()) {
 						commentID = commentIDset.getInt(1);
 					}
 				}
-				return dbCon
+				return DatabaseConnection
 						.insertIntoDB("INSERT INTO Orders (CustomerID, TimeRegistered, DeliveryMethod, CommentID) VALUES ("
 								+ customer.customerID
 								+ ", NOW(), '"
@@ -272,19 +232,19 @@ public class OrderList {
 	 * @throws SQLException
 	 */
 
-	public void addDishToOrder(Order order, Dish dish, ArrayList<Extra> extras)
+	public static void addDishToOrder(Order order, Dish dish, ArrayList<Extra> extras)
 			throws SQLException {
-		if (!(dbCon != null && dbCon
-				.isConnected(DatabaseConnection.DEFAULT_TIMEOUT))) {
+		if (!DatabaseConnection
+				.isConnected(DatabaseConnection.DEFAULT_TIMEOUT)) {
 			System.err
 					.println("No active database connection: please try again!");
 			return;
 		}
 		int ordersContentsID = -1;
-		dbCon.insertIntoDB("INSERT INTO OrdersContents (OrdersID, DishID) VALUES ("
+		DatabaseConnection.insertIntoDB("INSERT INTO OrdersContents (OrdersID, DishID) VALUES ("
 				+ order.getID() + ", " + dish.dishID + ");");
 		if (!(extras == null || extras.isEmpty())) {
-			ResultSet currentOrderContentsID = dbCon
+			ResultSet currentOrderContentsID = DatabaseConnection
 					.fetchData("SELECT OrdersContentsID FROM OrdersContents WHERE OrdersID="
 							+ order.getID()
 							+ " AND DishID="
@@ -294,20 +254,20 @@ public class OrderList {
 				ordersContentsID = currentOrderContentsID.getInt(1);
 			}
 			for (Extra e : extras) {
-				dbCon.insertIntoDB("INSERT INTO DishExtrasChosen (OrdersContentsID, DishExtraID) VALUES ("
+				DatabaseConnection.insertIntoDB("INSERT INTO DishExtrasChosen (OrdersContentsID, DishExtraID) VALUES ("
 						+ ordersContentsID + ", " + e.id + ");");
 			}
 		}
 	}
 
-	public void changeOrderStatus(Order order, String status) {
-		if (!(dbCon != null && dbCon
-				.isConnected(DatabaseConnection.DEFAULT_TIMEOUT))) {
+	public static void changeOrderStatus(Order order, String status) {
+		if (!DatabaseConnection
+				.isConnected(DatabaseConnection.DEFAULT_TIMEOUT)) {
 			System.err
 					.println("No active database connection: please try again!");
 			return;
 		}
-		dbCon.insertIntoDB("UPDATE Orders SET OrdersStatus='" + status
+		DatabaseConnection.insertIntoDB("UPDATE Orders SET OrdersStatus='" + status
 				+ "' WHERE OrdersID=" + order.orderID + ";");
 	}
 	// TODO: Add a remove order method, if we want to have one.

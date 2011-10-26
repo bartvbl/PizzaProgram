@@ -24,37 +24,14 @@ import pizzaProgram.dataObjects.Extra;
 // TODO: Dispatch an event whenever the lists are updated
 
 public class ExtraList {
-	private ArrayList<Extra> extraList;
-	private HashMap<Integer, Extra> extraMap;
-	private DatabaseConnection dbCon;
+	private static ArrayList<Extra> extraList;
+	private static HashMap<Integer, Extra> extraMap;
 
-	/**
-	 * Constructor that creates the list objects as specified in the class
-	 * javadoc
-	 * 
-	 * @param dbCon
-	 *            - the {@link pizzaProgram.database.DatabaseConnection
-	 *            DatabaseConnection} object with the current active connection
-	 *            to the SQL database
-	 * @throws SQLException
-	 */
-
-	public ExtraList(DatabaseConnection dbCon) {
-		this.dbCon = dbCon;
-		if (!(dbCon != null && dbCon
-				.isConnected(DatabaseConnection.DEFAULT_TIMEOUT))) {
-			System.err
-					.println("No active database connection: please try again!");
-			return;
-		}
-		this.updateExtras();
-	}
-
-	public void updateExtras() {
+	public static void updateExtras() {
 		extraList = new ArrayList<Extra>();
 		extraMap = new HashMap<Integer, Extra>();
 		try {
-			ResultSet results = dbCon.fetchData("SELECT * FROM Extras;");
+			ResultSet results = DatabaseConnection.fetchData("SELECT * FROM Extras;");
 			while (results.next()) {
 				Extra tempExtra = new Extra(results.getInt(1),
 						results.getString(2), results.getString(3));
@@ -68,11 +45,11 @@ public class ExtraList {
 		}
 	}
 
-	public ArrayList<Extra> getExtraList() {
+	public static ArrayList<Extra> getExtraList() {
 		return extraList;
 	}
 
-	public HashMap<Integer, Extra> getExtraMap() {
+	public static HashMap<Integer, Extra> getExtraMap() {
 		return extraMap;
 	}
 
@@ -99,9 +76,9 @@ public class ExtraList {
 	// TODO: Add validation to ensure the price parameter is in the correct
 	// format
 
-	public boolean addExtra(String name, String price) {
-		if (!(dbCon != null && dbCon
-				.isConnected(DatabaseConnection.DEFAULT_TIMEOUT))) {
+	public static boolean addExtra(String name, String price) {
+		if (!DatabaseConnection
+				.isConnected(DatabaseConnection.DEFAULT_TIMEOUT)) {
 			System.err
 					.println("No valid database connection specified; extra not added to the database.");
 			return false;
@@ -112,7 +89,7 @@ public class ExtraList {
 							+ DatabaseConnection.VARCHAR_MAX_LENGTH_LONG
 							+ " characters long.");
 		}
-		return dbCon
+		return DatabaseConnection
 				.insertIntoDB("INSERT IGNORE INTO Extras (Name, Price) VALUES ('"
 						+ name + "', '" + price + "');");
 	}
@@ -131,14 +108,14 @@ public class ExtraList {
 	 *         false in all other cases.
 	 */
 
-	public boolean removeExtra(Extra extra) {
-		if (!(dbCon != null && dbCon
-				.isConnected(DatabaseConnection.DEFAULT_TIMEOUT))) {
+	public static boolean removeExtra(Extra extra) {
+		if (!DatabaseConnection
+				.isConnected(DatabaseConnection.DEFAULT_TIMEOUT)) {
 			System.err
 					.println("No valid database connection specified; no extra removed from the database.");
 			return false;
 		}
-		return dbCon.insertIntoDB("DELETE FROM Extras WHERE ExtrasID="
+		return DatabaseConnection.insertIntoDB("DELETE FROM Extras WHERE ExtrasID="
 				+ extra.id + ");");
 	}
 }

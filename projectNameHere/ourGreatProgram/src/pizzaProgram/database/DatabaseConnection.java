@@ -5,10 +5,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import pizzaProgram.dataObjects.Customer;
-import pizzaProgram.dataObjects.Dish;
-import pizzaProgram.dataObjects.Extra;
-import pizzaProgram.dataObjects.Order;
 import pizzaProgram.events.Event;
 import pizzaProgram.events.EventHandler;
 
@@ -34,18 +30,14 @@ public class DatabaseConnection implements EventHandler {
 	 */
 	static final int VARCHAR_MAX_LENGTH_LONG = 100;
 
-	private Connection connection;
-	private QueryHandler queryHandler;
-
-	public DatabaseConnection() {
-		// this.queryHandler = new QueryHandler();
-	}
+	private static Connection connection;
+	private static QueryHandler queryHandler;
 
 	/**
 	 * Method that attempt to make a connection to the mySQL database that
 	 * contains the data.
 	 */
-	public void connect() {
+	public static void connect() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			connection = DriverManager.getConnection(DATABASE_HOST,
@@ -74,11 +66,11 @@ public class DatabaseConnection implements EventHandler {
 	 *         disconnection was successful. Returns false if the method was
 	 *         unable to disconnect from the database.
 	 */
-	public boolean disconnect() {
+	public static boolean disconnect() {
 		if (connection != null
 				&& isConnected(DatabaseConnection.DEFAULT_TIMEOUT)) {
 			try {
-				this.connection.close();
+				connection.close();
 			} catch (SQLException e) {
 				System.out.println("Failed to close MySQL connection: "
 						+ e.getMessage());
@@ -96,10 +88,10 @@ public class DatabaseConnection implements EventHandler {
 	 *            the server
 	 * @return true if the connection is still valid, false if not
 	 */
-	public boolean isConnected(int timeoutInMilliseconds) {
-		if (this.connection != null) {
+	public static boolean isConnected(int timeoutInMilliseconds) {
+		if (connection != null) {
 			try {
-				return this.connection.isValid(timeoutInMilliseconds);
+				return connection.isValid(timeoutInMilliseconds);
 			} catch (SQLException e) {
 				System.err.println("Something is wrong with the connection: "
 						+ e.getMessage());
@@ -118,7 +110,7 @@ public class DatabaseConnection implements EventHandler {
 	 * @return a {@link java.sql.ResultSet ResultSet} containing the result of
 	 *         the query
 	 */
-	ResultSet fetchData(String query) {
+	static ResultSet fetchData(String query) {
 		try {
 			return connection.createStatement().executeQuery(query);
 		} catch (SQLException e) {
@@ -135,7 +127,7 @@ public class DatabaseConnection implements EventHandler {
 	 *            is to be sent to the database
 	 * @return true if the insertion was a success, false in all other cases
 	 */
-	boolean insertIntoDB(String query) {
+	static boolean insertIntoDB(String query) {
 		try {
 			return connection.createStatement().execute(query);
 		} catch (SQLException e) {
@@ -144,44 +136,8 @@ public class DatabaseConnection implements EventHandler {
 		}
 	}
 
-	public static void main(String[] args) throws SQLException {
-		DatabaseConnection connection = new DatabaseConnection();
-		connection.connect();
-		long starttid = System.currentTimeMillis();
-		DatabaseConnection databaseConnection = new DatabaseConnection();
-		CustomerList customerList = null;
-		DishList dishList = null;
-		ExtraList extraList = null;
-		OrderList orderList = null;
-		try {
-			databaseConnection.connect();
-		} catch (Exception e) {
-			System.out.println("SHENANIGANS!");
-		}
-		customerList = new CustomerList(databaseConnection);
-		dishList = new DishList(databaseConnection);
-		extraList = new ExtraList(databaseConnection);
-		orderList = new OrderList(databaseConnection, customerList, dishList,
-				extraList);
-		for (Customer c : customerList.getCustomerList()) {
-			System.out.println(c.toString());
-		}
-		for (Dish d : dishList.getDishList()) {
-			System.out.println(d.toString());
-		}
-		for (Extra e : extraList.getExtraList()) {
-			System.out.println(e.toString());
-		}
-		for (Order o : orderList.getOrderList()) {
-			System.out.println(o.toString());
-		}
-		System.out.println(System.currentTimeMillis() - starttid);
-		System.out.println();
-		connection.disconnect();
-	}
-
 	public void handleEvent(Event event) {
 
-		this.queryHandler.handleEvent(event);
+		queryHandler.handleEvent(event);
 	}
 }
