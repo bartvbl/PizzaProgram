@@ -32,16 +32,14 @@ public class CookGUI extends GUIModule implements EventHandler{
 	private TextArea commentArea;
 	private TextArea descriptionArea;
 	
-	private OrderList databaseOrders;
 	private JFrame jFrame;
 	private HashMap<String, Dish> dishMap = new HashMap<String, Dish>();
 	
 	private JButton beingMadeButton;
 	private JButton finishedButton;
 	
-	public CookGUI(OrderList ol, JFrame jFrame, EventDispatcher eventDispatcher) {
+	public CookGUI(JFrame jFrame, EventDispatcher eventDispatcher) {
 		super(eventDispatcher);
-		this.databaseOrders = ol;
 		this.jFrame = jFrame;
 		eventDispatcher.addEventListener(this, EventType.COOK_GUI_REQUESTED);
 		eventDispatcher.addEventListener(this, EventType.ORDER_GUI_REQUESTED);
@@ -95,7 +93,7 @@ public class CookGUI extends GUIModule implements EventHandler{
 		beingMadeButton = new JButton("Begynn tilbereding");
 		beingMadeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				databaseOrders.changeOrderStatus(orderMap.get(orderList.getSelectedItem()), Order.BEING_COOKED);
+				OrderList.changeOrderStatus(orderMap.get(orderList.getSelectedItem()), Order.BEING_COOKED);
 				populateLists();
 			}
 		});
@@ -104,7 +102,7 @@ public class CookGUI extends GUIModule implements EventHandler{
 		finishedButton = new JButton("Ferdig");
 		finishedButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				databaseOrders.changeOrderStatus(orderMap.get(orderList.getSelectedItem()), Order.HAS_BEEN_COOKED);
+				OrderList.changeOrderStatus(orderMap.get(orderList.getSelectedItem()), Order.HAS_BEEN_COOKED);
 				populateLists();
 			}
 		});
@@ -134,14 +132,14 @@ public class CookGUI extends GUIModule implements EventHandler{
 	}
 	
 	private void populateLists(){
-		databaseOrders.updateOrders();
+		OrderList.updateOrders();
 		orderMap.clear();
 		orderList.removeAll();
 		currentOrderList.removeAll();
 		descriptionArea.setText("");
 		commentArea.setText("");
 		
-		for(Order o : databaseOrders.getOrderList()){
+		for(Order o : OrderList.getOrderList()){
 			if(o.getStatus().equals(Order.REGISTERED) || o.getStatus().equals(Order.BEING_COOKED)){
 				String sc = "Ordre nr: " + o.getID() + " Antall Retter: " + o.getOrderedDishes().size(); 
 				String status = (o.getStatus().equals(Order.BEING_COOKED) ? "X" : "  ");

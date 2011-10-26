@@ -12,7 +12,7 @@ import pizzaProgram.dataObjects.Order;
 import pizzaProgram.dataObjects.OrderDish;
 
 /**
- * Object for handling extras in the database. At construction the object
+ * Object for handling orders in the database. At construction the object
  * creates an {@link java.util.ArrayList ArrayList} and a
  * {@link java.util.HashMap HashMap} of all the different
  * {@link pizzaProgram.dataObject.Order orders} based on a fetch from the

@@ -36,15 +36,13 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 	private DeliveryMap chartArea;
 	private HashMap<String, Order> orderMap = new HashMap<String, Order>();
 	
-	private OrderList databaseOrder;
 	private JFrame jFrame;
 	JButton onRoute;
 	JButton delivered;
 	JButton receipt;
 	
-	public DeliverGUI(OrderList ol, JFrame jFrame, EventDispatcher eventDispatcher) {
+	public DeliverGUI(JFrame jFrame, EventDispatcher eventDispatcher) {
 		super(eventDispatcher);
-		this.databaseOrder = ol;
 		this.jFrame = jFrame;
 		eventDispatcher.addEventListener(this, EventType.COOK_GUI_REQUESTED);
 		eventDispatcher.addEventListener(this, EventType.ORDER_GUI_REQUESTED);
@@ -171,7 +169,7 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 		onRoute.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
             	Order o = orderMap.get(orderList.getSelectedItem());
-            	databaseOrder.changeOrderStatus(o, Order.BEING_DELIVERED);
+            	OrderList.changeOrderStatus(o, Order.BEING_DELIVERED);
             	populateLists();
             }
 		});
@@ -189,7 +187,7 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 		delivered.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
             	Order o = orderMap.get(orderList.getSelectedItem());
-            	databaseOrder.changeOrderStatus(o, Order.DELIVERED);
+            	OrderList.changeOrderStatus(o, Order.DELIVERED);
             	populateLists();
             }
 		});
@@ -248,9 +246,9 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 		orderContentList.setText("");
 		orderMap.clear();
 		
-		databaseOrder.updateOrders();
+		OrderList.updateOrders();
 		ArrayList<Order> tempSort = new ArrayList<Order>();
-		for (Order o : databaseOrder.getOrderList()){
+		for (Order o : OrderList.getOrderList()){
 			if (o.getStatus().equals(Order.HAS_BEEN_COOKED) || o.getStatus().equals(Order.BEING_DELIVERED)){
 				tempSort.add(o);
 			}

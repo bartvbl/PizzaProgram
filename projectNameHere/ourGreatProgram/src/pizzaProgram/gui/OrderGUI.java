@@ -32,10 +32,6 @@ import pizzaProgram.modules.GUIModule;
 
 public class OrderGUI extends GUIModule implements EventHandler {
 
-	private CustomerList databaseCustomer;
-	private DishList databaseDish;
-	private ExtraList databaseExtra;
-	private OrderList databaseOrder;
 	private JFrame jFrame;
 
 	// GUI-components
@@ -58,14 +54,9 @@ public class OrderGUI extends GUIModule implements EventHandler {
 
 	OrderGUI thisGUI;
 
-	public OrderGUI(CustomerList cl, DishList dl, ExtraList el, OrderList ol,
-			JFrame jFrame, EventDispatcher eventDispatcher) {
+	public OrderGUI(JFrame jFrame, EventDispatcher eventDispatcher) {
 		super(eventDispatcher);
 		thisGUI = this;
-		this.databaseCustomer = cl;
-		this.databaseDish = dl;
-		this.databaseExtra = el;
-		this.databaseOrder = ol;
 		this.jFrame = jFrame;
 		eventDispatcher.addEventListener(this, EventType.COOK_GUI_REQUESTED);
 		eventDispatcher.addEventListener(this, EventType.ORDER_GUI_REQUESTED);
@@ -198,15 +189,15 @@ public class OrderGUI extends GUIModule implements EventHandler {
 				String selectedCustomerString = customerList.getSelectedItem();
 				Customer c = customerMap.get(selectedCustomerString);
 				
-				databaseOrder.addOrder(c, true, orderComment.getText());
+				OrderList.addOrder(c, true, orderComment.getText());
 				
 				populateLists();
 				c = customerMap.get(selectedCustomerString);
 			
-				Order o = databaseOrder.getCustomerToOrderMap().get(c);
+				Order o = OrderList.getCustomerToOrderMap().get(c);
 				try {
 					for (OrderDish od : dishesInOrder) {
-						databaseOrder.addDishToOrder(o, od.dish, od.getExtras());
+						OrderList.addDishToOrder(o, od.dish, od.getExtras());
 					}
 					orderedDishesList.removeAll();
 				} catch (SQLException ex) {
@@ -238,7 +229,7 @@ public class OrderGUI extends GUIModule implements EventHandler {
 	public void createNewCustomer(String firstName, String lastName,
 			String address, int postalCode, String city, int phoneNumber) {
 		try {
-			databaseCustomer.addCustomer(firstName, lastName, address,
+			CustomerList.addCustomer(firstName, lastName, address,
 					postalCode, city, phoneNumber);
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -251,18 +242,18 @@ public class OrderGUI extends GUIModule implements EventHandler {
 		customerMap.clear();
 		dishList.removeAll();
 		dishExtraList.removeAll();
-		databaseOrder.updateOrders();
-		for (Customer c : databaseCustomer.getCustomerList()) {
+		OrderList.updateOrders();
+		for (Customer c : CustomerList.getCustomerList()) {
 			String s = c.customerID + " " + c.firstName + " " + c.lastName;
 			customerList.add(s);
 			customerMap.put(s, c);
 		}
-		for (Dish d : databaseDish.getDishList()) {
+		for (Dish d : DishList.getDishList()) {
 			String s = d.name;
 			dishList.add(s);
 			dishMap.put(s, d);
 		}
-		for (Extra e : databaseExtra.getExtraList()) {
+		for (Extra e : ExtraList.getExtraList()) {
 			String s = e.name;
 			dishExtraList.add(s);
 			extraMap.put(s, e);
