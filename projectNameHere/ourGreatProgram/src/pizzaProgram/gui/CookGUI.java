@@ -39,8 +39,6 @@ public class CookGUI extends GUIModule implements EventHandler{
 	private JButton beingMadeButton;
 	private JButton finishedButton;
 	
-	private List valgtliste;
-	
 	public CookGUI(OrderList ol, JFrame jFrame, EventDispatcher eventDispatcher) {
 		super(eventDispatcher);
 		this.databaseOrders = ol;
@@ -54,9 +52,6 @@ public class CookGUI extends GUIModule implements EventHandler{
 	
 	@Override
 	public void initialize() {
-		
-		valgtliste = new List();
-		this.jFrame.add(valgtliste, createConstrints(0, 0, 1, 6, 0.0, 1, GridBagConstraints.VERTICAL));
 		
 		orderList = new List();
 		orderList.addItemListener(new ItemListener() {
@@ -142,7 +137,6 @@ public class CookGUI extends GUIModule implements EventHandler{
 		databaseOrders.updateOrders();
 		orderMap.clear();
 		orderList.removeAll();
-		valgtliste.removeAll();
 		currentOrderList.removeAll();
 		descriptionArea.setText("");
 		commentArea.setText("");
@@ -150,9 +144,9 @@ public class CookGUI extends GUIModule implements EventHandler{
 		for(Order o : databaseOrders.getOrderList()){
 			if(o.getStatus().equals(Order.REGISTERED) || o.getStatus().equals(Order.BEING_COOKED)){
 				String sc = "Ordre nr: " + o.getID() + " Antall Retter: " + o.getOrderedDishes().size(); 
+				String status = (o.getStatus().equals(Order.BEING_COOKED) ? "X" : "  ");
+				sc = status + " " + sc;
 				orderList.add(sc);
-				String status = (o.getStatus().equals(Order.BEING_COOKED) ? "Under tilbereding" : "Bestilling registert");
-				valgtliste.add(status);
 				orderMap.put(sc, o);
 			}
 		}
@@ -167,7 +161,6 @@ public class CookGUI extends GUIModule implements EventHandler{
 		descriptionArea.setVisible(true);
 		beingMadeButton.setVisible(true);
 		finishedButton.setVisible(true);
-		valgtliste.setVisible(true);
 		jFrame.setVisible(true);
 	}
 
@@ -179,7 +172,6 @@ public class CookGUI extends GUIModule implements EventHandler{
 		descriptionArea.setVisible(false);
 		beingMadeButton.setVisible(false);
 		finishedButton.setVisible(false);
-		valgtliste.setVisible(false);
 		jFrame.setVisible(true);
 	}
 }

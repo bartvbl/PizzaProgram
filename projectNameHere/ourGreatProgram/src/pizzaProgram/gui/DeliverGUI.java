@@ -33,7 +33,6 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 	private List orderList;
 	private TextArea currentInfoList;
 	private TextArea orderContentList;
-	private List orderStatusList = new List();
 	private DeliveryMap chartArea;
 	private HashMap<String, Order> orderMap = new HashMap<String, Order>();
 	
@@ -131,17 +130,6 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 				chartArea.loadImage(c.address);
 			}
 		});
-		
-		// Gridden som inneholder Status
-		GridBagConstraints statusListConstraints = new GridBagConstraints();
-		statusListConstraints.gridx = 0;
-		statusListConstraints.gridy = 0;
-		statusListConstraints.weightx = 0;
-		statusListConstraints.weighty = 1;
-		statusListConstraints.gridwidth = 2;
-		statusListConstraints.gridheight = 2;
-		statusListConstraints.fill = GridBagConstraints.BOTH;
-		this.jFrame.add(orderStatusList, statusListConstraints);
 		
 		// Gridden som inneholder Ordre
 		GridBagConstraints orderListConstraints = new GridBagConstraints();
@@ -259,18 +247,15 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 		currentInfoList.setText("");
 		orderContentList.setText("");
 		orderMap.clear();
-		orderStatusList.removeAll();
 		
 		databaseOrder.updateOrders();
 		ArrayList<Order> tempSort = new ArrayList<Order>();
-		
 		for (Order o : databaseOrder.getOrderList()){
 			if (o.getStatus().equals(Order.HAS_BEEN_COOKED) || o.getStatus().equals(Order.BEING_DELIVERED)){
-				String sc = ("Order " + o.getID() + ": " + o.getCustomer().firstName + " " + o.getCustomer().lastName);
 				tempSort.add(o);
-				orderMap.put(sc, o);
 			}
 		}
+		
 		Comparator<Order> comp = new Comparator<Order>() {
 			@Override
 			public int compare(Order o1, Order o2) {
@@ -281,9 +266,10 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 		Collections.sort(tempSort, comp);
 		
 		for (Order o : tempSort){
-			orderList.add("Order " + o.getID() + ": " + o.getCustomer().firstName + " " + o.getCustomer().lastName);
-			String status = (o.status.equals(Order.HAS_BEEN_COOKED) ? "Klar for levering" : "Under leveranse");
-			orderStatusList.add(status);
+			String status = (o.status.equals(Order.HAS_BEEN_COOKED) ? "  " : "X");
+			String sc = (status + " Order " + o.getID() + ": " + o.getCustomer().firstName + " " + o.getCustomer().lastName);
+			orderList.add(sc);
+			orderMap.put(sc, o);
 		}
 		
 	}
@@ -293,7 +279,6 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 	@Override
 	public void show() {
 		populateLists();
-		orderStatusList.setVisible(true);
 		receipt.setVisible(true);
 		onRoute.setVisible(true);
 		delivered.setVisible(true);
@@ -309,7 +294,6 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 	 */
 	@Override
 	public void hide() {
-		orderStatusList.setVisible(false);
 		receipt.setVisible(false);
 		onRoute.setVisible(false);
 		delivered.setVisible(false);
