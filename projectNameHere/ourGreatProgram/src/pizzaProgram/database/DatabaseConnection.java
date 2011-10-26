@@ -1,5 +1,9 @@
 package pizzaProgram.database;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -15,9 +19,9 @@ import pizzaProgram.events.EventHandler;
  * 
  */
 public class DatabaseConnection implements EventHandler {
-	private static final String DATABASE_HOST = "jdbc:mysql://mysql.stud.ntnu.no/it1901g03_PizzaBase";
-	private static final String DATABASE_USERNAME = "it1901g03_admin";
-	private static final String DATABASE_PASSWORD = "batman";
+	private static final String URL_TYPE = "URL";
+	private static final String USERNAME_TYPE = "USERNAME";
+	private static final String PASSWORD_TYPE = "PASSWORD";
 	public static final int DEFAULT_TIMEOUT = 3000;
 	/**
 	 * The maximum amount of allowed characters in a short VARCHAR column in the
@@ -39,9 +43,39 @@ public class DatabaseConnection implements EventHandler {
 	 */
 	public static void connect() {
 		try {
+			String url = "jdbc:";
+			String username = "";
+			String password = "";
+			BufferedReader br = new BufferedReader(new FileReader("config/databaseinfo.cfg"));
+			while (br.ready()) {
+				String read = br.readLine();
+				if (!(read==null||read.charAt(0)=='#')) {
+					String[] line = read.split(":", 2);
+					System.out.println(line[0] + " " + line[1]);
+					String type = "";
+					String contents = "";
+					if (line.length == 2) {
+						type = line[0];
+						contents = line[1].trim();
+					}
+					else {
+						System.out.println("There is an error in the configuration file in one of the uncommented lines.");
+					}
+					if (type.equals(URL_TYPE)) {
+						url += contents;
+					}
+					else if (type.equals(USERNAME_TYPE)) {
+						username = contents;
+					}
+					else if (type.equals(PASSWORD_TYPE)) {
+						password = contents;
+					}
+				}
+			}
+			System.out.println(url + username + password);
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			connection = DriverManager.getConnection(DATABASE_HOST,
-					DATABASE_USERNAME, DATABASE_PASSWORD);
+			connection = DriverManager.getConnection(url,
+					username, password);
 			System.out.println("The connection was a success!");
 
 		} catch (SQLException e) {
@@ -55,6 +89,13 @@ public class DatabaseConnection implements EventHandler {
 		} catch (IllegalAccessException e) {
 			System.out.println("Failed during driverinstantiation: "
 					+ e.getMessage());
+		} catch (FileNotFoundException e) {
+			System.out.println("Unable to find the configurationfile for the database."
+					+ "Please make sure ../config/databaseinfo.cfg exists: " + e.getMessage());
+			e.printStackTrace();
+		} catch (IOException e) {
+			System.out.println("Unable to read the configfile." + e.getMessage());
+			e.printStackTrace();
 		}
 	}
 
