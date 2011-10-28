@@ -12,24 +12,23 @@ import pizzaProgram.dataObjects.Order;
 import pizzaProgram.dataObjects.OrderDish;
 
 /**
- * Object for handling orders in the database. At construction the object
- * creates an {@link java.util.ArrayList ArrayList} and a
+ * Object for handling orders in the database. The methods of the class handles
+ * populating an {@link java.util.ArrayList ArrayList} and a
  * {@link java.util.HashMap HashMap} of all the different
  * {@link pizzaProgram.dataObject.Order orders} based on a fetch from the
- * database; these lists are publically available through the getter methods. In
- * addition it creates a {@link java.util.HashMap HashMap} of the open orders
- * with a mapping from customer to order for use in the GUI. <br>
+ * database, as well as a {@link java.util.HashMap HashMap} of the open orders
+ * with a mapping from a combination of the customerID and the orderStatus to
+ * order for use in the GUI. These lists are publically available through the
+ * getter methods.<br>
  * <br>
- * For now it is suggested to discard this object any time a change occurs to an
- * order in the database, and reconstruct it by a call to the constructor. <br>
+ * The methods of the class also handles the addition of new orders to the
+ * database with two methods: one for adding an
+ * {@link pizzaProgram.dataObject.Order order}, and another for adding
+ * {@link pizzaProgram.dataObject.OrderDish ordered dishes} to the order, as
+ * well as a method for changing the status of the order. <br>
  * <br>
- * The methods of the class handles the addition of new orders to the database
- * with two methods: one for adding an {@link pizzaProgram.dataObject.Order
- * order}, and another for adding {@link pizzaProgram.dataObject.OrderDish
- * ordered dishes} to the order. <br>
- * <br>
- * CAUTION: ALL the other lists must be created before the OrderList can be
- * created, as it uses the maps created with the other lists to correctly assign
+ * CAUTION: ALL the other lists must be updated before the OrderList can be
+ * updated, as it uses the maps created with the other lists to correctly assign
  * data.
  * 
  * @author IT1901 Group 03, Fall 2011
@@ -37,12 +36,18 @@ import pizzaProgram.dataObjects.OrderDish;
 
 // TODO: Dispatch an event whenever the lists are updated
 
-// TODO: customertoordermap should use string customerid + orderstatus, one order pr status
 public class OrderList {
 	private final static ArrayList<Order> orderList = new ArrayList<Order>();
 	private final static HashMap<Integer, Order> orderMap = new HashMap<Integer, Order>();
-	private final static HashMap<Customer, Order> customerToOrderMap = new HashMap<Customer, Order>();
-	
+	private final static HashMap<String, Order> customerToOrderMap = new HashMap<String, Order>();
+
+	/**
+	 * This method clears the old lists, and repopulates the
+	 * {@link java.util.ArrayList ArrayList} and {@link java.util.HashMap
+	 * HashMaps} of all the different {@link pizzaProgram.dataObject.Order
+	 * orders} based on a fetch from the database. This method must be rerun
+	 * each time the Orders table of the database is modified.
+	 */
 	public static void updateOrders() {
 		if (!DatabaseConnection.isConnected(DatabaseConnection.DEFAULT_TIMEOUT)) {
 			System.err
@@ -83,7 +88,8 @@ public class OrderList {
 					orderList.add(tempOrder);
 					orderMap.put(results.getInt(1), tempOrder);
 					if (!tempOrder.status.equals(Order.DELIVERED)) {
-						customerToOrderMap.put(tempOrder.customer, tempOrder);
+						customerToOrderMap.put(tempOrder.customer.customerID
+								+ tempOrder.getStatus(), tempOrder);
 					}
 
 				}
@@ -107,7 +113,7 @@ public class OrderList {
 			}
 			results.close();
 		} catch (SQLException e) {
-			System.err.println("An error occured during your query: "
+			System.err.println("An error occured while adding the Order: "
 					+ e.getMessage());
 		}
 
@@ -117,17 +123,13 @@ public class OrderList {
 	 * Creates and returns the order commentlist, which is needed when creating
 	 * the lists
 	 * 
-	 * @param dbCon
-	 *            - the {@link pizzaProgram.database.DatabaseConnection
-	 *            DatabaseConnection} object with the current active connection
-	 *            to the SQL database
 	 * @return a {@link java.util.HashMap HashMap} from commentID to comment
-	 * @throws SQLException
 	 */
 
 	private static HashMap<Integer, String> createOrderCommentList() {
 		HashMap<Integer, String> orderComments = new HashMap<Integer, String>();
-		ResultSet results = DatabaseConnection.fetchData("SELECT * FROM OrderComments;");
+		ResultSet results = DatabaseConnection
+				.fetchData("SELECT * FROM OrderComments;");
 		orderComments.put(-1, "");
 		try {
 			while (results.next()) {
@@ -135,8 +137,9 @@ public class OrderList {
 			}
 			results.close();
 		} catch (SQLException e) {
-			System.err.println("An error occured during your query: "
-					+ e.getMessage());
+			System.err
+					.println("An error occured while creating the commentlist: "
+							+ e.getMessage());
 		}
 		return orderComments;
 	}
@@ -149,19 +152,17 @@ public class OrderList {
 		return orderMap;
 	}
 
-	public static HashMap<Customer, Order> getCustomerToOrderMap() {
+	public static HashMap<String, Order> getCustomerToOrderMap() {
 		return customerToOrderMap;
 	}
 
 	/**
 	 * Method that adds a new order to the database.<br>
 	 * The fields for time registered and order status are automatically set to,
-	 * respectively, the current time and "registered" upon creation.
+	 * respectively, the current time and
+	 * {@link pizzaProgram.dataObjects.Order#REGISTERED REGISTERED} upon
+	 * creation.
 	 * 
-	 * @param dbCon
-	 *            - the {@link pizzaProgram.database.DatabaseConnection
-	 *            DatabaseConnection} object with the current active connection
-	 *            to the SQL database
 	 * @param customer
 	 *            - the {@link pizzaProgram.dataObjects.Customer customer} this
 	 *            order belongs to
@@ -177,23 +178,23 @@ public class OrderList {
 
 	public static boolean addOrder(Customer customer, boolean isDeliverAtHome,
 			String comment) {
-		if (!DatabaseConnection
-				.isConnected(DatabaseConnection.DEFAULT_TIMEOUT)) {
+		if (!DatabaseConnection.isConnected(DatabaseConnection.DEFAULT_TIMEOUT)) {
 			System.err
 					.println("No active database connection: please try again!");
 			return false;
 		}
-		String deliverymethod = (isDeliverAtHome ? "deliver at home"
-				: "pickup at restaurant");
+		String deliverymethod = (isDeliverAtHome ? Order.DELIVER_AT_HOME
+				: Order.PICKUP_AT_RESTAURANT);
 		try {
 			if (!DatabaseConnection.fetchData(
 					"SELECT * FROM Orders WHERE CustomerID="
-							+ customer.customerID
-							+ " AND OrdersStatus<>'delivered';").next()) {
+							+ customer.customerID + " AND OrdersStatus<>'"
+							+ Order.DELIVERED + "';").next()) {
 				int commentID = -1;
 				if (!(comment == null || comment.equals(""))) {
-					DatabaseConnection.insertIntoDB("INSERT INTO OrderComments (Comment) VALUES ('"
-							+ comment + "');");
+					DatabaseConnection
+							.insertIntoDB("INSERT INTO OrderComments (Comment) VALUES ('"
+									+ comment + "');");
 					ResultSet commentIDset = DatabaseConnection
 							.fetchData("SELECT CommentID FROM OrderComments WHERE Comment='"
 									+ comment + "';");
@@ -220,10 +221,6 @@ public class OrderList {
 	 * Method for adding a dish together with its associated extras to an order
 	 * in the database
 	 * 
-	 * @param dbCon
-	 *            - the {@link pizzaProgram.database.DatabaseConnection
-	 *            DatabaseConnection} object with the current active connection
-	 *            to the SQL database
 	 * @param order
 	 *            - the {@link pizzaProgram.dataObjects.Order order} this dish
 	 *            and extras belongs to
@@ -237,17 +234,17 @@ public class OrderList {
 	 * @throws SQLException
 	 */
 
-	public static void addDishToOrder(Order order, Dish dish, ArrayList<Extra> extras)
-			throws SQLException {
-		if (!DatabaseConnection
-				.isConnected(DatabaseConnection.DEFAULT_TIMEOUT)) {
+	public static void addDishToOrder(Order order, Dish dish,
+			ArrayList<Extra> extras) {
+		if (!DatabaseConnection.isConnected(DatabaseConnection.DEFAULT_TIMEOUT)) {
 			System.err
-					.println("No active database connection: please try again!");
+					.println("No active database connection: the dish was not added to the order.");
 			return;
 		}
 		int ordersContentsID = -1;
-		DatabaseConnection.insertIntoDB("INSERT INTO OrdersContents (OrdersID, DishID) VALUES ("
-				+ order.getID() + ", " + dish.dishID + ");");
+		DatabaseConnection
+				.insertIntoDB("INSERT INTO OrdersContents (OrdersID, DishID) VALUES ("
+						+ order.getID() + ", " + dish.dishID + ");");
 		if (!(extras == null || extras.isEmpty())) {
 			ResultSet currentOrderContentsID = DatabaseConnection
 					.fetchData("SELECT OrdersContentsID FROM OrdersContents WHERE OrdersID="
@@ -255,25 +252,31 @@ public class OrderList {
 							+ " AND DishID="
 							+ dish.dishID
 							+ " ORDER BY OrdersContentsID;");
-			if (currentOrderContentsID.last()) {
-				ordersContentsID = currentOrderContentsID.getInt(1);
+			try {
+				if (currentOrderContentsID.last()) {
+					ordersContentsID = currentOrderContentsID.getInt(1);
+				}
+			} catch (SQLException e) {
+				System.err
+						.println("An error occured while adding extras to the dish: "
+								+ e.getMessage());
 			}
 			for (Extra e : extras) {
-				DatabaseConnection.insertIntoDB("INSERT INTO DishExtrasChosen (OrdersContentsID, DishExtraID) VALUES ("
-						+ ordersContentsID + ", " + e.id + ");");
+				DatabaseConnection
+						.insertIntoDB("INSERT INTO DishExtrasChosen (OrdersContentsID, DishExtraID) VALUES ("
+								+ ordersContentsID + ", " + e.id + ");");
 			}
 		}
 	}
 
 	public static void changeOrderStatus(Order order, String status) {
-		if (!DatabaseConnection
-				.isConnected(DatabaseConnection.DEFAULT_TIMEOUT)) {
+		if (!DatabaseConnection.isConnected(DatabaseConnection.DEFAULT_TIMEOUT)) {
 			System.err
 					.println("No active database connection: please try again!");
 			return;
 		}
-		DatabaseConnection.insertIntoDB("UPDATE Orders SET OrdersStatus='" + status
-				+ "' WHERE OrdersID=" + order.orderID + ";");
+		DatabaseConnection.insertIntoDB("UPDATE Orders SET OrdersStatus='"
+				+ status + "' WHERE OrdersID=" + order.orderID + ";");
 	}
 	// TODO: Add a remove order method, if we want to have one.
 }
