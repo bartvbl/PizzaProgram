@@ -11,20 +11,18 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-import org.omg.CosNaming.NamingContextExtPackage.AddressHelper;
-
 @SuppressWarnings("serial")
 public class DeliveryMap extends JPanel {
 
-	BufferedImage kart = new BufferedImage(400, 300, BufferedImage.TYPE_INT_RGB);
+	BufferedImage kart;
 	/**
 	 * sets dimensions
 	 * 
 	 */
 	public DeliveryMap() {
 		setBackground(Color.white);
-		setPreferredSize(new Dimension(400, 300));
 		loadImage(address());
+		setPreferredSize(new Dimension());
 	}
 
 	@Override
@@ -93,7 +91,7 @@ public class DeliveryMap extends JPanel {
 
 		try {
 			URL url = new URL(
-					"http://maps.googleapis.com/maps/api/staticmap?size=400x300&sensor=false&markers="
+					"http://maps.googleapis.com/maps/api/staticmap?size=600x200&sensor=false&markers="
 							+ formatAddress(address())+ "&markers="+ formatAddress(til));
 			kart = ImageIO.read(url);
 

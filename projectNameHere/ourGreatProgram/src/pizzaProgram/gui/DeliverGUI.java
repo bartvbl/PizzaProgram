@@ -129,7 +129,7 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 				chartArea.loadImage(c.address);
 			}
 		});
-		this.jFrame.add(orderList, createConstrints(2, 0, 16, 2, 0.1, 1, GridBagConstraints.BOTH));
+		this.jFrame.add(orderList, createConstrints(0, 0, 3, 7, 0, 1, GridBagConstraints.BOTH));
 		
 		//Kvitterings knappen
 		receipt = new JButton("Kvittering");
@@ -146,7 +146,7 @@ public class DeliverGUI extends GUIModule implements EventHandler{
             	JOptionPane.showMessageDialog(null, "Kunde:\n" + o.customer.firstName + " " + o.customer.lastName + "\n" + o.customer.address + "\n" + o.customer.postalCode + "\n" + o.customer.phoneNumber + "\n\nOrdre:\n" + toJOption);
             }
 		});
-        this.jFrame.add(receipt, createConstrints(0, 2, 1, 1, 0.1, 0, GridBagConstraints.BOTH));
+        this.jFrame.add(receipt, createConstrints(0, 7, 1, 1, 0, 0, GridBagConstraints.BOTH));
 		
 		//Utkj¿rt knappen
 		onRoute = new JButton("Kjør");
@@ -157,7 +157,7 @@ public class DeliverGUI extends GUIModule implements EventHandler{
             	populateLists();
             }
 		});
-        this.jFrame.add(onRoute, createConstrints(6, 2, 1, 1, 0.01, 0, GridBagConstraints.BOTH));
+        this.jFrame.add(onRoute, createConstrints(1, 7, 1, 1, 0, 0, GridBagConstraints.BOTH));
         
         //Levert knappen
 		delivered = new JButton("Levert");
@@ -168,23 +168,23 @@ public class DeliverGUI extends GUIModule implements EventHandler{
             	populateLists();
             }
 		});
-        this.jFrame.add(delivered, createConstrints(12, 2, 1, 1, 0.1, 0, GridBagConstraints.BOTH));
+        this.jFrame.add(delivered, createConstrints(2, 7, 1, 1, 0, 0, GridBagConstraints.BOTH));
 		
 		// Gridden som inneholder Adresse
-        currentInfoList = new TextArea("", 6, 12, TextArea.SCROLLBARS_NONE);
+        currentInfoList = new TextArea("", 6, 13, TextArea.SCROLLBARS_NONE);
         currentInfoList.setEditable(false);
         currentInfoList.setBackground(Color.white);
-		this.jFrame.add(currentInfoList, createConstrints(18, 0, 11, 1, 0.01, 1, GridBagConstraints.BOTH));
+		this.jFrame.add(currentInfoList, createConstrints(3, 0, 3, 4, 0.5, 1, GridBagConstraints.BOTH));
 		
 		// Gridden som inneholder innholdet i ordren
-		orderContentList = new TextArea("", 6, 12, TextArea.SCROLLBARS_VERTICAL_ONLY);
+		orderContentList = new TextArea("", 6, 13, TextArea.SCROLLBARS_VERTICAL_ONLY);
 		orderContentList.setEditable(false);
 		orderContentList.setBackground(Color.white);
-		this.jFrame.add(orderContentList, createConstrints(29, 0, 11, 1, 0.01, 1, GridBagConstraints.BOTH));
+		this.jFrame.add(orderContentList, createConstrints(6, 0, 3, 4, 0.5, 1, GridBagConstraints.BOTH));
 		
 		// Gridden som inneholder kart
 		chartArea = new DeliveryMap();
-		this.jFrame.add(chartArea, createConstrints(18, 1, 22, 1, 0, 0, GridBagConstraints.BOTH));
+		this.jFrame.add(chartArea, createConstrints(3, 4, 6, 5, 1, 0, GridBagConstraints.BOTH));
 		
 	}
 	/**
