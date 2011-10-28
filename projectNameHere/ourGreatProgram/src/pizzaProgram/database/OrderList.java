@@ -39,14 +39,19 @@ import pizzaProgram.dataObjects.OrderDish;
 
 // TODO: customertoordermap should use string customerid + orderstatus, one order pr status
 public class OrderList {
-	private static ArrayList<Order> orderList;
-	private static HashMap<Integer, Order> orderMap;
-	private static HashMap<Customer, Order> customerToOrderMap;
+	private final static ArrayList<Order> orderList = new ArrayList<Order>();
+	private final static HashMap<Integer, Order> orderMap = new HashMap<Integer, Order>();
+	private final static HashMap<Customer, Order> customerToOrderMap = new HashMap<Customer, Order>();
 	
 	public static void updateOrders() {
-		orderList = new ArrayList<Order>();
-		orderMap = new HashMap<Integer, Order>();
-		customerToOrderMap = new HashMap<Customer, Order>();
+		if (!DatabaseConnection.isConnected(DatabaseConnection.DEFAULT_TIMEOUT)) {
+			System.err
+					.println("No valid database connection; unable to update lists.");
+			return;
+		}
+		orderList.clear();
+		orderMap.clear();
+		customerToOrderMap.clear();
 		CustomerList.updateCustomers();
 		DishList.updateDishes();
 		ExtraList.updateExtras();

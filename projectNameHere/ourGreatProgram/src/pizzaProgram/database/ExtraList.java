@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import pizzaProgram.dataObjects.Dish;
 import pizzaProgram.dataObjects.Extra;
 
 /**
@@ -35,7 +34,7 @@ public class ExtraList {
 	public static void updateExtras() {
 		if (!DatabaseConnection.isConnected(DatabaseConnection.DEFAULT_TIMEOUT)) {
 			System.err
-					.println("No valid database connection specified; unable to update lists.");
+					.println("No valid database connection; unable to update lists.");
 			return;
 		}
 		extraList.clear();

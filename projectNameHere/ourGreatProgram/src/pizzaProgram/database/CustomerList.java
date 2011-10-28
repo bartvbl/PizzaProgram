@@ -41,7 +41,7 @@ public class CustomerList {
 	public static void updateCustomers() {
 		if (!DatabaseConnection.isConnected(DatabaseConnection.DEFAULT_TIMEOUT)) {
 			System.err
-					.println("No valid database connection specified; unable to update lists.");
+					.println("No valid database connection; unable to update lists.");
 			return;
 		}
 		customerList.clear();

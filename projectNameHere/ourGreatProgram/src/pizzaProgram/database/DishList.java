@@ -144,7 +144,7 @@ public class DishList {
 	public static boolean changeDishStatus(Dish dish, boolean newStatus) {
 		if (!DatabaseConnection.isConnected(DatabaseConnection.DEFAULT_TIMEOUT)) {
 			System.err
-					.println("No valid database connection specified; dish status not changed.");
+					.println("No valid database connection; dish status not changed.");
 			return false;
 		}
 		return DatabaseConnection.insertIntoDB("UPDATE Dishes SET isActive="
