@@ -1,6 +1,7 @@
 package pizzaProgram.gui;
 
 import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.awt.event.ComponentAdapter;
@@ -64,6 +65,9 @@ public class ProgramWindow implements EventHandler{
 		
 		Canvas canvas = new Canvas();
 		JFrame frame = new JFrame(ProgramWindow.MAIN_WINDOW_NAME);
+		frame.setBackground(Color.white);
+		frame.setForeground(Color.white);
+		frame.getContentPane().setBackground(Color.white);
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (ClassNotFoundException e) {

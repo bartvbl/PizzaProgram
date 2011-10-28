@@ -1,5 +1,6 @@
 package pizzaProgram.gui;
 
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.List;
 import java.awt.TextArea;
@@ -84,10 +85,12 @@ public class CookGUI extends GUIModule implements EventHandler{
 		
 		commentArea = new TextArea("", 3, 10, TextArea.SCROLLBARS_NONE);
 		commentArea.setEditable(false);
+		commentArea.setBackground(Color.white);
 		this.jFrame.add(commentArea, createConstrints(22, 5, 23, 1, 0.6, 0.0, GridBagConstraints.BOTH));
 		
 		descriptionArea = new TextArea("", 8, 10, TextArea.SCROLLBARS_NONE);
 		descriptionArea.setEditable(false);
+		descriptionArea.setBackground(Color.white);
 		this.jFrame.add(descriptionArea, createConstrints(22, 3, 23, 2, 0.6, 0.0, GridBagConstraints.BOTH));
 		
 		beingMadeButton = new JButton("Begynn tilbereding");

@@ -1,6 +1,7 @@
 package pizzaProgram.gui;
 
 
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.List;
 import java.awt.TextArea;
@@ -203,6 +204,7 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 		// Gridden som inneholder Adresse
         currentInfoList = new TextArea("", 6, 12, TextArea.SCROLLBARS_NONE);
         currentInfoList.setEditable(false);
+        currentInfoList.setBackground(Color.white);
 		GridBagConstraints currentInfoListConstraints = new GridBagConstraints();
 		currentInfoListConstraints.gridx = 18;
 		currentInfoListConstraints.gridy = 0;
@@ -216,6 +218,7 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 		// Gridden som inneholder innholdet i ordren
 		orderContentList = new TextArea("", 6, 12, TextArea.SCROLLBARS_VERTICAL_ONLY);
 		orderContentList.setEditable(false);
+		orderContentList.setBackground(Color.white);
 		GridBagConstraints orderContentListConstraints = new GridBagConstraints();
 		orderContentListConstraints.gridx = 29;
 		orderContentListConstraints.gridy = 0;

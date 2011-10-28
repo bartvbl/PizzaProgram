@@ -1,5 +1,6 @@
 package pizzaProgram.gui;
 
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.Label;
 import java.awt.List;
@@ -44,6 +45,8 @@ public class OrderGUI extends GUIModule implements EventHandler {
 	Label customerLabel;
 	JButton finishOrderButton;
 	List orderedDishesList;
+	TextArea customerInfo;
+	
 	HashMap<String, Customer> customerMap = new HashMap<String, Customer>();
 	HashMap<String, Dish> dishMap = new HashMap<String, Dish>();
 	HashMap<String, Extra> extraMap = new HashMap<String, Extra>();
@@ -69,20 +72,15 @@ public class OrderGUI extends GUIModule implements EventHandler {
 	@Override
 	public void initialize() {
 		newCustomerButton = new JButton("Ny kunde");
+		this.jFrame.add(newCustomerButton, createConstrints(0, 10, 1, 1, 0, 0, GridBagConstraints.BOTH));
 		newCustomerButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new NewCutomerWindow(thisGUI);
 			}
 		});
-		GridBagConstraints newCustomerButtonConstraints = new GridBagConstraints();
-		newCustomerButtonConstraints.gridx = 0;
-		newCustomerButtonConstraints.gridy = 10;
-		newCustomerButtonConstraints.gridheight = 1;
-		newCustomerButtonConstraints.gridwidth = 1;
-		newCustomerButtonConstraints.fill = GridBagConstraints.BOTH;
-		this.jFrame.add(newCustomerButton, newCustomerButtonConstraints);
 
 		customerList = new List();
+		this.jFrame.add(customerList, createConstrints(0, 1, 1, 7, 0.3, 1, GridBagConstraints.BOTH));
 		customerList.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				orderContentCounter = 1;
@@ -90,27 +88,29 @@ public class OrderGUI extends GUIModule implements EventHandler {
 				Customer c = customerMap.get(customerList.getSelectedItem());
 				customerLabel.setText(c.firstName + " " + c.lastName);
 				dishesInOrder.clear();
+				customerInfo.setText("");
+				customerInfo.append(c.firstName + " " + c.lastName+ "\n");
+				customerInfo.append("Kundenummer: " + c.customerID+ "\n");
+				customerInfo.append(c.address+ "\n");
+				customerInfo.append(c.postalCode + " " + c.city+ "\n");
+				customerInfo.append("Tlf: " + c.phoneNumber+ "\n");
 			}
 		});
 
-		GridBagConstraints customerListConstraints = new GridBagConstraints();
-		customerListConstraints.gridx = 0;
-		customerListConstraints.gridy = 1;
-		customerListConstraints.gridheight = 9;
-		customerListConstraints.gridwidth = 1;
-		customerListConstraints.weightx = 0.3;
-		customerListConstraints.weighty = 1;
-		customerListConstraints.fill = GridBagConstraints.BOTH;
-		this.jFrame.add(customerList, customerListConstraints);
-
+		
+		customerInfo = new TextArea("ting", 4, 8, TextArea.SCROLLBARS_NONE);
+		customerInfo.setEditable(false);
+		customerInfo.setBackground(Color.white);
+		this.jFrame.add(customerInfo, createConstrints(0, 8, 1, 3, 0, 0, GridBagConstraints.BOTH));
+		
 		addDishButton = new JButton("Legg til rett");
+		this.jFrame.add(addDishButton, createConstrints(2, 4, 1, 1, 0, 0, GridBagConstraints.BOTH));
 		addDishButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent actionEvent) {
 				if (customerList.getSelectedItem() == null) {
 					return;
 				}
-				OrderDish o = new OrderDish(-1, dishMap.get(dishList
-						.getSelectedItem()));
+				OrderDish o = new OrderDish(-1, dishMap.get(dishList.getSelectedItem()));
 				String dishDisplay = orderContentCounter + " " + o.dish.name;
 				orderContentCounter++;
 				orderedDishesList.add(dishDisplay);
@@ -125,60 +125,24 @@ public class OrderGUI extends GUIModule implements EventHandler {
 				dishesInOrder.add(o);
 			}
 		});
-		GridBagConstraints addDishButtonConstraints = new GridBagConstraints();
-		addDishButtonConstraints.gridx = 2;
-		addDishButtonConstraints.gridy = 4;
-		addDishButtonConstraints.gridheight = 1;
-		addDishButtonConstraints.gridwidth = 1;
-		addDishButtonConstraints.fill = GridBagConstraints.BOTH;
-		this.jFrame.add(addDishButton, addDishButtonConstraints);
 
 		dishList = new List();
-		GridBagConstraints dishListConstraints = new GridBagConstraints();
-		dishListConstraints.gridx = 1;
-		dishListConstraints.gridy = 0;
-		dishListConstraints.gridheight = 3;
-		dishListConstraints.gridwidth = 1;
-		dishListConstraints.weightx = 0.3;
-		dishListConstraints.weighty = 0.5;
-		dishListConstraints.fill = GridBagConstraints.BOTH;
-		this.jFrame.add(dishList, dishListConstraints);
+		this.jFrame.add(dishList, createConstrints(1, 0, 1, 3, 0.3, 0.5, GridBagConstraints.BOTH));
 
 		dishExtraList = new List();
 		dishExtraList.setMultipleMode(true);
-		GridBagConstraints dishExtraConstraints = new GridBagConstraints();
-		dishExtraConstraints.gridx = 2;
-		dishExtraConstraints.gridy = 0;
-		dishExtraConstraints.gridheight = 3;
-		dishExtraConstraints.gridwidth = 1;
-		dishExtraConstraints.weightx = 0.3;
-		dishExtraConstraints.weighty = 0.5;
-		dishExtraConstraints.fill = GridBagConstraints.BOTH;
-		this.jFrame.add(dishExtraList, dishExtraConstraints);
+		this.jFrame.add(dishExtraList, createConstrints(2, 0, 1, 3, 0.5, 0.3, GridBagConstraints.BOTH));
 
 		orderComment = new TextArea("", 4, 20, TextArea.SCROLLBARS_NONE);
 		orderComment.setText("Kommentarer til orderen");
-		GridBagConstraints orderCommentConstraints = new GridBagConstraints();
-		orderCommentConstraints.gridx = 1;
-		orderCommentConstraints.gridy = 8;
-		orderCommentConstraints.gridheight = 2;
-		orderCommentConstraints.gridwidth = 2;
-		orderCommentConstraints.weightx = 0.6;
-		orderCommentConstraints.weighty = 0;
-		orderCommentConstraints.fill = GridBagConstraints.BOTH;
-		this.jFrame.add(orderComment, orderCommentConstraints);
+		this.jFrame.add(orderComment, createConstrints(1, 8, 2, 2, 0.6, 0, GridBagConstraints.BOTH));
 
 		customerLabel = new Label();
 		customerLabel.setText("Navn");
-		GridBagConstraints customerLabelConstraints = new GridBagConstraints();
-		customerLabelConstraints.gridx = 1;
-		customerLabelConstraints.gridy = 4;
-		customerLabelConstraints.gridheight = 1;
-		customerLabelConstraints.gridwidth = 1;
-		customerLabelConstraints.fill = GridBagConstraints.BOTH;
-		this.jFrame.add(customerLabel, customerLabelConstraints);
+		this.jFrame.add(customerLabel, createConstrints(1, 4, 1, 1, 0, 0, GridBagConstraints.BOTH));
 
 		finishOrderButton = new JButton("Ferdigstill");
+		this.jFrame.add(finishOrderButton, createConstrints(1, 10, 2, 1, 0, 0, GridBagConstraints.BOTH));
 		finishOrderButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				orderContentCounter = 1;
@@ -206,24 +170,24 @@ public class OrderGUI extends GUIModule implements EventHandler {
 
 			}
 		});
-		GridBagConstraints finishOrderButtonConstraints = new GridBagConstraints();
-		finishOrderButtonConstraints.gridx = 1;
-		finishOrderButtonConstraints.gridy = 10;
-		finishOrderButtonConstraints.gridheight = 1;
-		finishOrderButtonConstraints.gridwidth = 2;
-		finishOrderButtonConstraints.fill = GridBagConstraints.BOTH;
-		this.jFrame.add(finishOrderButton, finishOrderButtonConstraints);
 
 		orderedDishesList = new List();
-		GridBagConstraints orderedDishesListConstraints = new GridBagConstraints();
-		orderedDishesListConstraints.gridx = 1;
-		orderCommentConstraints.gridy = 5;
-		orderCommentConstraints.gridheight = 3;
-		orderedDishesListConstraints.gridwidth = 2;
-		orderedDishesListConstraints.weightx = 0.3;
-		orderCommentConstraints.weighty = 0.5;
-		orderedDishesListConstraints.fill = GridBagConstraints.BOTH;
-		this.jFrame.add(orderedDishesList, orderCommentConstraints);
+		this.jFrame.add(orderedDishesList, createConstrints(1, 5, 2, 3, 0.3, 0.5, GridBagConstraints.BOTH));
+	}
+	/**
+	 * A method that returns a GridBagConstraints-Object with the parameters passed to this function
+	 * This method is purely cosmetical
+	 */
+	private GridBagConstraints createConstrints(int xx, int yy, int width, int height, double xweight, double yweight, int fill){
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.gridx = xx;
+		gbc.gridy = yy;
+		gbc.gridwidth = width;
+		gbc.gridheight = height;
+		gbc.weightx = xweight;
+		gbc.weighty = yweight;
+		gbc.fill = fill;
+		return gbc;
 	}
 
 	public void createNewCustomer(String firstName, String lastName,
@@ -283,6 +247,7 @@ public class OrderGUI extends GUIModule implements EventHandler {
 		customerLabel.setVisible(true);
 		finishOrderButton.setVisible(true);
 		orderedDishesList.setVisible(true);
+		customerInfo.setVisible(true);
 		jFrame.setVisible(true);
 	}
 
@@ -297,7 +262,7 @@ public class OrderGUI extends GUIModule implements EventHandler {
 		customerLabel.setVisible(false);
 		finishOrderButton.setVisible(false);
 		orderedDishesList.setVisible(false);
-
+		customerInfo.setVisible(false);
 		jFrame.setVisible(true);
 	}
 }// END
