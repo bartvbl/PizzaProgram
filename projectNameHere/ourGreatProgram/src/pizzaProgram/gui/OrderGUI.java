@@ -46,7 +46,7 @@ public class OrderGUI extends GUIModule implements EventHandler {
 	JButton finishOrderButton;
 	List orderedDishesList;
 	TextArea customerInfo;
-	
+
 	HashMap<String, Customer> customerMap = new HashMap<String, Customer>();
 	HashMap<String, Dish> dishMap = new HashMap<String, Dish>();
 	HashMap<String, Extra> extraMap = new HashMap<String, Extra>();
@@ -72,7 +72,8 @@ public class OrderGUI extends GUIModule implements EventHandler {
 	@Override
 	public void initialize() {
 		newCustomerButton = new JButton("Ny kunde");
-		this.jFrame.add(newCustomerButton, createConstrints(0, 10, 1, 1, 0, 0, GridBagConstraints.BOTH));
+		this.jFrame.add(newCustomerButton,
+				createConstrints(0, 10, 1, 1, 0, 0, GridBagConstraints.BOTH));
 		newCustomerButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new NewCutomerWindow(thisGUI);
@@ -80,7 +81,8 @@ public class OrderGUI extends GUIModule implements EventHandler {
 		});
 
 		customerList = new List();
-		this.jFrame.add(customerList, createConstrints(0, 1, 1, 7, 0.3, 1, GridBagConstraints.BOTH));
+		this.jFrame.add(customerList,
+				createConstrints(0, 1, 1, 7, 0.3, 1, GridBagConstraints.BOTH));
 		customerList.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				orderContentCounter = 1;
@@ -89,28 +91,30 @@ public class OrderGUI extends GUIModule implements EventHandler {
 				customerLabel.setText(c.firstName + " " + c.lastName);
 				dishesInOrder.clear();
 				customerInfo.setText("");
-				customerInfo.append(c.firstName + " " + c.lastName+ "\n");
-				customerInfo.append("Kundenummer: " + c.customerID+ "\n");
-				customerInfo.append(c.address+ "\n");
-				customerInfo.append(c.postalCode + " " + c.city+ "\n");
-				customerInfo.append("Tlf: " + c.phoneNumber+ "\n");
+				customerInfo.append(c.firstName + " " + c.lastName + "\n");
+				customerInfo.append("Kundenummer: " + c.customerID + "\n");
+				customerInfo.append(c.address + "\n");
+				customerInfo.append(c.postalCode + " " + c.city + "\n");
+				customerInfo.append("Tlf: " + c.phoneNumber + "\n");
 			}
 		});
 
-		
 		customerInfo = new TextArea("ting", 4, 8, TextArea.SCROLLBARS_NONE);
 		customerInfo.setEditable(false);
 		customerInfo.setBackground(Color.white);
-		this.jFrame.add(customerInfo, createConstrints(0, 8, 1, 3, 0, 0, GridBagConstraints.BOTH));
-		
+		this.jFrame.add(customerInfo,
+				createConstrints(0, 8, 1, 3, 0, 0, GridBagConstraints.BOTH));
+
 		addDishButton = new JButton("Legg til rett");
-		this.jFrame.add(addDishButton, createConstrints(2, 4, 1, 1, 0, 0, GridBagConstraints.BOTH));
+		this.jFrame.add(addDishButton,
+				createConstrints(2, 4, 1, 1, 0, 0, GridBagConstraints.BOTH));
 		addDishButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent actionEvent) {
 				if (customerList.getSelectedItem() == null) {
 					return;
 				}
-				OrderDish o = new OrderDish(-1, dishMap.get(dishList.getSelectedItem()));
+				OrderDish o = new OrderDish(-1, dishMap.get(dishList
+						.getSelectedItem()));
 				String dishDisplay = orderContentCounter + " " + o.dish.name;
 				orderContentCounter++;
 				orderedDishesList.add(dishDisplay);
@@ -127,58 +131,67 @@ public class OrderGUI extends GUIModule implements EventHandler {
 		});
 
 		dishList = new List();
-		this.jFrame.add(dishList, createConstrints(1, 0, 1, 3, 0.3, 0.5, GridBagConstraints.BOTH));
+		this.jFrame
+				.add(dishList,
+						createConstrints(1, 0, 1, 3, 0.3, 0.5,
+								GridBagConstraints.BOTH));
 
 		dishExtraList = new List();
 		dishExtraList.setMultipleMode(true);
-		this.jFrame.add(dishExtraList, createConstrints(2, 0, 1, 3, 0.5, 0.3, GridBagConstraints.BOTH));
+		this.jFrame
+				.add(dishExtraList,
+						createConstrints(2, 0, 1, 3, 0.5, 0.3,
+								GridBagConstraints.BOTH));
 
 		orderComment = new TextArea("", 4, 20, TextArea.SCROLLBARS_NONE);
 		orderComment.setText("Kommentarer til orderen");
-		this.jFrame.add(orderComment, createConstrints(1, 8, 2, 2, 0.6, 0, GridBagConstraints.BOTH));
+		this.jFrame.add(orderComment,
+				createConstrints(1, 8, 2, 2, 0.6, 0, GridBagConstraints.BOTH));
 
 		customerLabel = new Label();
 		customerLabel.setText("Navn");
-		this.jFrame.add(customerLabel, createConstrints(1, 4, 1, 1, 0, 0, GridBagConstraints.BOTH));
+		this.jFrame.add(customerLabel,
+				createConstrints(1, 4, 1, 1, 0, 0, GridBagConstraints.BOTH));
 
 		finishOrderButton = new JButton("Ferdigstill");
-		this.jFrame.add(finishOrderButton, createConstrints(1, 10, 2, 1, 0, 0, GridBagConstraints.BOTH));
+		this.jFrame.add(finishOrderButton,
+				createConstrints(1, 10, 2, 1, 0, 0, GridBagConstraints.BOTH));
 		finishOrderButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				orderContentCounter = 1;
 				if (dishesInOrder.size() < 1) {
 					return;
 				}
-				
+
 				String selectedCustomerString = customerList.getSelectedItem();
 				Customer c = customerMap.get(selectedCustomerString);
-				
-				OrderList.addOrder(c, true, orderComment.getText());
-				
-				populateLists();
+
+				pizzaProgram.database.OrderList.updateOrders();
 				c = customerMap.get(selectedCustomerString);
-			
-				Order o = OrderList.getCustomerToOrderMap().get(c);
-				try {
-					for (OrderDish od : dishesInOrder) {
-						OrderList.addDishToOrder(o, od.dish, od.getExtras());
-					}
-					orderedDishesList.removeAll();
-				} catch (SQLException ex) {
-					ex.printStackTrace();
+
+				Order o = OrderList.getCustomerToOrderMap().get(c.customerID+pizzaProgram.dataObjects.Order.REGISTERED);
+				System.out.println(o);
+				for (OrderDish od : dishesInOrder) {
+					OrderList.addDishToOrder(o, od.dish, od.getExtras());
 				}
+				orderedDishesList.removeAll();
 
 			}
 		});
 
 		orderedDishesList = new List();
-		this.jFrame.add(orderedDishesList, createConstrints(1, 5, 2, 3, 0.3, 0.5, GridBagConstraints.BOTH));
+		this.jFrame
+				.add(orderedDishesList,
+						createConstrints(1, 5, 2, 3, 0.3, 0.5,
+								GridBagConstraints.BOTH));
 	}
+
 	/**
-	 * A method that returns a GridBagConstraints-Object with the parameters passed to this function
-	 * This method is purely cosmetical
+	 * A method that returns a GridBagConstraints-Object with the parameters
+	 * passed to this function This method is purely cosmetical
 	 */
-	private GridBagConstraints createConstrints(int xx, int yy, int width, int height, double xweight, double yweight, int fill){
+	private GridBagConstraints createConstrints(int xx, int yy, int width,
+			int height, double xweight, double yweight, int fill) {
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.gridx = xx;
 		gbc.gridy = yy;
@@ -191,8 +204,9 @@ public class OrderGUI extends GUIModule implements EventHandler {
 	}
 
 	public void createNewCustomer(String firstName, String lastName,
-		String address, int postalCode, String city, int phoneNumber) {
-		CustomerList.addCustomer(firstName, lastName, address,postalCode, city, phoneNumber);
+			String address, int postalCode, String city, int phoneNumber) {
+		CustomerList.addCustomer(firstName, lastName, address, postalCode,
+				city, phoneNumber);
 		populateLists();
 	}
 

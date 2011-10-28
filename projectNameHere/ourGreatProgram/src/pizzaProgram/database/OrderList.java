@@ -188,8 +188,8 @@ public class OrderList {
 		try {
 			if (!DatabaseConnection.fetchData(
 					"SELECT * FROM Orders WHERE CustomerID="
-							+ customer.customerID + " AND OrdersStatus<>'"
-							+ Order.DELIVERED + "';").next()) {
+							+ customer.customerID + " AND OrdersStatus='"
+							+ Order.REGISTERED + "';").next()) {
 				int commentID = -1;
 				if (!(comment == null || comment.equals(""))) {
 					DatabaseConnection

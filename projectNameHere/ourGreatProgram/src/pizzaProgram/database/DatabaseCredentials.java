@@ -11,18 +11,17 @@ public class DatabaseCredentials {
 	private static final String USERNAME_TYPE = "USERNAME";
 	private static final String PASSWORD_TYPE = "PASSWORD";
 	
-	private String url;
-	private String username;
-	private String password;
+	private String url = "jdbc:";
+	private String username = "";
+	private String password = "";
 	
 	public void loadFromFile(String src)
 	{
 		try {
-			BufferedReader fileReader;
-			fileReader = new BufferedReader(new FileReader(src));
+			BufferedReader fileReader = new BufferedReader(new FileReader(src));
 			while (fileReader.ready()) {
 				String read = fileReader.readLine();
-				
+				readLine(read);
 			}
 		} catch (FileNotFoundException e) {
 			System.out
@@ -74,16 +73,12 @@ public class DatabaseCredentials {
 	{
 		String[] typeAndValueStringsArray = line.split(":", 2);
 		if (typeAndValueStringsArray.length == 2) {
-			this.trimContentString(typeAndValueStringsArray[1]);
+			typeAndValueStringsArray[1] = typeAndValueStringsArray[1].trim();
 			return typeAndValueStringsArray;
 		} else {
 			System.out.println("There is an error in the configuration file in one of the uncommented lines.");
 			return new String[]{"none", "none"};
 		}
-	}
-	
-	private void trimContentString(String string) {
-		string.trim();
 	}
 	
 	private boolean lineIsComment(String line)
