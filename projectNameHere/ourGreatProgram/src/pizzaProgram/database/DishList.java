@@ -8,30 +8,40 @@ import java.util.HashMap;
 import pizzaProgram.dataObjects.Dish;
 
 /**
- * Object for handling dishes in the database. At construction the object
- * creates an {@link java.util.ArrayList ArrayList} and a
+ * Object for handling dishes in the database. The methods of the class handles
+ * creation of the {@link java.util.ArrayList ArrayList} and a
  * {@link java.util.HashMap HashMap} of all the different
  * {@link pizzaProgram.dataObject.Dish dishes} based on a fetch from the
- * database; these lists are publically available through the getter methods.
- * For now it is suggested to discard this object any time a change occurs to a
- * dish in the database, and reconstruct it by a call to the constructor. The
- * methods of the class handles removal of existing dishes from the database, as
- * well as adding new dishes to the database.
+ * database, adding new dishes to the database, as well as tagging dishes as
+ * active/inactive
  * 
  * @author IT1901 Group 03, Fall 2011
  */
 
-// TODO: Dispatch an event whenever the lists are updated
+// TODO: Dispatch an event whenever the lists need to be updated
 
 public class DishList {
-	private static ArrayList<Dish> dishList;
-	private static HashMap<Integer, Dish> dishMap;
-
+	private final static ArrayList<Dish> dishList = new ArrayList<Dish>();
+	private final static HashMap<Integer, Dish> dishMap = new HashMap<Integer, Dish>();
+	
+	/**
+	 * This method clears the old lists, and repopulates the
+	 * {@link java.util.ArrayList ArrayList} and {@link java.util.HashMap
+	 * HashMap} of all the different {@link pizzaProgram.dataObject.Dish
+	 * dishes} based on a fetch from the database. This method must be rerun
+	 * each time the Dishes table of the database is modified.
+	 */
 	public static void updateDishes() {
-		dishList = new ArrayList<Dish>();
-		dishMap = new HashMap<Integer, Dish>();
+		if (!DatabaseConnection.isConnected(DatabaseConnection.DEFAULT_TIMEOUT)) {
+			System.err
+					.println("No valid database connection specified; unable to update lists.");
+			return;
+		}
+		dishList.clear();
+		dishMap.clear();
 		try {
-			ResultSet results = DatabaseConnection.fetchData("SELECT * FROM Dishes;");
+			ResultSet results = DatabaseConnection
+					.fetchData("SELECT * FROM Dishes;");
 			while (results.next()) {
 				Dish tempDish = new Dish(results.getInt(1), results.getInt(2),
 						results.getString(3), results.getBoolean(4),
@@ -43,8 +53,9 @@ public class DishList {
 			}
 			results.close();
 		} catch (SQLException e) {
-			System.err.println("An error occured during your query: "
-					+ e.getMessage());
+			System.err
+					.println("An error occured while updating the dish lists: "
+							+ e.getMessage());
 		}
 	}
 
@@ -57,17 +68,14 @@ public class DishList {
 	}
 
 	/**
-	 * Method for adding a new dish to the mySQL database.
+	 * Method for adding a new dish to the mySQL database. All newly added
+	 * dishes are active by default.
 	 * 
-	 * @param dbCon
-	 *            - the {@link pizzaProgram.database.DatabaseConnection
-	 *            DatabaseConnection} object with the current active connection
-	 *            to the SQL database
 	 * @param price
 	 *            - the price of the dish as an integer
 	 * @param name
 	 *            - the name of the dish as a String no longer than
-	 *            {@link pizzaProgram.database.DatabaseConnection.VARCHAR_MAX_LENGTH_LONG
+	 *            {@link pizzaProgram.database.DatabaseConnection#VARCHAR_MAX_LENGTH_LONG
 	 *            VARCHAR_MAX_LENGTH_LONG}
 	 * @param containsGluten
 	 *            - set to true if the dish contains gluten, false if not
@@ -87,11 +95,13 @@ public class DishList {
 	 *         false in all other cases
 	 */
 
-	public static boolean addDish(int price, String name, boolean containsGluten,
-			boolean containsNuts, boolean containsDairy, boolean isVegetarian,
-			boolean isSpicy, String description) {
+	public static boolean addDish(int price, String name,
+			boolean containsGluten, boolean containsNuts,
+			boolean containsDairy, boolean isVegetarian, boolean isSpicy,
+			String description) {
 		if (DatabaseConnection.isConnected(DatabaseConnection.DEFAULT_TIMEOUT)) {
-			System.err.println("No valid database connection specified; dish not added to the database.");
+			System.err
+					.println("No valid database connection specified; dish not added to the database.");
 			return false;
 		}
 		if (name.length() > DatabaseConnection.VARCHAR_MAX_LENGTH_LONG) {
@@ -102,41 +112,42 @@ public class DishList {
 		}
 		return DatabaseConnection
 				.insertIntoDB("INSERT IGNORE INTO Dishes (Price, Name, ContainsGluten, ContainsNuts, ContainsDairy, IsVegetarian, IsSpicy, Description) VALUES ("
-						+ price + ", '" + name + "', " + containsGluten + ", " + containsNuts + ", " + containsDairy + ", "
-						+ isVegetarian + ", " + isSpicy + ", '" + description + "');");
+						+ price
+						+ ", '"
+						+ name
+						+ "', "
+						+ containsGluten
+						+ ", "
+						+ containsNuts
+						+ ", "
+						+ containsDairy
+						+ ", "
+						+ isVegetarian
+						+ ", "
+						+ isSpicy
+						+ ", '"
+						+ description
+						+ "');");
 	}
 
 	/**
-	 * Method to remove a dish from the database
+	 * Method to set the dish active (available in the order GUI) or inactive
+	 * (only available through the admin interface.
 	 * 
-	 * @param dbCon
-	 *            - the {@link pizzaProgram.database.DatabaseConnection
-	 *            DatabaseConnection} object with the current active connection
-	 *            to the SQL database
 	 * @param dish
-	 *            - the {@link pizzaProgram.dataObjects.Dish dish} to be removed
-	 *            from the database
-	 * @return returns true if the deletion of the dish was a success, returns
-	 *         false in all other cases.
+	 *            - the dish to change the status for.
+	 * @param newStatus
+	 *            - true if the dish is to be visible in the order GUI,
+	 *            invisible if not.
+	 * @return true if the change was made successfully, false if not.
 	 */
-
-	public static boolean removeDish(Dish dish) {
-		if (!DatabaseConnection
-				.isConnected(DatabaseConnection.DEFAULT_TIMEOUT)) {
-			System.err
-					.println("No valid database connection specified; no dish removed from the database.");
-			return false;
-		}
-		return DatabaseConnection.insertIntoDB("DELETE FROM Dishes WHERE DishID="
-				+ dish.dishID + ");");
-	}
 	public static boolean changeDishStatus(Dish dish, boolean newStatus) {
-		if (!DatabaseConnection
-				.isConnected(DatabaseConnection.DEFAULT_TIMEOUT)) {
+		if (!DatabaseConnection.isConnected(DatabaseConnection.DEFAULT_TIMEOUT)) {
 			System.err
 					.println("No valid database connection specified; dish status not changed.");
 			return false;
 		}
-		return DatabaseConnection.insertIntoDB("UPDATE Dishes SET isActive=" + newStatus + " WHERE DishID=" + dish.dishID + ";");
+		return DatabaseConnection.insertIntoDB("UPDATE Dishes SET isActive="
+				+ newStatus + " WHERE DishID=" + dish.dishID + ";");
 	}
 }

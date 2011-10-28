@@ -13,7 +13,12 @@ import pizzaProgram.events.Event;
 import pizzaProgram.events.EventHandler;
 
 /**
- * TODO: Create class javadoc TODO: Add input sanitation
+ * Class that handles the connection to the database. The URL username and
+ * password to the database is stored in the config/databaseinfo.cfg file.
+ * 
+ * The class contains methods to check if there is an active connection, as well
+ * as methods to send queries to and receive {@link java.sql.ResultSet
+ * ResultSets} from the database.
  * 
  * @author Håvard Eidheim, Henning M. Wold
  * 
@@ -38,18 +43,20 @@ public class DatabaseConnection implements EventHandler {
 	private static QueryHandler queryHandler;
 
 	/**
-	 * Method that attempt to make a connection to the mySQL database that
-	 * contains the data.
+	 * Method that attempts to make a connection to the mySQL database that
+	 * contains the data, based on info stored in the config/databaseinfo.cfg
+	 * file.
 	 */
 	public static void connect() {
 		try {
 			String url = "jdbc:";
 			String username = "";
 			String password = "";
-			BufferedReader br = new BufferedReader(new FileReader("config/databaseinfo.cfg"));
+			BufferedReader br = new BufferedReader(new FileReader(
+					"config/databaseinfo.cfg"));
 			while (br.ready()) {
 				String read = br.readLine();
-				if (!(read==null||read.charAt(0)=='#')) {
+				if (!(read == null || read.charAt(0) == '#')) {
 					String[] line = read.split(":", 2);
 					System.out.println(line[0] + " " + line[1]);
 					String type = "";
@@ -57,25 +64,21 @@ public class DatabaseConnection implements EventHandler {
 					if (line.length == 2) {
 						type = line[0];
 						contents = line[1].trim();
-					}
-					else {
-						System.out.println("There is an error in the configuration file in one of the uncommented lines.");
+					} else {
+						System.out
+								.println("There is an error in the configuration file in one of the uncommented lines.");
 					}
 					if (type.equals(URL_TYPE)) {
 						url += contents;
-					}
-					else if (type.equals(USERNAME_TYPE)) {
+					} else if (type.equals(USERNAME_TYPE)) {
 						username = contents;
-					}
-					else if (type.equals(PASSWORD_TYPE)) {
+					} else if (type.equals(PASSWORD_TYPE)) {
 						password = contents;
 					}
 				}
 			}
-			System.out.println(url + username + password);
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			connection = DriverManager.getConnection(url,
-					username, password);
+			connection = DriverManager.getConnection(url, username, password);
 			System.out.println("The connection was a success!");
 
 		} catch (SQLException e) {
@@ -90,11 +93,14 @@ public class DatabaseConnection implements EventHandler {
 			System.out.println("Failed during driverinstantiation: "
 					+ e.getMessage());
 		} catch (FileNotFoundException e) {
-			System.out.println("Unable to find the configurationfile for the database."
-					+ "Please make sure ../config/databaseinfo.cfg exists: " + e.getMessage());
+			System.out
+					.println("Unable to find the configurationfile for the database."
+							+ "Please make sure ../config/databaseinfo.cfg exists: "
+							+ e.getMessage());
 			e.printStackTrace();
 		} catch (IOException e) {
-			System.out.println("Unable to read the configfile." + e.getMessage());
+			System.out.println("Unable to read the configfile: "
+					+ e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -103,9 +109,9 @@ public class DatabaseConnection implements EventHandler {
 	 * Method that tries to disconnect from the database if there is a valid
 	 * connection
 	 * 
-	 * @return returns true if there was no valid connection, or the
-	 *         disconnection was successful. Returns false if the method was
-	 *         unable to disconnect from the database.
+	 * @return true if there was no valid connection, or the disconnection was
+	 *         successful; false if the method was unable to disconnect from the
+	 *         database.
 	 */
 	public static boolean disconnect() {
 		if (connection != null

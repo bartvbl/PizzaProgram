@@ -8,15 +8,19 @@ import java.util.HashMap;
 import pizzaProgram.dataObjects.Customer;
 
 /**
- * Object for handling customers in the database. At construction the object
- * creates an {@link java.util.ArrayList ArrayList} and a
+ * Object for handling customers in the database. The methods of the class
+ * handles creation of the {@link java.util.ArrayList ArrayList} and the
  * {@link java.util.HashMap HashMap} of all the different
  * {@link pizzaProgram.dataObject.Customer customers} based on a fetch from the
- * database; these lists are publically available through the getter methods.
- * For now it is suggested to discard this object any time a change occurs to a
- * customer in the database, and reconstruct it by a call to the constructor.
- * The methods of the class handles removal of existing customers from the
- * database, as well as adding new customers to the database.
+ * database, removal of existing customers from the database, as well as adding
+ * new customers to the database. These lists are publically available through
+ * the getter methods.
+ * 
+ * Most methods of this class depend on there being an active connection to the
+ * database already (IE the
+ * {@link pizzaProgram.database.DatabaseConnection#connect() connect()} method
+ * of the {@link pizzaProgram.database.DatabaseConnection DatabaseConnection}
+ * class must already have been run).
  * 
  * @author IT1901 Group 03, Fall 2011
  */
@@ -24,12 +28,24 @@ import pizzaProgram.dataObjects.Customer;
 // TODO: Dispatch an event whenever the lists are updated
 
 public class CustomerList {
-	private static ArrayList<Customer> customerList;
-	private static HashMap<Integer, Customer> customerMap;
+	private final static ArrayList<Customer> customerList = new ArrayList<Customer>();
+	private final static HashMap<Integer, Customer> customerMap = new HashMap<Integer, Customer>();
 
+	/**
+	 * This method clears the old lists, and repopulates the
+	 * {@link java.util.ArrayList ArrayList} and {@link java.util.HashMap
+	 * HashMap} of all the different {@link pizzaProgram.dataObject.Customer
+	 * customers} based on a fetch from the database. This method must be rerun
+	 * each time the Customer table of the database is modified.
+	 */
 	public static void updateCustomers() {
-		customerList = new ArrayList<Customer>();
-		customerMap = new HashMap<Integer, Customer>();
+		if (!DatabaseConnection.isConnected(DatabaseConnection.DEFAULT_TIMEOUT)) {
+			System.err
+					.println("No valid database connection specified; unable to update lists.");
+			return;
+		}
+		customerList.clear();
+		customerMap.clear();
 		HashMap<Integer, String> customerCommentsMap = createCustomerCommentMap();
 		ResultSet results = DatabaseConnection
 				.fetchData("SELECT * FROM Customer;");
@@ -46,21 +62,14 @@ public class CustomerList {
 			results.close();
 		} catch (SQLException e) {
 			System.err
-					.println("An error occured during your query to the database: "
+					.println("An error occured while updating the dish lists: "
 							+ e.getMessage());
 		}
 	}
 
 	/**
 	 * Creates and returns the customer commentlist, which is needed when
-	 * creating the lists
-	 * 
-	 * @param dbCon
-	 *            - the {@link pizzaProgram.database.DatabaseConnection
-	 *            DatabaseConnection} object with the current active connection
-	 *            to the SQL database
-	 * @return a {@link java.util.HashMap HashMap} from commentID to comment
-	 * @throws SQLException
+	 * creating the customerlists.
 	 */
 
 	private static HashMap<Integer, String> createCustomerCommentMap() {
@@ -94,28 +103,24 @@ public class CustomerList {
 	 * the database by creating a unique identifier, and does not add any new
 	 * rows if such a combination already exists in the database.
 	 * 
-	 * @param dbCon
-	 *            - the {@link pizzaProgram.database.DatabaseConnection
-	 *            DatabaseConnection} object with the current active connection
-	 *            to the SQL database
 	 * @param firstName
 	 *            - The first, and middle, name of the customer as a String no
 	 *            longer than
-	 *            {@link pizzaProgram.database.DatabaseConnection.VARCHAR_MAX_LENGTH_SHORT
+	 *            {@link pizzaProgram.database.DatabaseConnection#VARCHAR_MAX_LENGTH_SHORT
 	 *            VARCHAR_MAX_LENGTH_SHORT}
 	 * @param lastName
 	 *            - The last name of the customer as a String no longer than
-	 *            {@link pizzaProgram.database.DatabaseConnection.VARCHAR_MAX_LENGTH_SHORT
+	 *            {@link pizzaProgram.database.DatabaseConnection#VARCHAR_MAX_LENGTH_SHORT
 	 *            VARCHAR_MAX_LENGTH_SHORT}
 	 * @param address
 	 *            - The address of the customer as a String no longer than
-	 *            {@link pizzaProgram.database.DatabaseConnection.VARCHAR_MAX_LENGTH_LONG
+	 *            {@link pizzaProgram.database.DatabaseConnection#VARCHAR_MAX_LENGTH_LONG
 	 *            VARCHAR_MAX_LENGTH_LONG}
 	 * @param postalCode
 	 *            - The postal code of the customer as an integer
 	 * @param city
 	 *            - The city of the customer, as a String no longer than
-	 *            {@link pizzaProgram.database.DatabaseConnection.VARCHAR_MAX_LENGTH_SHORT
+	 *            {@link pizzaProgram.database.DatabaseConnection#VARCHAR_MAX_LENGTH_SHORT
 	 *            VARCHAR_MAX_LENGTH_SHORT}
 	 * @param phoneNumber
 	 *            - The phone number of the customer as an integer
@@ -123,12 +128,16 @@ public class CustomerList {
 	 *            - Comments to this customer as a String
 	 * @return returns true if the Customer was added successfully to the
 	 *         database, returns false in all other cases.
-	 * @throws SQLException
 	 */
 
 	public static boolean addCustomer(String firstName, String lastName,
 			String address, int postalCode, String city, int phoneNumber,
-			String comment) throws SQLException {
+			String comment) {
+		if (!DatabaseConnection.isConnected(DatabaseConnection.DEFAULT_TIMEOUT)) {
+			System.err
+					.println("No valid database connection specified; unable to add customer.");
+			return false;
+		}
 		if (firstName.length() > DatabaseConnection.VARCHAR_MAX_LENGTH_SHORT
 				|| lastName.length() > DatabaseConnection.VARCHAR_MAX_LENGTH_SHORT
 				|| address.length() > DatabaseConnection.VARCHAR_MAX_LENGTH_LONG
@@ -148,40 +157,46 @@ public class CustomerList {
 		 */
 		String identifier = firstName.toLowerCase() + lastName.toLowerCase()
 				+ phoneNumber;
-		if (!DatabaseConnection.fetchData(
-				"SELECT Identifier FROM Customer WHERE Identifier='"
-						+ identifier + "';").next()) {
-			int commentID = -1;
-			if (!(comment == null || comment.equals(""))) {
-				DatabaseConnection
-						.insertIntoDB("INSERT INTO CustomerNotes (Note) VALUES ('"
-								+ comment + "');");
-				ResultSet commentIDset = DatabaseConnection
-						.fetchData("SELECT NoteID FROM CustomerNotes WHERE Note='"
-								+ comment + "';");
-				if (commentIDset.next()) {
-					commentID = commentIDset.getInt(1);
+		try {
+			if (!DatabaseConnection.fetchData(
+					"SELECT Identifier FROM Customer WHERE Identifier='"
+							+ identifier + "';").next()) {
+				int commentID = -1;
+				if (!(comment == null || comment.equals(""))) {
+					DatabaseConnection
+							.insertIntoDB("INSERT INTO CustomerNotes (Note) VALUES ('"
+									+ comment + "');");
+					ResultSet commentIDset = DatabaseConnection
+							.fetchData("SELECT NoteID FROM CustomerNotes WHERE Note='"
+									+ comment + "';");
+					if (commentIDset.next()) {
+						commentID = commentIDset.getInt(1);
+					}
 				}
+				DatabaseConnection
+						.insertIntoDB("INSERT INTO Customer (FirstName, LastName, Address, PostalCode, City, TelephoneNumber, CommentID, Identifier) VALUES ('"
+								+ firstName
+								+ "', '"
+								+ lastName
+								+ "', '"
+								+ address
+								+ "', "
+								+ postalCode
+								+ ", '"
+								+ city
+								+ "', "
+								+ phoneNumber
+								+ ", "
+								+ commentID
+								+ ", '" + identifier + "');");
 			}
-			return DatabaseConnection
-					.insertIntoDB("INSERT INTO Customer (FirstName, LastName, Address, PostalCode, City, TelephoneNumber, CommentID, Identifier) VALUES ('"
-							+ firstName
-							+ "', '"
-							+ lastName
-							+ "', '"
-							+ address
-							+ "', "
-							+ postalCode
-							+ ", '"
-							+ city
-							+ "', "
-							+ phoneNumber
-							+ ", "
-							+ commentID
-							+ ", '"
-							+ identifier + "');");
+		} catch (SQLException e) {
+			System.err
+					.println("An error occured when trying to add the customer to the database: "
+							+ e.getMessage());
+			return false;
 		}
-		return false;
+		return true;
 	}
 
 	/**
@@ -189,50 +204,40 @@ public class CustomerList {
 	 * present. The method calls the full version of the method with the comment
 	 * parameter set to null
 	 * 
-	 * @param dbCon
-	 *            - the {@link pizzaProgram.database.DatabaseConnection
-	 *            DatabaseConnection} object with the current active connection
-	 *            to the SQL database
 	 * @param firstName
 	 *            - The first, and middle, name of the customer as a String no
 	 *            longer than
-	 *            {@link pizzaProgram.database.DatabaseConnection.VARCHAR_MAX_LENGTH_SHORT
+	 *            {@link pizzaProgram.database.DatabaseConnection#VARCHAR_MAX_LENGTH_SHORT
 	 *            VARCHAR_MAX_LENGTH_SHORT}
 	 * @param lastName
 	 *            - The last name of the customer as a String no longer than
-	 *            {@link pizzaProgram.database.DatabaseConnection.VARCHAR_MAX_LENGTH_SHORT
+	 *            {@link pizzaProgram.database.DatabaseConnection#VARCHAR_MAX_LENGTH_SHORT
 	 *            VARCHAR_MAX_LENGTH_SHORT}
 	 * @param address
 	 *            - The address of the customer as a String no longer than
-	 *            {@link pizzaProgram.database.DatabaseConnection.VARCHAR_MAX_LENGTH_LONG
+	 *            {@link pizzaProgram.database.DatabaseConnection#VARCHAR_MAX_LENGTH_LONG
 	 *            VARCHAR_MAX_LENGTH_LONG}
 	 * @param postalCode
 	 *            - The postal code of the customer as an integer
 	 * @param city
 	 *            - The city of the customer, as a String no longer than
-	 *            {@link pizzaProgram.database.DatabaseConnection.VARCHAR_MAX_LENGTH_SHORT
+	 *            {@link pizzaProgram.database.DatabaseConnection#VARCHAR_MAX_LENGTH_SHORT
 	 *            VARCHAR_MAX_LENGTH_SHORT}
 	 * @param phoneNumber
 	 *            - The phone number of the customer as an integer
 	 * @return returns true if the Customer was added successfully to the
 	 *         database, returns false in all other cases.
-	 * @throws SQLException
 	 */
 
 	public static boolean addCustomer(String firstName, String lastName,
-			String address, int postalCode, String city, int phoneNumber)
-			throws SQLException {
+			String address, int postalCode, String city, int phoneNumber) {
 		return addCustomer(firstName, lastName, address, postalCode, city,
 				phoneNumber, null);
 	}
 
 	/**
-	 * Method to remove a dish from the database
+	 * Method to remove a customer from the database
 	 * 
-	 * @param dbCon
-	 *            the {@link pizzaProgram.database.DatabaseConnection
-	 *            DatabaseConnection} object with the current active connection
-	 *            to the SQL database
 	 * @param customer
 	 *            the {@link pizzaProgram.dataObjects.Customer customer} to be
 	 *            removed from the database

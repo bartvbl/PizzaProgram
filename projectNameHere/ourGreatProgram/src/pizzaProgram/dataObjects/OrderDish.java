@@ -5,9 +5,6 @@ import java.util.ArrayList;
 public class OrderDish {
 	public final int orderID;
 	public final Dish dish;
-	
-	//TODO: this field needs a more proper way to operate. Returning the object upon request is improper publication.
-	//ideally, you should pass in the finished ArrayList from the function that creates it, the only expose methods that allow the iterator and get() method to be retrieved.
 	private final ArrayList<Extra> extras;
 
 	public OrderDish(int orderID, Dish dish) {
@@ -16,8 +13,9 @@ public class OrderDish {
 		extras = new ArrayList<Extra>();
 	}
 
+	@SuppressWarnings("unchecked")
 	public ArrayList<Extra> getExtras() {
-		return extras;
+		return (ArrayList<Extra>)extras.clone();
 	}
 
 	public void addExtra(Extra extra) {
