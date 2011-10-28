@@ -191,13 +191,8 @@ public class OrderGUI extends GUIModule implements EventHandler {
 	}
 
 	public void createNewCustomer(String firstName, String lastName,
-			String address, int postalCode, String city, int phoneNumber) {
-		try {
-			CustomerList.addCustomer(firstName, lastName, address,
-					postalCode, city, phoneNumber);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		String address, int postalCode, String city, int phoneNumber) {
+		CustomerList.addCustomer(firstName, lastName, address,postalCode, city, phoneNumber);
 		populateLists();
 	}
 
