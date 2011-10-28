@@ -129,17 +129,7 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 				chartArea.loadImage(c.address);
 			}
 		});
-		
-		// Gridden som inneholder Ordre
-		GridBagConstraints orderListConstraints = new GridBagConstraints();
-		orderListConstraints.gridx = 2;
-		orderListConstraints.gridy = 0;
-		orderListConstraints.weightx = 0.1;
-		orderListConstraints.weighty = 1;
-		orderListConstraints.gridwidth = 16;
-		orderListConstraints.gridheight = 2;
-		orderListConstraints.fill = GridBagConstraints.BOTH;
-		this.jFrame.add(orderList, orderListConstraints);
+		this.jFrame.add(orderList, createConstrints(2, 0, 16, 2, 0.1, 1, GridBagConstraints.BOTH));
 		
 		//Kvitterings knappen
 		receipt = new JButton("Kvittering");
@@ -156,14 +146,7 @@ public class DeliverGUI extends GUIModule implements EventHandler{
             	JOptionPane.showMessageDialog(null, "Kunde:\n" + o.customer.firstName + " " + o.customer.lastName + "\n" + o.customer.address + "\n" + o.customer.postalCode + "\n" + o.customer.phoneNumber + "\n\nOrdre:\n" + toJOption);
             }
 		});
-        GridBagConstraints receiptConstraints = new GridBagConstraints();
-        receiptConstraints.gridx = 0;
-        receiptConstraints.gridy = 2;
-        receiptConstraints.gridheight = 1;
-        receiptConstraints.gridwidth = 1;
-        receiptConstraints.weightx = 0.1;
-        receiptConstraints.fill = GridBagConstraints.BOTH;
-        this.jFrame.add(receipt, receiptConstraints);
+        this.jFrame.add(receipt, createConstrints(0, 2, 1, 1, 0.1, 0, GridBagConstraints.BOTH));
 		
 		//Utkj¿rt knappen
 		onRoute = new JButton("Kjør");
@@ -174,14 +157,7 @@ public class DeliverGUI extends GUIModule implements EventHandler{
             	populateLists();
             }
 		});
-        GridBagConstraints onRouteConstraints = new GridBagConstraints();
-        onRouteConstraints.gridx = 6;
-        onRouteConstraints.gridy = 2;
-        onRouteConstraints.gridheight = 1;
-        onRouteConstraints.gridwidth = 1;
-        onRouteConstraints.weightx = 0.1;
-        onRouteConstraints.fill = GridBagConstraints.BOTH;
-        this.jFrame.add(onRoute, onRouteConstraints);
+        this.jFrame.add(onRoute, createConstrints(6, 2, 1, 1, 0.01, 0, GridBagConstraints.BOTH));
         
         //Levert knappen
 		delivered = new JButton("Levert");
@@ -192,55 +168,39 @@ public class DeliverGUI extends GUIModule implements EventHandler{
             	populateLists();
             }
 		});
-        GridBagConstraints deliveredConstraints = new GridBagConstraints();
-        deliveredConstraints.gridx = 12;
-        deliveredConstraints.gridy = 2;
-        deliveredConstraints.gridheight = 1;
-        deliveredConstraints.gridwidth = 1;
-        deliveredConstraints.weightx = 0.1;
-        deliveredConstraints.fill = GridBagConstraints.BOTH;
-        this.jFrame.add(delivered, deliveredConstraints);
+        this.jFrame.add(delivered, createConstrints(12, 2, 1, 1, 0.1, 0, GridBagConstraints.BOTH));
 		
 		// Gridden som inneholder Adresse
         currentInfoList = new TextArea("", 6, 12, TextArea.SCROLLBARS_NONE);
         currentInfoList.setEditable(false);
         currentInfoList.setBackground(Color.white);
-		GridBagConstraints currentInfoListConstraints = new GridBagConstraints();
-		currentInfoListConstraints.gridx = 18;
-		currentInfoListConstraints.gridy = 0;
-		currentInfoListConstraints.weightx = 0.01;
-		currentInfoListConstraints.weighty = 1;
-		currentInfoListConstraints.gridwidth = 11;
-		currentInfoListConstraints.gridheight = 1;
-		currentInfoListConstraints.fill = GridBagConstraints.BOTH;
-		this.jFrame.add(currentInfoList, currentInfoListConstraints);
+		this.jFrame.add(currentInfoList, createConstrints(18, 0, 11, 1, 0.01, 1, GridBagConstraints.BOTH));
 		
 		// Gridden som inneholder innholdet i ordren
 		orderContentList = new TextArea("", 6, 12, TextArea.SCROLLBARS_VERTICAL_ONLY);
 		orderContentList.setEditable(false);
 		orderContentList.setBackground(Color.white);
-		GridBagConstraints orderContentListConstraints = new GridBagConstraints();
-		orderContentListConstraints.gridx = 29;
-		orderContentListConstraints.gridy = 0;
-		orderContentListConstraints.weightx = 0.01;
-		orderContentListConstraints.weighty = 1;
-		orderContentListConstraints.gridwidth = 11;
-		orderContentListConstraints.gridheight = 1;
-		orderContentListConstraints.fill = GridBagConstraints.BOTH;
-		this.jFrame.add(orderContentList, orderContentListConstraints);
+		this.jFrame.add(orderContentList, createConstrints(29, 0, 11, 1, 0.01, 1, GridBagConstraints.BOTH));
 		
 		// Gridden som inneholder kart
 		chartArea = new DeliveryMap();
-		GridBagConstraints chartAreaConstraints = new GridBagConstraints();
-		chartAreaConstraints.gridx = 18;
-		chartAreaConstraints.gridy = 1;
-		chartAreaConstraints.weightx = 0;
-		chartAreaConstraints.weighty = 0;
-		chartAreaConstraints.gridwidth = 22;
-		chartAreaConstraints.gridheight = 1;
-		chartAreaConstraints.fill = GridBagConstraints.BOTH;
-		this.jFrame.add(chartArea, chartAreaConstraints);
+		this.jFrame.add(chartArea, createConstrints(18, 1, 22, 1, 0, 0, GridBagConstraints.BOTH));
 		
+	}
+	/**
+	 * A method that returns a GridBagConstraints-Object with the parameters passed to this function
+	 * This method is purely cosmetical
+	 */
+	private GridBagConstraints createConstrints(int xx, int yy, int width, int height, double xweight, double yweight, int fill){
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.gridx = xx;
+		gbc.gridy = yy;
+		gbc.gridwidth = width;
+		gbc.gridheight = height;
+		gbc.weightx = xweight;
+		gbc.weighty = yweight;
+		gbc.fill = fill;
+		return gbc;
 	}
 	
 	public void populateLists(){

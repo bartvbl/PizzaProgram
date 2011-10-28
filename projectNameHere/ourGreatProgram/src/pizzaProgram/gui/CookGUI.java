@@ -111,7 +111,10 @@ public class CookGUI extends GUIModule implements EventHandler{
 		});
 		this.jFrame.add(finishedButton, createConstrints(4, 6, 18, 1, 0.26, 0.0, GridBagConstraints.BOTH));
 	}
-	
+	/**
+	 * A method that returns a GridBagConstraints-Object with the parameters passed to this function
+	 * This method is purely cosmetical
+	 */
 	private GridBagConstraints createConstrints(int xx, int yy, int width, int height, double xweight, double yweight, int fill){
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.gridx = xx;
