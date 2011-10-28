@@ -24,10 +24,8 @@ import pizzaProgram.events.EventHandler;
  * 
  */
 public class DatabaseConnection implements EventHandler {
-	private static final String URL_TYPE = "URL";
-	private static final String USERNAME_TYPE = "USERNAME";
-	private static final String PASSWORD_TYPE = "PASSWORD";
 	public static final int DEFAULT_TIMEOUT = 3000;
+	public static final String DATABASE_CREDENTIALS_CONFIG_FILE_PATH = "config/databaseinfo.cfg";
 	/**
 	 * The maximum amount of allowed characters in a short VARCHAR column in the
 	 * database
@@ -49,36 +47,13 @@ public class DatabaseConnection implements EventHandler {
 	 */
 	public static void connect() {
 		try {
-			String url = "jdbc:";
-			String username = "";
-			String password = "";
-			BufferedReader br = new BufferedReader(new FileReader(
-					"config/databaseinfo.cfg"));
-			while (br.ready()) {
-				String read = br.readLine();
-				if (!(read == null || read.charAt(0) == '#')) {
-					String[] line = read.split(":", 2);
-					System.out.println(line[0] + " " + line[1]);
-					String type = "";
-					String contents = "";
-					if (line.length == 2) {
-						type = line[0];
-						contents = line[1].trim();
-					} else {
-						System.out
-								.println("There is an error in the configuration file in one of the uncommented lines.");
-					}
-					if (type.equals(URL_TYPE)) {
-						url += contents;
-					} else if (type.equals(USERNAME_TYPE)) {
-						username = contents;
-					} else if (type.equals(PASSWORD_TYPE)) {
-						password = contents;
-					}
-				}
-			}
+			
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			connection = DriverManager.getConnection(url, username, password);
+			DatabaseCredentials credentials = new DatabaseCredentials();
+			credentials.loadFromFile(DatabaseConnection.DATABASE_CREDENTIALS_CONFIG_FILE_PATH);
+			connection = DriverManager.getConnection(	credentials.getURL(), 
+														credentials.getUsername(), 
+														credentials.getPassword());
 			System.out.println("The connection was a success!");
 
 		} catch (SQLException e) {
@@ -92,19 +67,10 @@ public class DatabaseConnection implements EventHandler {
 		} catch (IllegalAccessException e) {
 			System.out.println("Failed during driverinstantiation: "
 					+ e.getMessage());
-		} catch (FileNotFoundException e) {
-			System.out
-					.println("Unable to find the configurationfile for the database."
-							+ "Please make sure ../config/databaseinfo.cfg exists: "
-							+ e.getMessage());
-			e.printStackTrace();
-		} catch (IOException e) {
-			System.out.println("Unable to read the configfile: "
-					+ e.getMessage());
-			e.printStackTrace();
 		}
 	}
-
+	
+	
 	/**
 	 * Method that tries to disconnect from the database if there is a valid
 	 * connection
