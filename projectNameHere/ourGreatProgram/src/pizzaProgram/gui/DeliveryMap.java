@@ -1,5 +1,6 @@
 package pizzaProgram.gui;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -21,6 +22,7 @@ public class DeliveryMap extends JPanel {
 	 * 
 	 */
 	public DeliveryMap() {
+		setBackground(Color.white);
 		setPreferredSize(new Dimension(400, 300));
 		loadImage(address());
 	}
