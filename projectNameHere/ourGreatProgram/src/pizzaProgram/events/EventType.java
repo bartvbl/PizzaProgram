@@ -43,4 +43,5 @@ public class EventType {
 	 * The program requests to add a new order to the database
 	 */
 	public final static String ADD_ORDER_REQUESTED = "addOrderRequested";
+	public static final String ORDER_GUI_UPDATE_CUSTOMER_LIST = "orderGuiUpdateCustomerList";
 }

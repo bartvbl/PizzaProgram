@@ -56,7 +56,7 @@
                   <Component id="versionLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="appVersionLabel" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="73" max="32767" attributes="0"/>
+              <EmptySpace pref="12" max="32767" attributes="0"/>
               <Component id="closeButton" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -69,6 +69,7 @@
         <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
           <action class="desktopapplication1.DesktopApplication1AboutBox" id="closeAboutBox" methodName="closeAboutBox"/>
         </Property>
+        <Property name="text" type="java.lang.String" resourceKey="closeButton.text"/>
         <Property name="name" type="java.lang.String" value="closeButton" noResource="true"/>
       </Properties>
     </Component>
@@ -79,6 +80,7 @@
             <Font bold="true" component="appTitleLabel" property="font" relativeSize="true" size="4"/>
           </FontInfo>
         </Property>
+        <Property name="text" type="java.lang.String" resourceKey="appTitleLabel.text"/>
         <Property name="name" type="java.lang.String" value="appTitleLabel" noResource="true"/>
       </Properties>
       <AuxValues>
@@ -93,6 +95,7 @@
             <Font bold="true" component="versionLabel" property="font" relativeSize="true" size="0"/>
           </FontInfo>
         </Property>
+        <Property name="text" type="java.lang.String" resourceKey="versionLabel.text"/>
         <Property name="name" type="java.lang.String" value="versionLabel" noResource="true"/>
       </Properties>
       <AuxValues>
@@ -111,6 +114,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="appDescLabel">
       <Properties>
+        <Property name="text" type="java.lang.String" resourceKey="appDescLabel.text"/>
         <Property name="name" type="java.lang.String" value="appDescLabel" noResource="true"/>
       </Properties>
       <AuxValues>
