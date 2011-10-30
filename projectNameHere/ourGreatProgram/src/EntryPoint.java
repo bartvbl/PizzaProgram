@@ -11,8 +11,9 @@ public class EntryPoint {
 	 * @param args any command line arguments of the program, are automatically inserted as part of the java specifications
 	 */
 	public static void main(String[] args) {
-		Main main = new Main();
-		main.initialize();
+//		Main main = new Main();
+//		main.initialize();
+		System.out.println("FATAL: this is the old entry point launcher. Please use the EntryPoint in pizzaPrgoram.core!");
 	}
 
 }

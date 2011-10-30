@@ -19,10 +19,10 @@
 
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
   <SubComponents>
-    <Container class="javax.swing.JSplitPane" name="jSplitPane1">
+    <Container class="javax.swing.JSplitPane" name="mainVerticalSplitPanel">
       <Properties>
         <Property name="dividerLocation" type="int" value="300"/>
-        <Property name="name" type="java.lang.String" value="jSplitPane1" noResource="true"/>
+        <Property name="name" type="java.lang.String" value="mainVerticalSplitPanel" noResource="true"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
@@ -32,11 +32,11 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout"/>
       <SubComponents>
-        <Container class="javax.swing.JSplitPane" name="jSplitPane2">
+        <Container class="javax.swing.JSplitPane" name="rightHorizontallSplitPane">
           <Properties>
             <Property name="dividerLocation" type="int" value="200"/>
             <Property name="orientation" type="int" value="0"/>
-            <Property name="name" type="java.lang.String" value="jSplitPane2" noResource="true"/>
+            <Property name="name" type="java.lang.String" value="rightHorizontallSplitPane" noResource="true"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout$JSplitPaneConstraintsDescription">
@@ -46,9 +46,9 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout"/>
           <SubComponents>
-            <Container class="javax.swing.JPanel" name="jPanel2">
+            <Container class="javax.swing.JPanel" name="orderContentsPanel">
               <Properties>
-                <Property name="name" type="java.lang.String" value="jPanel2" noResource="true"/>
+                <Property name="name" type="java.lang.String" value="orderContentsPanel" noResource="true"/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout$JSplitPaneConstraintsDescription">
@@ -61,14 +61,12 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                          <Component id="jButton3" min="-2" max="-2" attributes="0"/>
+                          <Component id="showReceiptButton" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jButton4" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="282" max="32767" attributes="0"/>
+                          <Component id="markOrderDeliveredButton" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="209" max="32767" attributes="0"/>
                       </Group>
-                      <Component id="jScrollPane1" alignment="0" pref="435" max="32767" attributes="0"/>
+                      <Component id="orderContentsTableScrollPane" alignment="0" pref="435" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
@@ -76,20 +74,19 @@
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jButton3" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jButton4" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="showReceiptButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="markOrderDeliveredButton" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jScrollPane1" pref="154" max="32767" attributes="0"/>
+                          <Component id="orderContentsTableScrollPane" pref="154" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+                <Container class="javax.swing.JScrollPane" name="orderContentsTableScrollPane">
                   <Properties>
-                    <Property name="name" type="java.lang.String" value="jScrollPane1" noResource="true"/>
+                    <Property name="name" type="java.lang.String" value="orderContentsTableScrollPane" noResource="true"/>
                   </Properties>
                   <AuxValues>
                     <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
@@ -97,7 +94,7 @@
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
-                    <Component class="javax.swing.JTable" name="jTable1">
+                    <Component class="javax.swing.JTable" name="orderContentsTable">
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                           <Table columnCount="3" rowCount="4">
@@ -109,23 +106,23 @@
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                           <TableColumnModel selectionModel="0">
                             <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                              <Title/>
+                              <Title resourceKey="orderContentsTable.columnModel.title0"/>
                               <Editor/>
                               <Renderer/>
                             </Column>
                             <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                              <Title/>
+                              <Title resourceKey="orderContentsTable.columnModel.title1"/>
                               <Editor/>
                               <Renderer/>
                             </Column>
                             <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                              <Title/>
+                              <Title resourceKey="orderContentsTable.columnModel.title2"/>
                               <Editor/>
                               <Renderer/>
                             </Column>
                           </TableColumnModel>
                         </Property>
-                        <Property name="name" type="java.lang.String" value="jTable1" noResource="true"/>
+                        <Property name="name" type="java.lang.String" value="orderContentsTable" noResource="true"/>
                         <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                           <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                         </Property>
@@ -133,27 +130,23 @@
                     </Component>
                   </SubComponents>
                 </Container>
-                <Component class="javax.swing.JButton" name="jButton1">
+                <Component class="javax.swing.JButton" name="markOrderDeliveredButton">
                   <Properties>
-                    <Property name="name" type="java.lang.String" value="jButton1" noResource="true"/>
+                    <Property name="text" type="java.lang.String" resourceKey="markOrderDeliveredButton.text"/>
+                    <Property name="name" type="java.lang.String" value="markOrderDeliveredButton" noResource="true"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JButton" name="jButton3">
+                <Component class="javax.swing.JButton" name="showReceiptButton">
                   <Properties>
-                    <Property name="text" type="java.lang.String" resourceKey="jButton3.text"/>
-                    <Property name="name" type="java.lang.String" value="jButton3" noResource="true"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JButton" name="jButton4">
-                  <Properties>
-                    <Property name="name" type="java.lang.String" value="jButton4" noResource="true"/>
+                    <Property name="text" type="java.lang.String" resourceKey="showReceiptButton.text"/>
+                    <Property name="name" type="java.lang.String" value="showReceiptButton" noResource="true"/>
                   </Properties>
                 </Component>
               </SubComponents>
             </Container>
-            <Container class="javax.swing.JPanel" name="jPanel3">
+            <Container class="javax.swing.JPanel" name="mapImagePanel">
               <Properties>
-                <Property name="name" type="java.lang.String" value="jPanel3" noResource="true"/>
+                <Property name="name" type="java.lang.String" value="mapImagePanel" noResource="true"/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout$JSplitPaneConstraintsDescription">
@@ -166,8 +159,8 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="425" max="32767" attributes="0"/>
+                          <Component id="mapImagePlaceholder" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="354" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -175,27 +168,28 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="304" max="32767" attributes="0"/>
+                          <Component id="mapImagePlaceholder" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="290" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="jLabel1">
+                <Component class="javax.swing.JLabel" name="mapImagePlaceholder">
                   <Properties>
-                    <Property name="name" type="java.lang.String" value="jLabel1" noResource="true"/>
+                    <Property name="text" type="java.lang.String" resourceKey="mapImagePlaceholder.text"/>
+                    <Property name="name" type="java.lang.String" value="mapImagePlaceholder" noResource="true"/>
                   </Properties>
                 </Component>
               </SubComponents>
             </Container>
           </SubComponents>
         </Container>
-        <Container class="javax.swing.JSplitPane" name="jSplitPane3">
+        <Container class="javax.swing.JSplitPane" name="leftHorizontalSplitPanel">
           <Properties>
             <Property name="dividerLocation" type="int" value="210"/>
             <Property name="orientation" type="int" value="0"/>
-            <Property name="name" type="java.lang.String" value="jSplitPane3" noResource="true"/>
+            <Property name="name" type="java.lang.String" value="leftHorizontalSplitPanel" noResource="true"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout$JSplitPaneConstraintsDescription">
@@ -205,9 +199,9 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout"/>
           <SubComponents>
-            <Container class="javax.swing.JPanel" name="jPanel1">
+            <Container class="javax.swing.JPanel" name="activeOrderListPanel">
               <Properties>
-                <Property name="name" type="java.lang.String" value="jPanel1" noResource="true"/>
+                <Property name="name" type="java.lang.String" value="activeOrderListPanel" noResource="true"/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout$JSplitPaneConstraintsDescription">
@@ -220,12 +214,12 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jTextField1" pref="206" max="32767" attributes="0"/>
+                          <Component id="orderSearchTextField" pref="206" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+                          <Component id="orderSearchButton" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
-                      <Component id="jScrollPane4" alignment="1" pref="297" max="32767" attributes="0"/>
+                      <Component id="activeOrderListScrollPane" alignment="1" pref="297" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
@@ -233,30 +227,30 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="orderSearchButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="orderSearchTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jScrollPane4" pref="169" max="32767" attributes="0"/>
+                          <Component id="activeOrderListScrollPane" pref="169" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JTextField" name="jTextField1">
+                <Component class="javax.swing.JTextField" name="orderSearchTextField">
                   <Properties>
-                    <Property name="name" type="java.lang.String" value="jTextField1" noResource="true"/>
+                    <Property name="name" type="java.lang.String" value="orderSearchTextField" noResource="true"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JButton" name="jButton2">
+                <Component class="javax.swing.JButton" name="orderSearchButton">
                   <Properties>
-                    <Property name="text" type="java.lang.String" resourceKey="jButton2.text"/>
-                    <Property name="name" type="java.lang.String" value="jButton2" noResource="true"/>
+                    <Property name="text" type="java.lang.String" resourceKey="orderSearchButton.text"/>
+                    <Property name="name" type="java.lang.String" value="orderSearchButton" noResource="true"/>
                   </Properties>
                 </Component>
-                <Container class="javax.swing.JScrollPane" name="jScrollPane4">
+                <Container class="javax.swing.JScrollPane" name="activeOrderListScrollPane">
                   <Properties>
-                    <Property name="name" type="java.lang.String" value="jScrollPane4" noResource="true"/>
+                    <Property name="name" type="java.lang.String" value="activeOrderListScrollPane" noResource="true"/>
                   </Properties>
                   <AuxValues>
                     <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
@@ -264,7 +258,7 @@
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
-                    <Component class="javax.swing.JTable" name="jTable2">
+                    <Component class="javax.swing.JTable" name="activeOrdersTable">
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                           <Table columnCount="2" rowCount="4">
@@ -275,18 +269,18 @@
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                           <TableColumnModel selectionModel="0">
                             <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                              <Title/>
+                              <Title resourceKey="activeOrdersTable.columnModel.title0"/>
                               <Editor/>
                               <Renderer/>
                             </Column>
                             <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                              <Title/>
+                              <Title resourceKey="activeOrdersTable.columnModel.title1"/>
                               <Editor/>
                               <Renderer/>
                             </Column>
                           </TableColumnModel>
                         </Property>
-                        <Property name="name" type="java.lang.String" value="jTable2" noResource="true"/>
+                        <Property name="name" type="java.lang.String" value="activeOrdersTable" noResource="true"/>
                         <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                           <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                         </Property>
@@ -296,9 +290,9 @@
                 </Container>
               </SubComponents>
             </Container>
-            <Container class="javax.swing.JPanel" name="jPanel4">
+            <Container class="javax.swing.JPanel" name="orderDetailsPanel">
               <Properties>
-                <Property name="name" type="java.lang.String" value="jPanel4" noResource="true"/>
+                <Property name="name" type="java.lang.String" value="orderDetailsPanel" noResource="true"/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout$JSplitPaneConstraintsDescription">
@@ -311,26 +305,26 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jPanel5" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="orderPriceOverviewPanel" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jSeparator1" pref="277" max="32767" attributes="0"/>
+                                  <Component id="orderDetailsSeparator" pref="277" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                                  <Component id="orderCommentsLabel" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jScrollPane2" pref="277" max="32767" attributes="1"/>
+                                  <Component id="orderCommentsScrollPane" pref="277" max="32767" attributes="1"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="orderAddressLabel" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jScrollPane3" pref="277" max="32767" attributes="1"/>
+                                  <Component id="orderAddressScrollPane" pref="277" max="32767" attributes="1"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -340,26 +334,26 @@
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
-                          <Component id="jPanel5" max="32767" attributes="0"/>
+                          <Component id="orderPriceOverviewPanel" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
+                          <Component id="orderDetailsSeparator" min="-2" pref="10" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                          <Component id="orderCommentsLabel" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jScrollPane2" min="-2" max="-2" attributes="0"/>
+                          <Component id="orderCommentsScrollPane" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                          <Component id="orderAddressLabel" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
-                          <Component id="jScrollPane3" min="-2" max="-2" attributes="0"/>
+                          <Component id="orderAddressScrollPane" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Container class="javax.swing.JScrollPane" name="jScrollPane2">
+                <Container class="javax.swing.JScrollPane" name="orderCommentsScrollPane">
                   <Properties>
-                    <Property name="name" type="java.lang.String" value="jScrollPane2" noResource="true"/>
+                    <Property name="name" type="java.lang.String" value="orderCommentsScrollPane" noResource="true"/>
                   </Properties>
                   <AuxValues>
                     <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
@@ -367,25 +361,25 @@
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
-                    <Component class="javax.swing.JTextArea" name="jTextArea1">
+                    <Component class="javax.swing.JTextArea" name="orderCommentsTextArea">
                       <Properties>
                         <Property name="columns" type="int" value="20"/>
                         <Property name="lineWrap" type="boolean" value="true"/>
                         <Property name="rows" type="int" value="3"/>
-                        <Property name="name" type="java.lang.String" value="jTextArea1" noResource="true"/>
+                        <Property name="name" type="java.lang.String" value="orderCommentsTextArea" noResource="true"/>
                       </Properties>
                     </Component>
                   </SubComponents>
                 </Container>
-                <Component class="javax.swing.JLabel" name="jLabel2">
+                <Component class="javax.swing.JLabel" name="orderCommentsLabel">
                   <Properties>
-                    <Property name="text" type="java.lang.String" resourceKey="jLabel2.text"/>
-                    <Property name="name" type="java.lang.String" value="jLabel2" noResource="true"/>
+                    <Property name="text" type="java.lang.String" resourceKey="orderCommentsLabel.text"/>
+                    <Property name="name" type="java.lang.String" value="orderCommentsLabel" noResource="true"/>
                   </Properties>
                 </Component>
-                <Container class="javax.swing.JScrollPane" name="jScrollPane3">
+                <Container class="javax.swing.JScrollPane" name="orderAddressScrollPane">
                   <Properties>
-                    <Property name="name" type="java.lang.String" value="jScrollPane3" noResource="true"/>
+                    <Property name="name" type="java.lang.String" value="orderAddressScrollPane" noResource="true"/>
                   </Properties>
                   <AuxValues>
                     <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
@@ -393,29 +387,30 @@
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
-                    <Component class="javax.swing.JTextArea" name="jTextArea2">
+                    <Component class="javax.swing.JTextArea" name="orderAddressTextArea">
                       <Properties>
                         <Property name="columns" type="int" value="20"/>
                         <Property name="lineWrap" type="boolean" value="true"/>
                         <Property name="rows" type="int" value="3"/>
-                        <Property name="name" type="java.lang.String" value="jTextArea2" noResource="true"/>
+                        <Property name="name" type="java.lang.String" value="orderAddressTextArea" noResource="true"/>
                       </Properties>
                     </Component>
                   </SubComponents>
                 </Container>
-                <Component class="javax.swing.JLabel" name="jLabel3">
+                <Component class="javax.swing.JLabel" name="orderAddressLabel">
                   <Properties>
-                    <Property name="name" type="java.lang.String" value="jLabel3" noResource="true"/>
+                    <Property name="text" type="java.lang.String" resourceKey="orderAddressLabel.text"/>
+                    <Property name="name" type="java.lang.String" value="orderAddressLabel" noResource="true"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JSeparator" name="jSeparator1">
+                <Component class="javax.swing.JSeparator" name="orderDetailsSeparator">
                   <Properties>
-                    <Property name="name" type="java.lang.String" value="jSeparator1" noResource="true"/>
+                    <Property name="name" type="java.lang.String" value="orderDetailsSeparator" noResource="true"/>
                   </Properties>
                 </Component>
-                <Container class="javax.swing.JPanel" name="jPanel5">
+                <Container class="javax.swing.JPanel" name="orderPriceOverviewPanel">
                   <Properties>
-                    <Property name="name" type="java.lang.String" value="jPanel5" noResource="true"/>
+                    <Property name="name" type="java.lang.String" value="orderPriceOverviewPanel" noResource="true"/>
                   </Properties>
 
                   <Layout>
@@ -425,82 +420,83 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace pref="51" max="32767" attributes="0"/>
-                                      <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                                      <Component id="orderCostOrderPriceLabel" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="orderCostOrderPrice" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace pref="60" max="32767" attributes="0"/>
-                                      <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="orderCostDeliveryCostLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="orderCostTotalCostLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="orderCostTotalCost" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="orderCostDeliveryCost" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
                               </Group>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace pref="79" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace pref="69" max="32767" attributes="0"/>
+                              <EmptySpace pref="55" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="orderCostOrderPriceLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="orderCostOrderPrice" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="orderCostDeliveryCostLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="orderCostDeliveryCost" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="orderCostTotalCostLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="orderCostTotalCost" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
                     </DimensionLayout>
                   </Layout>
                   <SubComponents>
-                    <Component class="javax.swing.JLabel" name="jLabel4">
+                    <Component class="javax.swing.JLabel" name="orderCostOrderPriceLabel">
                       <Properties>
-                        <Property name="text" type="java.lang.String" resourceKey="jLabel4.text"/>
-                        <Property name="name" type="java.lang.String" value="jLabel4" noResource="true"/>
+                        <Property name="text" type="java.lang.String" resourceKey="orderCostOrderPriceLabel.text"/>
+                        <Property name="name" type="java.lang.String" value="orderCostOrderPriceLabel" noResource="true"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel6">
+                    <Component class="javax.swing.JLabel" name="orderCostDeliveryCostLabel">
                       <Properties>
-                        <Property name="text" type="java.lang.String" resourceKey="jLabel6.text"/>
-                        <Property name="name" type="java.lang.String" value="jLabel6" noResource="true"/>
+                        <Property name="text" type="java.lang.String" resourceKey="orderCostDeliveryCostLabel.text"/>
+                        <Property name="name" type="java.lang.String" value="orderCostDeliveryCostLabel" noResource="true"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel8">
+                    <Component class="javax.swing.JLabel" name="orderCostTotalCostLabel">
                       <Properties>
-                        <Property name="text" type="java.lang.String" resourceKey="jLabel8.text"/>
-                        <Property name="name" type="java.lang.String" value="jLabel8" noResource="true"/>
+                        <Property name="text" type="java.lang.String" resourceKey="orderCostTotalCostLabel.text"/>
+                        <Property name="name" type="java.lang.String" value="orderCostTotalCostLabel" noResource="true"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel5">
+                    <Component class="javax.swing.JLabel" name="orderCostOrderPrice">
                       <Properties>
-                        <Property name="text" type="java.lang.String" resourceKey="jLabel5.text"/>
-                        <Property name="name" type="java.lang.String" value="jLabel5" noResource="true"/>
+                        <Property name="text" type="java.lang.String" resourceKey="orderCostOrderPrice.text"/>
+                        <Property name="name" type="java.lang.String" value="orderCostOrderPrice" noResource="true"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel7">
+                    <Component class="javax.swing.JLabel" name="orderCostDeliveryCost">
                       <Properties>
-                        <Property name="text" type="java.lang.String" resourceKey="jLabel7.text"/>
-                        <Property name="name" type="java.lang.String" value="jLabel7" noResource="true"/>
+                        <Property name="text" type="java.lang.String" resourceKey="orderCostDeliveryCost.text"/>
+                        <Property name="name" type="java.lang.String" value="orderCostDeliveryCost" noResource="true"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel9">
+                    <Component class="javax.swing.JLabel" name="orderCostTotalCost">
                       <Properties>
-                        <Property name="text" type="java.lang.String" resourceKey="jLabel9.text"/>
-                        <Property name="name" type="java.lang.String" value="jLabel9" noResource="true"/>
+                        <Property name="text" type="java.lang.String" resourceKey="orderCostTotalCost.text"/>
+                        <Property name="name" type="java.lang.String" value="orderCostTotalCost" noResource="true"/>
                       </Properties>
                     </Component>
                   </SubComponents>

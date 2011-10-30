@@ -36,18 +36,18 @@ public class DeliveryView extends javax.swing.JPanel {
         setName("Form"); // NOI18N
         setLayout(new java.awt.BorderLayout());
 
-        jSplitPane1.setDividerLocation(300);
-        jSplitPane1.setName("jSplitPane1"); // NOI18N
+        mainVerticalSplitPanel.setDividerLocation(300);
+        mainVerticalSplitPanel.setName("mainVerticalSplitPanel"); // NOI18N
 
-        jSplitPane2.setDividerLocation(200);
-        jSplitPane2.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
-        jSplitPane2.setName("jSplitPane2"); // NOI18N
+        rightHorizontallSplitPane.setDividerLocation(200);
+        rightHorizontallSplitPane.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
+        rightHorizontallSplitPane.setName("rightHorizontallSplitPane"); // NOI18N
 
-        jPanel2.setName("jPanel2"); // NOI18N
+        orderContentsPanel.setName("orderContentsPanel"); // NOI18N
 
-        jScrollPane1.setName("jScrollPane1"); // NOI18N
+        orderContentsTableScrollPane.setName("orderContentsTableScrollPane"); // NOI18N
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        orderContentsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -73,84 +73,84 @@ public class DeliveryView extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.setName("jTable1"); // NOI18N
-        jScrollPane1.setViewportView(jTable1);
-
-        jButton1.setName("jButton1"); // NOI18N
-
+        orderContentsTable.setName("orderContentsTable"); // NOI18N
+        orderContentsTableScrollPane.setViewportView(orderContentsTable);
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(pizzaProgram.core.PizzaProgram.class).getContext().getResourceMap(DeliveryView.class);
-        jButton3.setText(resourceMap.getString("jButton3.text")); // NOI18N
-        jButton3.setName("jButton3"); // NOI18N
+        orderContentsTable.getColumnModel().getColumn(0).setHeaderValue(resourceMap.getString("orderContentsTable.columnModel.title0")); // NOI18N
+        orderContentsTable.getColumnModel().getColumn(1).setHeaderValue(resourceMap.getString("orderContentsTable.columnModel.title1")); // NOI18N
+        orderContentsTable.getColumnModel().getColumn(2).setHeaderValue(resourceMap.getString("orderContentsTable.columnModel.title2")); // NOI18N
 
-        jButton4.setName("jButton4"); // NOI18N
+        markOrderDeliveredButton.setText(resourceMap.getString("markOrderDeliveredButton.text")); // NOI18N
+        markOrderDeliveredButton.setName("markOrderDeliveredButton"); // NOI18N
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        showReceiptButton.setText(resourceMap.getString("showReceiptButton.text")); // NOI18N
+        showReceiptButton.setName("showReceiptButton"); // NOI18N
+
+        javax.swing.GroupLayout orderContentsPanelLayout = new javax.swing.GroupLayout(orderContentsPanel);
+        orderContentsPanel.setLayout(orderContentsPanelLayout);
+        orderContentsPanelLayout.setHorizontalGroup(
+            orderContentsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(orderContentsPanelLayout.createSequentialGroup()
                 .addGap(6, 6, 6)
-                .addComponent(jButton3)
+                .addComponent(showReceiptButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton4)
-                .addContainerGap(282, Short.MAX_VALUE))
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE)
+                .addComponent(markOrderDeliveredButton)
+                .addContainerGap(209, Short.MAX_VALUE))
+            .addComponent(orderContentsTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        orderContentsPanelLayout.setVerticalGroup(
+            orderContentsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(orderContentsPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
-                    .addComponent(jButton1)
-                    .addComponent(jButton4))
+                .addGroup(orderContentsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(showReceiptButton)
+                    .addComponent(markOrderDeliveredButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE))
+                .addComponent(orderContentsTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE))
         );
 
-        jSplitPane2.setTopComponent(jPanel2);
+        rightHorizontallSplitPane.setTopComponent(orderContentsPanel);
 
-        jPanel3.setName("jPanel3"); // NOI18N
+        mapImagePanel.setName("mapImagePanel"); // NOI18N
 
-        jLabel1.setName("jLabel1"); // NOI18N
+        mapImagePlaceholder.setText(resourceMap.getString("mapImagePlaceholder.text")); // NOI18N
+        mapImagePlaceholder.setName("mapImagePlaceholder"); // NOI18N
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        javax.swing.GroupLayout mapImagePanelLayout = new javax.swing.GroupLayout(mapImagePanel);
+        mapImagePanel.setLayout(mapImagePanelLayout);
+        mapImagePanelLayout.setHorizontalGroup(
+            mapImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mapImagePanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addContainerGap(425, Short.MAX_VALUE))
+                .addComponent(mapImagePlaceholder)
+                .addContainerGap(354, Short.MAX_VALUE))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        mapImagePanelLayout.setVerticalGroup(
+            mapImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mapImagePanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addContainerGap(304, Short.MAX_VALUE))
+                .addComponent(mapImagePlaceholder)
+                .addContainerGap(290, Short.MAX_VALUE))
         );
 
-        jSplitPane2.setRightComponent(jPanel3);
+        rightHorizontallSplitPane.setRightComponent(mapImagePanel);
 
-        jSplitPane1.setRightComponent(jSplitPane2);
+        mainVerticalSplitPanel.setRightComponent(rightHorizontallSplitPane);
 
-        jSplitPane3.setDividerLocation(210);
-        jSplitPane3.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
-        jSplitPane3.setName("jSplitPane3"); // NOI18N
+        leftHorizontalSplitPanel.setDividerLocation(210);
+        leftHorizontalSplitPanel.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
+        leftHorizontalSplitPanel.setName("leftHorizontalSplitPanel"); // NOI18N
 
-        jPanel1.setName("jPanel1"); // NOI18N
+        activeOrderListPanel.setName("activeOrderListPanel"); // NOI18N
 
-        jTextField1.setName("jTextField1"); // NOI18N
+        orderSearchTextField.setName("orderSearchTextField"); // NOI18N
 
-        jButton2.setText(resourceMap.getString("jButton2.text")); // NOI18N
-        jButton2.setName("jButton2"); // NOI18N
+        orderSearchButton.setText(resourceMap.getString("orderSearchButton.text")); // NOI18N
+        orderSearchButton.setName("orderSearchButton"); // NOI18N
 
-        jScrollPane4.setName("jScrollPane4"); // NOI18N
+        activeOrderListScrollPane.setName("activeOrderListScrollPane"); // NOI18N
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        activeOrdersTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -169,195 +169,197 @@ public class DeliveryView extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jTable2.setName("jTable2"); // NOI18N
-        jScrollPane4.setViewportView(jTable2);
+        activeOrdersTable.setName("activeOrdersTable"); // NOI18N
+        activeOrderListScrollPane.setViewportView(activeOrdersTable);
+        activeOrdersTable.getColumnModel().getColumn(0).setHeaderValue(resourceMap.getString("activeOrdersTable.columnModel.title0")); // NOI18N
+        activeOrdersTable.getColumnModel().getColumn(1).setHeaderValue(resourceMap.getString("activeOrdersTable.columnModel.title1")); // NOI18N
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout activeOrderListPanelLayout = new javax.swing.GroupLayout(activeOrderListPanel);
+        activeOrderListPanel.setLayout(activeOrderListPanelLayout);
+        activeOrderListPanelLayout.setHorizontalGroup(
+            activeOrderListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(activeOrderListPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
+                .addComponent(orderSearchTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
+                .addComponent(orderSearchButton)
                 .addContainerGap())
-            .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE)
+            .addComponent(activeOrderListScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        activeOrderListPanelLayout.setVerticalGroup(
+            activeOrderListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(activeOrderListPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(activeOrderListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(orderSearchButton)
+                    .addComponent(orderSearchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE))
+                .addComponent(activeOrderListScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE))
         );
 
-        jSplitPane3.setTopComponent(jPanel1);
+        leftHorizontalSplitPanel.setTopComponent(activeOrderListPanel);
 
-        jPanel4.setName("jPanel4"); // NOI18N
+        orderDetailsPanel.setName("orderDetailsPanel"); // NOI18N
 
-        jScrollPane2.setName("jScrollPane2"); // NOI18N
+        orderCommentsScrollPane.setName("orderCommentsScrollPane"); // NOI18N
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setLineWrap(true);
-        jTextArea1.setRows(3);
-        jTextArea1.setName("jTextArea1"); // NOI18N
-        jScrollPane2.setViewportView(jTextArea1);
+        orderCommentsTextArea.setColumns(20);
+        orderCommentsTextArea.setLineWrap(true);
+        orderCommentsTextArea.setRows(3);
+        orderCommentsTextArea.setName("orderCommentsTextArea"); // NOI18N
+        orderCommentsScrollPane.setViewportView(orderCommentsTextArea);
 
-        jLabel2.setText(resourceMap.getString("jLabel2.text")); // NOI18N
-        jLabel2.setName("jLabel2"); // NOI18N
+        orderCommentsLabel.setText(resourceMap.getString("orderCommentsLabel.text")); // NOI18N
+        orderCommentsLabel.setName("orderCommentsLabel"); // NOI18N
 
-        jScrollPane3.setName("jScrollPane3"); // NOI18N
+        orderAddressScrollPane.setName("orderAddressScrollPane"); // NOI18N
 
-        jTextArea2.setColumns(20);
-        jTextArea2.setLineWrap(true);
-        jTextArea2.setRows(3);
-        jTextArea2.setName("jTextArea2"); // NOI18N
-        jScrollPane3.setViewportView(jTextArea2);
+        orderAddressTextArea.setColumns(20);
+        orderAddressTextArea.setLineWrap(true);
+        orderAddressTextArea.setRows(3);
+        orderAddressTextArea.setName("orderAddressTextArea"); // NOI18N
+        orderAddressScrollPane.setViewportView(orderAddressTextArea);
 
-        jLabel3.setName("jLabel3"); // NOI18N
+        orderAddressLabel.setText(resourceMap.getString("orderAddressLabel.text")); // NOI18N
+        orderAddressLabel.setName("orderAddressLabel"); // NOI18N
 
-        jSeparator1.setName("jSeparator1"); // NOI18N
+        orderDetailsSeparator.setName("orderDetailsSeparator"); // NOI18N
 
-        jPanel5.setName("jPanel5"); // NOI18N
+        orderPriceOverviewPanel.setName("orderPriceOverviewPanel"); // NOI18N
 
-        jLabel4.setText(resourceMap.getString("jLabel4.text")); // NOI18N
-        jLabel4.setName("jLabel4"); // NOI18N
+        orderCostOrderPriceLabel.setText(resourceMap.getString("orderCostOrderPriceLabel.text")); // NOI18N
+        orderCostOrderPriceLabel.setName("orderCostOrderPriceLabel"); // NOI18N
 
-        jLabel6.setText(resourceMap.getString("jLabel6.text")); // NOI18N
-        jLabel6.setName("jLabel6"); // NOI18N
+        orderCostDeliveryCostLabel.setText(resourceMap.getString("orderCostDeliveryCostLabel.text")); // NOI18N
+        orderCostDeliveryCostLabel.setName("orderCostDeliveryCostLabel"); // NOI18N
 
-        jLabel8.setText(resourceMap.getString("jLabel8.text")); // NOI18N
-        jLabel8.setName("jLabel8"); // NOI18N
+        orderCostTotalCostLabel.setText(resourceMap.getString("orderCostTotalCostLabel.text")); // NOI18N
+        orderCostTotalCostLabel.setName("orderCostTotalCostLabel"); // NOI18N
 
-        jLabel5.setText(resourceMap.getString("jLabel5.text")); // NOI18N
-        jLabel5.setName("jLabel5"); // NOI18N
+        orderCostOrderPrice.setText(resourceMap.getString("orderCostOrderPrice.text")); // NOI18N
+        orderCostOrderPrice.setName("orderCostOrderPrice"); // NOI18N
 
-        jLabel7.setText(resourceMap.getString("jLabel7.text")); // NOI18N
-        jLabel7.setName("jLabel7"); // NOI18N
+        orderCostDeliveryCost.setText(resourceMap.getString("orderCostDeliveryCost.text")); // NOI18N
+        orderCostDeliveryCost.setName("orderCostDeliveryCost"); // NOI18N
 
-        jLabel9.setText(resourceMap.getString("jLabel9.text")); // NOI18N
-        jLabel9.setName("jLabel9"); // NOI18N
+        orderCostTotalCost.setText(resourceMap.getString("orderCostTotalCost.text")); // NOI18N
+        orderCostTotalCost.setName("orderCostTotalCost"); // NOI18N
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
+        javax.swing.GroupLayout orderPriceOverviewPanelLayout = new javax.swing.GroupLayout(orderPriceOverviewPanel);
+        orderPriceOverviewPanel.setLayout(orderPriceOverviewPanelLayout);
+        orderPriceOverviewPanelLayout.setHorizontalGroup(
+            orderPriceOverviewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(orderPriceOverviewPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
-                        .addComponent(jLabel5))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel7))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
-                        .addComponent(jLabel9)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(orderPriceOverviewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(orderPriceOverviewPanelLayout.createSequentialGroup()
+                        .addComponent(orderCostOrderPriceLabel)
+                        .addGap(18, 18, 18)
+                        .addComponent(orderCostOrderPrice))
+                    .addGroup(orderPriceOverviewPanelLayout.createSequentialGroup()
+                        .addGroup(orderPriceOverviewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(orderCostDeliveryCostLabel)
+                            .addComponent(orderCostTotalCostLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(orderPriceOverviewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(orderCostTotalCost)
+                            .addComponent(orderCostDeliveryCost))))
+                .addContainerGap(79, Short.MAX_VALUE))
         );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap(69, Short.MAX_VALUE)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5))
+        orderPriceOverviewPanelLayout.setVerticalGroup(
+            orderPriceOverviewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(orderPriceOverviewPanelLayout.createSequentialGroup()
+                .addContainerGap(55, Short.MAX_VALUE)
+                .addGroup(orderPriceOverviewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(orderCostOrderPriceLabel)
+                    .addComponent(orderCostOrderPrice))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel7))
+                .addGroup(orderPriceOverviewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(orderCostDeliveryCostLabel)
+                    .addComponent(orderCostDeliveryCost))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel9)))
+                .addGroup(orderPriceOverviewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(orderCostTotalCostLabel)
+                    .addComponent(orderCostTotalCost)))
         );
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
+        javax.swing.GroupLayout orderDetailsPanelLayout = new javax.swing.GroupLayout(orderDetailsPanel);
+        orderDetailsPanel.setLayout(orderDetailsPanelLayout);
+        orderDetailsPanelLayout.setHorizontalGroup(
+            orderDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(orderDetailsPanelLayout.createSequentialGroup()
+                .addGroup(orderDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(orderPriceOverviewPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(orderDetailsPanelLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(orderDetailsSeparator, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE))
+                    .addGroup(orderDetailsPanelLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel2))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addComponent(orderCommentsLabel))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, orderDetailsPanelLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(orderCommentsScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE))
+                    .addGroup(orderDetailsPanelLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel3))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(orderAddressLabel))
+                    .addGroup(orderDetailsPanelLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE)))
+                        .addComponent(orderAddressScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE)))
                 .addContainerGap())
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        orderDetailsPanelLayout.setVerticalGroup(
+            orderDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, orderDetailsPanelLayout.createSequentialGroup()
+                .addComponent(orderPriceOverviewPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(orderDetailsSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
+                .addComponent(orderCommentsLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(orderCommentsScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
+                .addComponent(orderAddressLabel)
                 .addGap(3, 3, 3)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(orderAddressScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
-        jSplitPane3.setRightComponent(jPanel4);
+        leftHorizontalSplitPanel.setRightComponent(orderDetailsPanel);
 
-        jSplitPane1.setLeftComponent(jSplitPane3);
+        mainVerticalSplitPanel.setLeftComponent(leftHorizontalSplitPanel);
 
-        add(jSplitPane1, java.awt.BorderLayout.CENTER);
+        add(mainVerticalSplitPanel, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public static final javax.swing.JButton jButton1 = new javax.swing.JButton();
-    public static final javax.swing.JButton jButton2 = new javax.swing.JButton();
-    public static final javax.swing.JButton jButton3 = new javax.swing.JButton();
-    public static final javax.swing.JButton jButton4 = new javax.swing.JButton();
-    public static final javax.swing.JLabel jLabel1 = new javax.swing.JLabel();
-    public static final javax.swing.JLabel jLabel2 = new javax.swing.JLabel();
-    public static final javax.swing.JLabel jLabel3 = new javax.swing.JLabel();
-    public static final javax.swing.JLabel jLabel4 = new javax.swing.JLabel();
-    public static final javax.swing.JLabel jLabel5 = new javax.swing.JLabel();
-    public static final javax.swing.JLabel jLabel6 = new javax.swing.JLabel();
-    public static final javax.swing.JLabel jLabel7 = new javax.swing.JLabel();
-    public static final javax.swing.JLabel jLabel8 = new javax.swing.JLabel();
-    public static final javax.swing.JLabel jLabel9 = new javax.swing.JLabel();
-    public static final javax.swing.JPanel jPanel1 = new javax.swing.JPanel();
-    public static final javax.swing.JPanel jPanel2 = new javax.swing.JPanel();
-    public static final javax.swing.JPanel jPanel3 = new javax.swing.JPanel();
-    public static final javax.swing.JPanel jPanel4 = new javax.swing.JPanel();
-    public static final javax.swing.JPanel jPanel5 = new javax.swing.JPanel();
-    public static final javax.swing.JScrollPane jScrollPane1 = new javax.swing.JScrollPane();
-    public static final javax.swing.JScrollPane jScrollPane2 = new javax.swing.JScrollPane();
-    public static final javax.swing.JScrollPane jScrollPane3 = new javax.swing.JScrollPane();
-    public static final javax.swing.JScrollPane jScrollPane4 = new javax.swing.JScrollPane();
-    public static final javax.swing.JSeparator jSeparator1 = new javax.swing.JSeparator();
-    public static final javax.swing.JSplitPane jSplitPane1 = new javax.swing.JSplitPane();
-    public static final javax.swing.JSplitPane jSplitPane2 = new javax.swing.JSplitPane();
-    public static final javax.swing.JSplitPane jSplitPane3 = new javax.swing.JSplitPane();
-    public static final javax.swing.JTable jTable1 = new javax.swing.JTable();
-    public static final javax.swing.JTable jTable2 = new javax.swing.JTable();
-    public static final javax.swing.JTextArea jTextArea1 = new javax.swing.JTextArea();
-    public static final javax.swing.JTextArea jTextArea2 = new javax.swing.JTextArea();
-    public static final javax.swing.JTextField jTextField1 = new javax.swing.JTextField();
+    public static final javax.swing.JPanel activeOrderListPanel = new javax.swing.JPanel();
+    public static final javax.swing.JScrollPane activeOrderListScrollPane = new javax.swing.JScrollPane();
+    public static final javax.swing.JTable activeOrdersTable = new javax.swing.JTable();
+    public static final javax.swing.JSplitPane leftHorizontalSplitPanel = new javax.swing.JSplitPane();
+    public static final javax.swing.JSplitPane mainVerticalSplitPanel = new javax.swing.JSplitPane();
+    public static final javax.swing.JPanel mapImagePanel = new javax.swing.JPanel();
+    public static final javax.swing.JLabel mapImagePlaceholder = new javax.swing.JLabel();
+    public static final javax.swing.JButton markOrderDeliveredButton = new javax.swing.JButton();
+    public static final javax.swing.JLabel orderAddressLabel = new javax.swing.JLabel();
+    public static final javax.swing.JScrollPane orderAddressScrollPane = new javax.swing.JScrollPane();
+    public static final javax.swing.JTextArea orderAddressTextArea = new javax.swing.JTextArea();
+    public static final javax.swing.JLabel orderCommentsLabel = new javax.swing.JLabel();
+    public static final javax.swing.JScrollPane orderCommentsScrollPane = new javax.swing.JScrollPane();
+    public static final javax.swing.JTextArea orderCommentsTextArea = new javax.swing.JTextArea();
+    public static final javax.swing.JPanel orderContentsPanel = new javax.swing.JPanel();
+    public static final javax.swing.JTable orderContentsTable = new javax.swing.JTable();
+    public static final javax.swing.JScrollPane orderContentsTableScrollPane = new javax.swing.JScrollPane();
+    public static final javax.swing.JLabel orderCostDeliveryCost = new javax.swing.JLabel();
+    public static final javax.swing.JLabel orderCostDeliveryCostLabel = new javax.swing.JLabel();
+    public static final javax.swing.JLabel orderCostOrderPrice = new javax.swing.JLabel();
+    public static final javax.swing.JLabel orderCostOrderPriceLabel = new javax.swing.JLabel();
+    public static final javax.swing.JLabel orderCostTotalCost = new javax.swing.JLabel();
+    public static final javax.swing.JLabel orderCostTotalCostLabel = new javax.swing.JLabel();
+    public static final javax.swing.JPanel orderDetailsPanel = new javax.swing.JPanel();
+    public static final javax.swing.JSeparator orderDetailsSeparator = new javax.swing.JSeparator();
+    public static final javax.swing.JPanel orderPriceOverviewPanel = new javax.swing.JPanel();
+    public static final javax.swing.JButton orderSearchButton = new javax.swing.JButton();
+    public static final javax.swing.JTextField orderSearchTextField = new javax.swing.JTextField();
+    public static final javax.swing.JSplitPane rightHorizontallSplitPane = new javax.swing.JSplitPane();
+    public static final javax.swing.JButton showReceiptButton = new javax.swing.JButton();
     // End of variables declaration//GEN-END:variables
 }
