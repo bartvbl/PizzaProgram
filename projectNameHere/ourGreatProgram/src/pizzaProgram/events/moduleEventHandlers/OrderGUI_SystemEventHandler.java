@@ -7,6 +7,9 @@ package pizzaProgram.events.moduleEventHandlers;
 import java.awt.Label;
 import java.util.ArrayList;
 
+import javax.swing.DefaultListModel;
+import javax.swing.table.DefaultTableModel;
+
 import pizzaProgram.dataObjects.Customer;
 import pizzaProgram.database.OrderList;
 import pizzaProgram.events.Event;
@@ -27,7 +30,10 @@ public class OrderGUI_SystemEventHandler implements EventHandler {
     public OrderGUI_SystemEventHandler(OrderView orderView, EventDispatcher eventDispatcher){
         this.orderView = orderView;
         this.eventDispatcher = eventDispatcher;
+        //DEBUG
+        eventDispatcher.addEventListener(this, EventType.ORDER_GUI_UPDATE_CUSTOMER_LIST);
         eventDispatcher.dispatchEvent(new Event(EventType.ORDER_GUI_UPDATE_CUSTOMER_LIST));
+        //END DEBUG
     }
     
     public void handleEvent(Event<?> event)
@@ -40,6 +46,8 @@ public class OrderGUI_SystemEventHandler implements EventHandler {
 
 	private void updateCustomerList(Event<?> event) {
 		OrderList.getOrderList();
-		
+		DefaultListModel model = (DefaultListModel)orderView.customerList.getModel();
+		model.clear();
+		model.addElement("ohai");
 	}
 }

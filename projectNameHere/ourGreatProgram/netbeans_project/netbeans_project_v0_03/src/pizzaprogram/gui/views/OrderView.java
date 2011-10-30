@@ -10,6 +10,8 @@
  */
 package pizzaprogram.gui.views;
 
+import javax.swing.DefaultListModel;
+
 /**
  *
  * @author Bart
@@ -56,11 +58,7 @@ public class OrderView extends javax.swing.JPanel {
 
         customerListScrollPane.setName("customerListScrollPane"); // NOI18N
 
-        customerList.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
+        customerList.setModel(new DefaultListModel());
         customerList.setName("customerList"); // NOI18N
         customerListScrollPane.setViewportView(customerList);
 

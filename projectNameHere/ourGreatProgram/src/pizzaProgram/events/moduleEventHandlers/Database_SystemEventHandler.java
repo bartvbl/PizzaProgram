@@ -20,7 +20,7 @@ public class Database_SystemEventHandler implements EventHandler{
     private DatabaseConnection databaseConnection;
     private EventDispatcher eventDispatcher;
     
-    private Database_OrderEventHandler readEventHandler;
+    private Database_ReadEventHandler readEventHandler;
     private Database_WriteEventHandler writeEventHandler;
     private Database_UpdateEventHandler updateEventHandler;
     
@@ -32,7 +32,7 @@ public class Database_SystemEventHandler implements EventHandler{
         this.eventDispatcher = eventDispatcher;
         this.addEventListeners();
         
-        this.readEventHandler = new Database_OrderEventHandler(databaseConnection, eventDispatcher);
+        this.readEventHandler = new Database_ReadEventHandler(databaseConnection, eventDispatcher);
         this.writeEventHandler = new Database_WriteEventHandler(databaseModule, databaseConnection, eventDispatcher);
         this.updateEventHandler = new Database_UpdateEventHandler(databaseModule, databaseConnection, eventDispatcher);
     }

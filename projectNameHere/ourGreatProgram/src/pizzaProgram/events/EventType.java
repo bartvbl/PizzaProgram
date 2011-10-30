@@ -48,4 +48,8 @@ public class EventType {
 	 * just been updated
 	 */
 	public final static String DATABASE_LISTS_UPDATED = "databaseListsUpdated";
+
+	public static final String DATABASE_UPDATE_ORDER_GUI_SEND_ALL_CUSTOMERS = "databaseUpdateOrderGUISendAllCustomers";
+
+	
 }

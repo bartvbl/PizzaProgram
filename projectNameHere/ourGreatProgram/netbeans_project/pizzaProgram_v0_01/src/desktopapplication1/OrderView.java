@@ -11,6 +11,7 @@ import org.jdesktop.application.FrameView;
 import org.jdesktop.application.TaskMonitor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.DefaultListModel;
 import javax.swing.Timer;
 import javax.swing.Icon;
 import javax.swing.JDialog;
@@ -112,11 +113,7 @@ public class OrderView extends FrameView {
 
         customerListScrollPane.setName("customerListScrollPane"); // NOI18N
 
-        customerList.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
+        customerList.setModel(new DefaultListModel());
         customerList.setName("customerList"); // NOI18N
         customerListScrollPane.setViewportView(customerList);
 
@@ -351,7 +348,7 @@ public class OrderView extends FrameView {
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mainSplitPane)
+            .addComponent(mainSplitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
         );
 
         menuBar.setName("menuBar"); // NOI18N
