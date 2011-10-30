@@ -200,7 +200,7 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="orderCreationUIVerticalSplitPane" alignment="0" pref="747" max="32767" attributes="0"/>
+                      <Component id="orderCreationUIVerticalSplitPane" alignment="0" pref="687" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
@@ -232,11 +232,12 @@
                       <Layout>
                         <DimensionLayout dim="0">
                           <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="dishTableScrollPane" alignment="0" pref="685" max="32767" attributes="1"/>
                               <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace max="-2" attributes="0"/>
                                   <Component id="addDishButton" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="652" max="-2" attributes="0"/>
+                                  <EmptySpace pref="582" max="32767" attributes="0"/>
                               </Group>
-                              <Component id="dishTableScrollPane" alignment="0" pref="745" max="32767" attributes="1"/>
                           </Group>
                         </DimensionLayout>
                         <DimensionLayout dim="1">
@@ -302,13 +303,21 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="1" attributes="0">
-                                          <Component id="orderCommentsTextAreaLabel" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace pref="505" max="32767" attributes="0"/>
+                                          <Group type="103" groupAlignment="1" attributes="0">
+                                              <Group type="102" attributes="0">
+                                                  <Component id="orderCommentsTextAreaLabel" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace pref="391" max="32767" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="1" attributes="0">
+                                                  <Component id="deliveryMethodComboBox" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
                                           <Component id="duplicateSelectedOrderDishButton" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="deleteSelectedOrderDishButton" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <Component id="orderCommentsTextAreaScrollPane" alignment="0" pref="725" max="32767" attributes="1"/>
+                                      <Component id="orderCommentsTextAreaScrollPane" alignment="0" pref="665" max="32767" attributes="1"/>
                                       <Group type="102" alignment="1" attributes="0">
                                           <Component id="resetOrderButton" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
@@ -317,18 +326,19 @@
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
-                              <Component id="orderContentsTableScrollPane" alignment="0" pref="745" max="32767" attributes="0"/>
+                              <Component id="orderContentsTableScrollPane" alignment="0" pref="685" max="32767" attributes="0"/>
                           </Group>
                         </DimensionLayout>
                         <DimensionLayout dim="1">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="orderContentsTableScrollPane" pref="184" max="32767" attributes="0"/>
+                                  <Component id="orderContentsTableScrollPane" pref="183" max="32767" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="1" attributes="0">
                                       <Group type="103" alignment="1" groupAlignment="3" attributes="0">
                                           <Component id="deleteSelectedOrderDishButton" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="duplicateSelectedOrderDishButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="deliveryMethodComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <Component id="orderCommentsTextAreaLabel" alignment="1" min="-2" max="-2" attributes="0"/>
                                   </Group>
@@ -375,6 +385,7 @@
                         </Container>
                         <Component class="javax.swing.JLabel" name="orderCommentsTextAreaLabel">
                           <Properties>
+                            <Property name="text" type="java.lang.String" resourceKey="orderCommentsTextAreaLabel.text"/>
                             <Property name="name" type="java.lang.String" value="orderCommentsTextAreaLabel" noResource="true"/>
                           </Properties>
                         </Component>
@@ -426,6 +437,14 @@
                               <Insets value="[0, 10, 0, 10]"/>
                             </Property>
                             <Property name="name" type="java.lang.String" value="duplicateSelectedOrderDishButton" noResource="true"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JComboBox" name="deliveryMethodComboBox">
+                          <Properties>
+                            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                              <Connection code="new javax.swing.DefaultComboBoxModel(new String[] {&quot;Delivery at home&quot;, &quot;Pick up at restaurant&quot;})" type="code"/>
+                            </Property>
+                            <Property name="name" type="java.lang.String" value="deliveryMethodComboBox" noResource="true"/>
                           </Properties>
                         </Component>
                       </SubComponents>

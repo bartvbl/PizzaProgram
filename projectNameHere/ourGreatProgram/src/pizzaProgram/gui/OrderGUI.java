@@ -79,7 +79,15 @@ public class OrderGUI extends GUIModule implements EventHandler {
                 this.programWindow = mainWindow;
                 this.orderViewEventHandler = new OrderGUI_OrderViewEventHandler(this.orderView, this);
                 this.systemEventHandler = new OrderGUI_SystemEventHandler(this.orderView, eventDispatcher);
+                this.initializeDeliveryMethodComboBox();
                 hide();
+	}
+	
+	private void initializeDeliveryMethodComboBox()
+	{
+		this.orderView.deliveryMethodComboBox.removeAllItems();
+		this.orderView.deliveryMethodComboBox.addItem(Order.DELIVER_AT_HOME);
+		this.orderView.deliveryMethodComboBox.addItem(Order.PICKUP_AT_RESTAURANT);
 	}
 
 	@Override

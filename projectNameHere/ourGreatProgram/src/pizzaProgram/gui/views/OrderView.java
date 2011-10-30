@@ -161,10 +161,11 @@ public class OrderView extends javax.swing.JPanel {
         dishSelectionArea.setLayout(dishSelectionAreaLayout);
         dishSelectionAreaLayout.setHorizontalGroup(
             dishSelectionAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(dishTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 685, Short.MAX_VALUE)
             .addGroup(dishSelectionAreaLayout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(addDishButton)
-                .addGap(652, 652, 652))
-            .addComponent(dishTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 745, Short.MAX_VALUE)
+                .addContainerGap(582, Short.MAX_VALUE))
         );
         dishSelectionAreaLayout.setVerticalGroup(
             dishSelectionAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -204,6 +205,7 @@ public class OrderView extends javax.swing.JPanel {
         orderContentsTable.setName("orderContentsTable"); // NOI18N
         orderContentsTableScrollPane.setViewportView(orderContentsTable);
 
+        orderCommentsTextAreaLabel.setText(resourceMap.getString("orderCommentsTextAreaLabel.text")); // NOI18N
         orderCommentsTextAreaLabel.setName("orderCommentsTextAreaLabel"); // NOI18N
 
         orderCommentsTextAreaScrollPane.setName("orderCommentsTextAreaScrollPane"); // NOI18N
@@ -228,6 +230,9 @@ public class OrderView extends javax.swing.JPanel {
         duplicateSelectedOrderDishButton.setMargin(new java.awt.Insets(0, 10, 0, 10));
         duplicateSelectedOrderDishButton.setName("duplicateSelectedOrderDishButton"); // NOI18N
 
+        deliveryMethodComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] {"Delivery at home", "Pick up at restaurant"}));
+        deliveryMethodComboBox.setName("deliveryMethodComboBox"); // NOI18N
+
         javax.swing.GroupLayout orderOverviewUILayout = new javax.swing.GroupLayout(orderOverviewUI);
         orderOverviewUI.setLayout(orderOverviewUILayout);
         orderOverviewUILayout.setHorizontalGroup(
@@ -236,28 +241,34 @@ public class OrderView extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(orderOverviewUILayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, orderOverviewUILayout.createSequentialGroup()
-                        .addComponent(orderCommentsTextAreaLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 505, Short.MAX_VALUE)
+                        .addGroup(orderOverviewUILayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(orderOverviewUILayout.createSequentialGroup()
+                                .addComponent(orderCommentsTextAreaLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 391, Short.MAX_VALUE))
+                            .addGroup(orderOverviewUILayout.createSequentialGroup()
+                                .addComponent(deliveryMethodComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                         .addComponent(duplicateSelectedOrderDishButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(deleteSelectedOrderDishButton))
-                    .addComponent(orderCommentsTextAreaScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 725, Short.MAX_VALUE)
+                    .addComponent(orderCommentsTextAreaScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 665, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, orderOverviewUILayout.createSequentialGroup()
                         .addComponent(resetOrderButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(confirmOrderButton)))
                 .addContainerGap())
-            .addComponent(orderContentsTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 745, Short.MAX_VALUE)
+            .addComponent(orderContentsTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 685, Short.MAX_VALUE)
         );
         orderOverviewUILayout.setVerticalGroup(
             orderOverviewUILayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, orderOverviewUILayout.createSequentialGroup()
-                .addComponent(orderContentsTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
+                .addComponent(orderContentsTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(orderOverviewUILayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(orderOverviewUILayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(deleteSelectedOrderDishButton)
-                        .addComponent(duplicateSelectedOrderDishButton))
+                        .addComponent(duplicateSelectedOrderDishButton)
+                        .addComponent(deliveryMethodComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(orderCommentsTextAreaLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(orderCommentsTextAreaScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -274,7 +285,7 @@ public class OrderView extends javax.swing.JPanel {
         orderCreationUI.setLayout(orderCreationUILayout);
         orderCreationUILayout.setHorizontalGroup(
             orderCreationUILayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(orderCreationUIVerticalSplitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 747, Short.MAX_VALUE)
+            .addComponent(orderCreationUIVerticalSplitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 687, Short.MAX_VALUE)
         );
         orderCreationUILayout.setVerticalGroup(
             orderCreationUILayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -305,6 +316,7 @@ public class OrderView extends javax.swing.JPanel {
     public static final javax.swing.JScrollPane customerListScrollPane = new javax.swing.JScrollPane();
     public static final javax.swing.JPanel customerLookupUI = new javax.swing.JPanel();
     public static final javax.swing.JButton deleteSelectedOrderDishButton = new javax.swing.JButton();
+    public static final javax.swing.JComboBox deliveryMethodComboBox = new javax.swing.JComboBox();
     public static final javax.swing.JPanel dishSelectionArea = new javax.swing.JPanel();
     public static final javax.swing.JTable dishTable = new javax.swing.JTable();
     public static final javax.swing.JScrollPane dishTableScrollPane = new javax.swing.JScrollPane();
