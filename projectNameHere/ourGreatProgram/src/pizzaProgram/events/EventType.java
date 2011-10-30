@@ -1,10 +1,12 @@
 package pizzaProgram.events;
 
 /**
- * A class containing constants representing event types.
- * ALL objects dispatching events should use constants from this class to represent event types.
+ * A class containing constants representing event types. ALL objects
+ * dispatching events should use constants from this class to represent event
+ * types.
+ * 
  * @author Bart
- *
+ * 
  */
 public class EventType {
 	/**
@@ -27,4 +29,8 @@ public class EventType {
 	 * The user would like to switch to the delivery GUI
 	 */
 	public static final String DELIVERY_GUI_REQUESTED = "deliveryGUIRequested";
+	/**
+	 * The program needs a databaseUpdate to ensure continued sanity
+	 */
+	public final static String DATABASE_UPDATE_REQUESTED = "databaseUpdateRequested";
 }

@@ -70,7 +70,7 @@ public class Main implements EventHandler {
 		// TODO: remove database connection parameter when database events are
 		// operational
 		// TODO: remove jframe parameter
-
+		OrderList orderList = new OrderList(this.eventDispatcher);
 		OrderGUI orderGUI = new OrderGUI(this.programWindow.getWindowFrame(), this.eventDispatcher);
 		CookGUI cookGUI = new CookGUI(this.programWindow.getWindowFrame(), this.eventDispatcher);
 		DeliverGUI deliverGUI = new DeliverGUI(this.programWindow.getWindowFrame(), this.eventDispatcher);
