@@ -183,18 +183,16 @@ public class OrderGUI extends GUIModule implements EventHandler {
 				if (dishesInOrder.size() < 1) {
 					return;
 				}
-
+				
 				String selectedCustomerString = customerList.getSelectedItem();
 				Customer c = customerMap.get(selectedCustomerString);
+				
+				Order o = new Order(-1, c, null, Order.REGISTERED, Order.DELIVER_AT_HOME, orderComment.getText());
 
-				pizzaProgram.database.OrderList.updateOrders();
-				c = customerMap.get(selectedCustomerString);
-
-				Order o = OrderList.getCustomerToOrderMap().get(c.customerID+pizzaProgram.dataObjects.Order.REGISTERED);
-				System.out.println(o);
 				for (OrderDish od : dishesInOrder) {
-					OrderList.addDishToOrder(o, od.dish, od.getExtras());
+					o.addOrderDish(od);
 				}
+				dispatchEvent(new Event<Order>(EventType.ADD_ORDER_REQUESTED, o));
 				orderedDishesList.removeAll();
 
 			}
