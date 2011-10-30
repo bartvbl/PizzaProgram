@@ -44,6 +44,7 @@ public class OrderList implements EventHandler {
 	private final static ArrayList<Order> orderList = new ArrayList<Order>();
 	private final static HashMap<Integer, Order> orderMap = new HashMap<Integer, Order>();
 	private final static HashMap<String, Order> customerToOrderMap = new HashMap<String, Order>();
+	private static EventDispatcher eventDispatcher;
 
 	/**
 	 * This method clears the old lists, and repopulates the
@@ -53,6 +54,7 @@ public class OrderList implements EventHandler {
 	 * each time the Orders table of the database is modified.
 	 */
 	public OrderList(EventDispatcher eventDispatcher) {
+		OrderList.eventDispatcher = eventDispatcher;
 		eventDispatcher.addEventListener(this,
 				EventType.DATABASE_UPDATE_REQUESTED);
 		eventDispatcher.addEventListener(this, EventType.ADD_ORDER_REQUESTED);
@@ -123,10 +125,10 @@ public class OrderList implements EventHandler {
 			}
 			results.close();
 		} catch (SQLException e) {
-			System.err.println("An error occured while adding the Order: "
+			System.err.println("An error occured while updating the lists"
 					+ e.getMessage());
 		}
-
+		eventDispatcher.dispatchEvent(new Event<Object>(EventType.DATABASE_LISTS_UPDATED));
 	}
 
 	/**
