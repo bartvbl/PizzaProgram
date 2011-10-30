@@ -2,6 +2,8 @@ import javax.swing.JPopupMenu;
 import javax.swing.ToolTipManager;
 
 import pizzaProgram.database.DatabaseConnection;
+import pizzaProgram.database.DishList;
+import pizzaProgram.database.ExtraList;
 import pizzaProgram.database.OrderList;
 import pizzaProgram.events.Event;
 import pizzaProgram.events.EventDispatcher;

@@ -101,7 +101,7 @@ public class DishList {
 			boolean containsGluten, boolean containsNuts,
 			boolean containsDairy, boolean isVegetarian, boolean isSpicy,
 			String description, boolean isActive) {
-		if (DatabaseConnection.isConnected(DatabaseConnection.DEFAULT_TIMEOUT)) {
+		if (!DatabaseConnection.isConnected(DatabaseConnection.DEFAULT_TIMEOUT)) {
 			System.err
 					.println("No valid database connection specified; dish not added to the database.");
 			return false;
