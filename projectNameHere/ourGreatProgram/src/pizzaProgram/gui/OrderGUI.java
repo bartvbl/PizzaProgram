@@ -256,7 +256,8 @@ public class OrderGUI extends GUIModule implements EventHandler {
 	public void handleEvent(Event<?> event) {
 		if(event.eventType.equals(EventType.ORDER_GUI_REQUESTED)){
 			show();
-			this.dispatchEvent(new Event<Object>(EventType.DATABASE_UPDATE_ORDER_GUI_SEND_ALL_CUSTOMERS));
+			this.dispatchEvent(new Event<Object>(EventType.DATABASE_UPDATE_REQUESTED));
+			this.dispatchEvent(new Event<Object>(EventType.ORDER_GUI_UPDATE_CUSTOMER_LIST));
 		}
 	}
 	@Override
