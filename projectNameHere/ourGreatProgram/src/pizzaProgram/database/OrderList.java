@@ -10,6 +10,10 @@ import pizzaProgram.dataObjects.Dish;
 import pizzaProgram.dataObjects.Extra;
 import pizzaProgram.dataObjects.Order;
 import pizzaProgram.dataObjects.OrderDish;
+import pizzaProgram.events.Event;
+import pizzaProgram.events.EventDispatcher;
+import pizzaProgram.events.EventHandler;
+import pizzaProgram.events.EventType;
 
 /**
  * Object for handling orders in the database. The methods of the class handles
@@ -36,7 +40,7 @@ import pizzaProgram.dataObjects.OrderDish;
 
 // TODO: Dispatch an event whenever the lists are updated
 
-public class OrderList {
+public class OrderList implements EventHandler {
 	private final static ArrayList<Order> orderList = new ArrayList<Order>();
 	private final static HashMap<Integer, Order> orderMap = new HashMap<Integer, Order>();
 	private final static HashMap<String, Order> customerToOrderMap = new HashMap<String, Order>();
@@ -48,6 +52,12 @@ public class OrderList {
 	 * orders} based on a fetch from the database. This method must be rerun
 	 * each time the Orders table of the database is modified.
 	 */
+	public OrderList(EventDispatcher eventDispatcher) {
+		eventDispatcher.addEventListener(this,
+				EventType.DATABASE_UPDATE_REQUESTED);
+		eventDispatcher.addEventListener(this, EventType.ADD_ORDER_REQUESTED);
+	}
+
 	public static void updateOrders() {
 		if (!DatabaseConnection.isConnected(DatabaseConnection.DEFAULT_TIMEOUT)) {
 			System.err
@@ -269,6 +279,74 @@ public class OrderList {
 		}
 	}
 
+	public static void addOrder(Order o) {
+		if (!DatabaseConnection.isConnected(DatabaseConnection.DEFAULT_TIMEOUT)) {
+			System.err
+					.println("No active database connection: please try again!");
+			return;
+		}
+		try {
+			if (!DatabaseConnection.fetchData(
+					"SELECT * FROM Orders WHERE CustomerID="
+							+ o.customer.customerID + " AND OrdersStatus='"
+							+ Order.REGISTERED + "';").next()) {
+				int commentID = -1;
+				if (!(o.comment == null || o.comment.equals(""))) {
+					DatabaseConnection
+							.insertIntoDB("INSERT INTO OrderComments (Comment) VALUES ('"
+									+ o.comment + "');");
+					ResultSet commentIDset = DatabaseConnection
+							.fetchData("SELECT CommentID FROM OrderComments WHERE Comment='"
+									+ o.comment + "';");
+					if (commentIDset.next()) {
+						commentID = commentIDset.getInt(1);
+					}
+				}
+				DatabaseConnection
+						.insertIntoDB("INSERT INTO Orders (CustomerID, TimeRegistered, DeliveryMethod, CommentID) VALUES ("
+								+ o.customer.customerID
+								+ ", NOW(), '"
+								+ o.deliveryMethod + "', " + commentID + ");");
+			}
+		} catch (SQLException e) {
+			System.err.println("An error occured during your database query: "
+					+ e.getMessage());
+			return;
+		}
+		updateOrders();
+		int orderID = customerToOrderMap.get(o.customer.customerID
+				+ Order.REGISTERED).orderID;
+		for (OrderDish od : o.getOrderedDishes()) {
+			int ordersContentsID = -1;
+			DatabaseConnection
+					.insertIntoDB("INSERT INTO OrdersContents (OrdersID, DishID) VALUES ("
+							+ orderID + ", " + od.dish.dishID + ");");
+			if (!(od.getExtras() == null || od.getExtras().isEmpty())) {
+				ResultSet currentOrderContentsID = DatabaseConnection
+						.fetchData("SELECT OrdersContentsID FROM OrdersContents WHERE OrdersID="
+								+ orderID
+								+ " AND DishID="
+								+ od.dish.dishID
+								+ " ORDER BY OrdersContentsID;");
+				try {
+					if (currentOrderContentsID.last()) {
+						ordersContentsID = currentOrderContentsID.getInt(1);
+					}
+				} catch (SQLException e) {
+					System.err
+							.println("An error occured while adding extras to the dish: "
+									+ e.getMessage());
+				}
+				for (Extra e : od.getExtras()) {
+					DatabaseConnection
+							.insertIntoDB("INSERT INTO DishExtrasChosen (OrdersContentsID, DishExtraID) VALUES ("
+									+ ordersContentsID + ", " + e.id + ");");
+				}
+			}
+		}
+
+	}
+
 	public static void changeOrderStatus(Order order, String status) {
 		if (!DatabaseConnection.isConnected(DatabaseConnection.DEFAULT_TIMEOUT)) {
 			System.err
@@ -278,5 +356,17 @@ public class OrderList {
 		DatabaseConnection.insertIntoDB("UPDATE Orders SET OrdersStatus='"
 				+ status + "' WHERE OrdersID=" + order.orderID + ";");
 	}
+
 	// TODO: Add a remove order method, if we want to have one.
+
+	@Override
+	public void handleEvent(Event<?> event) {
+		if (event.eventType.equals(EventType.DATABASE_UPDATE_REQUESTED)) {
+			updateOrders();
+		} else if (event.eventType.equals(EventType.ADD_ORDER_REQUESTED)) {
+			if (event.getEventParameterObject() instanceof Order) {
+				addOrder((Order) event.getEventParameterObject());
+			}
+		}
+	}
 }

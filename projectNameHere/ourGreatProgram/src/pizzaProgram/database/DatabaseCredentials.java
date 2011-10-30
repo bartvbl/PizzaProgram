@@ -10,13 +10,12 @@ public class DatabaseCredentials {
 	private static final String URL_TYPE = "URL";
 	private static final String USERNAME_TYPE = "USERNAME";
 	private static final String PASSWORD_TYPE = "PASSWORD";
-	
+
 	private String url = "jdbc:";
 	private String username = "";
 	private String password = "";
-	
-	public void loadFromFile(String src)
-	{
+
+	public void loadFromFile(String src) {
 		try {
 			BufferedReader fileReader = new BufferedReader(new FileReader(src));
 			while (fileReader.ready()) {
@@ -25,41 +24,39 @@ public class DatabaseCredentials {
 			}
 		} catch (FileNotFoundException e) {
 			System.out
-			.println("Unable to find the configurationfile for the database."
-					+ "Please make sure ../config/databaseinfo.cfg exists: "
-					+ e.getMessage());
+					.println("Unable to find the configurationfile for the database."
+							+ "Please make sure ../config/databaseinfo.cfg exists: "
+							+ e.getMessage());
 			e.printStackTrace();
 		} catch (IOException e) {
 			System.out.println("Unable to read the configfile: "
 					+ e.getMessage());
 			e.printStackTrace();
 		}
-		
+
 	}
-	
-	public String getURL()
-	{
+
+	public String getURL() {
 		return this.url;
 	}
-	
-	public String getUsername()
-	{
+
+	public String getUsername() {
 		return this.username;
 	}
-	
-	public String getPassword()
-	{
+
+	public String getPassword() {
 		return this.password;
 	}
-	
-	private void readLine(String line)
-	{
+
+	private void readLine(String line) {
 		if (!(line == null || this.lineIsComment(line))) {
-			String[] typeAndValueStringsArray = this.extractTypeAndContentStrings(line);
-			this.setValueStringByType(typeAndValueStringsArray[0], typeAndValueStringsArray[1]);
+			String[] typeAndValueStringsArray = this
+					.extractTypeAndContentStrings(line);
+			this.setValueStringByType(typeAndValueStringsArray[0],
+					typeAndValueStringsArray[1]);
 		}
 	}
-	
+
 	private void setValueStringByType(String type, String contents) {
 		if (type.equals(URL_TYPE)) {
 			url += contents;
@@ -69,20 +66,20 @@ public class DatabaseCredentials {
 			password = contents;
 		}
 	}
-	private String[] extractTypeAndContentStrings(String line)
-	{
+
+	private String[] extractTypeAndContentStrings(String line) {
 		String[] typeAndValueStringsArray = line.split(":", 2);
 		if (typeAndValueStringsArray.length == 2) {
 			typeAndValueStringsArray[1] = typeAndValueStringsArray[1].trim();
 			return typeAndValueStringsArray;
 		} else {
-			System.out.println("There is an error in the configuration file in one of the uncommented lines.");
-			return new String[]{"none", "none"};
+			System.out
+					.println("There is an error in the configuration file in one of the uncommented lines.");
+			return new String[] { "none", "none" };
 		}
 	}
-	
-	private boolean lineIsComment(String line)
-	{
+
+	private boolean lineIsComment(String line) {
 		return (line.charAt(0) == '#');
 	}
 }

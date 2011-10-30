@@ -1,10 +1,12 @@
 package pizzaProgram.events;
 
 /**
- * A class containing constants representing event types.
- * ALL objects dispatching events should use constants from this class to represent event types.
+ * A class containing constants representing event types. ALL objects
+ * dispatching events should use constants from this class to represent event
+ * types.
+ * 
  * @author Bart
- *
+ * 
  */
 public class EventType {
 	public static final String DATABASE_SEARCH_CUSTOMER_INFO_BY_NAME = "databaseSearchCustomerInfoByName";
@@ -33,4 +35,12 @@ public class EventType {
 	public static final String DELIVERY_GUI_REQUESTED = "deliveryGUIRequested";
         public static final String DATA_REFRESH_REQUESTED = "dataRefreshRequested";
         public static final String EDIT_MENU_VIEW_REQUESTED = "editMenuViewRequested";
+	/**
+	 * The program needs a databaseUpdate to ensure continued sanity
+	 */
+	public final static String DATABASE_UPDATE_REQUESTED = "databaseUpdateRequested";
+	/**
+	 * The program requests to add a new order to the database
+	 */
+	public final static String ADD_ORDER_REQUESTED = "addOrderRequested";
 }

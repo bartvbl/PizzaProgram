@@ -23,13 +23,13 @@ import pizzaProgram.dataObjects.Dish;
 public class DishList {
 	private final static ArrayList<Dish> dishList = new ArrayList<Dish>();
 	private final static HashMap<Integer, Dish> dishMap = new HashMap<Integer, Dish>();
-	
+
 	/**
 	 * This method clears the old lists, and repopulates the
 	 * {@link java.util.ArrayList ArrayList} and {@link java.util.HashMap
-	 * HashMap} of all the different {@link pizzaProgram.dataObject.Dish
-	 * dishes} based on a fetch from the database. This method must be rerun
-	 * each time the Dishes table of the database is modified.
+	 * HashMap} of all the different {@link pizzaProgram.dataObject.Dish dishes}
+	 * based on a fetch from the database. This method must be rerun each time
+	 * the Dishes table of the database is modified.
 	 */
 	public static void updateDishes() {
 		if (!DatabaseConnection.isConnected(DatabaseConnection.DEFAULT_TIMEOUT)) {
@@ -91,6 +91,8 @@ public class DishList {
 	 *            - set to true if the dish is spicy in nature, false if not
 	 * @param description
 	 *            - a description of the dish as a String
+	 * @param isActive
+	 *            wether or not the Dish is to be shown in the orderGUI
 	 * @return returns true if the dish was successfully added to the database,
 	 *         false in all other cases
 	 */
@@ -98,8 +100,8 @@ public class DishList {
 	public static boolean addDish(int price, String name,
 			boolean containsGluten, boolean containsNuts,
 			boolean containsDairy, boolean isVegetarian, boolean isSpicy,
-			String description) {
-		if (DatabaseConnection.isConnected(DatabaseConnection.DEFAULT_TIMEOUT)) {
+			String description, boolean isActive) {
+		if (!DatabaseConnection.isConnected(DatabaseConnection.DEFAULT_TIMEOUT)) {
 			System.err
 					.println("No valid database connection specified; dish not added to the database.");
 			return false;
@@ -111,7 +113,7 @@ public class DishList {
 							+ " characters long.");
 		}
 		return DatabaseConnection
-				.insertIntoDB("INSERT IGNORE INTO Dishes (Price, Name, ContainsGluten, ContainsNuts, ContainsDairy, IsVegetarian, IsSpicy, Description) VALUES ("
+				.insertIntoDB("INSERT IGNORE INTO Dishes (Price, Name, ContainsGluten, ContainsNuts, ContainsDairy, IsVegetarian, IsSpicy, Description, isActive) VALUES ("
 						+ price
 						+ ", '"
 						+ name
@@ -127,7 +129,7 @@ public class DishList {
 						+ isSpicy
 						+ ", '"
 						+ description
-						+ "');");
+						+ "', " + isActive + ");");
 	}
 
 	/**
