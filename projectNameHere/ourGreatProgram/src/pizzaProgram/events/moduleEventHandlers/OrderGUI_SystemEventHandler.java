@@ -4,6 +4,11 @@
  */
 package pizzaProgram.events.moduleEventHandlers;
 
+import java.awt.Label;
+import java.util.ArrayList;
+
+import pizzaProgram.dataObjects.Customer;
+import pizzaProgram.database.OrderList;
 import pizzaProgram.events.Event;
 import pizzaProgram.events.EventDispatcher;
 import pizzaProgram.events.EventHandler;
@@ -15,12 +20,14 @@ import pizzaProgram.gui.views.OrderView;
  * @author Bart
  */
 public class OrderGUI_SystemEventHandler implements EventHandler {
+	
     private OrderView orderView;
 	private EventDispatcher eventDispatcher;
 	
-    public OrderGUI_SystemEventHandler(OrderView orderView, EventDispatcher eventDispatcher)
-    {
-        
+    public OrderGUI_SystemEventHandler(OrderView orderView, EventDispatcher eventDispatcher){
+        this.orderView = orderView;
+        this.eventDispatcher = eventDispatcher;
+        eventDispatcher.dispatchEvent(new Event(EventType.ORDER_GUI_UPDATE_CUSTOMER_LIST));
     }
     
     public void handleEvent(Event<?> event)
@@ -32,7 +39,7 @@ public class OrderGUI_SystemEventHandler implements EventHandler {
     }
 
 	private void updateCustomerList(Event<?> event) {
-		// TODO Auto-generated method stub
+		OrderList.getOrderList();
 		
 	}
 }
