@@ -1,6 +1,5 @@
 package pizzaProgram.gui;
 
-
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.List;
@@ -27,6 +26,7 @@ import pizzaProgram.events.Event;
 import pizzaProgram.events.EventDispatcher;
 import pizzaProgram.events.EventHandler;
 import pizzaProgram.events.EventType;
+import pizzaProgram.gui.views.DeliveryView;
 import pizzaProgram.modules.GUIModule;
 
 public class DeliverGUI extends GUIModule implements EventHandler{
@@ -37,19 +37,24 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 	private DeliveryMap chartArea;
 	private HashMap<String, Order> orderMap = new HashMap<String, Order>();
 	
+	private DeliveryView deliverView;
+    private ProgramWindow programWindow;
+	
 	private JFrame jFrame;
 	JButton onRoute;
 	JButton delivered;
 	JButton receipt;
 	
-	public DeliverGUI(JFrame jFrame, EventDispatcher eventDispatcher) {
+	public DeliverGUI(ProgramWindow mainWindow, EventDispatcher eventDispatcher) {
 		super(eventDispatcher);
-		this.jFrame = jFrame;
+		
 		eventDispatcher.addEventListener(this, EventType.COOK_GUI_REQUESTED);
 		eventDispatcher.addEventListener(this, EventType.ORDER_GUI_REQUESTED);
 		eventDispatcher.addEventListener(this, EventType.DELIVERY_GUI_REQUESTED);
-		initialize();
-		hide();
+                this.deliverView = new DeliveryView();
+                mainWindow.addJPanel(this.deliverView);
+                this.programWindow = mainWindow;
+                hide();
 	}
 	
 	public String addSpace(String name){
@@ -239,15 +244,8 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 	 */
 	@Override
 	public void show() {
-		populateLists();
-		receipt.setVisible(true);
-		onRoute.setVisible(true);
-		delivered.setVisible(true);
-		orderList.setVisible(true);
-		currentInfoList.setVisible(true);
-		orderContentList.setVisible(true);
-		chartArea.setVisible(true);
-		jFrame.setVisible(true);
+		this.programWindow.showPanel(this.deliverView);
+                
 	}
 	
 	/**
@@ -255,24 +253,14 @@ public class DeliverGUI extends GUIModule implements EventHandler{
 	 */
 	@Override
 	public void hide() {
-		receipt.setVisible(false);
-		onRoute.setVisible(false);
-		delivered.setVisible(false);
-		orderList.setVisible(false);
-		currentInfoList.setVisible(false);
-		orderContentList.setVisible(false);
-		chartArea.setVisible(false);
-		jFrame.setVisible(true);
+		this.programWindow.hidePanel(this.deliverView);
+                
 	}
 	
 	@Override
 	public void handleEvent(Event<?> event) {
-		if(event.eventType.equals(EventType.COOK_GUI_REQUESTED)){
-			hide();
-		}else if(event.eventType.equals(EventType.DELIVERY_GUI_REQUESTED)){
+		if(event.eventType.equals(EventType.DELIVERY_GUI_REQUESTED)){
 			show();
-		}else if(event.eventType.equals(EventType.ORDER_GUI_REQUESTED)){
-			hide();
 		}
 	}
 }

@@ -1,23 +1,20 @@
 package pizzaProgram.gui;
 
-import java.awt.Canvas;
-import java.awt.Color;
+import java.awt.CardLayout;
 import java.awt.Dimension;
-import java.awt.GridBagLayout;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import java.util.concurrent.atomic.AtomicReference;
+import pizzaProgram.gui.ProgramWindowFrameView;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import org.jdesktop.application.SingleFrameApplication;
 import pizzaProgram.events.Event;
 import pizzaProgram.events.EventDispatcher;
 import pizzaProgram.events.EventHandler;
-import pizzaProgram.events.EventType;
-import pizzaProgram.gui.controls.WindowMenuBar;
-import pizzaProgram.modules.GUIModule;
 
 /**
  * The ProgramWindow class creates the application's main window, with several features attached to it
@@ -25,24 +22,6 @@ import pizzaProgram.modules.GUIModule;
  *
  */
 public class ProgramWindow implements EventHandler{
-	
-	
-	
-	/**
-	 * The window's canvas could potantionally be used to draw custom drawings that the swing library does not support (if we would ever need this)
-	 */
-	private final Canvas canvas;
-	/**
-	 * The instance of JFrame representing the main window
-	 */
-	private final JFrame jframe;
-	/**
-	 * A reference to the instance of WindowMenuBar, which is used by this class to draw the window's menu bar
-	 */
-	private WindowMenuBar menuBar;
-	/**
-	 * A reference to the application's main event dispatcher, which is used to dispatch events that are generated from parts of the main window
-	 */
 	private final EventDispatcher eventDispatcher;
 	
 	/**
@@ -50,24 +29,18 @@ public class ProgramWindow implements EventHandler{
 	 */
 	public static final String MAIN_WINDOW_NAME = "Pizza Manager";
 	
-	//AtomicReference is used because the AWT event system runs in a separate thread
-	/**
-	 * An atomic variable to communicate the canvas size between java's AWT event handling thread and the program's main thread
-	 */
-	private AtomicReference<Dimension> canvasSize = new AtomicReference<Dimension>();
-	
+        private ProgramWindowFrameView frameView;
+        private MenuBarEventHandler menuBarEventHandler;
+        private CardLayout cardLayoutManager;
+        private JPanel mainJPanel;
+        
+        private JFrame jframe;
 	/**
 	 * The constructor of the program takes in the event dispatcher, and creates t
 	 * @param eventDispatcher
 	 */
-	public ProgramWindow(EventDispatcher eventDispatcher){
+	public ProgramWindow(EventDispatcher eventDispatcher, SingleFrameApplication mainApplication){
 		this.eventDispatcher = eventDispatcher;
-		
-		Canvas canvas = new Canvas();
-		JFrame frame = new JFrame(ProgramWindow.MAIN_WINDOW_NAME);
-		frame.setBackground(Color.white);
-		frame.setForeground(Color.white);
-		frame.getContentPane().setBackground(Color.white);
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (ClassNotFoundException e) {
@@ -79,82 +52,64 @@ public class ProgramWindow implements EventHandler{
 		} catch (UnsupportedLookAndFeelException e) {
 			e.printStackTrace();
 		}
-		GridBagLayout gbl = new GridBagLayout();
-		frame.setMinimumSize(new Dimension(900, 595));
-		
-		frame.setLayout(gbl);
-		
-		frame.setResizable(false);
-		this.canvas = canvas;
-		this.jframe = frame;
-		
+                this.frameView = new ProgramWindowFrameView(mainApplication);
+		this.jframe = this.frameView.getFrame();
+                this.createFrame();
+                mainApplication.show(this.frameView);
+                this.menuBarEventHandler = new MenuBarEventHandler(this.frameView, this.eventDispatcher);
+              
 	}
 	public JFrame getWindowFrame(){
 		return jframe;
 	}
 	
-	/**
-	 * Inserts the window's JFrame into the entered GUI module
-	 * @param guiModule The instance of GUIModule that requires the reference to the window's JFrame
-	 */
-	public void setWindowFrame(GUIModule guiModule)
-	{
-		
-	}
-	
+        private void createFrame()
+        {
+            this.cardLayoutManager = new CardLayout();
+            this.mainJPanel = new JPanel(this.cardLayoutManager);
+            this.jframe.add(this.mainJPanel);
+        }
+			
+        public void addJPanel(JPanel newPanel)
+        {
+            this.mainJPanel.add(newPanel, newPanel.toString());
+         }
+        
 	/**
 	 * Creates the main window
-	 * @param width The width of the window
-	 * @param height The height of the window
 	 */
-	public void createMainWindow(int width, int height){
-		ComponentAdapter adapter = new ComponentAdapter() {
-			public void componentResized(ComponentEvent e) {
-				resize();
-			}
-		};
-		this.canvas.addComponentListener(adapter);
-		this.jframe.setSize(width, height);
-		this.jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//this.jframe.getContentPane().add(canvas);
-		this.jframe.setVisible(true);
-	}
-	/**
-	 * Creates the menu bar of the window, and adds it to the JFrame
-	 */
-	public void createMenuBar(){
-		this.menuBar = new WindowMenuBar(eventDispatcher, this.jframe);
-		this.createMenuBar(eventDispatcher);
-	}
-	
-	/**
-	 * Is called when the window is being resized. Updates the canvas size
-	 */
-	public void resize(){
-		Dimension dim = this.canvas.getSize();
-		canvasSize.set(dim);
-		dim = null;
-	}
-	
-	
-	/**
-	 * Generates the contents of the menu bar
-	 */
-	private void createMenuBar(EventDispatcher eventDispatcher){
-		this.menuBar.addMenu("File");
-		this.menuBar.addMenuItem("Exit", EventType.PROGRAM_EXIT_REQUESTED);
-		this.menuBar.addMenu("Edit");
-		this.menuBar.addMenuItem("Settings", EventType.OPEN_SETTINGS_WINDOW_REQUESTED);
-		this.menuBar.addMenu("View");
-		this.menuBar.createButtonGroup();
-		this.menuBar.addRadioMenuItem("Orders", EventType.ORDER_GUI_REQUESTED , true);
-		this.menuBar.addRadioMenuItem("Cook", EventType.COOK_GUI_REQUESTED, false);
-		this.menuBar.addRadioMenuItem("Delivery", EventType.DELIVERY_GUI_REQUESTED, false);
-		this.menuBar.pack();
+	public void createMainWindow(SingleFrameApplication app){
+            
 	}
 	@Override
 	public void handleEvent(Event<?> event) {
 
 	}
+        
+        public void hidePanel(JPanel panel)
+        {
+            this.refreshFrame();
+          
+           
+            
+        }
+        
+        public void showPanel(JPanel panel)
+        {
+            
+            this.refreshFrame();
+         
+            this.cardLayoutManager.show(this.mainJPanel, panel.toString());//.show(this.mainJPanel, panel.toString());
+        }
+
+    public void refreshFrame() {
+      //  this.jframe.invalidate();
+        this.jframe.validate();
+        this.jframe.repaint();
+ 
+    }
+        
+      
 	
 }//END
+

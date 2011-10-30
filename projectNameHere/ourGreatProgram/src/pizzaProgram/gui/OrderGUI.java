@@ -1,5 +1,9 @@
 package pizzaProgram.gui;
 
+import pizzaProgram.events.moduleEventHandlers.OrderGUI_OrderViewEventHandler;
+import pizzaProgram.events.moduleEventHandlers.OrderGUI_SystemEventHandler;
+import pizzaProgram.gui.views.OrderView;
+
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.Label;
@@ -33,6 +37,11 @@ import pizzaProgram.modules.GUIModule;
 
 public class OrderGUI extends GUIModule implements EventHandler {
 
+	private OrderView orderView;
+    private ProgramWindow programWindow;
+    private OrderGUI_OrderViewEventHandler orderViewEventHandler;
+    private OrderGUI_SystemEventHandler systemEventHandler;
+	
 	private JFrame jFrame;
 
 	// GUI-components
@@ -57,16 +66,20 @@ public class OrderGUI extends GUIModule implements EventHandler {
 
 	OrderGUI thisGUI;
 
-	public OrderGUI(JFrame jFrame, EventDispatcher eventDispatcher) {
+	public OrderGUI(ProgramWindow mainWindow, EventDispatcher eventDispatcher) {
 		super(eventDispatcher);
-		thisGUI = this;
-		this.jFrame = jFrame;
+		
+                //this.jFrame = mainWindow.getWindowFrame();
 		eventDispatcher.addEventListener(this, EventType.COOK_GUI_REQUESTED);
 		eventDispatcher.addEventListener(this, EventType.ORDER_GUI_REQUESTED);
-		eventDispatcher
-				.addEventListener(this, EventType.DELIVERY_GUI_REQUESTED);
-		initialize();
-		hide();
+		eventDispatcher.addEventListener(this, EventType.DELIVERY_GUI_REQUESTED);
+		this.orderView = new OrderView();
+                mainWindow.addJPanel(orderView);
+		this.orderView.addPropertyChangeListener(null);
+                this.programWindow = mainWindow;
+                this.orderViewEventHandler = new OrderGUI_OrderViewEventHandler(this.orderView, this);
+                this.systemEventHandler = new OrderGUI_SystemEventHandler(this.orderView, eventDispatcher);
+                hide();
 	}
 
 	@Override
@@ -235,43 +248,18 @@ public class OrderGUI extends GUIModule implements EventHandler {
 
 	@Override
 	public void handleEvent(Event<?> event) {
-		if (event.eventType.equals(EventType.COOK_GUI_REQUESTED)) {
-			hide();
-		} else if (event.eventType.equals(EventType.DELIVERY_GUI_REQUESTED)) {
-			hide();
-		} else if (event.eventType.equals(EventType.ORDER_GUI_REQUESTED)) {
+		if(event.eventType.equals(EventType.ORDER_GUI_REQUESTED)){
 			show();
 		}
 	}
-
 	@Override
 	public void show() {
-		populateLists();
-		newCustomerButton.setVisible(true);
-		customerList.setVisible(true);
-		addDishButton.setVisible(true);
-		dishList.setVisible(true);
-		dishExtraList.setVisible(true);
-		orderComment.setVisible(true);
-		customerLabel.setVisible(true);
-		finishOrderButton.setVisible(true);
-		orderedDishesList.setVisible(true);
-		customerInfo.setVisible(true);
-		jFrame.setVisible(true);
+            this.programWindow.showPanel(this.orderView);
+            
 	}
-
 	@Override
 	public void hide() {
-		customerList.setVisible(false);
-		newCustomerButton.setVisible(false);
-		addDishButton.setVisible(false);
-		dishList.setVisible(false);
-		dishExtraList.setVisible(false);
-		orderComment.setVisible(false);
-		customerLabel.setVisible(false);
-		finishOrderButton.setVisible(false);
-		orderedDishesList.setVisible(false);
-		customerInfo.setVisible(false);
-		jFrame.setVisible(true);
+           this.programWindow.hidePanel(this.orderView);
+            
 	}
 }// END

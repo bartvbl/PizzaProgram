@@ -49,9 +49,9 @@ public class Main implements EventHandler {
 	}
 
 	private void createMainWindow() {
-		this.programWindow = new ProgramWindow(this.eventDispatcher);
-		this.programWindow.createMenuBar();
-		this.programWindow.createMainWindow(640, 480);
+	//	this.programWindow = new ProgramWindow(this.eventDispatcher);
+	//	this.programWindow.createMenuBar();
+	//	this.programWindow.createMainWindow(640, 480);
 	}
 
 	private void connectToDatabase() {
@@ -69,10 +69,10 @@ public class Main implements EventHandler {
 		// operational
 		// TODO: remove jframe parameter
 
-		OrderGUI orderGUI = new OrderGUI(this.programWindow.getWindowFrame(), this.eventDispatcher);
-		CookGUI cookGUI = new CookGUI(this.programWindow.getWindowFrame(), this.eventDispatcher);
-		DeliverGUI deliverGUI = new DeliverGUI(this.programWindow.getWindowFrame(), this.eventDispatcher);
-		orderGUI.show();
+		//OrderGUI orderGUI = new OrderGUI(this.programWindow.getWindowFrame(), this.eventDispatcher);
+		//CookGUI cookGUI = new CookGUI(this.programWindow.getWindowFrame(), this.eventDispatcher);
+		//DeliverGUI deliverGUI = new DeliverGUI(this.programWindow.getWindowFrame(), this.eventDispatcher);
+		//orderGUI.show();
 	}
 
 	public void handleEvent(Event<?> event) {

@@ -1,5 +1,7 @@
 package pizzaProgram.gui;
 
+import pizzaProgram.gui.views.CookView;
+
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.List;
@@ -12,6 +14,7 @@ import java.util.HashMap;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
 import pizzaProgram.dataObjects.Dish;
@@ -27,6 +30,9 @@ import pizzaProgram.modules.GUIModule;
 
 public class CookGUI extends GUIModule implements EventHandler{
 	
+	private JPanel cookView;
+    private ProgramWindow programWindow;
+	
 	private List orderList;
 	private HashMap<String, Order> orderMap = new HashMap<String, Order>();
 	private List currentOrderList;
@@ -39,14 +45,15 @@ public class CookGUI extends GUIModule implements EventHandler{
 	private JButton beingMadeButton;
 	private JButton finishedButton;
 	
-	public CookGUI(JFrame jFrame, EventDispatcher eventDispatcher) {
+	public CookGUI(ProgramWindow mainWindow, EventDispatcher eventDispatcher) {
 		super(eventDispatcher);
-		this.jFrame = jFrame;
 		eventDispatcher.addEventListener(this, EventType.COOK_GUI_REQUESTED);
 		eventDispatcher.addEventListener(this, EventType.ORDER_GUI_REQUESTED);
 		eventDispatcher.addEventListener(this, EventType.DELIVERY_GUI_REQUESTED);
-		initialize();
-		hide();
+                this.cookView = new CookView();
+                mainWindow.addJPanel(this.cookView);
+                this.programWindow = mainWindow;
+                this.hide();
 	}
 	
 	@Override
@@ -127,13 +134,10 @@ public class CookGUI extends GUIModule implements EventHandler{
 		return gbc;
 	}
 	
+	@Override
 	public void handleEvent(Event<?> event){
-		if(event.eventType.equals(EventType.COOK_GUI_REQUESTED)){
+            if(event.eventType.equals(EventType.COOK_GUI_REQUESTED)){
 			show();
-		}else if(event.eventType.equals(EventType.DELIVERY_GUI_REQUESTED)){
-			hide();
-		}else if(event.eventType.equals(EventType.ORDER_GUI_REQUESTED)){
-			hide();
 		}
 	}
 	
@@ -157,25 +161,13 @@ public class CookGUI extends GUIModule implements EventHandler{
 	}
 
 	@Override
-	public void show() {
-		populateLists();
-		orderList.setVisible(true);
-		currentOrderList.setVisible(true);
-		commentArea.setVisible(true);
-		descriptionArea.setVisible(true);
-		beingMadeButton.setVisible(true);
-		finishedButton.setVisible(true);
-		jFrame.setVisible(true);
+	public void show() 
+	{
+           this.programWindow.showPanel(this.cookView);
 	}
-
 	@Override
-	public void hide() {
-		orderList.setVisible(false);
-		currentOrderList.setVisible(false);
-		commentArea.setVisible(false);
-		descriptionArea.setVisible(false);
-		beingMadeButton.setVisible(false);
-		finishedButton.setVisible(false);
-		jFrame.setVisible(true);
+	public void hide() 
+	{
+           this.programWindow.hidePanel(this.cookView);
 	}
 }

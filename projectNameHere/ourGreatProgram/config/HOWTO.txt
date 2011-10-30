@@ -1,0 +1,7 @@
+Put the entire configfolder in your project root directory (by default, on windows; C:\Users\yourusernamehere\PizzaProgram\projectNameHere\ourGreatProgram\config
+
+Do NOT commit the configfile to GitHub as this defeats much of the reason we pulled this info out of the program to begin with.
+
+I suggest changing our password as well to be sure no outsiders have the password.
+
+-Henning
