@@ -167,118 +167,13 @@ public class OrderList implements EventHandler {
 	}
 
 	/**
-	 * Method that adds a new order to the database.<br>
-	 * The fields for time registered and order status are automatically set to,
-	 * respectively, the current time and
-	 * {@link pizzaProgram.dataObjects.Order#REGISTERED REGISTERED} upon
-	 * creation.
+	 * Method that receives an {@link pizzaProgram.dataObjects.Order order}
+	 * object and adds it to the database.
 	 * 
-	 * @param customer
-	 *            - the {@link pizzaProgram.dataObjects.Customer customer} this
-	 *            order belongs to
-	 * @param isDeliverAtHome
-	 *            - set to true if this is a delivery, false if customer will
-	 *            pick up this order at the restaurant
-	 * @param comment
-	 *            - any additional comments to this order as a String
-	 * @return returns true if the order was successfully added to the database,
-	 *         false in all other cases
-	 * @throws SQLException
+	 * @param o
+	 *            the {@link pizzaProgram.dataObjects.Order order}, with
+	 *            contents (dishes extras etc), to be added to the database
 	 */
-
-	public static boolean addOrder(Customer customer, boolean isDeliverAtHome,
-			String comment) {
-		if (!DatabaseConnection.isConnected(DatabaseConnection.DEFAULT_TIMEOUT)) {
-			System.err
-					.println("No active database connection: please try again!");
-			return false;
-		}
-		String deliverymethod = (isDeliverAtHome ? Order.DELIVER_AT_HOME
-				: Order.PICKUP_AT_RESTAURANT);
-		try {
-			if (!DatabaseConnection.fetchData(
-					"SELECT * FROM Orders WHERE CustomerID="
-							+ customer.customerID + " AND OrdersStatus='"
-							+ Order.REGISTERED + "';").next()) {
-				int commentID = -1;
-				if (!(comment == null || comment.equals(""))) {
-					DatabaseConnection
-							.insertIntoDB("INSERT INTO OrderComments (Comment) VALUES ('"
-									+ comment + "');");
-					ResultSet commentIDset = DatabaseConnection
-							.fetchData("SELECT CommentID FROM OrderComments WHERE Comment='"
-									+ comment + "';");
-					if (commentIDset.next()) {
-						commentID = commentIDset.getInt(1);
-					}
-				}
-				return DatabaseConnection
-						.insertIntoDB("INSERT INTO Orders (CustomerID, TimeRegistered, DeliveryMethod, CommentID) VALUES ("
-								+ customer.customerID
-								+ ", NOW(), '"
-								+ deliverymethod + "', " + commentID + ");");
-			}
-		} catch (SQLException e) {
-			System.err.println("An error occured during your database query: "
-					+ e.getMessage());
-			return false;
-		}
-		return false;
-
-	}
-
-	/**
-	 * Method for adding a dish together with its associated extras to an order
-	 * in the database
-	 * 
-	 * @param order
-	 *            - the {@link pizzaProgram.dataObjects.Order order} this dish
-	 *            and extras belongs to
-	 * @param dish
-	 *            - the {@link pizzaProgram.dataObjects.Dish dish} to be added
-	 *            to the order
-	 * @param extras
-	 *            - the {@link pizzaProgram.dataObjects.Extra extras}, in an
-	 *            {@link java.util.ArrayList ArrayList}, that is to be added to
-	 *            the dish added to the order
-	 * @throws SQLException
-	 */
-
-	public static void addDishToOrder(Order order, Dish dish,
-			ArrayList<Extra> extras) {
-		if (!DatabaseConnection.isConnected(DatabaseConnection.DEFAULT_TIMEOUT)) {
-			System.err
-					.println("No active database connection: the dish was not added to the order.");
-			return;
-		}
-		int ordersContentsID = -1;
-		DatabaseConnection
-				.insertIntoDB("INSERT INTO OrdersContents (OrdersID, DishID) VALUES ("
-						+ order.getID() + ", " + dish.dishID + ");");
-		if (!(extras == null || extras.isEmpty())) {
-			ResultSet currentOrderContentsID = DatabaseConnection
-					.fetchData("SELECT OrdersContentsID FROM OrdersContents WHERE OrdersID="
-							+ order.getID()
-							+ " AND DishID="
-							+ dish.dishID
-							+ " ORDER BY OrdersContentsID;");
-			try {
-				if (currentOrderContentsID.last()) {
-					ordersContentsID = currentOrderContentsID.getInt(1);
-				}
-			} catch (SQLException e) {
-				System.err
-						.println("An error occured while adding extras to the dish: "
-								+ e.getMessage());
-			}
-			for (Extra e : extras) {
-				DatabaseConnection
-						.insertIntoDB("INSERT INTO DishExtrasChosen (OrdersContentsID, DishExtraID) VALUES ("
-								+ ordersContentsID + ", " + e.id + ");");
-			}
-		}
-	}
-
 	public static void addOrder(Order o) {
 		if (!DatabaseConnection.isConnected(DatabaseConnection.DEFAULT_TIMEOUT)) {
 			System.err
