@@ -5,6 +5,8 @@ import pizzaProgram.gui.CookGUI;
 import java.sql.SQLException;
 
 import org.jdesktop.application.SingleFrameApplication;
+
+import pizzaProgram.database.CustomerList;
 import pizzaProgram.database.DatabaseConnection;
 import pizzaProgram.database.OrderList;
 import pizzaProgram.events.Event;
@@ -41,11 +43,17 @@ public class Main implements EventHandler {
 	public void initialize(SingleFrameApplication mainApplication){
 		this.eventDispatcher = new EventDispatcher();
 		this.connectToDatabase();
+		this.initializeLists();
 		this.createMainWindow(mainApplication);
 		this.createGUIModules();
 		this.eventDispatcher.addEventListener(this, EventType.PROGRAM_EXIT_REQUESTED);
 	}
 	
+	private void initializeLists() {
+		OrderList orderList = new OrderList(eventDispatcher);
+		CustomerList.updateCustomers();
+	}
+
 	private void createMainWindow(SingleFrameApplication mainApplication){
 		this.programWindow = new ProgramWindow(this.eventDispatcher, mainApplication);
 	}
@@ -63,7 +71,7 @@ public class Main implements EventHandler {
 	private void createGUIModules(){
 		//TODO: remove database connection parameter when database events are operational
 		//TODO: remove jframe parameter
-		OrderList orderList = new OrderList(eventDispatcher);
+		
 		DeliverGUI deliverGUI  = new DeliverGUI(this.programWindow, this.eventDispatcher);
 		OrderGUI orderGUI = new OrderGUI(this.programWindow, this.eventDispatcher);
 		CookGUI cookGUI  = new CookGUI(this.programWindow, this.eventDispatcher);
