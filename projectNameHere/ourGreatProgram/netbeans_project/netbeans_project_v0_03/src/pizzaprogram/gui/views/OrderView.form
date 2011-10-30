@@ -96,11 +96,11 @@
                               <Component id="searchCustomerSearchButton" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="customerListScrollPane" pref="307" max="32767" attributes="0"/>
+                          <Component id="customerListScrollPane" pref="299" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="customerInformationScrollPane" min="-2" pref="70" max="-2" attributes="0"/>
+                          <Component id="customerInformationScrollPane" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="selectCustomerButton" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
@@ -226,30 +226,31 @@
                       <Layout>
                         <DimensionLayout dim="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
-                                          <Component id="addDishButton" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jTextField1" min="-2" pref="228" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Component id="jScrollPane1" alignment="1" pref="344" max="32767" attributes="0"/>
-                                  </Group>
+                              <Group type="102" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                                       <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jTextField2" min="-2" pref="229" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="1" attributes="0">
+                                              <Component id="dishSelectionSectionLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="DishSearchTextBox" min="-2" pref="228" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="dishSelectionSearchButton" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Component id="jScrollPane1" alignment="1" pref="344" max="32767" attributes="0"/>
+                                          </Group>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="extrasSelectionSectionLabel" min="-2" max="-2" attributes="0"/>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="extrasSearchTextField" min="-2" pref="229" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="extrasSearchButton" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Component id="jScrollPane2" alignment="0" pref="315" max="32767" attributes="0"/>
+                                          </Group>
                                       </Group>
-                                      <Component id="jScrollPane2" alignment="0" pref="315" max="32767" attributes="0"/>
+                                      <Component id="addDishButton" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
@@ -260,15 +261,15 @@
                               <Group type="102" alignment="1" attributes="0">
                                   <EmptySpace min="-2" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="dishSelectionSectionLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="extrasSelectionSectionLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jTextField2" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="DishSearchTextBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="extrasSearchTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="dishSelectionSearchButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="extrasSearchButton" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -277,7 +278,7 @@
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="addDishButton" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -289,16 +290,16 @@
                             <Property name="name" type="java.lang.String" value="addDishButton" noResource="true"/>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JLabel" name="jLabel2">
+                        <Component class="javax.swing.JLabel" name="extrasSelectionSectionLabel">
                           <Properties>
-                            <Property name="text" type="java.lang.String" resourceKey="jLabel2.text"/>
-                            <Property name="name" type="java.lang.String" value="jLabel2" noResource="true"/>
+                            <Property name="text" type="java.lang.String" resourceKey="extrasSelectionSectionLabel.text"/>
+                            <Property name="name" type="java.lang.String" value="extrasSelectionSectionLabel" noResource="true"/>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JLabel" name="jLabel3">
+                        <Component class="javax.swing.JLabel" name="dishSelectionSectionLabel">
                           <Properties>
-                            <Property name="text" type="java.lang.String" resourceKey="jLabel3.text"/>
-                            <Property name="name" type="java.lang.String" value="jLabel3" noResource="true"/>
+                            <Property name="text" type="java.lang.String" resourceKey="dishSelectionSectionLabel.text"/>
+                            <Property name="name" type="java.lang.String" value="dishSelectionSectionLabel" noResource="true"/>
                           </Properties>
                         </Component>
                         <Container class="javax.swing.JScrollPane" name="jScrollPane1">
@@ -311,32 +312,26 @@
 
                           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                           <SubComponents>
-                            <Component class="javax.swing.JList" name="jList1">
+                            <Component class="javax.swing.JList" name="dishSelectionList">
                               <Properties>
-                                <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
-                                  <StringArray count="5">
-                                    <StringItem index="0" value="Item 1"/>
-                                    <StringItem index="1" value="Item 2"/>
-                                    <StringItem index="2" value="Item 3"/>
-                                    <StringItem index="3" value="Item 4"/>
-                                    <StringItem index="4" value="Item 5"/>
-                                  </StringArray>
+                                <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="new DefaultListModel()" type="code"/>
                                 </Property>
-                                <Property name="name" type="java.lang.String" value="jList1" noResource="true"/>
+                                <Property name="name" type="java.lang.String" value="dishSelectionList" noResource="true"/>
                               </Properties>
                             </Component>
                           </SubComponents>
                         </Container>
-                        <Component class="javax.swing.JTextField" name="jTextField1">
+                        <Component class="javax.swing.JTextField" name="DishSearchTextBox">
                           <Properties>
-                            <Property name="text" type="java.lang.String" resourceKey="jTextField1.text"/>
-                            <Property name="name" type="java.lang.String" value="jTextField1" noResource="true"/>
+                            <Property name="text" type="java.lang.String" resourceKey="DishSearchTextBox.text"/>
+                            <Property name="name" type="java.lang.String" value="DishSearchTextBox" noResource="true"/>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JTextField" name="jTextField2">
+                        <Component class="javax.swing.JTextField" name="extrasSearchTextField">
                           <Properties>
-                            <Property name="text" type="java.lang.String" resourceKey="jTextField2.text"/>
-                            <Property name="name" type="java.lang.String" value="jTextField2" noResource="true"/>
+                            <Property name="text" type="java.lang.String" resourceKey="extrasSearchTextField.text"/>
+                            <Property name="name" type="java.lang.String" value="extrasSearchTextField" noResource="true"/>
                           </Properties>
                         </Component>
                         <Container class="javax.swing.JScrollPane" name="jScrollPane2">
@@ -349,32 +344,26 @@
 
                           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                           <SubComponents>
-                            <Component class="javax.swing.JList" name="jList2">
+                            <Component class="javax.swing.JList" name="extrasSelectionList">
                               <Properties>
-                                <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
-                                  <StringArray count="5">
-                                    <StringItem index="0" value="Item 1"/>
-                                    <StringItem index="1" value="Item 2"/>
-                                    <StringItem index="2" value="Item 3"/>
-                                    <StringItem index="3" value="Item 4"/>
-                                    <StringItem index="4" value="Item 5"/>
-                                  </StringArray>
+                                <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="new DefaultListModel()" type="code"/>
                                 </Property>
-                                <Property name="name" type="java.lang.String" value="jList2" noResource="true"/>
+                                <Property name="name" type="java.lang.String" value="extrasSelectionList" noResource="true"/>
                               </Properties>
                             </Component>
                           </SubComponents>
                         </Container>
-                        <Component class="javax.swing.JButton" name="jButton1">
+                        <Component class="javax.swing.JButton" name="dishSelectionSearchButton">
                           <Properties>
-                            <Property name="text" type="java.lang.String" resourceKey="jButton1.text"/>
-                            <Property name="name" type="java.lang.String" value="jButton1" noResource="true"/>
+                            <Property name="text" type="java.lang.String" resourceKey="dishSelectionSearchButton.text"/>
+                            <Property name="name" type="java.lang.String" value="dishSelectionSearchButton" noResource="true"/>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JButton" name="jButton2">
+                        <Component class="javax.swing.JButton" name="extrasSearchButton">
                           <Properties>
-                            <Property name="text" type="java.lang.String" resourceKey="jButton2.text"/>
-                            <Property name="name" type="java.lang.String" value="jButton2" noResource="true"/>
+                            <Property name="text" type="java.lang.String" resourceKey="extrasSearchButton.text"/>
+                            <Property name="name" type="java.lang.String" value="extrasSearchButton" noResource="true"/>
                           </Properties>
                         </Component>
                       </SubComponents>

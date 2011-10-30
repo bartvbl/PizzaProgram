@@ -106,11 +106,11 @@ public class OrderView extends javax.swing.JPanel {
                     .addComponent(searchCustomerTextArea, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(searchCustomerSearchButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(customerListScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 307, Short.MAX_VALUE)
+                .addComponent(customerListScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(customerInformationScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(customerInformationScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(selectCustomerButton)
                 .addContainerGap())
@@ -129,43 +129,35 @@ public class OrderView extends javax.swing.JPanel {
         addDishButton.setText(resourceMap.getString("addDishButton.text")); // NOI18N
         addDishButton.setName("addDishButton"); // NOI18N
 
-        jLabel2.setText(resourceMap.getString("jLabel2.text")); // NOI18N
-        jLabel2.setName("jLabel2"); // NOI18N
+        extrasSelectionSectionLabel.setText(resourceMap.getString("extrasSelectionSectionLabel.text")); // NOI18N
+        extrasSelectionSectionLabel.setName("extrasSelectionSectionLabel"); // NOI18N
 
-        jLabel3.setText(resourceMap.getString("jLabel3.text")); // NOI18N
-        jLabel3.setName("jLabel3"); // NOI18N
+        dishSelectionSectionLabel.setText(resourceMap.getString("dishSelectionSectionLabel.text")); // NOI18N
+        dishSelectionSectionLabel.setName("dishSelectionSectionLabel"); // NOI18N
 
         jScrollPane1.setName("jScrollPane1"); // NOI18N
 
-        jList1.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        jList1.setName("jList1"); // NOI18N
-        jScrollPane1.setViewportView(jList1);
+        dishSelectionList.setModel(new DefaultListModel());
+        dishSelectionList.setName("dishSelectionList"); // NOI18N
+        jScrollPane1.setViewportView(dishSelectionList);
 
-        jTextField1.setText(resourceMap.getString("jTextField1.text")); // NOI18N
-        jTextField1.setName("jTextField1"); // NOI18N
+        DishSearchTextBox.setText(resourceMap.getString("DishSearchTextBox.text")); // NOI18N
+        DishSearchTextBox.setName("DishSearchTextBox"); // NOI18N
 
-        jTextField2.setText(resourceMap.getString("jTextField2.text")); // NOI18N
-        jTextField2.setName("jTextField2"); // NOI18N
+        extrasSearchTextField.setText(resourceMap.getString("extrasSearchTextField.text")); // NOI18N
+        extrasSearchTextField.setName("extrasSearchTextField"); // NOI18N
 
         jScrollPane2.setName("jScrollPane2"); // NOI18N
 
-        jList2.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        jList2.setName("jList2"); // NOI18N
-        jScrollPane2.setViewportView(jList2);
+        extrasSelectionList.setModel(new DefaultListModel());
+        extrasSelectionList.setName("extrasSelectionList"); // NOI18N
+        jScrollPane2.setViewportView(extrasSelectionList);
 
-        jButton1.setText(resourceMap.getString("jButton1.text")); // NOI18N
-        jButton1.setName("jButton1"); // NOI18N
+        dishSelectionSearchButton.setText(resourceMap.getString("dishSelectionSearchButton.text")); // NOI18N
+        dishSelectionSearchButton.setName("dishSelectionSearchButton"); // NOI18N
 
-        jButton2.setText(resourceMap.getString("jButton2.text")); // NOI18N
-        jButton2.setName("jButton2"); // NOI18N
+        extrasSearchButton.setText(resourceMap.getString("extrasSearchButton.text")); // NOI18N
+        extrasSearchButton.setName("extrasSearchButton"); // NOI18N
 
         javax.swing.GroupLayout dishSelectionAreaLayout = new javax.swing.GroupLayout(dishSelectionArea);
         dishSelectionArea.setLayout(dishSelectionAreaLayout);
@@ -173,24 +165,24 @@ public class OrderView extends javax.swing.JPanel {
             dishSelectionAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(dishSelectionAreaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(dishSelectionAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, dishSelectionAreaLayout.createSequentialGroup()
-                        .addGap(41, 41, 41)
-                        .addComponent(addDishButton))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, dishSelectionAreaLayout.createSequentialGroup()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(dishSelectionAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
                     .addGroup(dishSelectionAreaLayout.createSequentialGroup()
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(dishSelectionAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(dishSelectionSectionLabel, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, dishSelectionAreaLayout.createSequentialGroup()
+                                .addComponent(DishSearchTextBox, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(dishSelectionSearchButton))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE))
+                        .addGroup(dishSelectionAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(extrasSelectionSectionLabel)
+                            .addGroup(dishSelectionAreaLayout.createSequentialGroup()
+                                .addComponent(extrasSearchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(extrasSearchButton))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)))
+                    .addComponent(addDishButton))
                 .addContainerGap())
         );
         dishSelectionAreaLayout.setVerticalGroup(
@@ -198,21 +190,21 @@ public class OrderView extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dishSelectionAreaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(dishSelectionAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel2))
+                    .addComponent(dishSelectionSectionLabel)
+                    .addComponent(extrasSelectionSectionLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(dishSelectionAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(DishSearchTextBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(extrasSearchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dishSelectionSearchButton)
+                    .addComponent(extrasSearchButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(dishSelectionAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(addDishButton)
-                .addGap(14, 14, 14))
+                .addContainerGap())
         );
 
         orderCreationUIVerticalSplitPane.setTopComponent(dishSelectionArea);
@@ -348,6 +340,7 @@ public class OrderView extends javax.swing.JPanel {
         add(mainPanel, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public static final javax.swing.JTextField DishSearchTextBox = new javax.swing.JTextField();
     public static final javax.swing.JButton addDishButton = new javax.swing.JButton();
     public static final javax.swing.JButton confirmOrderButton = new javax.swing.JButton();
     public static final javax.swing.JScrollPane customerInformationScrollPane = new javax.swing.JScrollPane();
@@ -358,18 +351,17 @@ public class OrderView extends javax.swing.JPanel {
     public static final javax.swing.JButton deleteSelectedOrderDishButton = new javax.swing.JButton();
     public static final javax.swing.JComboBox deliveryMethodComboBox = new javax.swing.JComboBox();
     public static final javax.swing.JPanel dishSelectionArea = new javax.swing.JPanel();
+    public static final javax.swing.JList dishSelectionList = new javax.swing.JList();
+    public static final javax.swing.JButton dishSelectionSearchButton = new javax.swing.JButton();
+    public static final javax.swing.JLabel dishSelectionSectionLabel = new javax.swing.JLabel();
     public static final javax.swing.JButton duplicateSelectedOrderDishButton = new javax.swing.JButton();
-    public static final javax.swing.JButton jButton1 = new javax.swing.JButton();
-    public static final javax.swing.JButton jButton2 = new javax.swing.JButton();
+    public static final javax.swing.JButton extrasSearchButton = new javax.swing.JButton();
+    public static final javax.swing.JTextField extrasSearchTextField = new javax.swing.JTextField();
+    public static final javax.swing.JList extrasSelectionList = new javax.swing.JList();
+    public static final javax.swing.JLabel extrasSelectionSectionLabel = new javax.swing.JLabel();
     public static final javax.swing.JLabel jLabel1 = new javax.swing.JLabel();
-    public static final javax.swing.JLabel jLabel2 = new javax.swing.JLabel();
-    public static final javax.swing.JLabel jLabel3 = new javax.swing.JLabel();
-    public static final javax.swing.JList jList1 = new javax.swing.JList();
-    public static final javax.swing.JList jList2 = new javax.swing.JList();
     public static final javax.swing.JScrollPane jScrollPane1 = new javax.swing.JScrollPane();
     public static final javax.swing.JScrollPane jScrollPane2 = new javax.swing.JScrollPane();
-    public static final javax.swing.JTextField jTextField1 = new javax.swing.JTextField();
-    public static final javax.swing.JTextField jTextField2 = new javax.swing.JTextField();
     public static final javax.swing.JPanel mainPanel = new javax.swing.JPanel();
     public static final javax.swing.JSplitPane mainSplitPane = new javax.swing.JSplitPane();
     public static final javax.swing.JButton newCustomerButton = new javax.swing.JButton();
