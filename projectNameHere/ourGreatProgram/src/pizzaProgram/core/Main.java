@@ -6,6 +6,7 @@ import java.sql.SQLException;
 
 import org.jdesktop.application.SingleFrameApplication;
 import pizzaProgram.database.DatabaseConnection;
+import pizzaProgram.database.OrderList;
 import pizzaProgram.events.Event;
 import pizzaProgram.events.EventDispatcher;
 import pizzaProgram.events.EventHandler;
@@ -62,6 +63,7 @@ public class Main implements EventHandler {
 	private void createGUIModules(){
 		//TODO: remove database connection parameter when database events are operational
 		//TODO: remove jframe parameter
+		OrderList orderList = new OrderList(eventDispatcher);
 		DeliverGUI deliverGUI  = new DeliverGUI(this.programWindow, this.eventDispatcher);
 		OrderGUI orderGUI = new OrderGUI(this.programWindow, this.eventDispatcher);
 		CookGUI cookGUI  = new CookGUI(this.programWindow, this.eventDispatcher);
