@@ -126,51 +126,93 @@ public class OrderView extends javax.swing.JPanel {
 
         dishSelectionArea.setName("dishSelectionArea"); // NOI18N
 
-        dishTableScrollPane.setName("dishTableScrollPane"); // NOI18N
-
-        dishTable.setAutoCreateRowSorter(true);
-        dishTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "Pizza", "Extras"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        dishTable.setName("dishTable"); // NOI18N
-        dishTable.getTableHeader().setReorderingAllowed(false);
-        dishTableScrollPane.setViewportView(dishTable);
-
         addDishButton.setText(resourceMap.getString("addDishButton.text")); // NOI18N
         addDishButton.setName("addDishButton"); // NOI18N
+
+        jLabel2.setText(resourceMap.getString("jLabel2.text")); // NOI18N
+        jLabel2.setName("jLabel2"); // NOI18N
+
+        jLabel3.setText(resourceMap.getString("jLabel3.text")); // NOI18N
+        jLabel3.setName("jLabel3"); // NOI18N
+
+        jScrollPane1.setName("jScrollPane1"); // NOI18N
+
+        jList1.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        jList1.setName("jList1"); // NOI18N
+        jScrollPane1.setViewportView(jList1);
+
+        jTextField1.setText(resourceMap.getString("jTextField1.text")); // NOI18N
+        jTextField1.setName("jTextField1"); // NOI18N
+
+        jTextField2.setText(resourceMap.getString("jTextField2.text")); // NOI18N
+        jTextField2.setName("jTextField2"); // NOI18N
+
+        jScrollPane2.setName("jScrollPane2"); // NOI18N
+
+        jList2.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        jList2.setName("jList2"); // NOI18N
+        jScrollPane2.setViewportView(jList2);
+
+        jButton1.setText(resourceMap.getString("jButton1.text")); // NOI18N
+        jButton1.setName("jButton1"); // NOI18N
+
+        jButton2.setText(resourceMap.getString("jButton2.text")); // NOI18N
+        jButton2.setName("jButton2"); // NOI18N
 
         javax.swing.GroupLayout dishSelectionAreaLayout = new javax.swing.GroupLayout(dishSelectionArea);
         dishSelectionArea.setLayout(dishSelectionAreaLayout);
         dishSelectionAreaLayout.setHorizontalGroup(
             dishSelectionAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(dishTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 685, Short.MAX_VALUE)
             .addGroup(dishSelectionAreaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(addDishButton)
-                .addContainerGap(582, Short.MAX_VALUE))
+                .addGroup(dishSelectionAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, dishSelectionAreaLayout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addComponent(addDishButton))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, dishSelectionAreaLayout.createSequentialGroup()
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(dishSelectionAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addGroup(dishSelectionAreaLayout.createSequentialGroup()
+                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE))
+                .addContainerGap())
         );
         dishSelectionAreaLayout.setVerticalGroup(
             dishSelectionAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dishSelectionAreaLayout.createSequentialGroup()
-                .addComponent(dishTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+                .addContainerGap()
+                .addGroup(dishSelectionAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(addDishButton))
+                .addGroup(dishSelectionAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(dishSelectionAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(addDishButton)
+                .addGap(14, 14, 14))
         );
 
         orderCreationUIVerticalSplitPane.setTopComponent(dishSelectionArea);
@@ -316,10 +358,18 @@ public class OrderView extends javax.swing.JPanel {
     public static final javax.swing.JButton deleteSelectedOrderDishButton = new javax.swing.JButton();
     public static final javax.swing.JComboBox deliveryMethodComboBox = new javax.swing.JComboBox();
     public static final javax.swing.JPanel dishSelectionArea = new javax.swing.JPanel();
-    public static final javax.swing.JTable dishTable = new javax.swing.JTable();
-    public static final javax.swing.JScrollPane dishTableScrollPane = new javax.swing.JScrollPane();
     public static final javax.swing.JButton duplicateSelectedOrderDishButton = new javax.swing.JButton();
+    public static final javax.swing.JButton jButton1 = new javax.swing.JButton();
+    public static final javax.swing.JButton jButton2 = new javax.swing.JButton();
     public static final javax.swing.JLabel jLabel1 = new javax.swing.JLabel();
+    public static final javax.swing.JLabel jLabel2 = new javax.swing.JLabel();
+    public static final javax.swing.JLabel jLabel3 = new javax.swing.JLabel();
+    public static final javax.swing.JList jList1 = new javax.swing.JList();
+    public static final javax.swing.JList jList2 = new javax.swing.JList();
+    public static final javax.swing.JScrollPane jScrollPane1 = new javax.swing.JScrollPane();
+    public static final javax.swing.JScrollPane jScrollPane2 = new javax.swing.JScrollPane();
+    public static final javax.swing.JTextField jTextField1 = new javax.swing.JTextField();
+    public static final javax.swing.JTextField jTextField2 = new javax.swing.JTextField();
     public static final javax.swing.JPanel mainPanel = new javax.swing.JPanel();
     public static final javax.swing.JSplitPane mainSplitPane = new javax.swing.JSplitPane();
     public static final javax.swing.JButton newCustomerButton = new javax.swing.JButton();

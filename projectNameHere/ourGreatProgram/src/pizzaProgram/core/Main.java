@@ -8,6 +8,7 @@ import org.jdesktop.application.SingleFrameApplication;
 
 import pizzaProgram.database.CustomerList;
 import pizzaProgram.database.DatabaseConnection;
+import pizzaProgram.database.DishList;
 import pizzaProgram.database.OrderList;
 import pizzaProgram.events.Event;
 import pizzaProgram.events.EventDispatcher;
@@ -52,6 +53,7 @@ public class Main implements EventHandler {
 	private void initializeLists() {
 		OrderList orderList = new OrderList(eventDispatcher);
 		CustomerList.updateCustomers();
+		DishList.updateDishes();
 	}
 
 	private void createMainWindow(SingleFrameApplication mainApplication){

@@ -2,6 +2,7 @@ package pizzaProgram.events.moduleEventHandlers;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import pizzaProgram.dataObjects.Order;
 import pizzaProgram.database.DatabaseConnection;
@@ -28,19 +29,16 @@ public class Database_ReadEventHandler implements EventHandler {
 		
 	}
 
-	public void handleEvent(Event<?> event)
-	{
-		
-	}
 	
 	private void createNewOrder(Event<?> event)
 	{
+		
+	}
 
-
+	@Override
+	public void handleEvent(Event<?> event) {
+		// TODO Auto-generated method stub
+		
 	}
 	
-	private String selectDeliveryMethod(String deliveryMethod)
-	{
-		return null;
-	}
 }
