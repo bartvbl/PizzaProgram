@@ -19,12 +19,14 @@ import pizzaProgram.gui.views.OrderView;
  */
 public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler implements ActionListener {
     private OrderView orderView;
+    private OrderGUI_TemporaryOrderDataStorage temporaryOrderData;
     
     public OrderGUI_OrderViewEventHandler(OrderView orderView, OrderGUI eventDispatchingModule)
     {
        super(eventDispatchingModule);
         this.orderView = orderView;
         this.addEventListeners();
+        this.temporaryOrderData = new OrderGUI_TemporaryOrderDataStorage();
     }
     
     private void addEventListeners()

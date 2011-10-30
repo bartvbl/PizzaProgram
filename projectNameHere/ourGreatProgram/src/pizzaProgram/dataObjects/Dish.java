@@ -14,6 +14,7 @@ public class Dish {
 	public final String description;
 	public final boolean isActive;
 
+	//TODO: add a list of all extras the dish can have to the dish object
 	public Dish(int dishID, int price, String name, boolean containsGluten, boolean containsNuts,
 			boolean containsDiary, boolean isVegetarian, boolean isSpicy,
 			String description, boolean isActive) {
