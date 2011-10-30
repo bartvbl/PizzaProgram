@@ -11,6 +11,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.table.DefaultTableModel;
 
 import pizzaProgram.dataObjects.Customer;
+import pizzaProgram.database.CustomerList;
 import pizzaProgram.database.OrderList;
 import pizzaProgram.events.Event;
 import pizzaProgram.events.EventDispatcher;
@@ -32,7 +33,6 @@ public class OrderGUI_SystemEventHandler implements EventHandler {
         this.eventDispatcher = eventDispatcher;
         //DEBUG
         eventDispatcher.addEventListener(this, EventType.ORDER_GUI_UPDATE_CUSTOMER_LIST);
-        eventDispatcher.dispatchEvent(new Event(EventType.ORDER_GUI_UPDATE_CUSTOMER_LIST));
         //END DEBUG
     }
     
@@ -40,14 +40,18 @@ public class OrderGUI_SystemEventHandler implements EventHandler {
     {
     	if(event.eventType.equals(EventType.ORDER_GUI_UPDATE_CUSTOMER_LIST))
     	{
+    		System.out.println("gotevent1");
     		this.updateCustomerList(event);
     	}
     }
 
 	private void updateCustomerList(Event<?> event) {
-		OrderList.getOrderList();
 		DefaultListModel model = (DefaultListModel)orderView.customerList.getModel();
 		model.clear();
-		model.addElement("ohai");
+		System.out.println("gotevent");
+		for (Customer c : CustomerList.getCustomerList()) {
+			System.out.println("inloop");
+			model.addElement(c.firstName + " " + c.lastName);
+		}
 	}
 }
