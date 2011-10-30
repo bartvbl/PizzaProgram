@@ -41,28 +41,7 @@ public class Order {
 	 */
 	public Order(int id, Customer customer, Date timeRegistered, String status,
 			String deliveryMethod, String comment) {
-		if (id < 0) {
-			throw new IllegalArgumentException("id cannot be less than 0");
-		} else if (customer == null) {
-			throw new IllegalArgumentException("customer can't be null");
-		} else if (timeRegistered == null) {
-			throw new IllegalArgumentException("timeRegistered cannot be null");
-		} else if (!(status.equals(Order.BEING_COOKED)
-				|| status.equals(Order.BEING_DELIVERED)
-				|| status.equals(Order.HAS_BEEN_COOKED)
-				|| status.equals(Order.DELIVERED) || status
-				.equals(Order.REGISTERED))) {
-			throw new IllegalArgumentException(
-					"the status of the order, must be one of Order.REGISTERED, Order.BEING_COOKED, Order.HAS_BEEN_COOKED, Order.BEING_DELIVERED or Order.DELIVERED");
-		} else if (!(deliveryMethod.equals(Order.PICKUP_AT_RESTAURANT) || deliveryMethod
-				.equals(Order.DELIVER_AT_HOME))) {
-			throw new IllegalArgumentException(
-					"the method of delivery, must be Order.DELIVER_AT_HOME or Order.PICKUP_AT_RESTAURANT");
-		} else if (comment == null) {
-			throw new IllegalArgumentException(
-					"comment can be \"\" but not null");
-		}
-
+		
 		this.orderID = id;
 		this.customer = customer;
 		this.timeRegistered = timeRegistered;

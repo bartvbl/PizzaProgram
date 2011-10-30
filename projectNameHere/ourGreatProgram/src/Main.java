@@ -1,6 +1,12 @@
+import java.util.ArrayList;
+
 import javax.swing.JPopupMenu;
 import javax.swing.ToolTipManager;
 
+import pizzaProgram.dataObjects.Extra;
+import pizzaProgram.dataObjects.Order;
+import pizzaProgram.dataObjects.OrderDish;
+import pizzaProgram.database.CustomerList;
 import pizzaProgram.database.DatabaseConnection;
 import pizzaProgram.database.DishList;
 import pizzaProgram.database.ExtraList;
@@ -66,6 +72,7 @@ public class Main implements EventHandler {
 	 * are operational, they will dispatch events to the event dispatcher when
 	 * the user interacts with the program
 	 */
+
 	private void createGUIModules() {
 		// TODO: remove database connection parameter when database events are
 		// operational

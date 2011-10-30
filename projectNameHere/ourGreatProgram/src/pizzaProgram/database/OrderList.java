@@ -55,6 +55,7 @@ public class OrderList implements EventHandler {
 	public OrderList(EventDispatcher eventDispatcher) {
 		eventDispatcher.addEventListener(this,
 				EventType.DATABASE_UPDATE_REQUESTED);
+		eventDispatcher.addEventListener(this, EventType.ADD_ORDER_REQUESTED);
 	}
 
 	public static void updateOrders() {
@@ -278,6 +279,74 @@ public class OrderList implements EventHandler {
 		}
 	}
 
+	public static void addOrder(Order o) {
+		if (!DatabaseConnection.isConnected(DatabaseConnection.DEFAULT_TIMEOUT)) {
+			System.err
+					.println("No active database connection: please try again!");
+			return;
+		}
+		try {
+			if (!DatabaseConnection.fetchData(
+					"SELECT * FROM Orders WHERE CustomerID="
+							+ o.customer.customerID + " AND OrdersStatus='"
+							+ Order.REGISTERED + "';").next()) {
+				int commentID = -1;
+				if (!(o.comment == null || o.comment.equals(""))) {
+					DatabaseConnection
+							.insertIntoDB("INSERT INTO OrderComments (Comment) VALUES ('"
+									+ o.comment + "');");
+					ResultSet commentIDset = DatabaseConnection
+							.fetchData("SELECT CommentID FROM OrderComments WHERE Comment='"
+									+ o.comment + "';");
+					if (commentIDset.next()) {
+						commentID = commentIDset.getInt(1);
+					}
+				}
+				DatabaseConnection
+						.insertIntoDB("INSERT INTO Orders (CustomerID, TimeRegistered, DeliveryMethod, CommentID) VALUES ("
+								+ o.customer.customerID
+								+ ", NOW(), '"
+								+ o.deliveryMethod + "', " + commentID + ");");
+			}
+		} catch (SQLException e) {
+			System.err.println("An error occured during your database query: "
+					+ e.getMessage());
+			return;
+		}
+		updateOrders();
+		int orderID = customerToOrderMap.get(o.customer.customerID
+				+ Order.REGISTERED).orderID;
+		for (OrderDish od : o.getOrderedDishes()) {
+			int ordersContentsID = -1;
+			DatabaseConnection
+					.insertIntoDB("INSERT INTO OrdersContents (OrdersID, DishID) VALUES ("
+							+ orderID + ", " + od.dish.dishID + ");");
+			if (!(od.getExtras() == null || od.getExtras().isEmpty())) {
+				ResultSet currentOrderContentsID = DatabaseConnection
+						.fetchData("SELECT OrdersContentsID FROM OrdersContents WHERE OrdersID="
+								+ orderID
+								+ " AND DishID="
+								+ od.dish.dishID
+								+ " ORDER BY OrdersContentsID;");
+				try {
+					if (currentOrderContentsID.last()) {
+						ordersContentsID = currentOrderContentsID.getInt(1);
+					}
+				} catch (SQLException e) {
+					System.err
+							.println("An error occured while adding extras to the dish: "
+									+ e.getMessage());
+				}
+				for (Extra e : od.getExtras()) {
+					DatabaseConnection
+							.insertIntoDB("INSERT INTO DishExtrasChosen (OrdersContentsID, DishExtraID) VALUES ("
+									+ ordersContentsID + ", " + e.id + ");");
+				}
+			}
+		}
+
+	}
+
 	public static void changeOrderStatus(Order order, String status) {
 		if (!DatabaseConnection.isConnected(DatabaseConnection.DEFAULT_TIMEOUT)) {
 			System.err
@@ -293,9 +362,11 @@ public class OrderList implements EventHandler {
 	@Override
 	public void handleEvent(Event<?> event) {
 		if (event.eventType.equals(EventType.DATABASE_UPDATE_REQUESTED)) {
-			System.out.println("It works");
 			updateOrders();
+		} else if (event.eventType.equals(EventType.ADD_ORDER_REQUESTED)) {
+			if (event.getEventParameterObject() instanceof Order) {
+				addOrder((Order) event.getEventParameterObject());
+			}
 		}
-
 	}
 }

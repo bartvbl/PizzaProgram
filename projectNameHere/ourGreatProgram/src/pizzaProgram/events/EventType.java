@@ -33,4 +33,8 @@ public class EventType {
 	 * The program needs a databaseUpdate to ensure continued sanity
 	 */
 	public final static String DATABASE_UPDATE_REQUESTED = "databaseUpdateRequested";
+	/**
+	 * The program requests to add a new order to the database
+	 */
+	public final static String ADD_ORDER_REQUESTED = "addOrderRequested";
 }
