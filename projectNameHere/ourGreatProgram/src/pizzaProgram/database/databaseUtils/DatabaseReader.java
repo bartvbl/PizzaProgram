@@ -21,6 +21,38 @@ public class DatabaseReader {
 		}
 		return customerList;
 	}
+	
+	public static ArrayList<Customer> searchCustomerByString(String searchQuery)
+	{
+		String query = generateSearchQuery(searchQuery);
+		ResultSet results = DatabaseConnection.fetchData(query);
+		ArrayList<Customer> customerList = new ArrayList<Customer>();
+		try {
+			customerList = generateCustomerList(results);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return customerList;
+	}
+	
+	private static String generateSearchQuery(String searchQuery) {
+		String query = "SELECT * FROM Customer LEFT JOIN CustomerNotes ON (Customer.commentID = CustomerNotes.NoteID) WHERE (";
+		String[] keywords = searchQuery.split(" ");
+		int counter = 0;
+		for(String keyword : keywords)
+		{
+			if(counter != 0)
+			{
+				query += "OR";
+			}
+			query += "(Customer.FirstName LIKE '%"+keyword+"%') OR ";
+			query += "(Customer.LastName LIKE '%"+keyword+"%') OR ";
+			query += "(Customer.TelephoneNumber LIKE '%"+keyword+"%')";
+			counter++;
+		}
+		query += ");";
+		return query;
+	}
 
 	private static ArrayList<Customer> generateCustomerList(ResultSet results) throws SQLException {
 		ArrayList<Customer> customerList = new ArrayList<Customer>();

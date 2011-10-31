@@ -30,6 +30,7 @@ public class Database_ReadEventHandler implements EventHandler {
 	
 	private void addEventListeners() {
 		this.eventDispatcher.addEventListener(this, EventType.DATABASE_UPDATE_ORDER_GUI_SEND_ALL_CUSTOMERS);
+		this.eventDispatcher.addEventListener(this, EventType.DATABASE_UPDATE_ORDER_GUI_SEARCH_CUSTOMERS_BY_KEYWORDS);
 		this.eventDispatcher.addEventListener(this, EventType.DATABASE_UPDATE_ORDER_GUI_DISH_LIST);
 		this.eventDispatcher.addEventListener(this, EventType.DATABASE_UPDATE_ORDER_GUI_EXTRAS_LIST_BY_DISH_ID);
 	}
@@ -51,9 +52,23 @@ public class Database_ReadEventHandler implements EventHandler {
 		} else if(event.eventType.equals(EventType.DATABASE_UPDATE_ORDER_GUI_EXTRAS_LIST_BY_DISH_ID))
 		{
 			this.sendListOfAllExtrasToOrderGUI();
+		} else if(event.eventType.equals(EventType.DATABASE_UPDATE_ORDER_GUI_SEARCH_CUSTOMERS_BY_KEYWORDS))
+		{
+			this.searchCustomers(event);
 		}  
 	}
 
+
+	private void searchCustomers(Event<?> event) {
+		if(!(event.getEventParameterObject() instanceof String))
+		{
+			System.err.println("ERROR: search query for finding customers is not a string!");
+			return;
+		}
+		String searchQuery = (String)event.getEventParameterObject();
+		ArrayList<Customer> customerList = DatabaseReader.searchCustomerByString(searchQuery);
+		this.eventDispatcher.dispatchEvent(new Event<ArrayList<Customer>>(EventType.ORDER_GUI_UPDATE_CUSTOMER_LIST, customerList));
+	}
 
 	private void sendListOfAllExtrasToOrderGUI() {
 		ArrayList<Extra> extraList = DatabaseReader.getAllExtras();

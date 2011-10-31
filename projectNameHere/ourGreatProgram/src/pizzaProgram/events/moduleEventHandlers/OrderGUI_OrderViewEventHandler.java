@@ -77,6 +77,9 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler
 		
 		OrderView.newCustomerButton.addActionListener(this);
 		this.registerEventType(OrderView.newCustomerButton, "newCustomer");
+		
+		OrderView.searchCustomerSearchButton.addActionListener(this);
+		this.registerEventType(OrderView.searchCustomerSearchButton, "searchCustomers");
 	}
 
 	public void actionPerformed(ActionEvent event) {
@@ -94,9 +97,21 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler
 			this.duplicateOrderDishes(event);
 		} else if (this.getEventNameByComponent((Component) event.getSource()).equals("newCustomer")) {
 			this.addNewCustomer(event);
+		} else if (this.getEventNameByComponent((Component) event.getSource()).equals("searchCustomers")) {
+			this.searchCustomers(event);
 		}
 	}
 	
+	private void searchCustomers(ActionEvent event) {
+		String searchQuery = OrderView.searchCustomerTextArea.getText();
+		if(!searchQuery.equals(""))
+		{
+			this.dispatchEvent(new Event<String>(EventType.DATABASE_UPDATE_ORDER_GUI_SEARCH_CUSTOMERS_BY_KEYWORDS, searchQuery));
+		} else {
+			this.dispatchEvent(new Event<Object>(EventType.DATABASE_UPDATE_ORDER_GUI_SEND_ALL_CUSTOMERS));
+		}
+	}
+
 	private void addNewCustomer(ActionEvent event) {
 		new NewCustomerWindow(this.orderGUI);
 	}

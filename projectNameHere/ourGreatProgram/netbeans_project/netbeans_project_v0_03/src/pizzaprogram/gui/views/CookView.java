@@ -44,7 +44,7 @@ public class CookView extends javax.swing.JPanel {
         mainSplitPane.setDividerLocation(250);
         mainSplitPane.setName("mainSplitPane"); // NOI18N
 
-        orderEditSplitPane.setDividerLocation(300);
+        orderEditSplitPane.setDividerLocation(350);
         orderEditSplitPane.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
         orderEditSplitPane.setName("orderEditSplitPane"); // NOI18N
 
@@ -62,6 +62,7 @@ public class CookView extends javax.swing.JPanel {
         orderCommentsFieldScrollPane.setName("orderCommentsFieldScrollPane"); // NOI18N
 
         orderCommentsTextArea.setColumns(20);
+        orderCommentsTextArea.setEditable(false);
         orderCommentsTextArea.setLineWrap(true);
         orderCommentsTextArea.setRows(3);
         orderCommentsTextArea.setName("orderCommentsTextArea"); // NOI18N
@@ -95,7 +96,7 @@ public class CookView extends javax.swing.JPanel {
         generalOrderPropertiesPaneLayout.setVerticalGroup(
             generalOrderPropertiesPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, generalOrderPropertiesPaneLayout.createSequentialGroup()
-                .addContainerGap(70, Short.MAX_VALUE)
+                .addContainerGap(20, Short.MAX_VALUE)
                 .addComponent(orderCommentsLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(orderCommentsFieldScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)

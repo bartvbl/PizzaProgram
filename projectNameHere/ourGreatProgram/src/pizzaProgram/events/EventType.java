@@ -63,5 +63,7 @@ public class EventType {
 
 	public static final String DATABASE_ADD_NEW_CUSTOMER = "databaseAddNewCustomer";
 
+	public static final String DATABASE_UPDATE_ORDER_GUI_SEARCH_CUSTOMERS_BY_KEYWORDS = "databaseUpdateOrderGUISearchCustomersByKeywords";
+
 	
 }
