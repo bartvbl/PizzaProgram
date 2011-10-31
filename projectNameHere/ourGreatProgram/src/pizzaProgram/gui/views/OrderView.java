@@ -11,6 +11,7 @@
 package pizzaProgram.gui.views;
 
 import javax.swing.DefaultListModel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -150,6 +151,7 @@ public class OrderView extends javax.swing.JPanel {
         jScrollPane2.setName("jScrollPane2"); // NOI18N
 
         extrasSelectionList.setModel(new DefaultListModel());
+        extrasSelectionList.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         extrasSelectionList.setName("extrasSelectionList"); // NOI18N
         jScrollPane2.setViewportView(extrasSelectionList);
 
@@ -214,25 +216,7 @@ public class OrderView extends javax.swing.JPanel {
         orderContentsTableScrollPane.setName("orderContentsTableScrollPane"); // NOI18N
 
         orderContentsTable.setAutoCreateRowSorter(true);
-        orderContentsTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "Pizza", "Extras"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        orderContentsTable.setModel(new DefaultTableModel());
         orderContentsTable.setColumnSelectionAllowed(true);
         orderContentsTable.setName("orderContentsTable"); // NOI18N
         orderContentsTableScrollPane.setViewportView(orderContentsTable);
@@ -368,7 +352,11 @@ public class OrderView extends javax.swing.JPanel {
     public static final javax.swing.JTextArea orderCommentsTextArea = new javax.swing.JTextArea();
     public static final javax.swing.JLabel orderCommentsTextAreaLabel = new javax.swing.JLabel();
     public static final javax.swing.JScrollPane orderCommentsTextAreaScrollPane = new javax.swing.JScrollPane();
-    public static final javax.swing.JTable orderContentsTable = new javax.swing.JTable();
+    public static final javax.swing.JTable orderContentsTable = new javax.swing.JTable(){
+        public boolean isCellEditable(int rowIndex, int colIndex) {
+            return false; //Disallow the editing of any cell
+        }
+    };
     public static final javax.swing.JScrollPane orderContentsTableScrollPane = new javax.swing.JScrollPane();
     public static final javax.swing.JPanel orderCreationUI = new javax.swing.JPanel();
     public static final javax.swing.JSplitPane orderCreationUIVerticalSplitPane = new javax.swing.JSplitPane();

@@ -19,6 +19,8 @@ import java.util.HashMap;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableModel;
 
 import pizzaProgram.dataObjects.Customer;
 import pizzaProgram.dataObjects.Dish;
@@ -41,6 +43,10 @@ public class OrderGUI extends GUIModule implements EventHandler {
     private ProgramWindow programWindow;
     private OrderGUI_OrderViewEventHandler orderViewEventHandler;
     private OrderGUI_SystemEventHandler systemEventHandler;
+	
+    public ArrayList<Customer> currentCustomerList;
+    public ArrayList<Dish> currentDishList;
+    public ArrayList<Extra> currentExtrasList;
 	
 	private JFrame jFrame;
 
@@ -78,16 +84,23 @@ public class OrderGUI extends GUIModule implements EventHandler {
 		this.orderView.addPropertyChangeListener(null);
                 this.programWindow = mainWindow;
                 this.orderViewEventHandler = new OrderGUI_OrderViewEventHandler(this.orderView, this);
-                this.systemEventHandler = new OrderGUI_SystemEventHandler(this.orderView, eventDispatcher);
-                this.initializeDeliveryMethodComboBox();
+                this.systemEventHandler = new OrderGUI_SystemEventHandler(this.orderView, eventDispatcher, this);
+                this.setupComponents();
                 hide();
 	}
 	
-	private void initializeDeliveryMethodComboBox()
+	private void setupComponents()
 	{
 		this.orderView.deliveryMethodComboBox.removeAllItems();
 		this.orderView.deliveryMethodComboBox.addItem(Order.DELIVER_AT_HOME);
 		this.orderView.deliveryMethodComboBox.addItem(Order.PICKUP_AT_RESTAURANT);
+		OrderView.extrasSelectionList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+		OrderView.dishSelectionList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		OrderView.customerList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		DefaultTableModel tableModel = (DefaultTableModel)OrderView.orderContentsTable.getModel();
+		tableModel.addColumn("Dish");
+		tableModel.addColumn("Extras");
+		OrderView.orderContentsTable.removeEditor();
 	}
 
 	@Override
@@ -256,8 +269,7 @@ public class OrderGUI extends GUIModule implements EventHandler {
 	public void handleEvent(Event<?> event) {
 		if(event.eventType.equals(EventType.ORDER_GUI_REQUESTED)){
 			show();
-			this.dispatchEvent(new Event<Object>(EventType.DATABASE_UPDATE_REQUESTED));
-			this.dispatchEvent(new Event<Object>(EventType.ORDER_GUI_UPDATE_CUSTOMER_LIST));
+			this.dispatchEvent(new Event<Object>(EventType.DATABASE_UPDATE_ORDER_GUI_SEND_ALL_CUSTOMERS));
 		}
 	}
 	@Override

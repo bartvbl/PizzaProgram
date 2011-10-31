@@ -48,6 +48,8 @@ public class Main implements EventHandler {
 		this.createMainWindow(mainApplication);
 		this.createGUIModules();
 		this.eventDispatcher.addEventListener(this, EventType.PROGRAM_EXIT_REQUESTED);
+		
+		this.eventDispatcher.dispatchEvent(new Event<Object>(EventType.ORDER_GUI_REQUESTED));
 	}
 	
 	private void initializeLists() {
@@ -77,8 +79,6 @@ public class Main implements EventHandler {
 		DeliverGUI deliverGUI  = new DeliverGUI(this.programWindow, this.eventDispatcher);
 		OrderGUI orderGUI = new OrderGUI(this.programWindow, this.eventDispatcher);
 		CookGUI cookGUI  = new CookGUI(this.programWindow, this.eventDispatcher);
-		
-		orderGUI.show();
 	}
 	
 	public void handleEvent(Event<?> event) {

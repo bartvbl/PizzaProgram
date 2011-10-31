@@ -51,5 +51,15 @@ public class EventType {
 
 	public static final String DATABASE_UPDATE_ORDER_GUI_SEND_ALL_CUSTOMERS = "databaseUpdateOrderGUISendAllCustomers";
 
+	public static final String DATABASE_UPDATE_ORDER_GUI_DISH_LIST = "databaseUpdateOrderGUIDishList";
+
+	public static final String ORDER_GUI_UPDATE_DISH_LIST = "orderGUIUpdateDishList";
+
+	public static final String DATABASE_UPDATE_ORDER_GUI_EXTRAS_LIST_BY_DISH_ID = "databaseUpdateOrderGUIExtrasListByDishID";
+
+	public static final String ORDER_GUI_UPDATE_EXTRAS_LIST = "orderGUIUpdateExtrasList";
+
+	public static final String DATABASE_ADD_NEW_ORDER = "databaseAddNewOrder";
+
 	
 }

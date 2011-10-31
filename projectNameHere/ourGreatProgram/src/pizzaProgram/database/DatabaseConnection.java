@@ -2,8 +2,11 @@ package pizzaProgram.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+
 
 import pizzaProgram.events.Event;
 import pizzaProgram.events.EventHandler;
@@ -119,7 +122,7 @@ public class DatabaseConnection implements EventHandler {
 	 * @return a {@link java.sql.ResultSet ResultSet} containing the result of
 	 *         the query
 	 */
-	static ResultSet fetchData(String query) {
+	public static ResultSet fetchData(String query) {
 		try {
 			return connection.createStatement().executeQuery(query);
 		} catch (SQLException e) {
@@ -136,13 +139,35 @@ public class DatabaseConnection implements EventHandler {
 	 *            is to be sent to the database
 	 * @return true if the insertion was a success, false in all other cases
 	 */
-	static boolean insertIntoDB(String query) {
+	public static boolean insertIntoDB(String query) {
 		try {
 			return connection.createStatement().execute(query);
 		} catch (SQLException e) {
 			System.err.println("Query Failed: " + e.getMessage());
 			return false;
 		}
+	}
+	
+	public static int insertIntoDBAndReturnID(String query)
+	{
+		try {
+			PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+			int numberOfRowsAffected = statement.executeUpdate();
+			if(numberOfRowsAffected == 0)
+			{
+				System.err.println("Query Failed (0 rows affected) ");
+			}
+			ResultSet generatedKey = statement.getGeneratedKeys();
+			int id = -1;
+			generatedKey.next();
+			id = generatedKey.getInt(1);
+			return id;
+		} catch (SQLException e) {
+			System.err.println("Query Failed: " + e.getMessage());
+			e.printStackTrace();
+		}
+		
+		return -1;
 	}
 
 	public void handleEvent(Event event) {

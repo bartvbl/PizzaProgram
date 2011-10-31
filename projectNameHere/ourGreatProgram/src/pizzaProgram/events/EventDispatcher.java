@@ -19,7 +19,7 @@ public class EventDispatcher {
 	 * Notifies (e.g. calls all listener functions) all event listeners about the event passed into the function
 	 * @param event The event to be dispatched
 	 */
-	public void dispatchEvent(Event<Object> event)
+	public void dispatchEvent(Event<?> event)
 	{
 		if(!eventTypeExists(event.eventType))
 		{
