@@ -15,31 +15,39 @@ import org.jdesktop.application.SingleFrameApplication;
 import pizzaProgram.events.Event;
 import pizzaProgram.events.EventDispatcher;
 import pizzaProgram.events.EventHandler;
+import pizzaProgram.events.EventType;
 
 /**
- * The ProgramWindow class creates the application's main window, with several features attached to it
+ * The ProgramWindow class creates the application's main window, with several
+ * features attached to it
+ * 
  * @author Bart
- *
+ * 
  */
-public class ProgramWindow implements EventHandler{
+public class ProgramWindow implements EventHandler {
 	private final EventDispatcher eventDispatcher;
-	
+
 	/**
 	 * A constant holding the name as it will appear inside the window
 	 */
 	public static final String MAIN_WINDOW_NAME = "Pizza Manager";
-	
-        private ProgramWindowFrameView frameView;
-        private MenuBarEventHandler menuBarEventHandler;
-        private CardLayout cardLayoutManager;
-        private JPanel mainJPanel;
-        
-        private JFrame jframe;
+
+	private ProgramWindowFrameView frameView;
+	private MenuBarEventHandler menuBarEventHandler;
+	private CardLayout cardLayoutManager;
+	private JPanel mainJPanel;
+	private NewCustomerWindow newCustomerWindow;
+
+	private JFrame jframe;
+
 	/**
-	 * The constructor of the program takes in the event dispatcher, and creates t
+	 * The constructor of the program takes in the event dispatcher, and creates
+	 * t
+	 * 
 	 * @param eventDispatcher
 	 */
-	public ProgramWindow(EventDispatcher eventDispatcher, SingleFrameApplication mainApplication){
+	public ProgramWindow(EventDispatcher eventDispatcher,
+			SingleFrameApplication mainApplication) {
 		this.eventDispatcher = eventDispatcher;
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -52,64 +60,53 @@ public class ProgramWindow implements EventHandler{
 		} catch (UnsupportedLookAndFeelException e) {
 			e.printStackTrace();
 		}
-                this.frameView = new ProgramWindowFrameView(mainApplication);
+		this.frameView = new ProgramWindowFrameView(mainApplication);
 		this.jframe = this.frameView.getFrame();
-                this.createFrame();
-                mainApplication.show(this.frameView);
-                this.menuBarEventHandler = new MenuBarEventHandler(this.frameView, this.eventDispatcher);
-              
+		this.createFrame();
+		mainApplication.show(this.frameView);
+		this.menuBarEventHandler = new MenuBarEventHandler(this.frameView, this.eventDispatcher);
 	}
-	public JFrame getWindowFrame(){
+
+	public JFrame getWindowFrame() {
 		return jframe;
 	}
-	
-        private void createFrame()
-        {
-            this.cardLayoutManager = new CardLayout();
-            this.mainJPanel = new JPanel(this.cardLayoutManager);
-            this.jframe.add(this.mainJPanel);
-        }
-			
-        public void addJPanel(JPanel newPanel)
-        {
-            this.mainJPanel.add(newPanel, newPanel.toString());
-         }
-        
+
+	private void createFrame() {
+		this.cardLayoutManager = new CardLayout();
+		this.mainJPanel = new JPanel(this.cardLayoutManager);
+		this.jframe.add(this.mainJPanel);
+	}
+
+	public void addJPanel(JPanel newPanel) {
+		this.mainJPanel.add(newPanel, newPanel.toString());
+	}
+
 	/**
 	 * Creates the main window
 	 */
-	public void createMainWindow(SingleFrameApplication app){
-            
+	public void createMainWindow(SingleFrameApplication app) {
+
 	}
+
 	@Override
 	public void handleEvent(Event<?> event) {
 
 	}
-        
-        public void hidePanel(JPanel panel)
-        {
-            this.refreshFrame();
-          
-           
-            
-        }
-        
-        public void showPanel(JPanel panel)
-        {
-            
-            this.refreshFrame();
-         
-            this.cardLayoutManager.show(this.mainJPanel, panel.toString());//.show(this.mainJPanel, panel.toString());
-        }
 
-    public void refreshFrame() {
-      //  this.jframe.invalidate();
-        this.jframe.validate();
-        this.jframe.repaint();
- 
-    }
-        
-      
-	
-}//END
+
+	public void hidePanel(JPanel panel) {
+		this.refreshFrame();
+	}
+
+	public void showPanel(JPanel panel) {
+		this.refreshFrame();
+		this.cardLayoutManager.show(this.mainJPanel, panel.toString());																// panel.toString());
+	}
+
+	public void refreshFrame() {
+		this.jframe.validate();
+		this.jframe.repaint();
+	}
+
+}// END
 

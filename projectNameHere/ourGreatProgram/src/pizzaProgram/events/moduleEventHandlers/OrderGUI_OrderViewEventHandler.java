@@ -21,6 +21,7 @@ import pizzaProgram.dataObjects.UnaddedOrder;
 import pizzaProgram.events.Event;
 import pizzaProgram.events.EventDispatcher;
 import pizzaProgram.events.EventType;
+import pizzaProgram.gui.NewCustomerWindow;
 import pizzaProgram.gui.OrderGUI;
 import pizzaProgram.gui.views.OrderView;
 
@@ -73,6 +74,9 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler
 		
 		OrderView.duplicateSelectedOrderDishButton.addActionListener(this);
 		this.registerEventType(OrderView.duplicateSelectedOrderDishButton, "duplicateSelected");
+		
+		OrderView.newCustomerButton.addActionListener(this);
+		this.registerEventType(OrderView.newCustomerButton, "newCustomer");
 	}
 
 	public void actionPerformed(ActionEvent event) {
@@ -88,9 +92,15 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler
 			this.deleteSelectedDishesFromOrder(event);
 		} else if (this.getEventNameByComponent((Component) event.getSource()).equals("duplicateSelected")) {
 			this.duplicateOrderDishes(event);
+		} else if (this.getEventNameByComponent((Component) event.getSource()).equals("newCustomer")) {
+			this.addNewCustomer(event);
 		}
 	}
 	
+	private void addNewCustomer(ActionEvent event) {
+		new NewCustomerWindow(this.orderGUI);
+	}
+
 	private void duplicateOrderDishes(ActionEvent event) {
 		int[] selectedIndices = OrderView.orderContentsTable.getSelectedRows();
 		DefaultTableModel tableModel = (DefaultTableModel) OrderView.orderContentsTable.getModel();
@@ -176,7 +186,7 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler
 		if (e.getFirstIndex() == -1) {
 			return;
 		}
-		Customer customer = this.orderGUI.currentCustomerList.get(e.getFirstIndex());
+		Customer customer = this.orderGUI.currentCustomerList.get(((JList)e.getSource()).getSelectedIndex());
 		this.temporaryOrderData.setCustomer(customer);
 		OrderView.customerInformationTextArea.setText(customer.firstName
 				+ " " + customer.lastName + "\n" + customer.address + "\n"

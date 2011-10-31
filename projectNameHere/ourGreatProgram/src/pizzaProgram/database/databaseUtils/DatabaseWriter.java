@@ -3,6 +3,7 @@ package pizzaProgram.database.databaseUtils;
 import pizzaProgram.dataObjects.Extra;
 import pizzaProgram.dataObjects.Order;
 import pizzaProgram.dataObjects.OrderDish;
+import pizzaProgram.dataObjects.UnaddedCustomer;
 import pizzaProgram.dataObjects.UnaddedOrder;
 import pizzaProgram.database.DatabaseConnection;
 
@@ -53,5 +54,15 @@ public class DatabaseWriter {
 	private static int createNewOrder(UnaddedOrder order, int commentID) {
 		int orderID = DatabaseConnection.insertIntoDBAndReturnID("INSERT INTO Orders VALUES (NULL, "+order.customer.customerID+", NOW(), '"+Order.REGISTERED+"', '"+order.deliveryMethod+"', "+commentID+");");
 		return orderID;
+	}
+
+	public static void writeNewCustomer(UnaddedCustomer customer) {
+		int commentID = createCustomerNote(customer.comment);
+		DatabaseConnection.insertIntoDB("INSERT INTO Customer VALUES (NULL, '"+customer.firstName+"', '"+customer.lastName+"', '"+customer.address+"', "+customer.postalCode+", '"+customer.city+"', "+customer.phoneNumber+", "+commentID+");");
+	}
+	
+	private static int createCustomerNote(String comment) {
+		int commentID = DatabaseConnection.insertIntoDBAndReturnID("INSERT INTO OrderComments VALUES (NULL, '"+comment+"');");
+		return commentID;
 	}
 }

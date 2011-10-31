@@ -10,6 +10,9 @@
  */
 package pizzaprogram.gui.views;
 
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Bart
@@ -47,26 +50,9 @@ public class CookView extends javax.swing.JPanel {
 
         currentOrderTableScrollPane.setName("currentOrderTableScrollPane"); // NOI18N
 
-        currentOrderTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Dish", "Extra", "In progress", "Finished"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, true, true
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        currentOrderTable.setModel(new DefaultTableModel());
         currentOrderTable.setName("currentOrderTable"); // NOI18N
+        currentOrderTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         currentOrderTableScrollPane.setViewportView(currentOrderTable);
 
         orderEditSplitPane.setLeftComponent(currentOrderTableScrollPane);
@@ -88,6 +74,9 @@ public class CookView extends javax.swing.JPanel {
         confirmOrderButton.setText(resourceMap.getString("confirmOrderButton.text")); // NOI18N
         confirmOrderButton.setName("confirmOrderButton"); // NOI18N
 
+        jButton1.setText(resourceMap.getString("jButton1.text")); // NOI18N
+        jButton1.setName("jButton1"); // NOI18N
+
         javax.swing.GroupLayout generalOrderPropertiesPaneLayout = new javax.swing.GroupLayout(generalOrderPropertiesPane);
         generalOrderPropertiesPane.setLayout(generalOrderPropertiesPaneLayout);
         generalOrderPropertiesPaneLayout.setHorizontalGroup(
@@ -97,7 +86,10 @@ public class CookView extends javax.swing.JPanel {
                 .addGroup(generalOrderPropertiesPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(orderCommentsFieldScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE)
                     .addComponent(orderCommentsLabel)
-                    .addComponent(confirmOrderButton, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, generalOrderPropertiesPaneLayout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(confirmOrderButton)))
                 .addContainerGap())
         );
         generalOrderPropertiesPaneLayout.setVerticalGroup(
@@ -108,7 +100,9 @@ public class CookView extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(orderCommentsFieldScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(confirmOrderButton)
+                .addGroup(generalOrderPropertiesPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(confirmOrderButton)
+                    .addComponent(jButton1))
                 .addContainerGap())
         );
 
@@ -123,26 +117,9 @@ public class CookView extends javax.swing.JPanel {
 
         ordersTableScrollPane.setName("ordersTableScrollPane"); // NOI18N
 
-        orderDetailsTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "Order", "Status", "Time registered"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        orderDetailsTable.setModel(new DefaultTableModel());
         orderDetailsTable.setName("orderDetailsTable"); // NOI18N
+        orderDetailsTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         ordersTableScrollPane.setViewportView(orderDetailsTable);
 
         orderSearchTextPane.setName("orderSearchTextPane"); // NOI18N
@@ -176,14 +153,23 @@ public class CookView extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static final javax.swing.JButton confirmOrderButton = new javax.swing.JButton();
-    public static final javax.swing.JTable currentOrderTable = new javax.swing.JTable();
+    public static final javax.swing.JTable currentOrderTable = new javax.swing.JTable(){
+        public boolean isCellEditable(int rowIndex, int colIndex) {
+            return false; //Disallow the editing of any cell
+        }
+    };
     public static final javax.swing.JScrollPane currentOrderTableScrollPane = new javax.swing.JScrollPane();
     public static final javax.swing.JPanel generalOrderPropertiesPane = new javax.swing.JPanel();
+    public static final javax.swing.JButton jButton1 = new javax.swing.JButton();
     public static final javax.swing.JSplitPane mainSplitPane = new javax.swing.JSplitPane();
     public static final javax.swing.JScrollPane orderCommentsFieldScrollPane = new javax.swing.JScrollPane();
     public static final javax.swing.JLabel orderCommentsLabel = new javax.swing.JLabel();
     public static final javax.swing.JTextArea orderCommentsTextArea = new javax.swing.JTextArea();
-    public static final javax.swing.JTable orderDetailsTable = new javax.swing.JTable();
+    public static final javax.swing.JTable orderDetailsTable = new JTable(){
+        public boolean isCellEditable(int rowIndex, int colIndex) {
+            return false; //Disallow the editing of any cell
+        }
+    };
     public static final javax.swing.JSplitPane orderEditSplitPane = new javax.swing.JSplitPane();
     public static final javax.swing.JTextPane orderSearchTextPane = new javax.swing.JTextPane();
     public static final javax.swing.JPanel orderSelectionPanel = new javax.swing.JPanel();

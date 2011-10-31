@@ -27,6 +27,7 @@ import pizzaProgram.dataObjects.Dish;
 import pizzaProgram.dataObjects.Extra;
 import pizzaProgram.dataObjects.Order;
 import pizzaProgram.dataObjects.OrderDish;
+import pizzaProgram.dataObjects.UnaddedCustomer;
 import pizzaProgram.database.CustomerList;
 import pizzaProgram.database.DishList;
 import pizzaProgram.database.ExtraList;
@@ -110,7 +111,7 @@ public class OrderGUI extends GUIModule implements EventHandler {
 				createConstrints(0, 10, 1, 1, 0, 0, GridBagConstraints.BOTH));
 		newCustomerButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new NewCutomerWindow(thisGUI);
+				new NewCustomerWindow(thisGUI);
 			}
 		});
 
@@ -235,11 +236,11 @@ public class OrderGUI extends GUIModule implements EventHandler {
 		return gbc;
 	}
 
-	public void createNewCustomer(String firstName, String lastName,
-			String address, int postalCode, String city, int phoneNumber) {
-		CustomerList.addCustomer(firstName, lastName, address, postalCode,
-				city, phoneNumber);
-		populateLists();
+	public void createNewCustomer(UnaddedCustomer customer) {
+		this.dispatchEvent(new Event<UnaddedCustomer>(EventType.DATABASE_ADD_NEW_CUSTOMER, customer));
+		//CustomerList.addCustomer(firstName, lastName, address, postalCode,
+		//		city, phoneNumber);
+		//populateLists();
 	}
 
 	private void populateLists() {

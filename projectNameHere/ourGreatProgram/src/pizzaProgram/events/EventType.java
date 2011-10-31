@@ -61,5 +61,7 @@ public class EventType {
 
 	public static final String DATABASE_ADD_NEW_ORDER = "databaseAddNewOrder";
 
+	public static final String DATABASE_ADD_NEW_CUSTOMER = "databaseAddNewCustomer";
+
 	
 }

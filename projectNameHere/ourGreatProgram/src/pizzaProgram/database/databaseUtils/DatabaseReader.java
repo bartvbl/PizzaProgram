@@ -27,7 +27,7 @@ public class DatabaseReader {
 		Customer currentCustomer;
 		while(results.next())
 		{
-			currentCustomer = new Customer(	results.getInt(1),results.getString(2), results.getString(3),results.getString(4), results.getInt(5),results.getString(6), results.getInt(7), results.getString(11));
+			currentCustomer = new Customer(	results.getInt(1),results.getString(2), results.getString(3),results.getString(4), results.getInt(5),results.getString(6), results.getInt(7), results.getString(10));
 			customerList.add(currentCustomer);
 		}
 		return customerList;

@@ -1,5 +1,6 @@
 package pizzaProgram.events.moduleEventHandlers;
 
+import pizzaProgram.dataObjects.UnaddedCustomer;
 import pizzaProgram.dataObjects.UnaddedOrder;
 import pizzaProgram.database.DatabaseConnection;
 import pizzaProgram.database.DatabaseModule;
@@ -24,13 +25,27 @@ public class Database_WriteEventHandler implements EventHandler {
 
 	private void addListeners() {
 		this.eventDispatcher.addEventListener(this, EventType.DATABASE_ADD_NEW_ORDER);
+		this.eventDispatcher.addEventListener(this, EventType.DATABASE_ADD_NEW_CUSTOMER);
 	}
 
 	public void handleEvent(Event<?> event) {
 		if(event.eventType.equals(EventType.DATABASE_ADD_NEW_ORDER))
 		{
 			this.addNewOrder(event);
+		} else if(event.eventType.equals(EventType.DATABASE_ADD_NEW_CUSTOMER))
+		{
+			this.addNewCustomer(event);
+		} 
+	}
+
+	private void addNewCustomer(Event<?> event) {
+		if(!(event.getEventParameterObject() instanceof UnaddedCustomer))
+		{
+			System.out.println("The database received an event that did not contain an UnaddedCustomer instance when trying to add a new customer!");
+			return;
 		}
+		DatabaseWriter.writeNewCustomer((UnaddedCustomer)event.getEventParameterObject());
+		this.eventDispatcher.dispatchEvent(new Event<Object>(EventType.DATABASE_UPDATE_ORDER_GUI_SEND_ALL_CUSTOMERS));
 	}
 
 	private void addNewOrder(Event<?> event) 

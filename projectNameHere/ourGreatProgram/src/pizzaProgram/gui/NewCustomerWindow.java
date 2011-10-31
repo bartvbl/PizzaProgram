@@ -12,8 +12,10 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import pizzaProgram.dataObjects.UnaddedCustomer;
+
 @SuppressWarnings("serial")
-public class NewCutomerWindow extends JFrame{
+public class NewCustomerWindow extends JFrame{
 
 	OrderGUI parent;
 	
@@ -31,12 +33,14 @@ public class NewCutomerWindow extends JFrame{
 	
 	
 	JFrame denne;
-	public NewCutomerWindow(OrderGUI parentWindow) {
+	public NewCustomerWindow(OrderGUI parentWindow) {
 		parent = parentWindow;
 		denne = this;
-		setLayout(new GridBagLayout());
-		setMinimumSize(new Dimension(220, 200));
-		setResizable(false);
+		this.setLayout(new GridBagLayout());
+		this.setMinimumSize(new Dimension(220, 200));
+		this.setLocation(100, 100);
+		this.setResizable(false);
+		this.setTitle("New customer");
 		
 		Label fornavn = new Label("Fornavn:");
 		add(fornavn, createConstraints02(0, 0));
@@ -81,22 +85,22 @@ public class NewCutomerWindow extends JFrame{
 		finishKnapp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				int postnr = 0;
-				int tlf = 0;
+				int postNumber = 0;
+				int phoneNumber = 0;
 				try{
-					postnr = Integer.parseInt(fyllpostnr.getText());
+					postNumber = Integer.parseInt(fyllpostnr.getText());
 				}catch(NumberFormatException ex){
 					JOptionPane.showMessageDialog(denne, "Postnummer må være et tall", "Feil", JOptionPane.ERROR_MESSAGE);
 					return;
 				}
 				try{
-					tlf = Integer.parseInt(fylltlf.getText());
+					phoneNumber = Integer.parseInt(fylltlf.getText());
 				}catch(NumberFormatException ex){
 					JOptionPane.showMessageDialog(denne, "Telefonnummer må være et tall", "Feil", JOptionPane.ERROR_MESSAGE);
 					return;
 				}
-				
-				parent.createNewCustomer(fyllnavn.getText(), fylletternavn.getText(), fylladresse.getText(), postnr , fyllpoststed.getText(), tlf);
+				UnaddedCustomer customer = generateCustomerObject(postNumber, phoneNumber);
+				parent.createNewCustomer(customer);
 				dispose();
 			}
 		});
@@ -105,6 +109,18 @@ public class NewCutomerWindow extends JFrame{
 		setVisible(true);
 		
 	}
+	
+	private UnaddedCustomer generateCustomerObject(int postNumber, int phoneNumber)
+	{
+		
+		String firstName = fyllnavn.getText();
+		String lastName = fylletternavn.getText();
+		String address = fylladresse.getText();
+		String city = fyllpoststed.getText();
+		UnaddedCustomer customer = new UnaddedCustomer(firstName, lastName, address, postNumber, city, phoneNumber, "");
+		return customer;
+	}
+	
 	private GridBagConstraints createConstraints08(int x, int y){
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.gridx = x;
