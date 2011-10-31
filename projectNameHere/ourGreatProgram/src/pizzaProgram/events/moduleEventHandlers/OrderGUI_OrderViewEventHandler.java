@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.DefaultListModel;
+import javax.swing.JList;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -39,15 +40,19 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler
 		this.orderView = orderView;
 		this.addEventListeners();
 		this.temporaryOrderData = new OrderGUI_TemporaryOrderDataStorage();
+		this.resetUI();
 	}
 
 	private void addEventListeners() {
-		this.orderView.customerList
-				.addListSelectionListener(new ListSelectionListener() {
+		this.orderView.customerList.addListSelectionListener(new ListSelectionListener() {
 					public void valueChanged(ListSelectionEvent e) {
 						handleCustomerSelection(e);
-					}
-				});
+					}});
+		this.orderView.dishSelectionList.addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent e) {
+				handleDishSelection(e);
+			}});
+		
 		OrderView.selectCustomerButton.addActionListener(this);
 		this.registerEventType(OrderView.selectCustomerButton, "selectCustomer");
 		
@@ -127,6 +132,12 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler
 		((DefaultListModel)OrderView.extrasSelectionList.getModel()).clear();
 		this.setCustomerSelectionAreaEnabled(true);
 		OrderView.orderCommentsTextArea.setText("");
+		OrderView.dishDescriptionTextArea.setText("");
+		OrderView.dishContainsGlutenText.setText("");
+		OrderView.dishContainsNutsText.setText("");
+		OrderView.dishContainsDairyText.setText("");
+		OrderView.dishIsVegetarianText.setText("");
+		OrderView.dishisSpicyText.setText("");
 	}
 
 	private void addDish(ActionEvent event) {
@@ -174,18 +185,37 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler
 	}
 	
 	private void handleDishSelection(ListSelectionEvent e) {
+		
 		if (e.getFirstIndex() == -1) {
+			
 			return;
 		}
-		Dish dish = this.orderGUI.currentDishList.get(e.getFirstIndex());
+		JList list = (JList)e.getSource();
+		Dish dish = this.orderGUI.currentDishList.get(list.getSelectedIndex());
 		this.setDishDetails(dish);
-		
 	}
 	
 	private void setDishDetails(Dish dish) 
 	{
-		
+		OrderView.dishDescriptionTextArea.setText(dish.description);
+		OrderView.dishContainsGlutenText.setText(this.convertBooleanToYesOrNoString(dish.containsGluten));
+		OrderView.dishContainsNutsText.setText(this.convertBooleanToYesOrNoString(dish.containsNuts));
+		OrderView.dishContainsDairyText.setText(this.convertBooleanToYesOrNoString(dish.containsDiary));
+		OrderView.dishIsVegetarianText.setText(this.convertBooleanToYesOrNoString(dish.isVegetarian));
+		OrderView.dishisSpicyText.setText(this.convertBooleanToYesOrNoString(dish.isSpicy));
 	}
+	
+	private String convertBooleanToYesOrNoString(boolean bool)
+	{
+		if(bool)
+		{
+			return "yes";
+		} else 
+		{
+			return "no";
+		}
+	}
+	
 
 	private void setCustomerSelectionAreaEnabled(boolean enabled) {
 		OrderView.selectCustomerButton.setEnabled(enabled);

@@ -206,7 +206,7 @@
               <SubComponents>
                 <Container class="javax.swing.JSplitPane" name="orderCreationUIVerticalSplitPane">
                   <Properties>
-                    <Property name="dividerLocation" type="int" value="200"/>
+                    <Property name="dividerLocation" type="int" value="300"/>
                     <Property name="orientation" type="int" value="0"/>
                     <Property name="name" type="java.lang.String" value="orderCreationUIVerticalSplitPane" noResource="true"/>
                   </Properties>
@@ -229,28 +229,29 @@
                               <Group type="102" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
+                                      <Component id="addDishButton" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="1" attributes="0">
                                           <Group type="103" groupAlignment="1" attributes="0">
+                                              <Component id="dishDescriptionArea" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="jScrollPane1" alignment="1" pref="344" max="32767" attributes="0"/>
                                               <Component id="dishSelectionSectionLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                                               <Group type="102" alignment="0" attributes="0">
                                                   <Component id="DishSearchTextBox" min="-2" pref="228" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
                                                   <Component id="dishSelectionSearchButton" min="-2" max="-2" attributes="0"/>
                                               </Group>
-                                              <Component id="jScrollPane1" alignment="1" pref="344" max="32767" attributes="0"/>
                                           </Group>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="extrasSelectionSectionLabel" min="-2" max="-2" attributes="0"/>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="extrasSearchTextField" min="-2" pref="229" max="-2" attributes="0"/>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="extrasSearchButton" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Component id="jScrollPane2" alignment="0" pref="315" max="32767" attributes="0"/>
-                                          </Group>
                                       </Group>
-                                      <Component id="addDishButton" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="extrasSelectionSectionLabel" min="-2" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="extrasSearchTextField" min="-2" pref="229" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="extrasSearchButton" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Component id="jScrollPane2" alignment="0" pref="315" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
@@ -264,21 +265,25 @@
                                       <Component id="dishSelectionSectionLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="extrasSelectionSectionLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="DishSearchTextBox" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="extrasSearchTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="dishSelectionSearchButton" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="extrasSearchButton" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jScrollPane2" pref="99" max="32767" attributes="0"/>
-                                      <Component id="jScrollPane1" alignment="0" pref="99" max="32767" attributes="0"/>
+                                      <Component id="jScrollPane2" pref="199" max="32767" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <Component id="jScrollPane1" pref="88" max="32767" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="dishDescriptionArea" min="-2" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" max="-2" attributes="0"/>
                                   <Component id="addDishButton" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -369,6 +374,176 @@
                             <Property name="name" type="java.lang.String" value="extrasSearchButton" noResource="true"/>
                           </Properties>
                         </Component>
+                        <Container class="javax.swing.JPanel" name="dishDescriptionArea">
+                          <Properties>
+                            <Property name="name" type="java.lang.String" value="dishDescriptionArea" noResource="true"/>
+                          </Properties>
+
+                          <Layout>
+                            <DimensionLayout dim="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="dishDescriptionLabel" min="-2" max="-2" attributes="0"/>
+                                          <Component id="dishDescriptionScrollPane" pref="215" max="32767" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="dishContainsGlutenLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="dishContainsNutsLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="dishContainsNutsText" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="dishContainsGlutenText" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="dishContainsDairyLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="dishIsVegetarianLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="dishIsSpicyLabel" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="dishisSpicyText" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="dishIsVegetarianText" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="dishContainsDairyText" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                      </Group>
+                                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                            </DimensionLayout>
+                            <DimensionLayout dim="1">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="dishDescriptionLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="dishContainsGlutenLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="dishContainsGlutenText" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Group type="102" attributes="0">
+                                              <Group type="103" groupAlignment="3" attributes="0">
+                                                  <Component id="dishContainsNutsLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="dishContainsNutsText" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="3" attributes="0">
+                                                  <Component id="dishContainsDairyLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="dishContainsDairyText" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="3" attributes="0">
+                                                  <Component id="dishIsVegetarianLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="dishIsVegetarianText" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="3" attributes="0">
+                                                  <Component id="dishIsSpicyLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="dishisSpicyText" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                          </Group>
+                                          <Component id="dishDescriptionScrollPane" pref="85" max="32767" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                            </DimensionLayout>
+                          </Layout>
+                          <SubComponents>
+                            <Component class="javax.swing.JLabel" name="dishDescriptionLabel">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" resourceKey="dishDescriptionLabel.text"/>
+                                <Property name="name" type="java.lang.String" value="dishDescriptionLabel" noResource="true"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="dishContainsGlutenLabel">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" resourceKey="dishContainsGlutenLabel.text"/>
+                                <Property name="name" type="java.lang.String" value="dishContainsGlutenLabel" noResource="true"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="dishContainsGlutenText">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" resourceKey="dishContainsGlutenText.text"/>
+                                <Property name="name" type="java.lang.String" value="dishContainsGlutenText" noResource="true"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="dishContainsNutsLabel">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" resourceKey="dishContainsNutsLabel.text"/>
+                                <Property name="name" type="java.lang.String" value="dishContainsNutsLabel" noResource="true"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="dishContainsNutsText">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" resourceKey="dishContainsNutsText.text"/>
+                                <Property name="name" type="java.lang.String" value="dishContainsNutsText" noResource="true"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="dishContainsDairyLabel">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" resourceKey="dishContainsDairyLabel.text"/>
+                                <Property name="name" type="java.lang.String" value="dishContainsDairyLabel" noResource="true"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="dishContainsDairyText">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" resourceKey="dishContainsDairyText.text"/>
+                                <Property name="name" type="java.lang.String" value="dishContainsDairyText" noResource="true"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="dishIsVegetarianLabel">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" resourceKey="dishIsVegetarianLabel.text"/>
+                                <Property name="name" type="java.lang.String" value="dishIsVegetarianLabel" noResource="true"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="dishIsSpicyLabel">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" resourceKey="dishIsSpicyLabel.text"/>
+                                <Property name="name" type="java.lang.String" value="dishIsSpicyLabel" noResource="true"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="dishIsVegetarianText">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" resourceKey="dishIsVegetarianText.text"/>
+                                <Property name="name" type="java.lang.String" value="dishIsVegetarianText" noResource="true"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="dishisSpicyText">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" resourceKey="dishisSpicyText.text"/>
+                                <Property name="name" type="java.lang.String" value="dishisSpicyText" noResource="true"/>
+                              </Properties>
+                            </Component>
+                            <Container class="javax.swing.JScrollPane" name="dishDescriptionScrollPane">
+                              <Properties>
+                                <Property name="name" type="java.lang.String" value="dishDescriptionScrollPane" noResource="true"/>
+                              </Properties>
+                              <AuxValues>
+                                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                              </AuxValues>
+
+                              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                              <SubComponents>
+                                <Component class="javax.swing.JTextArea" name="dishDescriptionTextArea">
+                                  <Properties>
+                                    <Property name="columns" type="int" value="20"/>
+                                    <Property name="rows" type="int" value="3"/>
+                                    <Property name="name" type="java.lang.String" value="dishDescriptionTextArea" noResource="true"/>
+                                  </Properties>
+                                </Component>
+                              </SubComponents>
+                            </Container>
+                          </SubComponents>
+                        </Container>
                       </SubComponents>
                     </Container>
                     <Container class="javax.swing.JPanel" name="orderOverviewUI">
@@ -417,7 +592,7 @@
                         <DimensionLayout dim="1">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="orderContentsTableScrollPane" pref="183" max="32767" attributes="0"/>
+                                  <Component id="orderContentsTableScrollPane" pref="83" max="32767" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="1" attributes="0">
                                       <Group type="103" alignment="1" groupAlignment="3" attributes="0">

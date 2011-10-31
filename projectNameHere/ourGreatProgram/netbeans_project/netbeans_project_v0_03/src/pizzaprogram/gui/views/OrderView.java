@@ -120,7 +120,7 @@ public class OrderView extends javax.swing.JPanel {
 
         orderCreationUI.setName("orderCreationUI"); // NOI18N
 
-        orderCreationUIVerticalSplitPane.setDividerLocation(200);
+        orderCreationUIVerticalSplitPane.setDividerLocation(300);
         orderCreationUIVerticalSplitPane.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
         orderCreationUIVerticalSplitPane.setName("orderCreationUIVerticalSplitPane"); // NOI18N
 
@@ -160,6 +160,107 @@ public class OrderView extends javax.swing.JPanel {
         extrasSearchButton.setText(resourceMap.getString("extrasSearchButton.text")); // NOI18N
         extrasSearchButton.setName("extrasSearchButton"); // NOI18N
 
+        dishDescriptionArea.setName("dishDescriptionArea"); // NOI18N
+
+        dishDescriptionLabel.setText(resourceMap.getString("dishDescriptionLabel.text")); // NOI18N
+        dishDescriptionLabel.setName("dishDescriptionLabel"); // NOI18N
+
+        dishContainsGlutenLabel.setText(resourceMap.getString("dishContainsGlutenLabel.text")); // NOI18N
+        dishContainsGlutenLabel.setName("dishContainsGlutenLabel"); // NOI18N
+
+        dishContainsGlutenText.setText(resourceMap.getString("dishContainsGlutenText.text")); // NOI18N
+        dishContainsGlutenText.setName("dishContainsGlutenText"); // NOI18N
+
+        dishContainsNutsLabel.setText(resourceMap.getString("dishContainsNutsLabel.text")); // NOI18N
+        dishContainsNutsLabel.setName("dishContainsNutsLabel"); // NOI18N
+
+        dishContainsNutsText.setText(resourceMap.getString("dishContainsNutsText.text")); // NOI18N
+        dishContainsNutsText.setName("dishContainsNutsText"); // NOI18N
+
+        dishContainsDairyLabel.setText(resourceMap.getString("dishContainsDairyLabel.text")); // NOI18N
+        dishContainsDairyLabel.setName("dishContainsDairyLabel"); // NOI18N
+
+        dishContainsDairyText.setText(resourceMap.getString("dishContainsDairyText.text")); // NOI18N
+        dishContainsDairyText.setName("dishContainsDairyText"); // NOI18N
+
+        dishIsVegetarianLabel.setText(resourceMap.getString("dishIsVegetarianLabel.text")); // NOI18N
+        dishIsVegetarianLabel.setName("dishIsVegetarianLabel"); // NOI18N
+
+        dishIsSpicyLabel.setText(resourceMap.getString("dishIsSpicyLabel.text")); // NOI18N
+        dishIsSpicyLabel.setName("dishIsSpicyLabel"); // NOI18N
+
+        dishIsVegetarianText.setText(resourceMap.getString("dishIsVegetarianText.text")); // NOI18N
+        dishIsVegetarianText.setName("dishIsVegetarianText"); // NOI18N
+
+        dishisSpicyText.setText(resourceMap.getString("dishisSpicyText.text")); // NOI18N
+        dishisSpicyText.setName("dishisSpicyText"); // NOI18N
+
+        dishDescriptionScrollPane.setName("dishDescriptionScrollPane"); // NOI18N
+
+        dishDescriptionTextArea.setColumns(20);
+        dishDescriptionTextArea.setRows(3);
+        dishDescriptionTextArea.setName("dishDescriptionTextArea"); // NOI18N
+        dishDescriptionScrollPane.setViewportView(dishDescriptionTextArea);
+
+        javax.swing.GroupLayout dishDescriptionAreaLayout = new javax.swing.GroupLayout(dishDescriptionArea);
+        dishDescriptionArea.setLayout(dishDescriptionAreaLayout);
+        dishDescriptionAreaLayout.setHorizontalGroup(
+            dishDescriptionAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dishDescriptionAreaLayout.createSequentialGroup()
+                .addGroup(dishDescriptionAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(dishDescriptionLabel)
+                    .addComponent(dishDescriptionScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(dishDescriptionAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(dishDescriptionAreaLayout.createSequentialGroup()
+                        .addGroup(dishDescriptionAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(dishContainsGlutenLabel)
+                            .addComponent(dishContainsNutsLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(dishDescriptionAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(dishContainsNutsText)
+                            .addComponent(dishContainsGlutenText)))
+                    .addGroup(dishDescriptionAreaLayout.createSequentialGroup()
+                        .addGroup(dishDescriptionAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(dishContainsDairyLabel)
+                            .addComponent(dishIsVegetarianLabel)
+                            .addComponent(dishIsSpicyLabel))
+                        .addGap(18, 18, 18)
+                        .addGroup(dishDescriptionAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(dishisSpicyText)
+                            .addComponent(dishIsVegetarianText)
+                            .addComponent(dishContainsDairyText))))
+                .addContainerGap())
+        );
+        dishDescriptionAreaLayout.setVerticalGroup(
+            dishDescriptionAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dishDescriptionAreaLayout.createSequentialGroup()
+                .addGroup(dishDescriptionAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(dishDescriptionLabel)
+                    .addComponent(dishContainsGlutenLabel)
+                    .addComponent(dishContainsGlutenText))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(dishDescriptionAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(dishDescriptionAreaLayout.createSequentialGroup()
+                        .addGroup(dishDescriptionAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(dishContainsNutsLabel)
+                            .addComponent(dishContainsNutsText))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(dishDescriptionAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(dishContainsDairyLabel)
+                            .addComponent(dishContainsDairyText))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(dishDescriptionAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(dishIsVegetarianLabel)
+                            .addComponent(dishIsVegetarianText))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(dishDescriptionAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(dishIsSpicyLabel)
+                            .addComponent(dishisSpicyText))
+                        .addContainerGap())
+                    .addComponent(dishDescriptionScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)))
+        );
+
         javax.swing.GroupLayout dishSelectionAreaLayout = new javax.swing.GroupLayout(dishSelectionArea);
         dishSelectionArea.setLayout(dishSelectionAreaLayout);
         dishSelectionAreaLayout.setHorizontalGroup(
@@ -167,23 +268,24 @@ public class OrderView extends javax.swing.JPanel {
             .addGroup(dishSelectionAreaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(dishSelectionAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(dishSelectionAreaLayout.createSequentialGroup()
+                    .addComponent(addDishButton)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dishSelectionAreaLayout.createSequentialGroup()
                         .addGroup(dishSelectionAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(dishDescriptionArea, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)
                             .addComponent(dishSelectionSectionLabel, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, dishSelectionAreaLayout.createSequentialGroup()
                                 .addComponent(DishSearchTextBox, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(dishSelectionSearchButton))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE))
+                                .addComponent(dishSelectionSearchButton)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGroup(dishSelectionAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(extrasSelectionSectionLabel)
+                    .addGroup(dishSelectionAreaLayout.createSequentialGroup()
+                        .addComponent(extrasSearchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(dishSelectionAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(extrasSelectionSectionLabel)
-                            .addGroup(dishSelectionAreaLayout.createSequentialGroup()
-                                .addComponent(extrasSearchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(extrasSearchButton))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)))
-                    .addComponent(addDishButton))
+                        .addComponent(extrasSearchButton))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE))
                 .addContainerGap())
         );
         dishSelectionAreaLayout.setVerticalGroup(
@@ -201,8 +303,11 @@ public class OrderView extends javax.swing.JPanel {
                     .addComponent(extrasSearchButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(dishSelectionAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
+                    .addGroup(dishSelectionAreaLayout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(dishDescriptionArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(addDishButton)
                 .addContainerGap())
@@ -277,7 +382,7 @@ public class OrderView extends javax.swing.JPanel {
         orderOverviewUILayout.setVerticalGroup(
             orderOverviewUILayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, orderOverviewUILayout.createSequentialGroup()
-                .addComponent(orderContentsTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
+                .addComponent(orderContentsTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(orderOverviewUILayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(orderOverviewUILayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -333,10 +438,24 @@ public class OrderView extends javax.swing.JPanel {
     public static final javax.swing.JPanel customerLookupUI = new javax.swing.JPanel();
     public static final javax.swing.JButton deleteSelectedOrderDishButton = new javax.swing.JButton();
     public static final javax.swing.JComboBox deliveryMethodComboBox = new javax.swing.JComboBox();
+    public static final javax.swing.JLabel dishContainsDairyLabel = new javax.swing.JLabel();
+    public static final javax.swing.JLabel dishContainsDairyText = new javax.swing.JLabel();
+    public static final javax.swing.JLabel dishContainsGlutenLabel = new javax.swing.JLabel();
+    public static final javax.swing.JLabel dishContainsGlutenText = new javax.swing.JLabel();
+    public static final javax.swing.JLabel dishContainsNutsLabel = new javax.swing.JLabel();
+    public static final javax.swing.JLabel dishContainsNutsText = new javax.swing.JLabel();
+    public static final javax.swing.JPanel dishDescriptionArea = new javax.swing.JPanel();
+    public static final javax.swing.JLabel dishDescriptionLabel = new javax.swing.JLabel();
+    public static final javax.swing.JScrollPane dishDescriptionScrollPane = new javax.swing.JScrollPane();
+    public static final javax.swing.JTextArea dishDescriptionTextArea = new javax.swing.JTextArea();
+    public static final javax.swing.JLabel dishIsSpicyLabel = new javax.swing.JLabel();
+    public static final javax.swing.JLabel dishIsVegetarianLabel = new javax.swing.JLabel();
+    public static final javax.swing.JLabel dishIsVegetarianText = new javax.swing.JLabel();
     public static final javax.swing.JPanel dishSelectionArea = new javax.swing.JPanel();
     public static final javax.swing.JList dishSelectionList = new javax.swing.JList();
     public static final javax.swing.JButton dishSelectionSearchButton = new javax.swing.JButton();
     public static final javax.swing.JLabel dishSelectionSectionLabel = new javax.swing.JLabel();
+    public static final javax.swing.JLabel dishisSpicyText = new javax.swing.JLabel();
     public static final javax.swing.JButton duplicateSelectedOrderDishButton = new javax.swing.JButton();
     public static final javax.swing.JButton extrasSearchButton = new javax.swing.JButton();
     public static final javax.swing.JTextField extrasSearchTextField = new javax.swing.JTextField();
