@@ -1,5 +1,8 @@
 package pizzaProgram.database.databaseUtils;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import pizzaProgram.dataObjects.Extra;
 import pizzaProgram.dataObjects.Order;
 import pizzaProgram.dataObjects.OrderDish;
@@ -8,29 +11,106 @@ import pizzaProgram.dataObjects.UnaddedOrder;
 import pizzaProgram.database.DatabaseConnection;
 
 public class DatabaseWriter {
+	public static void markOrderAsInProgress(Order order)
+	{
+		updateOrderStatusIfStatusMatchesCurrentStatus(order, Order.REGISTERED, Order.BEING_COOKED);
+	}
+	
+	public static void markOrderAsFinishedCooking(Order order)
+	{
+		updateOrderStatusIfStatusMatchesCurrentStatus(order, Order.BEING_COOKED, Order.HAS_BEEN_COOKED);
+	}
+	
 	public static void writeNewOrder(UnaddedOrder order)
 	{
-		
-		int commentID = -1;
-		if(order.comment != "")
+		try
 		{
-			commentID = createOrderComment(order.comment);
+			int commentID = -1;
+			if(order.comment != "")
+			{
+				commentID = createOrderComment(order.comment);
+			}
+			int orderID = createNewOrder(order, commentID);
+			if(orderID != -1)
+			{
+				addDishesToOrder(order, orderID);
+			}
+			DatabaseResultsFeedbackProvider.showAddNewOrderSuccessMessage();
 		}
-		int orderID = createNewOrder(order, commentID);
-		if(orderID != -1)
+		catch(SQLException e)
 		{
-			addDishesToOrder(order, orderID);
+			e.printStackTrace();
+			DatabaseResultsFeedbackProvider.showAddNewOrderFailedMessage();
 		}
 	}
+	
+	public static void writeNewCustomer(UnaddedCustomer customer) {
+		int commentID;
+		try {
+			commentID = createCustomerNote(customer.comment);
+			DatabaseConnection.insertIntoDB("INSERT INTO Customer VALUES (NULL, '"+customer.firstName+"', '"+customer.lastName+"', '"+customer.address+"', "+customer.postalCode+", '"+customer.city+"', "+customer.phoneNumber+", "+commentID+");");
+			DatabaseResultsFeedbackProvider.showAddNewCustomerSuccessMessage();
+		} catch (SQLException e) {
+			DatabaseResultsFeedbackProvider.showAddNewCustomerFailedMessage();
+			e.printStackTrace();
+		}
+	}
+	
+	private static void updateOrderStatusIfStatusMatchesCurrentStatus(Order order, String currentStatus, String newStatus)
+	{
+		try {
+			lockTablesForUpdatingOrderStatus();
+			String currentOrderStatus = getCurrentStatusOfOrder(order.orderID);
+			if(currentOrderStatus.equals(currentStatus))
+			{
+				updateOrderStatus(newStatus, order.orderID);
+				unlockTables();
+			} else {
+				unlockTables();
+				DatabaseResultsFeedbackProvider.showUpdateOrderStatusFailedMessage();
+			}
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		} finally
+		{
+			unlockTables();
+		}
+	}
+	
+	private static String getCurrentStatusOfOrder(int orderID) throws SQLException
+	{
+		String query = "SELECT OrdersStatus FROM Orders AS OrdersRead WHERE OrdersID="+orderID+";";
+		ResultSet results = DatabaseConnection.fetchData(query);
+		results.next();
+		String currentStatus = results.getString(1);
+		return currentStatus;
+	}
 
-	private static void addDishesToOrder(UnaddedOrder order, int orderID) {
+	private static void updateOrderStatus(String status, int orderID)
+	{
+		System.out.println("updating order status");
+		DatabaseConnection.insertIntoDB("UPDATE Orders SET OrdersStatus='"+status+"' WHERE OrdersID="+orderID+";");
+	}
+	
+	private static void lockTablesForUpdatingOrderStatus() throws SQLException
+	{
+		DatabaseConnection.executeWriteQuery("LOCK TABLES Orders WRITE, Orders AS OrdersRead READ;");
+	}
+	
+	private static void unlockTables()
+	{
+		DatabaseConnection.insertIntoDB("UNLOCK TABLES;");
+	}
+
+	private static void addDishesToOrder(UnaddedOrder order, int orderID) throws SQLException {
 		for(OrderDish dish : order.orderedDishes)
 		{
 			addDishToOrder(dish, orderID);
 		}
 	}
 
-	private static void addDishToOrder(OrderDish dish, int orderID) {
+	private static void addDishToOrder(OrderDish dish, int orderID) throws SQLException {
 		int orderContentsID = DatabaseConnection.insertIntoDBAndReturnID("INSERT INTO OrdersContents VALUES (NULL, "+orderID+", "+dish.dish.dishID+");");
 		if(orderContentsID == -1)
 		{
@@ -46,22 +126,17 @@ public class DatabaseWriter {
 		DatabaseConnection.insertIntoDB("INSERT INTO DishExtrasChosen VALUES ("+orderContentsID+", "+extra.id+")");
 	}
 
-	private static int createOrderComment(String comment) {
+	private static int createOrderComment(String comment) throws SQLException {
 		int commentID = DatabaseConnection.insertIntoDBAndReturnID("INSERT INTO OrderComments VALUES (NULL, '"+comment+"');");
 		return commentID;
 	}
 
-	private static int createNewOrder(UnaddedOrder order, int commentID) {
+	private static int createNewOrder(UnaddedOrder order, int commentID) throws SQLException {
 		int orderID = DatabaseConnection.insertIntoDBAndReturnID("INSERT INTO Orders VALUES (NULL, "+order.customer.customerID+", NOW(), '"+Order.REGISTERED+"', '"+order.deliveryMethod+"', "+commentID+");");
 		return orderID;
 	}
-
-	public static void writeNewCustomer(UnaddedCustomer customer) {
-		int commentID = createCustomerNote(customer.comment);
-		DatabaseConnection.insertIntoDB("INSERT INTO Customer VALUES (NULL, '"+customer.firstName+"', '"+customer.lastName+"', '"+customer.address+"', "+customer.postalCode+", '"+customer.city+"', "+customer.phoneNumber+", "+commentID+");");
-	}
 	
-	private static int createCustomerNote(String comment) {
+	private static int createCustomerNote(String comment) throws SQLException {
 		int commentID = DatabaseConnection.insertIntoDBAndReturnID("INSERT INTO OrderComments VALUES (NULL, '"+comment+"');");
 		return commentID;
 	}

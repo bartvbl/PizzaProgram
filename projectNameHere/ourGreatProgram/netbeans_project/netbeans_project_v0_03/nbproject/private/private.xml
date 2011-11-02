@@ -1,19 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/1"/>
-    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/1">
-        <file>file:/C:/Users/Bart/git/PizzaProgram4/projectNameHere/ourGreatProgram/netbeans_project/netbeans_project_v0_03/src/pizzaprogram/events/moduleEventHandlers/OrderGUI_SystemEventHandler.java</file>
-        <file>file:/C:/Users/Bart/git/PizzaProgram4/projectNameHere/ourGreatProgram/netbeans_project/netbeans_project_v0_03/src/pizzaprogram/events/moduleEventHandlers/OrderGUI_OrderViewEventHandler.java</file>
-        <file>file:/C:/Users/Bart/git/PizzaProgram4/projectNameHere/ourGreatProgram/netbeans_project/netbeans_project_v0_03/src/pizzaprogram/gui/MenuBarEventHandler.java</file>
-        <file>file:/C:/Users/Bart/git/PizzaProgram4/projectNameHere/ourGreatProgram/netbeans_project/netbeans_project_v0_03/src/pizzaprogram/events/moduleEventHandlers/ComponentEventHandler.java</file>
-        <file>file:/C:/Users/Bart/git/PizzaProgram4/projectNameHere/ourGreatProgram/netbeans_project/netbeans_project_v0_03/src/pizzaprogram/gui/OrderGUI.java</file>
-        <file>file:/C:/Users/Bart/git/PizzaProgram4/projectNameHere/ourGreatProgram/netbeans_project/netbeans_project_v0_03/src/pizzaprogram/events/EventType.java</file>
-        <file>file:/C:/Users/Bart/git/PizzaProgram4/projectNameHere/ourGreatProgram/netbeans_project/netbeans_project_v0_03/src/pizzaprogram/core/Main.java</file>
-        <file>file:/C:/Users/Bart/git/PizzaProgram4/projectNameHere/ourGreatProgram/netbeans_project/netbeans_project_v0_03/src/pizzaprogram/database/DatabaseModule.java</file>
-        <file>file:/C:/Users/Bart/git/PizzaProgram4/projectNameHere/ourGreatProgram/netbeans_project/netbeans_project_v0_03/src/pizzaprogram/events/moduleEventHandlers/Database_SystemEventHandler.java</file>
-        <file>file:/C:/Users/Bart/git/PizzaProgram4/projectNameHere/ourGreatProgram/netbeans_project/netbeans_project_v0_03/src/pizzaprogram/modules/Module.java</file>
-        <file>file:/C:/Users/Bart/git/PizzaProgram4/projectNameHere/ourGreatProgram/netbeans_project/netbeans_project_v0_03/src/pizzaprogram/events/EventDispatcher.java</file>
-        <file>file:/C:/Users/Bart/git/PizzaProgram4/projectNameHere/ourGreatProgram/netbeans_project/netbeans_project_v0_03/src/pizzaprogram/database/DatabaseConnection.java</file>
-        <file>file:/C:/Users/Bart/git/PizzaProgram4/projectNameHere/ourGreatProgram/netbeans_project/netbeans_project_v0_03/src/pizzaprogram/database/CustomerList.java</file>
-    </open-files>
 </project-private>

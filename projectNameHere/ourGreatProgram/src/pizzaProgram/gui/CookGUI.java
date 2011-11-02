@@ -1,6 +1,7 @@
 package pizzaProgram.gui;
 
 import pizzaProgram.gui.views.CookView;
+import pizzaProgram.gui.views.OrderView;
 
 import java.awt.Color;
 import java.awt.GridBagConstraints;
@@ -10,11 +11,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
 import pizzaProgram.dataObjects.Dish;
@@ -26,6 +29,8 @@ import pizzaProgram.events.Event;
 import pizzaProgram.events.EventDispatcher;
 import pizzaProgram.events.EventHandler;
 import pizzaProgram.events.EventType;
+import pizzaProgram.events.moduleEventHandlers.CookGUI_CookViewEventHandler;
+import pizzaProgram.events.moduleEventHandlers.CookGUI_SystemEventHandler;
 import pizzaProgram.modules.GUIModule;
 
 public class CookGUI extends GUIModule implements EventHandler{
@@ -35,7 +40,7 @@ public class CookGUI extends GUIModule implements EventHandler{
 	
 	private List orderList;
 	private HashMap<String, Order> orderMap = new HashMap<String, Order>();
-	private List currentOrderList;
+	//private List currentOrderList;
 	private TextArea commentArea;
 	private TextArea descriptionArea;
 	
@@ -45,33 +50,54 @@ public class CookGUI extends GUIModule implements EventHandler{
 	private JButton beingMadeButton;
 	private JButton finishedButton;
 	
+	private CookGUI_CookViewEventHandler cookViewEventHandler;
+	private CookGUI_SystemEventHandler systemEventhandler;
+	
+	public ArrayList<Order> currentOrderList;
+	public Order currentSelectedOrder;
+	
 	public CookGUI(ProgramWindow mainWindow, EventDispatcher eventDispatcher) {
 		super(eventDispatcher);
 		eventDispatcher.addEventListener(this, EventType.COOK_GUI_REQUESTED);
 		eventDispatcher.addEventListener(this, EventType.ORDER_GUI_REQUESTED);
 		eventDispatcher.addEventListener(this, EventType.DELIVERY_GUI_REQUESTED);
-                this.cookView = new CookView();
-                mainWindow.addJPanel(this.cookView);
-                this.programWindow = mainWindow;
-                this.hide();
+        this.cookView = new CookView();
+        mainWindow.addJPanel(this.cookView);
+        this.programWindow = mainWindow;
+        this.hide();
+        this.cookViewEventHandler = new CookGUI_CookViewEventHandler(this);
+        this.systemEventhandler = new CookGUI_SystemEventHandler(eventDispatcher, this);
+        this.setupComponents();
 	}
 	
+	private void setupComponents() {
+		DefaultTableModel tableModel = (DefaultTableModel) CookView.orderDetailsTable.getModel();
+		tableModel.addColumn("Order ID");
+		tableModel.addColumn("Status");
+		tableModel.addColumn("Time registered");
+		tableModel = (DefaultTableModel) CookView.currentOrderTable.getModel();
+		tableModel.addColumn("Dish");
+		tableModel.addColumn("Extras");
+		CookView.orderDetailsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		CookView.currentOrderTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+	}
+
 	@Override
 	public void initialize() {
 		
 		orderList = new List();
 		orderList.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent evt) {
-				currentOrderList.removeAll();
+//				currentOrderList.removeAll();
 				descriptionArea.setText("");
 				DefaultTableModel model = new DefaultTableModel();
 				for(OrderDish d : orderMap.get(orderList.getSelectedItem()).getOrderedDishes()){
 					model.addRow(new Object[]{d.dish.dishID, d.dish.name, ""});
-					currentOrderList.add(d.dish.name);
+//					currentOrderList.add(d.dish.name);
 					dishMap.put(d.dish.name, d.dish);
 					for(Extra e : d.getExtras()){
 						String str = "   - " + e.name;
-						currentOrderList.add(str);
+//						currentOrderList.add(str);
 						dishMap.put(str, d.dish);
 					}
 					
@@ -79,16 +105,16 @@ public class CookGUI extends GUIModule implements EventHandler{
 				}
 			}
 		});
-		this.jFrame.add(orderList, createConstrints(2, 0, 20, 6, 0.4, 1.0, GridBagConstraints.BOTH));
+//		this.jFrame.add(orderList, createConstrints(2, 0, 20, 6, 0.4, 1.0, GridBagConstraints.BOTH));
 		
-		currentOrderList = new List();
-		currentOrderList.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent e) {
-				Dish diplayDish = dishMap.get(currentOrderList.getSelectedItem());
-				descriptionArea.setText("Pizza nr: " + diplayDish.dishID + "\n" + diplayDish.name + "\n\n" + diplayDish.description);
-			}
-		});
-		this.jFrame.add(currentOrderList, createConstrints(22, 0, 23, 3, 0.6, 0.5, GridBagConstraints.BOTH));
+//		currentOrderList = new List();
+//		currentOrderList.addItemListener(new ItemListener() {
+//			public void itemStateChanged(ItemEvent e) {
+//				Dish diplayDish = dishMap.get(currentOrderList.getSelectedItem());
+//				descriptionArea.setText("Pizza nr: " + diplayDish.dishID + "\n" + diplayDish.name + "\n\n" + diplayDish.description);
+//			}
+//		});
+//		this.jFrame.add(currentOrderList, createConstrints(22, 0, 23, 3, 0.6, 0.5, GridBagConstraints.BOTH));
 		
 		commentArea = new TextArea("", 3, 10, TextArea.SCROLLBARS_NONE);
 		commentArea.setEditable(false);
@@ -138,6 +164,7 @@ public class CookGUI extends GUIModule implements EventHandler{
 	public void handleEvent(Event<?> event){
             if(event.eventType.equals(EventType.COOK_GUI_REQUESTED)){
 			show();
+			this.dispatchEvent(new Event<Object>(EventType.DATABASE_UPDATE_COOK_GUI_SEND_ALL_ORDERS));
 		}
 	}
 	
@@ -145,7 +172,7 @@ public class CookGUI extends GUIModule implements EventHandler{
 		OrderList.updateOrders();
 		orderMap.clear();
 		orderList.removeAll();
-		currentOrderList.removeAll();
+//		currentOrderList.removeAll();
 		descriptionArea.setText("");
 		commentArea.setText("");
 		

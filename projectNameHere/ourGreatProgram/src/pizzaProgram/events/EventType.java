@@ -65,5 +65,15 @@ public class EventType {
 
 	public static final String DATABASE_UPDATE_ORDER_GUI_SEARCH_CUSTOMERS_BY_KEYWORDS = "databaseUpdateOrderGUISearchCustomersByKeywords";
 
+	public static final String DATABASE_UPDATE_COOK_GUI_SEND_ALL_ORDERS = "databaseUpdateCookGUISendAllOrders";
+
+	public static final String COOK_GUI_UPDATE_ORDER_LIST = "cookGUIUpdateOrderList";
+
+	public static final String DATABASE_MARK_ORDER_FINISHED_COOKING = "databaseMarkOrderFinishedCooking";
+
+	public static final String DATABASE_MARK_ORDER_IN_PROGRESS = "databaseMarkOrderInProgress";
+
+	public static final String DATABASE_UPDATE_COOK_GUI_SEARCH_ORDERS_BY_KEYWORDS = "databaseUpdateCookGUISearchOrdersByKeywords";
+
 	
 }

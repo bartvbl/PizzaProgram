@@ -1,6 +1,7 @@
 package pizzaProgram.events.moduleEventHandlers;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
 
 import pizzaProgram.dataObjects.Customer;
 import pizzaProgram.dataObjects.Dish;
@@ -29,6 +30,7 @@ public class OrderGUI_TemporaryOrderDataStorage {
 			System.out.println("adding dish to new order");
 			order.addOrderDish(dish);
 		}
+		
 		this.reset();
 		return order;
 	}

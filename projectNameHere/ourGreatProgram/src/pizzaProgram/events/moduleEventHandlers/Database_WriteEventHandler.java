@@ -1,9 +1,11 @@
 package pizzaProgram.events.moduleEventHandlers;
 
+import pizzaProgram.dataObjects.Order;
 import pizzaProgram.dataObjects.UnaddedCustomer;
 import pizzaProgram.dataObjects.UnaddedOrder;
 import pizzaProgram.database.DatabaseConnection;
 import pizzaProgram.database.DatabaseModule;
+import pizzaProgram.database.databaseUtils.DatabaseResultsFeedbackProvider;
 import pizzaProgram.database.databaseUtils.DatabaseWriter;
 import pizzaProgram.events.Event;
 import pizzaProgram.events.EventDispatcher;
@@ -26,6 +28,8 @@ public class Database_WriteEventHandler implements EventHandler {
 	private void addListeners() {
 		this.eventDispatcher.addEventListener(this, EventType.DATABASE_ADD_NEW_ORDER);
 		this.eventDispatcher.addEventListener(this, EventType.DATABASE_ADD_NEW_CUSTOMER);
+		this.eventDispatcher.addEventListener(this, EventType.DATABASE_MARK_ORDER_IN_PROGRESS);
+		this.eventDispatcher.addEventListener(this, EventType.DATABASE_MARK_ORDER_FINISHED_COOKING);
 	}
 
 	public void handleEvent(Event<?> event) {
@@ -35,13 +39,38 @@ public class Database_WriteEventHandler implements EventHandler {
 		} else if(event.eventType.equals(EventType.DATABASE_ADD_NEW_CUSTOMER))
 		{
 			this.addNewCustomer(event);
+		} else if(event.eventType.equals(EventType.DATABASE_MARK_ORDER_FINISHED_COOKING))
+		{
+			this.markOrderFinishedCooking(event);
+		} else if(event.eventType.equals(EventType.DATABASE_MARK_ORDER_IN_PROGRESS))
+		{
+			this.markOrderInProgress(event);
 		} 
+	}
+
+	private void markOrderFinishedCooking(Event<?> event) {
+		if(!(event.getEventParameterObject() instanceof Order))
+		{
+			DatabaseResultsFeedbackProvider.showUpdateOrderStatusFailedMessage();
+			return;
+		}
+		System.out.println("starting order update");
+		DatabaseWriter.markOrderAsFinishedCooking((Order)event.getEventParameterObject());
+	}
+
+	private void markOrderInProgress(Event<?> event) {
+		if(!(event.getEventParameterObject() instanceof Order))
+		{
+			DatabaseResultsFeedbackProvider.showUpdateOrderStatusFailedMessage();
+			return;
+		}
+		DatabaseWriter.markOrderAsInProgress((Order)event.getEventParameterObject());
 	}
 
 	private void addNewCustomer(Event<?> event) {
 		if(!(event.getEventParameterObject() instanceof UnaddedCustomer))
 		{
-			System.out.println("The database received an event that did not contain an UnaddedCustomer instance when trying to add a new customer!");
+			DatabaseResultsFeedbackProvider.showAddNewCustomerFailedMessage();
 			return;
 		}
 		DatabaseWriter.writeNewCustomer((UnaddedCustomer)event.getEventParameterObject());
@@ -52,7 +81,7 @@ public class Database_WriteEventHandler implements EventHandler {
 	{
 		if(!(event.getEventParameterObject() instanceof UnaddedOrder))
 		{
-			System.out.println("To add an order, please attach an instance of UnaddedOrder. ");
+			DatabaseResultsFeedbackProvider.showAddNewOrderFailedMessage();
 			return;
 		}
 		DatabaseWriter.writeNewOrder((UnaddedOrder)event.getEventParameterObject());

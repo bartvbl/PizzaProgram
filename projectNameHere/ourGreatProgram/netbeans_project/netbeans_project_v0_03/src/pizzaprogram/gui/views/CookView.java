@@ -50,6 +50,7 @@ public class CookView extends javax.swing.JPanel {
 
         currentOrderTableScrollPane.setName("currentOrderTableScrollPane"); // NOI18N
 
+        currentOrderTable.setAutoCreateRowSorter(true);
         currentOrderTable.setModel(new DefaultTableModel());
         currentOrderTable.setName("currentOrderTable"); // NOI18N
         currentOrderTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -72,11 +73,11 @@ public class CookView extends javax.swing.JPanel {
         orderCommentsLabel.setText(resourceMap.getString("orderCommentsLabel.text")); // NOI18N
         orderCommentsLabel.setName("orderCommentsLabel"); // NOI18N
 
-        confirmOrderButton.setText(resourceMap.getString("confirmOrderButton.text")); // NOI18N
-        confirmOrderButton.setName("confirmOrderButton"); // NOI18N
+        markOrderCompletedButton.setText(resourceMap.getString("markOrderCompletedButton.text")); // NOI18N
+        markOrderCompletedButton.setName("markOrderCompletedButton"); // NOI18N
 
-        jButton1.setText(resourceMap.getString("jButton1.text")); // NOI18N
-        jButton1.setName("jButton1"); // NOI18N
+        markOrderInProgressButton.setText(resourceMap.getString("markOrderInProgressButton.text")); // NOI18N
+        markOrderInProgressButton.setName("markOrderInProgressButton"); // NOI18N
 
         javax.swing.GroupLayout generalOrderPropertiesPaneLayout = new javax.swing.GroupLayout(generalOrderPropertiesPane);
         generalOrderPropertiesPane.setLayout(generalOrderPropertiesPaneLayout);
@@ -88,9 +89,9 @@ public class CookView extends javax.swing.JPanel {
                     .addComponent(orderCommentsFieldScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE)
                     .addComponent(orderCommentsLabel)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, generalOrderPropertiesPaneLayout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(markOrderInProgressButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(confirmOrderButton)))
+                        .addComponent(markOrderCompletedButton)))
                 .addContainerGap())
         );
         generalOrderPropertiesPaneLayout.setVerticalGroup(
@@ -102,8 +103,8 @@ public class CookView extends javax.swing.JPanel {
                 .addComponent(orderCommentsFieldScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(generalOrderPropertiesPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(confirmOrderButton)
-                    .addComponent(jButton1))
+                    .addComponent(markOrderCompletedButton)
+                    .addComponent(markOrderInProgressButton))
                 .addContainerGap())
         );
 
@@ -118,6 +119,7 @@ public class CookView extends javax.swing.JPanel {
 
         ordersTableScrollPane.setName("ordersTableScrollPane"); // NOI18N
 
+        orderDetailsTable.setAutoCreateRowSorter(true);
         orderDetailsTable.setModel(new DefaultTableModel());
         orderDetailsTable.setName("orderDetailsTable"); // NOI18N
         orderDetailsTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -153,7 +155,6 @@ public class CookView extends javax.swing.JPanel {
         add(mainSplitPane, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public static final javax.swing.JButton confirmOrderButton = new javax.swing.JButton();
     public static final javax.swing.JTable currentOrderTable = new javax.swing.JTable(){
         public boolean isCellEditable(int rowIndex, int colIndex) {
             return false; //Disallow the editing of any cell
@@ -161,8 +162,9 @@ public class CookView extends javax.swing.JPanel {
     };
     public static final javax.swing.JScrollPane currentOrderTableScrollPane = new javax.swing.JScrollPane();
     public static final javax.swing.JPanel generalOrderPropertiesPane = new javax.swing.JPanel();
-    public static final javax.swing.JButton jButton1 = new javax.swing.JButton();
     public static final javax.swing.JSplitPane mainSplitPane = new javax.swing.JSplitPane();
+    public static final javax.swing.JButton markOrderCompletedButton = new javax.swing.JButton();
+    public static final javax.swing.JButton markOrderInProgressButton = new javax.swing.JButton();
     public static final javax.swing.JScrollPane orderCommentsFieldScrollPane = new javax.swing.JScrollPane();
     public static final javax.swing.JLabel orderCommentsLabel = new javax.swing.JLabel();
     public static final javax.swing.JTextArea orderCommentsTextArea = new javax.swing.JTextArea();

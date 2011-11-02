@@ -148,29 +148,26 @@ public class DatabaseConnection implements EventHandler {
 		}
 	}
 	
-	public static int insertIntoDBAndReturnID(String query)
+	public static boolean executeWriteQuery(String query) throws SQLException {
+			return connection.createStatement().execute(query);
+	}
+	
+	public static int insertIntoDBAndReturnID(String query) throws SQLException
 	{
-		try {
-			PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-			int numberOfRowsAffected = statement.executeUpdate();
-			if(numberOfRowsAffected == 0)
-			{
-				System.err.println("Query Failed (0 rows affected) ");
-			}
-			ResultSet generatedKey = statement.getGeneratedKeys();
-			int id = -1;
-			generatedKey.next();
-			id = generatedKey.getInt(1);
-			return id;
-		} catch (SQLException e) {
-			System.err.println("Query Failed: " + e.getMessage());
-			e.printStackTrace();
+		PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+		int numberOfRowsAffected = statement.executeUpdate();
+		if(numberOfRowsAffected == 0)
+		{
+			System.err.println("Query Failed (0 rows affected) ");
 		}
-		
-		return -1;
+		ResultSet generatedKey = statement.getGeneratedKeys();
+		int id = -1;
+		generatedKey.next();
+		id = generatedKey.getInt(1);
+		return id;
 	}
 
-	public void handleEvent(Event event) {
+	public void handleEvent(Event<?> event) {
 
 		queryHandler.handleEvent(event);
 	}

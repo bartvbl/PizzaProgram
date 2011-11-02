@@ -7,6 +7,8 @@ package pizzaProgram.events.moduleEventHandlers;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
@@ -53,6 +55,18 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler
 			public void valueChanged(ListSelectionEvent e) {
 				handleDishSelection(e);
 			}});
+		OrderView.searchCustomerTextArea.addKeyListener(new KeyListener(){
+			public void keyPressed(KeyEvent arg0) {}
+			public void keyReleased(KeyEvent arg0) {
+				if(OrderView.searchCustomerTextArea.getText().equals(""))
+				{
+					showAllCustomers();
+				} else {
+					
+				}
+			}
+			public void keyTyped(KeyEvent arg0) {}
+		});
 		
 		OrderView.selectCustomerButton.addActionListener(this);
 		this.registerEventType(OrderView.selectCustomerButton, "selectCustomer");
@@ -100,6 +114,11 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler
 		} else if (this.getEventNameByComponent((Component) event.getSource()).equals("searchCustomers")) {
 			this.searchCustomers(event);
 		}
+	}
+	
+	private void showAllCustomers()
+	{
+		this.dispatchEvent(new Event<Object>(EventType.DATABASE_UPDATE_ORDER_GUI_SEND_ALL_CUSTOMERS));
 	}
 	
 	private void searchCustomers(ActionEvent event) {
@@ -191,7 +210,6 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler
 	}
 
 	private void selectCustomer(ActionEvent event) {
-		System.out.println("selecting customer");
 		this.setCustomerSelectionAreaEnabled(false);
 		this.dispatchEvent(new Event<Object>(EventType.DATABASE_UPDATE_ORDER_GUI_DISH_LIST));
 		this.dispatchEvent(new Event<Integer>(EventType.DATABASE_UPDATE_ORDER_GUI_EXTRAS_LIST_BY_DISH_ID));
@@ -216,8 +234,13 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler
 			return;
 		}
 		JList list = (JList)e.getSource();
-		Dish dish = this.orderGUI.currentDishList.get(list.getSelectedIndex());
-		this.setDishDetails(dish);
+		int index = list.getSelectedIndex();
+		if(index != -1)
+		{
+			Dish dish = this.orderGUI.currentDishList.get(index);
+			this.setDishDetails(dish);
+		}
+		
 	}
 	
 	private void setDishDetails(Dish dish) 
