@@ -75,5 +75,9 @@ public class EventType {
 
 	public static final String DATABASE_UPDATE_COOK_GUI_SEARCH_ORDERS_BY_KEYWORDS = "databaseUpdateCookGUISearchOrdersByKeywords";
 
+	public static final String DATABASE_UPDATE_DELIVERY_GUI_SEND_ALL_ORDERS = "databaseUpdateDeliveryGUISendAllOrders";
+
+	public static final String DELIVERY_GUI_UPDATE_ORDER_LIST = "deliveryGUIUpdateOrderList";
+
 	
 }

@@ -27,6 +27,8 @@ import pizzaProgram.events.Event;
 import pizzaProgram.events.EventDispatcher;
 import pizzaProgram.events.EventHandler;
 import pizzaProgram.events.EventType;
+import pizzaProgram.events.moduleEventHandlers.DeliveryGUI_DeliveryViewEventHandler;
+import pizzaProgram.events.moduleEventHandlers.DeliveryGUI_SystemEventHandler;
 import pizzaProgram.gui.views.DeliveryView;
 import pizzaProgram.modules.GUIModule;
 
@@ -45,6 +47,10 @@ public class DeliverGUI extends GUIModule implements EventHandler {
 	JButton onRoute;
 	JButton delivered;
 	JButton receipt;
+	
+	private DeliveryGUI_DeliveryViewEventHandler deliveryViewEventHandler;
+	private DeliveryGUI_SystemEventHandler systemEventHandler;
+	public ArrayList<Order> currentOrderList;
 
 	public DeliverGUI(ProgramWindow mainWindow, EventDispatcher eventDispatcher) {
 		super(eventDispatcher);
@@ -58,6 +64,8 @@ public class DeliverGUI extends GUIModule implements EventHandler {
 		this.programWindow = mainWindow;
 		hide();
 		this.setupComponents();
+		this.deliveryViewEventHandler = new DeliveryGUI_DeliveryViewEventHandler(this);
+		this.systemEventHandler = new DeliveryGUI_SystemEventHandler(eventDispatcher, this);
 	}
 	
 	private void setupComponents()
@@ -66,6 +74,11 @@ public class DeliverGUI extends GUIModule implements EventHandler {
 		tableModel.addColumn("ID");
 		tableModel.addColumn("Status");
 		tableModel.addColumn("Time Registered");
+		tableModel.addColumn("Delivery method");
+		tableModel = (DefaultTableModel)DeliveryView.orderContentsTable.getModel();
+		tableModel.addColumn("Dish");
+		tableModel.addColumn("Extras");
+		tableModel.addColumn("Total dish price");
 	}
 	
 	public String addSpace(String name) {
@@ -281,7 +294,7 @@ public class DeliverGUI extends GUIModule implements EventHandler {
 	@Override
 	public void show() {
 		this.programWindow.showPanel(this.deliverView);
-
+		this.dispatchEvent(new Event<Object>(EventType.DATABASE_UPDATE_DELIVERY_GUI_SEND_ALL_ORDERS));
 	}
 
 	/**

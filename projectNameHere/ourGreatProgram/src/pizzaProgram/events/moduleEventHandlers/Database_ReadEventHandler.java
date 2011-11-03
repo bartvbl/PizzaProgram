@@ -36,6 +36,7 @@ public class Database_ReadEventHandler implements EventHandler {
 		this.eventDispatcher.addEventListener(this, EventType.DATABASE_UPDATE_ORDER_GUI_EXTRAS_LIST_BY_DISH_ID);
 		this.eventDispatcher.addEventListener(this, EventType.DATABASE_UPDATE_COOK_GUI_SEND_ALL_ORDERS);
 		this.eventDispatcher.addEventListener(this, EventType.DATABASE_UPDATE_COOK_GUI_SEARCH_ORDERS_BY_KEYWORDS);
+		this.eventDispatcher.addEventListener(this, EventType.DATABASE_UPDATE_DELIVERY_GUI_SEND_ALL_ORDERS);
 	}
 
 	@Override
@@ -58,9 +59,17 @@ public class Database_ReadEventHandler implements EventHandler {
 		} else if(event.eventType.equals(EventType.DATABASE_UPDATE_COOK_GUI_SEARCH_ORDERS_BY_KEYWORDS))
 		{
 			this.searchOrders(event);
+		} else if(event.eventType.equals(EventType.DATABASE_UPDATE_DELIVERY_GUI_SEND_ALL_ORDERS))
+		{
+			this.sendListOfActiveOrdersToDeliveryGUI(event);
 		}  
 	}
 
+
+	private void sendListOfActiveOrdersToDeliveryGUI(Event<?> event) {
+		ArrayList<Order> orderList = DatabaseReader.getAllUndeliveredOrders();
+		this.eventDispatcher.dispatchEvent(new Event<ArrayList<Order>>(EventType.DELIVERY_GUI_UPDATE_ORDER_LIST, orderList));
+	}
 
 	private void searchOrders(Event<?> event) {
 		if(!(event.getEventParameterObject() instanceof String))

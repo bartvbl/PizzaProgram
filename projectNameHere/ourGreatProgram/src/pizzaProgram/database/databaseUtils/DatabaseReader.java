@@ -130,8 +130,6 @@ public class DatabaseReader {
 		return extrasList;
 	}
 
-	
-	
 	private static ArrayList<Order> generateOrderListFromResultSet(ResultSet result) throws SQLException
 	{
 		System.out.println("generating order list");
@@ -214,6 +212,18 @@ public class DatabaseReader {
 		"LEFT JOIN Extras ON ( Extras.ExtrasID = DishExtrasChosen.DishExtraID ) " +
 		"WHERE (" + whereClause + ") "+extraOptions+" ;"; 
 		return query;
+	}
+	
+	public static ArrayList<Order> getAllUndeliveredOrders() {
+		ResultSet result = DatabaseConnection.fetchData(getOrderSelectionQuery("Orders.OrdersStatus = '"+Order.HAS_BEEN_COOKED+"' OR Orders.OrdersStatus = '"+Order.BEING_DELIVERED+"'", ""));
+		ArrayList<Order> orderList = new ArrayList<Order>();
+		try {
+			orderList = generateOrderListFromResultSet(result);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			DatabaseResultsFeedbackProvider.showGetAllUndeliveredOrdersFailedMessage();
+		}
+		return orderList;
 	}
 	
 	private static Customer createCustomer(ResultSet resultSet, int customerTableColumnOffset, int customerNotesTableColumnOffset) throws SQLException
