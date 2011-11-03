@@ -56,6 +56,8 @@ public class CookGUI_CookViewEventHandler extends ComponentEventHandler implemen
 				if(CookView.orderSearchTextPane.getText().equals(""))
 				{
 					showAllOrders();
+				} else {
+					searchOrdersBySearchBoxQuery();
 				}
 			}
 		});
@@ -67,13 +69,8 @@ public class CookGUI_CookViewEventHandler extends ComponentEventHandler implemen
 		} else if (this.getEventNameByComponent((Component) event.getSource()).equals("markOrderCompleted")) {
 			this.markOrderCompleted(event);
 		} else if (this.getEventNameByComponent((Component) event.getSource()).equals("searchOrders")) {
-			this.searchOrders(event);
+			this.searchOrdersBySearchBoxQuery();
 		}
-	}
-	
-	private void searchOrders(ActionEvent event) {
-		this.searchOrdersBySearchBoxQuery();
-		
 	}
 	
 	private void showAllOrders()
@@ -112,6 +109,7 @@ public class CookGUI_CookViewEventHandler extends ComponentEventHandler implemen
 	private void searchOrdersBySearchBoxQuery() {
 		this.dispatchEvent(new Event<String>(EventType.DATABASE_UPDATE_COOK_GUI_SEARCH_ORDERS_BY_KEYWORDS, CookView.orderSearchTextPane.getText()));
 	}
+	
 	private void resetUI()
 	{
 		CookView.markOrderCompletedButton.setEnabled(false);

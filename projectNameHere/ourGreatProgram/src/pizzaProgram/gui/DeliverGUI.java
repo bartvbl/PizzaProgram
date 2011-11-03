@@ -16,6 +16,7 @@ import java.util.HashMap;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 import pizzaProgram.dataObjects.Customer;
 import pizzaProgram.dataObjects.Extra;
@@ -56,8 +57,17 @@ public class DeliverGUI extends GUIModule implements EventHandler {
 		mainWindow.addJPanel(this.deliverView);
 		this.programWindow = mainWindow;
 		hide();
+		this.setupComponents();
 	}
-
+	
+	private void setupComponents()
+	{
+		DefaultTableModel tableModel = (DefaultTableModel)DeliveryView.activeOrdersTable.getModel();
+		tableModel.addColumn("ID");
+		tableModel.addColumn("Status");
+		tableModel.addColumn("Time Registered");
+	}
+	
 	public String addSpace(String name) {
 		if (name.length() < 8) {
 			return name + "\t\t\t";

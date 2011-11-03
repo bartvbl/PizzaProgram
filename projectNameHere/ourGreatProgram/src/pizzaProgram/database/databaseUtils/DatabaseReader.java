@@ -67,7 +67,7 @@ public class DatabaseReader {
 	}
 	
 	public static ArrayList<Order> getAllUncookedOrders() {
-		ResultSet result = DatabaseConnection.fetchData(getOrderSelectionQuery("Orders.OrdersStatus = '"+Order.REGISTERED+"' OR Orders.OrdersStatus = '"+Order.BEING_COOKED+"'"));
+		ResultSet result = DatabaseConnection.fetchData(getOrderSelectionQuery("Orders.OrdersStatus = '"+Order.REGISTERED+"' OR Orders.OrdersStatus = '"+Order.BEING_COOKED+"'", ""));
 		ArrayList<Order> orderList = new ArrayList<Order>();
 		try {
 			orderList = generateOrderListFromResultSet(result);
@@ -169,7 +169,7 @@ public class DatabaseReader {
 	
 	public static ArrayList<Order> getOrdersByKeywords(String keywordString) {
 		String whereClause = generateOrderSearchWhereClause(keywordString);
-		String query = getOrderSelectionQuery(whereClause);
+		String query = getOrderSelectionQuery(whereClause, "LIMIT 30");
 		ResultSet results = DatabaseConnection.fetchData(query);
 		ArrayList<Order> orderList = new ArrayList<Order>();
 		try {
@@ -202,7 +202,7 @@ public class DatabaseReader {
 		return whereClause;
 	}
 	
-	private static String getOrderSelectionQuery(String whereClause)
+	private static String getOrderSelectionQuery(String whereClause, String extraOptions)
 	{
 		String query = "SELECT Customer.* , CustomerNotes.* , Dishes.* , Extras.* , OrderComments.* , Orders.*, OrdersContents.* FROM Orders " +
 		"LEFT JOIN OrderComments ON ( Orders.CommentID = OrderComments.CommentID ) " +
@@ -212,7 +212,7 @@ public class DatabaseReader {
 		"LEFT JOIN CustomerNotes ON ( Customer.CommentID = CustomerNotes.NoteID ) " +
 		"LEFT JOIN Dishes ON ( OrdersContents.DishID = Dishes.DishID ) " +
 		"LEFT JOIN Extras ON ( Extras.ExtrasID = DishExtrasChosen.DishExtraID ) " +
-		"WHERE (" + whereClause + ");"; 
+		"WHERE (" + whereClause + ") "+extraOptions+" ;"; 
 		return query;
 	}
 	

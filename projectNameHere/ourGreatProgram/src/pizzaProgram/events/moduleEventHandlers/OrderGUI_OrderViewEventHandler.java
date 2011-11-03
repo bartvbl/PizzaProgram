@@ -20,6 +20,7 @@ import pizzaProgram.dataObjects.Customer;
 import pizzaProgram.dataObjects.Dish;
 import pizzaProgram.dataObjects.Extra;
 import pizzaProgram.dataObjects.UnaddedOrder;
+import pizzaProgram.database.databaseUtils.DatabaseResultsFeedbackProvider;
 import pizzaProgram.events.Event;
 import pizzaProgram.events.EventDispatcher;
 import pizzaProgram.events.EventType;
@@ -62,7 +63,7 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler
 				{
 					showAllCustomers();
 				} else {
-					
+					searchCustomers();
 				}
 			}
 			public void keyTyped(KeyEvent arg0) {}
@@ -112,7 +113,7 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler
 		} else if (this.getEventNameByComponent((Component) event.getSource()).equals("newCustomer")) {
 			this.addNewCustomer(event);
 		} else if (this.getEventNameByComponent((Component) event.getSource()).equals("searchCustomers")) {
-			this.searchCustomers(event);
+			this.searchCustomers();
 		}
 	}
 	
@@ -121,7 +122,7 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler
 		this.dispatchEvent(new Event<Object>(EventType.DATABASE_UPDATE_ORDER_GUI_SEND_ALL_CUSTOMERS));
 	}
 	
-	private void searchCustomers(ActionEvent event) {
+	private void searchCustomers() {
 		String searchQuery = OrderView.searchCustomerTextArea.getText();
 		if(!searchQuery.equals(""))
 		{
@@ -185,7 +186,13 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler
 	}
 
 	private void addDish(ActionEvent event) {
-		Dish selectedDish = this.orderGUI.currentDishList.get(OrderView.dishSelectionList.getSelectedIndices()[0]);
+		int[] selectedIndices = OrderView.dishSelectionList.getSelectedIndices();
+		if(selectedIndices.length == 0)
+		{
+			DatabaseResultsFeedbackProvider.showAddExtraWithoutDishFailedMessage();
+			return;
+		}
+		Dish selectedDish = this.orderGUI.currentDishList.get(selectedIndices[0]);
 		int[] selectedExtrasIndices = OrderView.extrasSelectionList.getSelectedIndices();
 		Extra[] selectedExtras = new Extra[selectedExtrasIndices.length];
 		int counter = 0;

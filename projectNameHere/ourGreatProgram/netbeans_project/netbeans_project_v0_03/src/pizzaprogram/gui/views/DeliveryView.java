@@ -10,6 +10,8 @@
  */
 package pizzaprogram.gui.views;
 
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Bart
@@ -50,17 +52,18 @@ public class DeliveryView extends javax.swing.JPanel {
         orderContentsTable.setAutoCreateRowSorter(true);
         orderContentsTable.setModel(new DefaultTableModel());
         orderContentsTable.setName("orderContentsTable"); // NOI18N
+        orderContentsTable.getTableHeader().setReorderingAllowed(false);
         orderContentsTableScrollPane.setViewportView(orderContentsTable);
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(pizzaprogram.core.PizzaProgram.class).getContext().getResourceMap(DeliveryView.class);
-        orderContentsTable.getColumnModel().getColumn(0).setHeaderValue(resourceMap.getString("orderContentsTable.columnModel.title0")); // NOI18N
-        orderContentsTable.getColumnModel().getColumn(1).setHeaderValue(resourceMap.getString("orderContentsTable.columnModel.title1")); // NOI18N
-        orderContentsTable.getColumnModel().getColumn(2).setHeaderValue(resourceMap.getString("orderContentsTable.columnModel.title2")); // NOI18N
 
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(pizzaprogram.core.PizzaProgram.class).getContext().getResourceMap(DeliveryView.class);
         markOrderDeliveredButton.setText(resourceMap.getString("markOrderDeliveredButton.text")); // NOI18N
         markOrderDeliveredButton.setName("markOrderDeliveredButton"); // NOI18N
 
         showReceiptButton.setText(resourceMap.getString("showReceiptButton.text")); // NOI18N
         showReceiptButton.setName("showReceiptButton"); // NOI18N
+
+        markOrderBeingDeliveredButton.setText(resourceMap.getString("markOrderBeingDeliveredButton.text")); // NOI18N
+        markOrderBeingDeliveredButton.setName("markOrderBeingDeliveredButton"); // NOI18N
 
         javax.swing.GroupLayout orderContentsPanelLayout = new javax.swing.GroupLayout(orderContentsPanel);
         orderContentsPanel.setLayout(orderContentsPanelLayout);
@@ -69,9 +72,11 @@ public class DeliveryView extends javax.swing.JPanel {
             .addGroup(orderContentsPanelLayout.createSequentialGroup()
                 .addGap(6, 6, 6)
                 .addComponent(showReceiptButton)
+                .addGap(6, 6, 6)
+                .addComponent(markOrderBeingDeliveredButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(markOrderDeliveredButton)
-                .addContainerGap(209, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
             .addComponent(orderContentsTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE)
         );
         orderContentsPanelLayout.setVerticalGroup(
@@ -80,7 +85,8 @@ public class DeliveryView extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(orderContentsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(showReceiptButton)
-                    .addComponent(markOrderDeliveredButton))
+                    .addComponent(markOrderDeliveredButton)
+                    .addComponent(markOrderBeingDeliveredButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(orderContentsTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE))
         );
@@ -89,24 +95,15 @@ public class DeliveryView extends javax.swing.JPanel {
 
         mapImagePanel.setName("mapImagePanel"); // NOI18N
 
-        mapImagePlaceholder.setText(resourceMap.getString("mapImagePlaceholder.text")); // NOI18N
-        mapImagePlaceholder.setName("mapImagePlaceholder"); // NOI18N
-
         javax.swing.GroupLayout mapImagePanelLayout = new javax.swing.GroupLayout(mapImagePanel);
         mapImagePanel.setLayout(mapImagePanelLayout);
         mapImagePanelLayout.setHorizontalGroup(
             mapImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(mapImagePanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(mapImagePlaceholder)
-                .addContainerGap(354, Short.MAX_VALUE))
+            .addGap(0, 435, Short.MAX_VALUE)
         );
         mapImagePanelLayout.setVerticalGroup(
             mapImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(mapImagePanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(mapImagePlaceholder)
-                .addContainerGap(290, Short.MAX_VALUE))
+            .addGap(0, 315, Short.MAX_VALUE)
         );
 
         rightHorizontallSplitPane.setRightComponent(mapImagePanel);
@@ -128,10 +125,11 @@ public class DeliveryView extends javax.swing.JPanel {
 
         activeOrdersTable.setAutoCreateRowSorter(true);
         activeOrdersTable.setModel(new DefaultTableModel());
+        activeOrdersTable.setColumnSelectionAllowed(true);
         activeOrdersTable.setName("activeOrdersTable"); // NOI18N
+        activeOrdersTable.getTableHeader().setReorderingAllowed(false);
         activeOrderListScrollPane.setViewportView(activeOrdersTable);
-        activeOrdersTable.getColumnModel().getColumn(0).setHeaderValue(resourceMap.getString("activeOrdersTable.columnModel.title0")); // NOI18N
-        activeOrdersTable.getColumnModel().getColumn(1).setHeaderValue(resourceMap.getString("activeOrdersTable.columnModel.title1")); // NOI18N
+        activeOrdersTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         javax.swing.GroupLayout activeOrderListPanelLayout = new javax.swing.GroupLayout(activeOrderListPanel);
         activeOrderListPanel.setLayout(activeOrderListPanelLayout);
@@ -153,7 +151,7 @@ public class DeliveryView extends javax.swing.JPanel {
                     .addComponent(orderSearchButton)
                     .addComponent(orderSearchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(activeOrderListScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE))
+                .addComponent(activeOrderListScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE))
         );
 
         leftHorizontalSplitPanel.setTopComponent(activeOrderListPanel);
@@ -273,7 +271,7 @@ public class DeliveryView extends javax.swing.JPanel {
         orderDetailsPanelLayout.setVerticalGroup(
             orderDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, orderDetailsPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(14, Short.MAX_VALUE)
                 .addComponent(orderPriceOverviewPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(orderDetailsSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -301,7 +299,7 @@ public class DeliveryView extends javax.swing.JPanel {
     public static final javax.swing.JSplitPane leftHorizontalSplitPanel = new javax.swing.JSplitPane();
     public static final javax.swing.JSplitPane mainVerticalSplitPanel = new javax.swing.JSplitPane();
     public static final javax.swing.JPanel mapImagePanel = new javax.swing.JPanel();
-    public static final javax.swing.JLabel mapImagePlaceholder = new javax.swing.JLabel();
+    public static final javax.swing.JButton markOrderBeingDeliveredButton = new javax.swing.JButton();
     public static final javax.swing.JButton markOrderDeliveredButton = new javax.swing.JButton();
     public static final javax.swing.JLabel orderAddressLabel = new javax.swing.JLabel();
     public static final javax.swing.JScrollPane orderAddressScrollPane = new javax.swing.JScrollPane();

@@ -50,4 +50,8 @@ public class DatabaseResultsFeedbackProvider {
 		JOptionPane.showMessageDialog(null, "Failed to search for orders.", DEFAULT_ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
 	}
 
+	public static void showAddExtraWithoutDishFailedMessage() {
+		JOptionPane.showMessageDialog(null, "You need to select a dish to add an extra!", DEFAULT_ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
+	}
+
 }
