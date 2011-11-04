@@ -16,7 +16,9 @@ import java.util.HashMap;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 
 import pizzaProgram.dataObjects.Customer;
 import pizzaProgram.dataObjects.Extra;
@@ -75,6 +77,7 @@ public class DeliverGUI extends GUIModule implements EventHandler {
 		tableModel.addColumn("Status");
 		tableModel.addColumn("Time Registered");
 		tableModel.addColumn("Delivery method");
+		DeliveryView.activeOrdersTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tableModel = (DefaultTableModel)DeliveryView.orderContentsTable.getModel();
 		tableModel.addColumn("Dish");
 		tableModel.addColumn("Extras");

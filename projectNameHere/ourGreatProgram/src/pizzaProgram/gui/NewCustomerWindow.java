@@ -13,6 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import pizzaProgram.dataObjects.UnaddedCustomer;
+import pizzaProgram.database.databaseUtils.DataCleaner;
 
 @SuppressWarnings("serial")
 public class NewCustomerWindow extends JFrame{
@@ -113,10 +114,10 @@ public class NewCustomerWindow extends JFrame{
 	private UnaddedCustomer generateCustomerObject(int postNumber, int phoneNumber)
 	{
 		
-		String firstName = fyllnavn.getText();
-		String lastName = fylletternavn.getText();
-		String address = fylladresse.getText();
-		String city = fyllpoststed.getText();
+		String firstName = DataCleaner.cleanDbData(fyllnavn.getText());
+		String lastName = DataCleaner.cleanDbData(fylletternavn.getText());
+		String address = DataCleaner.cleanDbData(fylladresse.getText());
+		String city = DataCleaner.cleanDbData(fyllpoststed.getText());
 		UnaddedCustomer customer = new UnaddedCustomer(firstName, lastName, address, postNumber, city, phoneNumber, "");
 		return customer;
 	}

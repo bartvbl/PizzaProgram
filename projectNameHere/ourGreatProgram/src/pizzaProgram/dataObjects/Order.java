@@ -3,6 +3,8 @@ package pizzaProgram.dataObjects;
 import java.sql.Date;
 import java.util.ArrayList;
 
+import pizzaProgram.utils.DateFormatter;
+
 public class Order {
 
 	public final int orderID;
@@ -44,7 +46,12 @@ public class Order {
 		
 		this.orderID = id;
 		this.customer = customer;
-		this.timeRegistered = timeRegistered;
+		if(timeRegistered != null)
+		{
+			this.timeRegistered = DateFormatter.formatDateString(timeRegistered);
+		} else {
+			this.timeRegistered = timeRegistered;
+		}
 		this.status = status;
 		this.deliveryMethod = deliveryMethod;
 		this.comment = comment;
