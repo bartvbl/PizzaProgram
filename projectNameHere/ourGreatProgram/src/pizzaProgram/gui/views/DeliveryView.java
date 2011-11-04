@@ -39,7 +39,7 @@ public class DeliveryView extends javax.swing.JPanel {
         setName("Form"); // NOI18N
         setLayout(new java.awt.BorderLayout());
 
-        mainVerticalSplitPanel.setDividerLocation(300);
+        mainVerticalSplitPanel.setDividerLocation(400);
         mainVerticalSplitPanel.setName("mainVerticalSplitPanel"); // NOI18N
 
         rightHorizontallSplitPane.setDividerLocation(200);
@@ -77,8 +77,8 @@ public class DeliveryView extends javax.swing.JPanel {
                 .addComponent(markOrderBeingDeliveredButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(markOrderDeliveredButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(orderContentsTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 417, Short.MAX_VALUE)
+                .addContainerGap(85, Short.MAX_VALUE))
+            .addComponent(orderContentsTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE)
         );
         orderContentsPanelLayout.setVerticalGroup(
             orderContentsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -96,13 +96,13 @@ public class DeliveryView extends javax.swing.JPanel {
 
         mapImagePanel.setDoubleBuffered(false);
         mapImagePanel.setName("mapImagePanel"); // NOI18N
-        mapImagePanel.setOpaque(true);
+        mapImagePanel.setOpaque(false);
 
         javax.swing.GroupLayout mapImagePanelLayout = new javax.swing.GroupLayout(mapImagePanel);
         mapImagePanel.setLayout(mapImagePanelLayout);
         mapImagePanelLayout.setHorizontalGroup(
             mapImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 417, Short.MAX_VALUE)
+            .addGap(0, 492, Short.MAX_VALUE)
         );
         mapImagePanelLayout.setVerticalGroup(
             mapImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -130,7 +130,7 @@ public class DeliveryView extends javax.swing.JPanel {
         activeOrdersTable.setModel(new DefaultTableModel());
         activeOrdersTable.setName("activeOrdersTable"); // NOI18N
         jScrollPane1.setViewportView(activeOrdersTable);
-  
+       
 
         javax.swing.GroupLayout activeOrderListPanelLayout = new javax.swing.GroupLayout(activeOrderListPanel);
         activeOrderListPanel.setLayout(activeOrderListPanelLayout);
@@ -138,11 +138,11 @@ public class DeliveryView extends javax.swing.JPanel {
             activeOrderListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(activeOrderListPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(orderSearchTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
+                .addComponent(orderSearchTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(orderSearchButton)
                 .addContainerGap())
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 397, Short.MAX_VALUE)
         );
         activeOrderListPanelLayout.setVerticalGroup(
             activeOrderListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -253,19 +253,19 @@ public class DeliveryView extends javax.swing.JPanel {
                 .addGroup(orderDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(orderDetailsPanelLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(orderDetailsSeparator, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE))
+                        .addComponent(orderDetailsSeparator, javax.swing.GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE))
                     .addGroup(orderDetailsPanelLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(orderCommentsLabel))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, orderDetailsPanelLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(orderCommentsScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE))
+                        .addComponent(orderCommentsScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE))
                     .addGroup(orderDetailsPanelLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(orderAddressLabel))
                     .addGroup(orderDetailsPanelLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(orderAddressScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE))
+                        .addComponent(orderAddressScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE))
                     .addComponent(orderPriceOverviewPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -295,7 +295,7 @@ public class DeliveryView extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static final javax.swing.JPanel activeOrderListPanel = new javax.swing.JPanel();
-    public static final javax.swing.JTable activeOrdersTable = new JTable(){
+    public static final javax.swing.JTable activeOrdersTable = new JTable() {
         public boolean isCellEditable(int rowIndex, int colIndex) {
             return false; //Disallow the editing of any cell
         }
