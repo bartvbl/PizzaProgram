@@ -212,8 +212,9 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler
 		this.temporaryOrderData.addDish(selectedDish, selectedExtras);
 		DefaultTableModel model = (DefaultTableModel) OrderView.orderContentsTable.getModel();
 		model.addRow(new Object[]{selectedDish.name, stringForInTable});
-		OrderView.extrasSelectionList.clearSelection();
-		OrderView.dishSelectionList.clearSelection();
+		//TODO: find out what everyone thinks about keeping the selection after adding a dish to the order
+//		OrderView.extrasSelectionList.clearSelection();
+//		OrderView.dishSelectionList.clearSelection();
 	}
 
 	private void selectCustomer(ActionEvent event) {

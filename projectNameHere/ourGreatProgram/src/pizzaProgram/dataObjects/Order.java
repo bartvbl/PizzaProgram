@@ -7,7 +7,7 @@ public class Order {
 
 	public final int orderID;
 	public final Customer customer;
-	public final Date timeRegistered;
+	public final String timeRegistered;
 	public final ArrayList<OrderDish> orderedDishes;
 
 	public final String status;
@@ -39,7 +39,7 @@ public class Order {
 	 * @param comment
 	 *            - a comment for the order, can be empty but not null
 	 */
-	public Order(int id, Customer customer, Date timeRegistered, String status,
+	public Order(int id, Customer customer, String timeRegistered, String status,
 			String deliveryMethod, String comment) {
 		
 		this.orderID = id;
@@ -68,7 +68,7 @@ public class Order {
 	/**
 	 * @return - the dishes contained in this order
 	 */
-	public Date getTimeRegistered() {
+	public String getTimeRegistered() {
 		return timeRegistered;
 	}
 

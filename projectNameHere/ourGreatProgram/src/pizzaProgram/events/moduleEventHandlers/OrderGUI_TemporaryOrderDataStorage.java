@@ -10,6 +10,7 @@ import pizzaProgram.dataObjects.Order;
 import pizzaProgram.dataObjects.OrderDish;
 import pizzaProgram.dataObjects.UnaddedOrder;
 import pizzaProgram.dataObjects.UnaddedOrderDish;
+import pizzaProgram.database.databaseUtils.DataCleaner;
 
 public class OrderGUI_TemporaryOrderDataStorage {
 	private Customer currentCustomer;
@@ -24,10 +25,10 @@ public class OrderGUI_TemporaryOrderDataStorage {
 	
 	public UnaddedOrder convertToOrderObjectAndReset()
 	{
-		UnaddedOrder order = new UnaddedOrder(currentCustomer, this.deliveryMethod, this.orderComments);
+		String comments = DataCleaner.cleanDbData(this.orderComments);
+		UnaddedOrder order = new UnaddedOrder(currentCustomer, this.deliveryMethod, comments);
 		for(UnaddedOrderDish dish : this.dishList)
 		{
-			System.out.println("adding dish to new order");
 			order.addOrderDish(dish);
 		}
 		
@@ -71,12 +72,10 @@ public class OrderGUI_TemporaryOrderDataStorage {
 	public void removeDishFromOrder(int indexInTable)
 	{
 		this.dishList.remove(indexInTable);
-		System.out.println("removed: " + this.dishList);
 	}
 	
 	public void duplicateDishInOrder(int indexInTable)
 	{
 		this.dishList.add(this.dishList.get(indexInTable));
-		System.out.println("duplicated: " + this.dishList);
 	}
 }

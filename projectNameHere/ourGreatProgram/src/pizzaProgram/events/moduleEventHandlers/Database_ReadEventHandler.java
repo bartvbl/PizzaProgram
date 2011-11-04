@@ -10,6 +10,7 @@ import pizzaProgram.dataObjects.Extra;
 import pizzaProgram.dataObjects.Order;
 import pizzaProgram.database.DatabaseConnection;
 import pizzaProgram.database.DatabaseModule;
+import pizzaProgram.database.databaseUtils.DataCleaner;
 import pizzaProgram.database.databaseUtils.DatabaseReader;
 import pizzaProgram.database.databaseUtils.DatabaseResultsFeedbackProvider;
 import pizzaProgram.events.Event;
@@ -78,6 +79,7 @@ public class Database_ReadEventHandler implements EventHandler {
 			return;
 		}
 		String searchQuery = (String)event.getEventParameterObject();
+		searchQuery = DataCleaner.cleanDbData(searchQuery);
 		ArrayList<Order> orderList = DatabaseReader.getOrdersByKeywords(searchQuery);
 		if(orderList != null)
 		{
@@ -97,6 +99,7 @@ public class Database_ReadEventHandler implements EventHandler {
 			return;
 		}
 		String searchQuery = (String)event.getEventParameterObject();
+		searchQuery = DataCleaner.cleanDbData(searchQuery);
 		ArrayList<Customer> customerList = DatabaseReader.searchCustomerByString(searchQuery);
 		if(customerList != null)
 		{

@@ -54,7 +54,6 @@ public class Database_WriteEventHandler implements EventHandler {
 			DatabaseResultsFeedbackProvider.showUpdateOrderStatusFailedMessage();
 			return;
 		}
-		System.out.println("starting order update");
 		DatabaseWriter.markOrderAsFinishedCooking((Order)event.getEventParameterObject());
 	}
 

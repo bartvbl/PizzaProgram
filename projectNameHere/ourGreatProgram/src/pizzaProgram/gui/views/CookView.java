@@ -125,6 +125,7 @@ public class CookView extends javax.swing.JPanel {
         orderDetailsTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         ordersTableScrollPane.setViewportView(orderDetailsTable);
 
+        orderSearchTextPane.setText(resourceMap.getString("orderSearchTextPane.text")); // NOI18N
         orderSearchTextPane.setName("orderSearchTextPane"); // NOI18N
 
         javax.swing.GroupLayout orderSelectionPanelLayout = new javax.swing.GroupLayout(orderSelectionPanel);
@@ -133,8 +134,8 @@ public class CookView extends javax.swing.JPanel {
             orderSelectionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, orderSelectionPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(orderSearchTextPane, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addComponent(orderSearchTextPane, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(searchOrderButton)
                 .addGap(10, 10, 10))
             .addComponent(ordersTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
@@ -143,7 +144,7 @@ public class CookView extends javax.swing.JPanel {
             orderSelectionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(orderSelectionPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(orderSelectionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(orderSelectionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(searchOrderButton)
                     .addComponent(orderSearchTextPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -174,7 +175,7 @@ public class CookView extends javax.swing.JPanel {
         }
     };
     public static final javax.swing.JSplitPane orderEditSplitPane = new javax.swing.JSplitPane();
-    public static final javax.swing.JTextPane orderSearchTextPane = new javax.swing.JTextPane();
+    public static final javax.swing.JTextField orderSearchTextPane = new javax.swing.JTextField();
     public static final javax.swing.JPanel orderSelectionPanel = new javax.swing.JPanel();
     public static final javax.swing.JScrollPane ordersTableScrollPane = new javax.swing.JScrollPane();
     public static final javax.swing.JButton searchOrderButton = new javax.swing.JButton();

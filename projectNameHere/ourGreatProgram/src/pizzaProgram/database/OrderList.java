@@ -94,7 +94,7 @@ public class OrderList implements EventHandler {
 				if (orderMap.get(results.getInt(1)) == null) {
 					Order tempOrder = new Order(results.getInt(1),
 							customerMap.get(results.getInt(2)),
-							results.getDate(3), results.getString(4),
+							results.getString(3), results.getString(4),
 							results.getString(5), orderComments.get(results
 									.getInt(6)));
 					orderList.add(tempOrder);

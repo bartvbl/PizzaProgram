@@ -269,7 +269,7 @@ public class DatabaseReader {
 	private static Order createOrder(ResultSet resultSet, Customer customer, int orderTableColumnOffset, int orderCommentsTableColumnOffset) throws SQLException
 	{
 		int orderID = resultSet.getInt(orderTableColumnOffset + 0);
-		Date timeRegistered = resultSet.getDate(orderTableColumnOffset + 2);
+		String timeRegistered = resultSet.getString(orderTableColumnOffset + 2);
 		String orderStatus = resultSet.getString(orderTableColumnOffset + 3);
 		String deliveryMethod = resultSet.getString(orderTableColumnOffset + 4);
 		String comment = resultSet.getString(orderCommentsTableColumnOffset + 1);
