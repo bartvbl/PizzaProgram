@@ -125,7 +125,6 @@ public class DeliveryView extends javax.swing.JPanel {
 
         activeOrdersTable.setAutoCreateRowSorter(true);
         activeOrdersTable.setModel(new DefaultTableModel());
-        activeOrdersTable.setColumnSelectionAllowed(true);
         activeOrdersTable.setName("activeOrdersTable"); // NOI18N
         activeOrdersTable.getTableHeader().setReorderingAllowed(false);
         activeOrderListScrollPane.setViewportView(activeOrdersTable);

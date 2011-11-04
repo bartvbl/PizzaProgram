@@ -16,16 +16,29 @@ public class OrderPrice {
 	
 	public String getOrderPriceString()
 	{
-		return this.orderPrice.toString();
+		String output = formatOutputString(this.orderPrice.toPlainString());
+		return output;
 	}
 	
 	public String getDeliveryCostString()
 	{
-		return this.deliveryCost.toString();
+		String output = formatOutputString(this.deliveryCost.toPlainString());
+		return output;
 	}
 	
 	public String getTotalOverallOrderCostString()
 	{
-		return this.totalOverallOrderCost.toString();
+		String output = formatOutputString(this.totalOverallOrderCost.toPlainString());
+		return output;
+	}
+	
+	private String formatOutputString(String valueString)
+	{
+		if(valueString.indexOf('.') == -1)
+		{
+			valueString += ".00";
+		}
+		valueString = "kr. " + valueString;
+		return valueString;
 	}
 }

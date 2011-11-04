@@ -7,67 +7,46 @@ import pizzaProgram.dataObjects.Extra;
 import pizzaProgram.dataObjects.OrderDish;
 
 public class OrderPriceCalculator {
-	private static final int FREE_DELIVERY_ABOVE_ORDER_COST = 50;
+	private static final int FREE_DELIVERY_ABOVE_ORDER_COST = 200;
 	private static final int DELIVERY_COST = 50;
+	private BigDecimal totalPrice = new BigDecimal(0);
+	private BigDecimal totalOverallOrderCost = new BigDecimal(0);
+	private BigDecimal deliveryCost = new BigDecimal(0);
 	
-	public static OrderPrice getPrice(OrderDish dish)
+	public void reset()
 	{
-		BigDecimal totalPrice = new BigDecimal(dish.dish.price);
-		ArrayList<Extra> extraList = dish.getExtras();
-		handleMultiplicationExtras(extraList, totalPrice);
-		handleAdditionExtras(extraList, totalPrice);
-		OrderPrice orderPrice = createOrderPriceObject(totalPrice);
+		this.totalPrice = new BigDecimal(0);
+		this.totalOverallOrderCost = new BigDecimal(0);
+		this.deliveryCost = new BigDecimal(0);
+	}
+	
+	public void addDishToTotalPrice(DishPrice dishPrice)
+	{
+		this.totalPrice = this.totalPrice.add(dishPrice.getPriceAsBigDecimal());
+	}
+	
+	public OrderPrice getTotalOrderPrice()
+	{
+		OrderPrice orderPrice = createOrderPriceObject();
 		return orderPrice;
 	}
 
-	private static OrderPrice createOrderPriceObject(BigDecimal totalPrice) {
+	private OrderPrice createOrderPriceObject() {
+		this.calculateIndividualPrices();
+		OrderPrice orderPrice = new OrderPrice(this.totalPrice, this.deliveryCost, this.totalOverallOrderCost);
+		return orderPrice;
+	}
+	
+	private void calculateIndividualPrices()
+	{
+		this.deliveryCost = new BigDecimal(DELIVERY_COST);
+		this.totalOverallOrderCost = this.totalPrice.add(new BigDecimal(0));//a bit hacky
 		BigDecimal freeDeliveryLimit = new BigDecimal(FREE_DELIVERY_ABOVE_ORDER_COST);
-		BigDecimal deliveryCost = new BigDecimal(DELIVERY_COST);
-		BigDecimal totalOverallOrderCost = deliveryCost.pow(1);//a bit hacky
-		if(totalPrice.compareTo(freeDeliveryLimit) > 0)
+		if(this.totalPrice.compareTo(freeDeliveryLimit) > 0)
 		{
-			deliveryCost = new BigDecimal(0);
+			this.deliveryCost = new BigDecimal(0);
 		} else {
-			totalPrice.add(deliveryCost);
-		}
-		setScales(deliveryCost, totalOverallOrderCost, totalPrice);
-		OrderPrice orderPrice = new OrderPrice(totalPrice, deliveryCost, totalOverallOrderCost);
-		return orderPrice;
-	}
-
-	private static void setScales(BigDecimal deliveryCost, BigDecimal totalOverallOrderCost, BigDecimal totalPrice) {
-		deliveryCost.setScale(-2, BigDecimal.ROUND_HALF_EVEN);
-		totalOverallOrderCost.setScale(-2, BigDecimal.ROUND_HALF_EVEN);
-		totalPrice.setScale(-2, BigDecimal.ROUND_HALF_EVEN);
-	}
-
-	private static void handleAdditionExtras(ArrayList<Extra> extraList, BigDecimal totalPrice) {
-		BigDecimal currentValueOfExtra;
-		for(Extra extra : extraList)
-		{
-			currentValueOfExtra = new BigDecimal(extra.priceValPart);
-			if(extra.priceFuncPart == '*')
-			{
-				totalPrice = totalPrice.multiply(currentValueOfExtra);
-			} else if(extra.priceFuncPart == '/')
-			{
-				totalPrice = totalPrice.divide(currentValueOfExtra);
-			}
-		}
-	}
-
-	private static void handleMultiplicationExtras(ArrayList<Extra> extraList, BigDecimal totalPrice) {
-		BigDecimal currentValueOfExtra;
-		for(Extra extra : extraList)
-		{
-			currentValueOfExtra = new BigDecimal(extra.priceValPart);
-			if(extra.priceFuncPart == '+')
-			{
-				totalPrice = totalPrice.add(currentValueOfExtra);
-			} else if(extra.priceFuncPart == '-')
-			{
-				totalPrice = totalPrice.subtract(currentValueOfExtra);
-			}
+			this.totalOverallOrderCost = this.totalOverallOrderCost.add(this.deliveryCost);
 		}
 	}
 }
