@@ -81,5 +81,9 @@ public class EventType {
 
 	public static final String DATABASE_UPDATE_DELIVERY_GUI_SEARCH_ORDERS = "databaseUpdateDeliveryGUISearchOrders";
 
+	public static final String DATABASE_MARK_ORDER_DELIVERED = "databaseMarkOrderDelivered";
+
+	public static final String DATABASE_MARK_ORDER_BEING_DELIVERED = "databaseMarkOrderAsBeingDelivered";
+
 	
 }

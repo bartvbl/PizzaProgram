@@ -9,6 +9,7 @@ import pizzaProgram.dataObjects.OrderDish;
 import pizzaProgram.dataObjects.UnaddedCustomer;
 import pizzaProgram.dataObjects.UnaddedOrder;
 import pizzaProgram.database.DatabaseConnection;
+import pizzaProgram.database.OrderList;
 
 public class DatabaseWriter {
 	public static void markOrderAsInProgress(Order order)
@@ -19,6 +20,26 @@ public class DatabaseWriter {
 	public static void markOrderAsFinishedCooking(Order order)
 	{
 		updateOrderStatusIfStatusMatchesCurrentStatus(order, Order.BEING_COOKED, Order.HAS_BEEN_COOKED);
+	}
+	
+	public static void markOrderAsBeingDelivered(Order order)
+	{
+		if(order.deliveryMethod.equals(Order.DELIVER_AT_HOME))
+		{
+			updateOrderStatusIfStatusMatchesCurrentStatus(order, Order.HAS_BEEN_COOKED, Order.BEING_DELIVERED);
+		} else {
+			DatabaseResultsFeedbackProvider.showUpdateOrderStatusFailedInvalidDeliveryMethodMessage();
+		}
+	}
+	
+	public static void markOrderAsDelivered(Order order)
+	{
+		if(order.deliveryMethod.equals(Order.DELIVER_AT_HOME))
+		{
+			updateOrderStatusIfStatusMatchesCurrentStatus(order, Order.BEING_DELIVERED, Order.DELIVERED);
+		} else if(order.deliveryMethod.equals(Order.PICKUP_AT_RESTAURANT)){
+			updateOrderStatusIfStatusMatchesCurrentStatus(order, Order.HAS_BEEN_COOKED, Order.DELIVERED);
+		}
 	}
 	
 	public static void writeNewOrder(UnaddedOrder order)

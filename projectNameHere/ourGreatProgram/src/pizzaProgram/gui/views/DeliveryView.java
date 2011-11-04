@@ -94,7 +94,9 @@ public class DeliveryView extends javax.swing.JPanel {
 
         rightHorizontallSplitPane.setTopComponent(orderContentsPanel);
 
+        mapImagePanel.setDoubleBuffered(false);
         mapImagePanel.setName("mapImagePanel"); // NOI18N
+        mapImagePanel.setOpaque(true);
 
         javax.swing.GroupLayout mapImagePanelLayout = new javax.swing.GroupLayout(mapImagePanel);
         mapImagePanel.setLayout(mapImagePanelLayout);
@@ -128,6 +130,7 @@ public class DeliveryView extends javax.swing.JPanel {
         activeOrdersTable.setModel(new DefaultTableModel());
         activeOrdersTable.setName("activeOrdersTable"); // NOI18N
         jScrollPane1.setViewportView(activeOrdersTable);
+  
 
         javax.swing.GroupLayout activeOrderListPanelLayout = new javax.swing.GroupLayout(activeOrderListPanel);
         activeOrderListPanel.setLayout(activeOrderListPanelLayout);

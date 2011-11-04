@@ -1,13 +1,16 @@
 package pizzaProgram.gui.utils;
 
+import java.awt.BorderLayout;
 import java.util.ArrayList;
 
+import javax.swing.JLabel;
 import javax.swing.table.DefaultTableModel;
 
 import pizzaProgram.dataObjects.Customer;
 import pizzaProgram.dataObjects.Extra;
 import pizzaProgram.dataObjects.Order;
 import pizzaProgram.dataObjects.OrderDish;
+import pizzaProgram.gui.DeliveryMap;
 import pizzaProgram.gui.views.DeliveryView;
 import pizzaProgram.utils.DishPrice;
 import pizzaProgram.utils.DishPriceCalculator;
@@ -24,8 +27,26 @@ public class DeliveryGUIUpdater {
 		this.fillOrderPriceLabels();
 		this.showComments(order);
 		this.enableMarkButtons(order);
+		this.showMapImage(order);
 	}
 	
+	private void showMapImage(Order order) {
+		DeliveryMap map = new DeliveryMap();
+		map.loadImage(order.customer, DeliveryView.mapImagePanel.getWidth(), DeliveryView.mapImagePanel.getHeight());
+		DeliveryView.mapImagePanel.setLayout(new BorderLayout());
+		DeliveryView.mapImagePanel.removeAll();
+		DeliveryView.mapImagePanel.add(map, BorderLayout.CENTER);
+		DeliveryView.mapImagePanel.setVisible(true);
+		map.setVisible(true);
+		map.validate();
+		map.repaint();
+		DeliveryView.mapImagePanel.validate();
+		DeliveryView.mapImagePanel.repaint();
+		
+
+		
+	}
+
 	private void fillDishTable(Order order) {
 		this.orderPriceCalculator.reset();
 		DefaultTableModel tableModel = (DefaultTableModel)DeliveryView.orderContentsTable.getModel();

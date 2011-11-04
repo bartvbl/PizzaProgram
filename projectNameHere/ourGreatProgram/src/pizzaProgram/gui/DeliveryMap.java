@@ -11,6 +11,8 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+import pizzaProgram.dataObjects.Customer;
+
 @SuppressWarnings("serial")
 public class DeliveryMap extends JPanel {
 
@@ -21,7 +23,7 @@ public class DeliveryMap extends JPanel {
 	 */
 	public DeliveryMap() {
 		setBackground(Color.white);
-		loadImage(address());
+//		loadImage(address());
 		setPreferredSize(new Dimension());
 	}
 
@@ -87,12 +89,12 @@ public class DeliveryMap extends JPanel {
 	 *            - Used
 	 */
 
-	public void loadImage(String til) {
+	public void loadImage(Customer customer, int width, int height) {
 
 		try {
 			URL url = new URL(
-					"http://maps.googleapis.com/maps/api/staticmap?size=600x200&sensor=false&markers="
-							+ formatAddress(address())+ "&markers="+ formatAddress(til));
+					"http://maps.googleapis.com/maps/api/staticmap?size="+width+"x"+height+"&sensor=false&markers="
+							+ formatAddress(address())+ "&markers="+ formatAddress(customer.address));
 			kart = ImageIO.read(url);
 
 		} catch (MalformedURLException e) {

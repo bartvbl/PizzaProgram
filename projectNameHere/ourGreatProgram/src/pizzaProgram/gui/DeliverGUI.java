@@ -53,6 +53,7 @@ public class DeliverGUI extends GUIModule implements EventHandler {
 	private DeliveryGUI_DeliveryViewEventHandler deliveryViewEventHandler;
 	private DeliveryGUI_SystemEventHandler systemEventHandler;
 	public ArrayList<Order> currentOrderList;
+	public Order currentOrder;
 
 	public DeliverGUI(ProgramWindow mainWindow, EventDispatcher eventDispatcher) {
 		super(eventDispatcher);
@@ -165,7 +166,7 @@ public class DeliverGUI extends GUIModule implements EventHandler {
 				totalPrice += shipCost;
 				orderContentList.append(addSpace("Sum Total") + "  "
 						+ totalPrice + "kr\n");
-				chartArea.loadImage(c.address);
+				//chartArea.loadImage(c.address);
 			}
 		});
 		this.jFrame.add(orderList,

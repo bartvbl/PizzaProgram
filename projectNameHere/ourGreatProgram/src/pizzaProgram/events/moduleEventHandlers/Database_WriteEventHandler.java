@@ -30,6 +30,8 @@ public class Database_WriteEventHandler implements EventHandler {
 		this.eventDispatcher.addEventListener(this, EventType.DATABASE_ADD_NEW_CUSTOMER);
 		this.eventDispatcher.addEventListener(this, EventType.DATABASE_MARK_ORDER_IN_PROGRESS);
 		this.eventDispatcher.addEventListener(this, EventType.DATABASE_MARK_ORDER_FINISHED_COOKING);
+		this.eventDispatcher.addEventListener(this, EventType.DATABASE_MARK_ORDER_BEING_DELIVERED);
+		this.eventDispatcher.addEventListener(this, EventType.DATABASE_MARK_ORDER_DELIVERED);
 	}
 
 	public void handleEvent(Event<?> event) {
@@ -45,6 +47,12 @@ public class Database_WriteEventHandler implements EventHandler {
 		} else if(event.eventType.equals(EventType.DATABASE_MARK_ORDER_IN_PROGRESS))
 		{
 			this.markOrderInProgress(event);
+		} else if(event.eventType.equals(EventType.DATABASE_MARK_ORDER_BEING_DELIVERED))
+		{
+			this.markOrderAsBeingDelivered(event);
+		} else if(event.eventType.equals(EventType.DATABASE_MARK_ORDER_DELIVERED))
+		{
+			this.markOrderAsDelivered(event);
 		} 
 	}
 
@@ -55,6 +63,24 @@ public class Database_WriteEventHandler implements EventHandler {
 			return;
 		}
 		DatabaseWriter.markOrderAsFinishedCooking((Order)event.getEventParameterObject());
+	}
+	
+	private void markOrderAsBeingDelivered(Event<?> event) {
+		if(!(event.getEventParameterObject() instanceof Order))
+		{
+			DatabaseResultsFeedbackProvider.showUpdateOrderStatusFailedMessage();
+			return;
+		}
+		DatabaseWriter.markOrderAsBeingDelivered((Order)event.getEventParameterObject());
+	}
+	
+	private void markOrderAsDelivered(Event<?> event) {
+		if(!(event.getEventParameterObject() instanceof Order))
+		{
+			DatabaseResultsFeedbackProvider.showUpdateOrderStatusFailedMessage();
+			return;
+		}
+		DatabaseWriter.markOrderAsDelivered((Order)event.getEventParameterObject());
 	}
 
 	private void markOrderInProgress(Event<?> event) {

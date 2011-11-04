@@ -93,7 +93,9 @@ public class DeliveryView extends javax.swing.JPanel {
 
         rightHorizontallSplitPane.setTopComponent(orderContentsPanel);
 
+        mapImagePanel.setDoubleBuffered(false);
         mapImagePanel.setName("mapImagePanel"); // NOI18N
+        mapImagePanel.setOpaque(false);
 
         javax.swing.GroupLayout mapImagePanelLayout = new javax.swing.GroupLayout(mapImagePanel);
         mapImagePanel.setLayout(mapImagePanelLayout);
