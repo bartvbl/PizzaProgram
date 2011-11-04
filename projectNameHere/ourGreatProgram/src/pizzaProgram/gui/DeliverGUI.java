@@ -82,6 +82,7 @@ public class DeliverGUI extends GUIModule implements EventHandler {
 		tableModel.addColumn("Dish");
 		tableModel.addColumn("Extras");
 		tableModel.addColumn("Total dish price");
+		DeliveryView.showReceiptButton.setEnabled(false);
 	}
 	
 	public String addSpace(String name) {

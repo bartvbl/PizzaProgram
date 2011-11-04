@@ -59,11 +59,16 @@ public class DeliveryGUIUpdater {
 	
 	private void enableMarkButtons(Order order)
 	{
-		if(order.status.equals(Order.HAS_BEEN_COOKED))
+		DeliveryView.showReceiptButton.setEnabled(true);
+		if(order.status.equals(Order.HAS_BEEN_COOKED) && order.deliveryMethod.equals(Order.DELIVER_AT_HOME))
 		{
 			DeliveryView.markOrderBeingDeliveredButton.setEnabled(true);
 			DeliveryView.markOrderDeliveredButton.setEnabled(false);
-		} else if(order.status.equals(Order.BEING_DELIVERED))
+		} else if(order.status.equals(Order.HAS_BEEN_COOKED) && order.deliveryMethod.equals(Order.PICKUP_AT_RESTAURANT))
+		{
+			DeliveryView.markOrderBeingDeliveredButton.setEnabled(false);
+			DeliveryView.markOrderDeliveredButton.setEnabled(true);
+		} else if(order.status.equals(Order.BEING_DELIVERED) && order.deliveryMethod.equals(Order.DELIVER_AT_HOME))
 		{
 			DeliveryView.markOrderBeingDeliveredButton.setEnabled(false);
 			DeliveryView.markOrderDeliveredButton.setEnabled(true);

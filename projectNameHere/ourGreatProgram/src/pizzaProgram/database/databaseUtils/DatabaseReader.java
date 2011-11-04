@@ -165,8 +165,8 @@ public class DatabaseReader {
 		return orderList;
 	}
 	
-	public static ArrayList<Order> getOrdersByKeywords(String keywordString) {
-		String whereClause = generateOrderSearchWhereClause(keywordString);
+	public static ArrayList<Order> getOrdersByKeywords(String keywordString, String[] orderStatusStringList) {
+		String whereClause = generateOrderSearchWhereClause(keywordString, orderStatusStringList);
 		String query = getOrderSelectionQuery(whereClause, "LIMIT 30");
 		ResultSet results = DatabaseConnection.fetchData(query);
 		ArrayList<Order> orderList = new ArrayList<Order>();
@@ -180,11 +180,22 @@ public class DatabaseReader {
 		return null;
 	}
 	
-	private static String generateOrderSearchWhereClause(String keywordString)
+	private static String generateOrderSearchWhereClause(String keywordString, String[] orderStatus)
 	{
 		String[] keywords = keywordString.split(" ");
-		String whereClause = "(Orders.OrdersStatus = '"+Order.REGISTERED+"' OR Orders.OrdersStatus = '"+Order.BEING_COOKED+"') AND (";
+		String whereClause = "(";
 		int counter = 0;
+		for(String status : orderStatus)
+		{
+			if(counter != 0)
+			{
+				whereClause += " OR ";
+			}
+			counter++;
+			whereClause += "(Orders.OrdersStatus = '"+status+"')";
+		}
+		whereClause += ") AND (";
+		counter = 0;
 		for(String keyword : keywords)
 		{
 			if(counter != 0)
@@ -224,6 +235,11 @@ public class DatabaseReader {
 			DatabaseResultsFeedbackProvider.showGetAllUndeliveredOrdersFailedMessage();
 		}
 		return orderList;
+	}
+	
+	public static ArrayList<Order> getUndeliveredOrdersByKeywords(String searchQuery) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	private static Customer createCustomer(ResultSet resultSet, int customerTableColumnOffset, int customerNotesTableColumnOffset) throws SQLException
@@ -276,4 +292,6 @@ public class DatabaseReader {
 		Order order = new Order(orderID, customer, timeRegistered, orderStatus, deliveryMethod, comment);
 		return order;
 	}
+
+	
 }

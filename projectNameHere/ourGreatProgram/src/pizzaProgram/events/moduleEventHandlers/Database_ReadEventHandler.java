@@ -38,6 +38,7 @@ public class Database_ReadEventHandler implements EventHandler {
 		this.eventDispatcher.addEventListener(this, EventType.DATABASE_UPDATE_COOK_GUI_SEND_ALL_ORDERS);
 		this.eventDispatcher.addEventListener(this, EventType.DATABASE_UPDATE_COOK_GUI_SEARCH_ORDERS_BY_KEYWORDS);
 		this.eventDispatcher.addEventListener(this, EventType.DATABASE_UPDATE_DELIVERY_GUI_SEND_ALL_ORDERS);
+		this.eventDispatcher.addEventListener(this, EventType.DATABASE_UPDATE_DELIVERY_GUI_SEARCH_ORDERS);
 	}
 
 	@Override
@@ -59,20 +60,18 @@ public class Database_ReadEventHandler implements EventHandler {
 			this.sendListOfAllUncookedOrders(event);
 		} else if(event.eventType.equals(EventType.DATABASE_UPDATE_COOK_GUI_SEARCH_ORDERS_BY_KEYWORDS))
 		{
-			this.searchOrders(event);
+			this.searchUncookedOrders(event);
 		} else if(event.eventType.equals(EventType.DATABASE_UPDATE_DELIVERY_GUI_SEND_ALL_ORDERS))
 		{
 			this.sendListOfActiveOrdersToDeliveryGUI(event);
-		}  
+		} else if(event.eventType.equals(EventType.DATABASE_UPDATE_DELIVERY_GUI_SEARCH_ORDERS))
+		{
+			this.searchUndeliveredOrders(event);
+		}    
 	}
 
 
-	private void sendListOfActiveOrdersToDeliveryGUI(Event<?> event) {
-		ArrayList<Order> orderList = DatabaseReader.getAllUndeliveredOrders();
-		this.eventDispatcher.dispatchEvent(new Event<ArrayList<Order>>(EventType.DELIVERY_GUI_UPDATE_ORDER_LIST, orderList));
-	}
-
-	private void searchOrders(Event<?> event) {
+	private void searchUndeliveredOrders(Event<?> event) {
 		if(!(event.getEventParameterObject() instanceof String))
 		{
 			DatabaseResultsFeedbackProvider.showSearchCustomersFailedMessage();
@@ -80,7 +79,27 @@ public class Database_ReadEventHandler implements EventHandler {
 		}
 		String searchQuery = (String)event.getEventParameterObject();
 		searchQuery = DataCleaner.cleanDbData(searchQuery);
-		ArrayList<Order> orderList = DatabaseReader.getOrdersByKeywords(searchQuery);
+		ArrayList<Order> orderList = DatabaseReader.getOrdersByKeywords(searchQuery, new String[]{Order.HAS_BEEN_COOKED, Order.BEING_DELIVERED});
+		if(orderList != null)
+		{
+			this.eventDispatcher.dispatchEvent(new Event<ArrayList<Order>>(EventType.DELIVERY_GUI_UPDATE_ORDER_LIST, orderList));
+		}
+	}
+
+	private void sendListOfActiveOrdersToDeliveryGUI(Event<?> event) {
+		ArrayList<Order> orderList = DatabaseReader.getAllUndeliveredOrders();
+		this.eventDispatcher.dispatchEvent(new Event<ArrayList<Order>>(EventType.DELIVERY_GUI_UPDATE_ORDER_LIST, orderList));
+	}
+
+	private void searchUncookedOrders(Event<?> event) {
+		if(!(event.getEventParameterObject() instanceof String))
+		{
+			DatabaseResultsFeedbackProvider.showSearchCustomersFailedMessage();
+			return;
+		}
+		String searchQuery = (String)event.getEventParameterObject();
+		searchQuery = DataCleaner.cleanDbData(searchQuery);
+		ArrayList<Order> orderList = DatabaseReader.getOrdersByKeywords(searchQuery, new String[]{Order.BEING_COOKED, Order.REGISTERED});
 		if(orderList != null)
 		{
 			this.eventDispatcher.dispatchEvent(new Event<ArrayList<Order>>(EventType.COOK_GUI_UPDATE_ORDER_LIST, orderList));
