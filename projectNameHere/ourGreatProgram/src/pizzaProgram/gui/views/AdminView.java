@@ -86,6 +86,12 @@ public class AdminView extends javax.swing.JPanel {
         editSettingsJPanel = new javax.swing.JPanel();
         editSettingsNameOfRestaurantLabel = new javax.swing.JLabel();
         settingsEditNameOfRestaurantTextBox = new javax.swing.JTextField();
+        editSettingsMinimumOrderPriceLabel = new javax.swing.JLabel();
+        settingsEditMinimumPriceFreeDeliveryTextBox = new javax.swing.JTextField();
+        editSettingsDeliveryPriceLabel = new javax.swing.JLabel();
+        settingsDeliveryPriceTextBox = new javax.swing.JTextField();
+        settingsApplyChangesButton = new javax.swing.JButton();
+        settingsResetSettingsButton = new javax.swing.JButton();
 
         setName("Form"); // NOI18N
         setLayout(new java.awt.BorderLayout());
@@ -247,6 +253,7 @@ public class AdminView extends javax.swing.JPanel {
 
         allActiveDishesDishTableScrollPane.setName("allActiveDishesDishTableScrollPane"); // NOI18N
 
+        allActiveDishesTable.setAutoCreateRowSorter(true);
         allActiveDishesTable.setModel(new DefaultTableModel());
         allActiveDishesTable.setName("allActiveDishesTable"); // NOI18N
         allActiveDishesDishTableScrollPane.setViewportView(allActiveDishesTable);
@@ -376,6 +383,7 @@ public class AdminView extends javax.swing.JPanel {
 
         allRegisteredExtrasScrollPane.setName("allRegisteredExtrasScrollPane"); // NOI18N
 
+        allRegisteredExtrasTable.setAutoCreateRowSorter(true);
         allRegisteredExtrasTable.setModel(new DefaultTableModel());
         allRegisteredExtrasTable.setName("allRegisteredExtrasTable"); // NOI18N
         allRegisteredExtrasScrollPane.setViewportView(allRegisteredExtrasTable);
@@ -442,15 +450,45 @@ public class AdminView extends javax.swing.JPanel {
         settingsEditNameOfRestaurantTextBox.setText(resourceMap.getString("settingsEditNameOfRestaurantTextBox.text")); // NOI18N
         settingsEditNameOfRestaurantTextBox.setName("settingsEditNameOfRestaurantTextBox"); // NOI18N
 
+        editSettingsMinimumOrderPriceLabel.setText(resourceMap.getString("editSettingsMinimumOrderPriceLabel.text")); // NOI18N
+        editSettingsMinimumOrderPriceLabel.setName("editSettingsMinimumOrderPriceLabel"); // NOI18N
+
+        settingsEditMinimumPriceFreeDeliveryTextBox.setText(resourceMap.getString("settingsEditMinimumPriceFreeDeliveryTextBox.text")); // NOI18N
+        settingsEditMinimumPriceFreeDeliveryTextBox.setName("settingsEditMinimumPriceFreeDeliveryTextBox"); // NOI18N
+
+        editSettingsDeliveryPriceLabel.setText(resourceMap.getString("editSettingsDeliveryPriceLabel.text")); // NOI18N
+        editSettingsDeliveryPriceLabel.setName("editSettingsDeliveryPriceLabel"); // NOI18N
+
+        settingsDeliveryPriceTextBox.setText(resourceMap.getString("settingsDeliveryPriceTextBox.text")); // NOI18N
+        settingsDeliveryPriceTextBox.setName("settingsDeliveryPriceTextBox"); // NOI18N
+
+        settingsApplyChangesButton.setText(resourceMap.getString("settingsApplyChangesButton.text")); // NOI18N
+        settingsApplyChangesButton.setName("settingsApplyChangesButton"); // NOI18N
+
+        settingsResetSettingsButton.setText(resourceMap.getString("settingsResetSettingsButton.text")); // NOI18N
+        settingsResetSettingsButton.setName("settingsResetSettingsButton"); // NOI18N
+
         javax.swing.GroupLayout editSettingsJPanelLayout = new javax.swing.GroupLayout(editSettingsJPanel);
         editSettingsJPanel.setLayout(editSettingsJPanelLayout);
         editSettingsJPanelLayout.setHorizontalGroup(
             editSettingsJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(editSettingsJPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(editSettingsNameOfRestaurantLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(settingsEditNameOfRestaurantTextBox, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(editSettingsJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(editSettingsJPanelLayout.createSequentialGroup()
+                        .addGroup(editSettingsJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(editSettingsNameOfRestaurantLabel)
+                            .addComponent(editSettingsMinimumOrderPriceLabel)
+                            .addComponent(editSettingsDeliveryPriceLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(editSettingsJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(settingsDeliveryPriceTextBox)
+                            .addComponent(settingsEditMinimumPriceFreeDeliveryTextBox)
+                            .addComponent(settingsEditNameOfRestaurantTextBox, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)))
+                    .addGroup(editSettingsJPanelLayout.createSequentialGroup()
+                        .addComponent(settingsResetSettingsButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(settingsApplyChangesButton)))
                 .addContainerGap(416, Short.MAX_VALUE))
         );
         editSettingsJPanelLayout.setVerticalGroup(
@@ -460,7 +498,19 @@ public class AdminView extends javax.swing.JPanel {
                 .addGroup(editSettingsJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(editSettingsNameOfRestaurantLabel)
                     .addComponent(settingsEditNameOfRestaurantTextBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(470, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(editSettingsJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(editSettingsMinimumOrderPriceLabel)
+                    .addComponent(settingsEditMinimumPriceFreeDeliveryTextBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(editSettingsJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(editSettingsDeliveryPriceLabel)
+                    .addComponent(settingsDeliveryPriceTextBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(editSettingsJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(settingsResetSettingsButton)
+                    .addComponent(settingsApplyChangesButton))
+                .addContainerGap(401, Short.MAX_VALUE))
         );
 
         settingsScrollPane.setViewportView(editSettingsJPanel);
@@ -508,7 +558,9 @@ public class AdminView extends javax.swing.JPanel {
     public static javax.swing.JLabel editExtraIsActiveLabel;
     public static javax.swing.JPanel editExtraJPanel;
     public static javax.swing.JFormattedTextField editExtraPriceTextBox;
+    public static javax.swing.JLabel editSettingsDeliveryPriceLabel;
     public static javax.swing.JPanel editSettingsJPanel;
+    public static javax.swing.JLabel editSettingsMinimumOrderPriceLabel;
     public static javax.swing.JLabel editSettingsNameOfRestaurantLabel;
     public static javax.swing.JLabel extraEditNameLabel;
     public static javax.swing.JLabel extraEditPriceTextBox;
@@ -518,7 +570,11 @@ public class AdminView extends javax.swing.JPanel {
     public static javax.swing.JTextField searchDishTextBox;
     public static javax.swing.JButton searchExtraSearchButton;
     public static javax.swing.JTextField searchExtraTextBox;
+    public static javax.swing.JButton settingsApplyChangesButton;
+    public static javax.swing.JTextField settingsDeliveryPriceTextBox;
+    public static javax.swing.JTextField settingsEditMinimumPriceFreeDeliveryTextBox;
     public static javax.swing.JTextField settingsEditNameOfRestaurantTextBox;
+    public static javax.swing.JButton settingsResetSettingsButton;
     public static javax.swing.JScrollPane settingsScrollPane;
     // End of variables declaration//GEN-END:variables
 }

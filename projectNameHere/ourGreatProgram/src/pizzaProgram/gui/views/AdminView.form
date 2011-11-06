@@ -370,6 +370,7 @@
                       <SubComponents>
                         <Component class="javax.swing.JTable" name="allActiveDishesTable">
                           <Properties>
+                            <Property name="autoCreateRowSorter" type="boolean" value="true"/>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                               <Connection code="new DefaultTableModel()" type="code"/>
                             </Property>
@@ -601,6 +602,7 @@
                       <SubComponents>
                         <Component class="javax.swing.JTable" name="allRegisteredExtrasTable">
                           <Properties>
+                            <Property name="autoCreateRowSorter" type="boolean" value="true"/>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                               <Connection code="new DefaultTableModel()" type="code"/>
                             </Property>
@@ -661,11 +663,28 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
+                      <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="editSettingsNameOfRestaurantLabel" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="settingsEditNameOfRestaurantTextBox" min="-2" pref="216" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="editSettingsNameOfRestaurantLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="editSettingsMinimumOrderPriceLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="editSettingsDeliveryPriceLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="settingsDeliveryPriceTextBox" max="32767" attributes="1"/>
+                                      <Component id="settingsEditMinimumPriceFreeDeliveryTextBox" max="32767" attributes="1"/>
+                                      <Component id="settingsEditNameOfRestaurantTextBox" alignment="0" pref="216" max="32767" attributes="1"/>
+                                  </Group>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="settingsResetSettingsButton" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="settingsApplyChangesButton" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
                           <EmptySpace pref="416" max="32767" attributes="0"/>
                       </Group>
                   </Group>
@@ -678,7 +697,22 @@
                               <Component id="editSettingsNameOfRestaurantLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="settingsEditNameOfRestaurantTextBox" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="470" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="editSettingsMinimumOrderPriceLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="settingsEditMinimumPriceFreeDeliveryTextBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="editSettingsDeliveryPriceLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="settingsDeliveryPriceTextBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="settingsResetSettingsButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="settingsApplyChangesButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace pref="401" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -694,6 +728,42 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" resourceKey="settingsEditNameOfRestaurantTextBox.text"/>
                     <Property name="name" type="java.lang.String" value="settingsEditNameOfRestaurantTextBox" noResource="true"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="editSettingsMinimumOrderPriceLabel">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" resourceKey="editSettingsMinimumOrderPriceLabel.text"/>
+                    <Property name="name" type="java.lang.String" value="editSettingsMinimumOrderPriceLabel" noResource="true"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="settingsEditMinimumPriceFreeDeliveryTextBox">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" resourceKey="settingsEditMinimumPriceFreeDeliveryTextBox.text"/>
+                    <Property name="name" type="java.lang.String" value="settingsEditMinimumPriceFreeDeliveryTextBox" noResource="true"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="editSettingsDeliveryPriceLabel">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" resourceKey="editSettingsDeliveryPriceLabel.text"/>
+                    <Property name="name" type="java.lang.String" value="editSettingsDeliveryPriceLabel" noResource="true"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="settingsDeliveryPriceTextBox">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" resourceKey="settingsDeliveryPriceTextBox.text"/>
+                    <Property name="name" type="java.lang.String" value="settingsDeliveryPriceTextBox" noResource="true"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JButton" name="settingsApplyChangesButton">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" resourceKey="settingsApplyChangesButton.text"/>
+                    <Property name="name" type="java.lang.String" value="settingsApplyChangesButton" noResource="true"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JButton" name="settingsResetSettingsButton">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" resourceKey="settingsResetSettingsButton.text"/>
+                    <Property name="name" type="java.lang.String" value="settingsResetSettingsButton" noResource="true"/>
                   </Properties>
                 </Component>
               </SubComponents>
