@@ -130,7 +130,10 @@ public class DeliveryView extends javax.swing.JPanel {
         activeOrdersTable.setModel(new DefaultTableModel());
         activeOrdersTable.setName("activeOrdersTable"); // NOI18N
         jScrollPane1.setViewportView(activeOrdersTable);
-       
+        activeOrdersTable.getColumnModel().getColumn(0).setHeaderValue(resourceMap.getString("activeOrdersTable.columnModel.title0")); // NOI18N
+        activeOrdersTable.getColumnModel().getColumn(1).setHeaderValue(resourceMap.getString("activeOrdersTable.columnModel.title1")); // NOI18N
+        activeOrdersTable.getColumnModel().getColumn(2).setHeaderValue(resourceMap.getString("activeOrdersTable.columnModel.title2")); // NOI18N
+        activeOrdersTable.getColumnModel().getColumn(3).setHeaderValue(resourceMap.getString("activeOrdersTable.columnModel.title3")); // NOI18N
 
         javax.swing.GroupLayout activeOrderListPanelLayout = new javax.swing.GroupLayout(activeOrderListPanel);
         activeOrderListPanel.setLayout(activeOrderListPanelLayout);
@@ -295,7 +298,7 @@ public class DeliveryView extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static final javax.swing.JPanel activeOrderListPanel = new javax.swing.JPanel();
-    public static final javax.swing.JTable activeOrdersTable = new JTable() {
+    public static final javax.swing.JTable activeOrdersTable = new JTable(){
         public boolean isCellEditable(int rowIndex, int colIndex) {
             return false; //Disallow the editing of any cell
         }
