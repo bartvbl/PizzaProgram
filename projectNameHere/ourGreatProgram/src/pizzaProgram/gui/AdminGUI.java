@@ -34,7 +34,6 @@ public class AdminGUI extends GUIModule implements EventHandler{
 	{
 		if(event.eventType.equals(EventType.OPEN_SETTINGS_WINDOW_REQUESTED))
 		{
-			System.out.println("WTF. added, showing, etc");
 			this.show();
 		}
 	}
