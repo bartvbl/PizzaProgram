@@ -82,9 +82,9 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="dishEditDescriptionLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="dishEditNameLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="dishEditPriceLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
@@ -95,12 +95,12 @@
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="dishIsVegetarianLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="dishEditContainsNutsLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="dishEditIsPSpicyLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="dishEditContainsDairyLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="dishEditContainsGlutenLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="dishEditIsActiveLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
@@ -112,7 +112,7 @@
                                           <Component id="editDIshContainsGlutenComboBox" alignment="0" min="-2" pref="94" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <Component id="jButton3" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="confirmDishEditButton" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
@@ -123,61 +123,61 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="dishEditNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="editDishNameTextBox" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                                  <Component id="dishEditDescriptionLabel" min="-2" max="-2" attributes="0"/>
                                   <Component id="jScrollPane2" min="-2" pref="73" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="dishEditPriceLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="editDishDishPriceTextArea" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="dishIsVegetarianLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="editDishIsVegetarianComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="editDishIsPsicyComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="dishEditIsPSpicyLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="editDIshContainsNutsComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="dishEditContainsNutsLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="editDishContainsDairyComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="dishEditContainsDairyLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="editDIshContainsGlutenComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="dishEditContainsGlutenLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="editDishIsDishActiveComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="dishEditIsActiveLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jButton3" min="-2" max="-2" attributes="0"/>
+                              <Component id="confirmDishEditButton" min="-2" max="-2" attributes="0"/>
                               <EmptySpace pref="180" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
                   </Layout>
                   <SubComponents>
-                    <Component class="javax.swing.JLabel" name="jLabel1">
+                    <Component class="javax.swing.JLabel" name="dishEditNameLabel">
                       <Properties>
-                        <Property name="text" type="java.lang.String" resourceKey="jLabel1.text"/>
-                        <Property name="name" type="java.lang.String" value="jLabel1" noResource="true"/>
+                        <Property name="text" type="java.lang.String" resourceKey="dishEditNameLabel.text"/>
+                        <Property name="name" type="java.lang.String" value="dishEditNameLabel" noResource="true"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="editDishNameTextBox">
@@ -186,10 +186,10 @@
                         <Property name="name" type="java.lang.String" value="editDishNameTextBox" noResource="true"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel2">
+                    <Component class="javax.swing.JLabel" name="dishEditDescriptionLabel">
                       <Properties>
-                        <Property name="text" type="java.lang.String" resourceKey="jLabel2.text"/>
-                        <Property name="name" type="java.lang.String" value="jLabel2" noResource="true"/>
+                        <Property name="text" type="java.lang.String" resourceKey="dishEditDescriptionLabel.text"/>
+                        <Property name="name" type="java.lang.String" value="dishEditDescriptionLabel" noResource="true"/>
                       </Properties>
                     </Component>
                     <Container class="javax.swing.JScrollPane" name="jScrollPane2">
@@ -219,16 +219,16 @@
                         <Property name="name" type="java.lang.String" value="editDishDishPriceTextArea" noResource="true"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel3">
+                    <Component class="javax.swing.JLabel" name="dishEditPriceLabel">
                       <Properties>
-                        <Property name="text" type="java.lang.String" resourceKey="jLabel3.text"/>
-                        <Property name="name" type="java.lang.String" value="jLabel3" noResource="true"/>
+                        <Property name="text" type="java.lang.String" resourceKey="dishEditPriceLabel.text"/>
+                        <Property name="name" type="java.lang.String" value="dishEditPriceLabel" noResource="true"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel4">
+                    <Component class="javax.swing.JLabel" name="dishIsVegetarianLabel">
                       <Properties>
-                        <Property name="text" type="java.lang.String" resourceKey="jLabel4.text"/>
-                        <Property name="name" type="java.lang.String" value="jLabel4" noResource="true"/>
+                        <Property name="text" type="java.lang.String" resourceKey="dishIsVegetarianLabel.text"/>
+                        <Property name="name" type="java.lang.String" value="dishIsVegetarianLabel" noResource="true"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JComboBox" name="editDishIsVegetarianComboBox">
@@ -239,10 +239,10 @@
                         <Property name="name" type="java.lang.String" value="editDishIsVegetarianComboBox" noResource="true"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel5">
+                    <Component class="javax.swing.JLabel" name="dishEditIsPSpicyLabel">
                       <Properties>
-                        <Property name="text" type="java.lang.String" resourceKey="jLabel5.text"/>
-                        <Property name="name" type="java.lang.String" value="jLabel5" noResource="true"/>
+                        <Property name="text" type="java.lang.String" resourceKey="dishEditIsPSpicyLabel.text"/>
+                        <Property name="name" type="java.lang.String" value="dishEditIsPSpicyLabel" noResource="true"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JComboBox" name="editDishIsPsicyComboBox">
@@ -261,10 +261,10 @@
                         <Property name="name" type="java.lang.String" value="editDIshContainsNutsComboBox" noResource="true"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel6">
+                    <Component class="javax.swing.JLabel" name="dishEditContainsNutsLabel">
                       <Properties>
-                        <Property name="text" type="java.lang.String" resourceKey="jLabel6.text"/>
-                        <Property name="name" type="java.lang.String" value="jLabel6" noResource="true"/>
+                        <Property name="text" type="java.lang.String" resourceKey="dishEditContainsNutsLabel.text"/>
+                        <Property name="name" type="java.lang.String" value="dishEditContainsNutsLabel" noResource="true"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JComboBox" name="editDishContainsDairyComboBox">
@@ -275,10 +275,10 @@
                         <Property name="name" type="java.lang.String" value="editDishContainsDairyComboBox" noResource="true"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel7">
+                    <Component class="javax.swing.JLabel" name="dishEditContainsDairyLabel">
                       <Properties>
-                        <Property name="text" type="java.lang.String" resourceKey="jLabel7.text"/>
-                        <Property name="name" type="java.lang.String" value="jLabel7" noResource="true"/>
+                        <Property name="text" type="java.lang.String" resourceKey="dishEditContainsDairyLabel.text"/>
+                        <Property name="name" type="java.lang.String" value="dishEditContainsDairyLabel" noResource="true"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JComboBox" name="editDIshContainsGlutenComboBox">
@@ -289,16 +289,16 @@
                         <Property name="name" type="java.lang.String" value="editDIshContainsGlutenComboBox" noResource="true"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel8">
+                    <Component class="javax.swing.JLabel" name="dishEditContainsGlutenLabel">
                       <Properties>
-                        <Property name="text" type="java.lang.String" resourceKey="jLabel8.text"/>
-                        <Property name="name" type="java.lang.String" value="jLabel8" noResource="true"/>
+                        <Property name="text" type="java.lang.String" resourceKey="dishEditContainsGlutenLabel.text"/>
+                        <Property name="name" type="java.lang.String" value="dishEditContainsGlutenLabel" noResource="true"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel9">
+                    <Component class="javax.swing.JLabel" name="dishEditIsActiveLabel">
                       <Properties>
-                        <Property name="text" type="java.lang.String" resourceKey="jLabel9.text"/>
-                        <Property name="name" type="java.lang.String" value="jLabel9" noResource="true"/>
+                        <Property name="text" type="java.lang.String" resourceKey="dishEditIsActiveLabel.text"/>
+                        <Property name="name" type="java.lang.String" value="dishEditIsActiveLabel" noResource="true"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JComboBox" name="editDishIsDishActiveComboBox">
@@ -309,10 +309,10 @@
                         <Property name="name" type="java.lang.String" value="editDishIsDishActiveComboBox" noResource="true"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JButton" name="jButton3">
+                    <Component class="javax.swing.JButton" name="confirmDishEditButton">
                       <Properties>
-                        <Property name="text" type="java.lang.String" resourceKey="jButton3.text"/>
-                        <Property name="name" type="java.lang.String" value="jButton3" noResource="true"/>
+                        <Property name="text" type="java.lang.String" resourceKey="confirmDishEditButton.text"/>
+                        <Property name="name" type="java.lang.String" value="confirmDishEditButton" noResource="true"/>
                       </Properties>
                     </Component>
                   </SubComponents>
@@ -330,20 +330,16 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jScrollPane1" alignment="0" pref="379" max="32767" attributes="2"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="addNewDishButton" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace pref="95" max="32767" attributes="0"/>
-                                      <Component id="searchDishTextBox" min="-2" pref="152" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="searchDishSearchButton" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
+                              <Component id="addNewDishButton" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace pref="95" max="32767" attributes="0"/>
+                              <Component id="searchDishTextBox" min="-2" pref="152" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="searchDishSearchButton" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
+                          <Component id="jScrollPane1" alignment="0" pref="399" max="32767" attributes="2"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
@@ -356,8 +352,7 @@
                                   <Component id="searchDishTextBox" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jScrollPane1" pref="450" max="32767" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jScrollPane1" pref="461" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -465,16 +460,16 @@
                                       </Group>
                                       <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jFormattedTextField3" alignment="0" min="-2" pref="97" max="-2" attributes="0"/>
-                                          <Component id="jTextField5" alignment="0" pref="259" max="32767" attributes="0"/>
+                                          <Component id="editDishPriceTextBox" alignment="0" min="-2" pref="97" max="-2" attributes="0"/>
+                                          <Component id="editExtraExtraNameTextBox" alignment="0" pref="259" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jLabel27" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                                      <Component id="jComboBox18" min="-2" pref="94" max="-2" attributes="0"/>
+                                      <Component id="editExtraExtraIsActiveComboBox" min="-2" pref="94" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="jButton7" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="confirmEditExtraButton" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
@@ -486,20 +481,20 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel19" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jTextField5" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="editExtraExtraNameTextBox" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jFormattedTextField3" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="editDishPriceTextBox" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel21" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jComboBox18" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="editExtraExtraIsActiveComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel27" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jButton7" min="-2" max="-2" attributes="0"/>
+                              <Component id="confirmEditExtraButton" min="-2" max="-2" attributes="0"/>
                               <EmptySpace pref="389" max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -512,17 +507,17 @@
                         <Property name="name" type="java.lang.String" value="jLabel19" noResource="true"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="jTextField5">
+                    <Component class="javax.swing.JTextField" name="editExtraExtraNameTextBox">
                       <Properties>
-                        <Property name="name" type="java.lang.String" value="jTextField5" noResource="true"/>
+                        <Property name="name" type="java.lang.String" value="editExtraExtraNameTextBox" noResource="true"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JFormattedTextField" name="jFormattedTextField3">
+                    <Component class="javax.swing.JFormattedTextField" name="editDishPriceTextBox">
                       <Properties>
                         <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
                           <Format format="&#xa4;#,##0.00" subtype="-1" type="4"/>
                         </Property>
-                        <Property name="name" type="java.lang.String" value="jFormattedTextField3" noResource="true"/>
+                        <Property name="name" type="java.lang.String" value="editDishPriceTextBox" noResource="true"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel21">
@@ -537,18 +532,18 @@
                         <Property name="name" type="java.lang.String" value="jLabel27" noResource="true"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JComboBox" name="jComboBox18">
+                    <Component class="javax.swing.JComboBox" name="editExtraExtraIsActiveComboBox">
                       <Properties>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                           <Connection code="new javax.swing.DefaultComboBoxModel()" type="code"/>
                         </Property>
-                        <Property name="name" type="java.lang.String" value="jComboBox18" noResource="true"/>
+                        <Property name="name" type="java.lang.String" value="editExtraExtraIsActiveComboBox" noResource="true"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JButton" name="jButton7">
+                    <Component class="javax.swing.JButton" name="confirmEditExtraButton">
                       <Properties>
-                        <Property name="text" type="java.lang.String" resourceKey="jButton7.text"/>
-                        <Property name="name" type="java.lang.String" value="jButton7" noResource="true"/>
+                        <Property name="text" type="java.lang.String" resourceKey="confirmEditExtraButton.text"/>
+                        <Property name="name" type="java.lang.String" value="confirmEditExtraButton" noResource="true"/>
                       </Properties>
                     </Component>
                   </SubComponents>
@@ -566,20 +561,16 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jScrollPane6" alignment="0" pref="379" max="32767" attributes="2"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jButton9" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace pref="95" max="32767" attributes="0"/>
-                                      <Component id="jTextField6" min="-2" pref="152" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jButton8" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
+                              <Component id="createNewExtraButton" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace pref="95" max="32767" attributes="0"/>
+                              <Component id="searchExtraTextBox" min="-2" pref="152" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="searchExtraSearchButton" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
+                          <Component id="jScrollPane6" alignment="0" pref="399" max="32767" attributes="2"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
@@ -587,13 +578,12 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jButton9" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jButton8" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jTextField6" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="createNewExtraButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="searchExtraSearchButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="searchExtraTextBox" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jScrollPane6" pref="450" max="32767" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jScrollPane6" pref="461" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -609,31 +599,37 @@
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                       <SubComponents>
-                        <Component class="javax.swing.JTable" name="jTable3">
+                        <Component class="javax.swing.JTable" name="allRegisteredExtrasTable">
                           <Properties>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                               <Connection code="new DefaultTableModel()" type="code"/>
                             </Property>
-                            <Property name="name" type="java.lang.String" value="jTable3" noResource="true"/>
+                            <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+                              <TableColumnModel selectionModel="0"/>
+                            </Property>
+                            <Property name="name" type="java.lang.String" value="allRegisteredExtrasTable" noResource="true"/>
+                            <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
+                              <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
+                            </Property>
                           </Properties>
                         </Component>
                       </SubComponents>
                     </Container>
-                    <Component class="javax.swing.JButton" name="jButton8">
+                    <Component class="javax.swing.JButton" name="searchExtraSearchButton">
                       <Properties>
-                        <Property name="text" type="java.lang.String" resourceKey="jButton8.text"/>
-                        <Property name="name" type="java.lang.String" value="jButton8" noResource="true"/>
+                        <Property name="text" type="java.lang.String" resourceKey="searchExtraSearchButton.text"/>
+                        <Property name="name" type="java.lang.String" value="searchExtraSearchButton" noResource="true"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="jTextField6">
+                    <Component class="javax.swing.JTextField" name="searchExtraTextBox">
                       <Properties>
-                        <Property name="name" type="java.lang.String" value="jTextField6" noResource="true"/>
+                        <Property name="name" type="java.lang.String" value="searchExtraTextBox" noResource="true"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JButton" name="jButton9">
+                    <Component class="javax.swing.JButton" name="createNewExtraButton">
                       <Properties>
-                        <Property name="text" type="java.lang.String" resourceKey="jButton9.text"/>
-                        <Property name="name" type="java.lang.String" value="jButton9" noResource="true"/>
+                        <Property name="text" type="java.lang.String" resourceKey="createNewExtraButton.text"/>
+                        <Property name="name" type="java.lang.String" value="createNewExtraButton" noResource="true"/>
                       </Properties>
                     </Component>
                   </SubComponents>

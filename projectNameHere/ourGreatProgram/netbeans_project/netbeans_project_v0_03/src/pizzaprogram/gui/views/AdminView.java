@@ -40,26 +40,26 @@ public class AdminView extends javax.swing.JPanel {
         DishEditingPanel = new javax.swing.JPanel();
         jSplitPane1 = new javax.swing.JSplitPane();
         jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        dishEditNameLabel = new javax.swing.JLabel();
         editDishNameTextBox = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
+        dishEditDescriptionLabel = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         editDishDescriptionTextArea = new javax.swing.JTextPane();
         editDishDishPriceTextArea = new javax.swing.JFormattedTextField();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        dishEditPriceLabel = new javax.swing.JLabel();
+        dishIsVegetarianLabel = new javax.swing.JLabel();
         editDishIsVegetarianComboBox = new javax.swing.JComboBox();
-        jLabel5 = new javax.swing.JLabel();
+        dishEditIsPSpicyLabel = new javax.swing.JLabel();
         editDishIsPsicyComboBox = new javax.swing.JComboBox();
         editDIshContainsNutsComboBox = new javax.swing.JComboBox();
-        jLabel6 = new javax.swing.JLabel();
+        dishEditContainsNutsLabel = new javax.swing.JLabel();
         editDishContainsDairyComboBox = new javax.swing.JComboBox();
-        jLabel7 = new javax.swing.JLabel();
+        dishEditContainsDairyLabel = new javax.swing.JLabel();
         editDIshContainsGlutenComboBox = new javax.swing.JComboBox();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        dishEditContainsGlutenLabel = new javax.swing.JLabel();
+        dishEditIsActiveLabel = new javax.swing.JLabel();
         editDishIsDishActiveComboBox = new javax.swing.JComboBox();
-        jButton3 = new javax.swing.JButton();
+        confirmDishEditButton = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         allActiveDishesTable = new javax.swing.JTable();
@@ -70,18 +70,18 @@ public class AdminView extends javax.swing.JPanel {
         jSplitPane3 = new javax.swing.JSplitPane();
         jPanel5 = new javax.swing.JPanel();
         jLabel19 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
-        jFormattedTextField3 = new javax.swing.JFormattedTextField();
+        editExtraExtraNameTextBox = new javax.swing.JTextField();
+        editDishPriceTextBox = new javax.swing.JFormattedTextField();
         jLabel21 = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
-        jComboBox18 = new javax.swing.JComboBox();
-        jButton7 = new javax.swing.JButton();
+        editExtraExtraIsActiveComboBox = new javax.swing.JComboBox();
+        confirmEditExtraButton = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
-        jButton8 = new javax.swing.JButton();
-        jTextField6 = new javax.swing.JTextField();
-        jButton9 = new javax.swing.JButton();
+        allRegisteredExtrasTable = new javax.swing.JTable();
+        searchExtraSearchButton = new javax.swing.JButton();
+        searchExtraTextBox = new javax.swing.JTextField();
+        createNewExtraButton = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         jPanel3 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
@@ -100,14 +100,14 @@ public class AdminView extends javax.swing.JPanel {
         jPanel2.setName("jPanel2"); // NOI18N
 
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(pizzaprogram.core.PizzaProgram.class).getContext().getResourceMap(AdminView.class);
-        jLabel1.setText(resourceMap.getString("jLabel1.text")); // NOI18N
-        jLabel1.setName("jLabel1"); // NOI18N
+        dishEditNameLabel.setText(resourceMap.getString("dishEditNameLabel.text")); // NOI18N
+        dishEditNameLabel.setName("dishEditNameLabel"); // NOI18N
 
         editDishNameTextBox.setText(resourceMap.getString("editDishNameTextBox.text")); // NOI18N
         editDishNameTextBox.setName("editDishNameTextBox"); // NOI18N
 
-        jLabel2.setText(resourceMap.getString("jLabel2.text")); // NOI18N
-        jLabel2.setName("jLabel2"); // NOI18N
+        dishEditDescriptionLabel.setText(resourceMap.getString("dishEditDescriptionLabel.text")); // NOI18N
+        dishEditDescriptionLabel.setName("dishEditDescriptionLabel"); // NOI18N
 
         jScrollPane2.setName("jScrollPane2"); // NOI18N
 
@@ -119,17 +119,17 @@ public class AdminView extends javax.swing.JPanel {
         editDishDishPriceTextArea.setText(resourceMap.getString("editDishDishPriceTextArea.text")); // NOI18N
         editDishDishPriceTextArea.setName("editDishDishPriceTextArea"); // NOI18N
 
-        jLabel3.setText(resourceMap.getString("jLabel3.text")); // NOI18N
-        jLabel3.setName("jLabel3"); // NOI18N
+        dishEditPriceLabel.setText(resourceMap.getString("dishEditPriceLabel.text")); // NOI18N
+        dishEditPriceLabel.setName("dishEditPriceLabel"); // NOI18N
 
-        jLabel4.setText(resourceMap.getString("jLabel4.text")); // NOI18N
-        jLabel4.setName("jLabel4"); // NOI18N
+        dishIsVegetarianLabel.setText(resourceMap.getString("dishIsVegetarianLabel.text")); // NOI18N
+        dishIsVegetarianLabel.setName("dishIsVegetarianLabel"); // NOI18N
 
         editDishIsVegetarianComboBox.setModel(new javax.swing.DefaultComboBoxModel());
         editDishIsVegetarianComboBox.setName("editDishIsVegetarianComboBox"); // NOI18N
 
-        jLabel5.setText(resourceMap.getString("jLabel5.text")); // NOI18N
-        jLabel5.setName("jLabel5"); // NOI18N
+        dishEditIsPSpicyLabel.setText(resourceMap.getString("dishEditIsPSpicyLabel.text")); // NOI18N
+        dishEditIsPSpicyLabel.setName("dishEditIsPSpicyLabel"); // NOI18N
 
         editDishIsPsicyComboBox.setModel(new javax.swing.DefaultComboBoxModel());
         editDishIsPsicyComboBox.setName("editDishIsPsicyComboBox"); // NOI18N
@@ -137,29 +137,29 @@ public class AdminView extends javax.swing.JPanel {
         editDIshContainsNutsComboBox.setModel(new javax.swing.DefaultComboBoxModel());
         editDIshContainsNutsComboBox.setName("editDIshContainsNutsComboBox"); // NOI18N
 
-        jLabel6.setText(resourceMap.getString("jLabel6.text")); // NOI18N
-        jLabel6.setName("jLabel6"); // NOI18N
+        dishEditContainsNutsLabel.setText(resourceMap.getString("dishEditContainsNutsLabel.text")); // NOI18N
+        dishEditContainsNutsLabel.setName("dishEditContainsNutsLabel"); // NOI18N
 
         editDishContainsDairyComboBox.setModel(new javax.swing.DefaultComboBoxModel());
         editDishContainsDairyComboBox.setName("editDishContainsDairyComboBox"); // NOI18N
 
-        jLabel7.setText(resourceMap.getString("jLabel7.text")); // NOI18N
-        jLabel7.setName("jLabel7"); // NOI18N
+        dishEditContainsDairyLabel.setText(resourceMap.getString("dishEditContainsDairyLabel.text")); // NOI18N
+        dishEditContainsDairyLabel.setName("dishEditContainsDairyLabel"); // NOI18N
 
         editDIshContainsGlutenComboBox.setModel(new javax.swing.DefaultComboBoxModel());
         editDIshContainsGlutenComboBox.setName("editDIshContainsGlutenComboBox"); // NOI18N
 
-        jLabel8.setText(resourceMap.getString("jLabel8.text")); // NOI18N
-        jLabel8.setName("jLabel8"); // NOI18N
+        dishEditContainsGlutenLabel.setText(resourceMap.getString("dishEditContainsGlutenLabel.text")); // NOI18N
+        dishEditContainsGlutenLabel.setName("dishEditContainsGlutenLabel"); // NOI18N
 
-        jLabel9.setText(resourceMap.getString("jLabel9.text")); // NOI18N
-        jLabel9.setName("jLabel9"); // NOI18N
+        dishEditIsActiveLabel.setText(resourceMap.getString("dishEditIsActiveLabel.text")); // NOI18N
+        dishEditIsActiveLabel.setName("dishEditIsActiveLabel"); // NOI18N
 
         editDishIsDishActiveComboBox.setModel(new javax.swing.DefaultComboBoxModel());
         editDishIsDishActiveComboBox.setName("editDishIsDishActiveComboBox"); // NOI18N
 
-        jButton3.setText(resourceMap.getString("jButton3.text")); // NOI18N
-        jButton3.setName("jButton3"); // NOI18N
+        confirmDishEditButton.setText(resourceMap.getString("confirmDishEditButton.text")); // NOI18N
+        confirmDishEditButton.setName("confirmDishEditButton"); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -170,9 +170,9 @@ public class AdminView extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel3))
+                            .addComponent(dishEditDescriptionLabel)
+                            .addComponent(dishEditNameLabel)
+                            .addComponent(dishEditPriceLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(editDishNameTextBox, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
@@ -180,12 +180,12 @@ public class AdminView extends javax.swing.JPanel {
                             .addComponent(editDishDishPriceTextArea, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel9))
+                            .addComponent(dishIsVegetarianLabel)
+                            .addComponent(dishEditContainsNutsLabel)
+                            .addComponent(dishEditIsPSpicyLabel)
+                            .addComponent(dishEditContainsDairyLabel)
+                            .addComponent(dishEditContainsGlutenLabel)
+                            .addComponent(dishEditIsActiveLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(editDishIsDishActiveComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -194,7 +194,7 @@ public class AdminView extends javax.swing.JPanel {
                             .addComponent(editDIshContainsNutsComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(editDishContainsDairyComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(editDIshContainsGlutenComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jButton3))
+                    .addComponent(confirmDishEditButton))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -202,42 +202,42 @@ public class AdminView extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
+                    .addComponent(dishEditNameLabel)
                     .addComponent(editDishNameTextBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
+                    .addComponent(dishEditDescriptionLabel)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
+                    .addComponent(dishEditPriceLabel)
                     .addComponent(editDishDishPriceTextArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
+                    .addComponent(dishIsVegetarianLabel)
                     .addComponent(editDishIsVegetarianComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(editDishIsPsicyComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
+                    .addComponent(dishEditIsPSpicyLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(editDIshContainsNutsComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
+                    .addComponent(dishEditContainsNutsLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(editDishContainsDairyComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
+                    .addComponent(dishEditContainsDairyLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(editDIshContainsGlutenComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8))
+                    .addComponent(dishEditContainsGlutenLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(editDishIsDishActiveComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9))
+                    .addComponent(dishEditIsActiveLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3)
+                .addComponent(confirmDishEditButton)
                 .addContainerGap(180, Short.MAX_VALUE))
         );
 
@@ -264,17 +264,15 @@ public class AdminView extends javax.swing.JPanel {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(addNewDishButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
-                        .addComponent(searchDishTextBox, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(searchDishSearchButton)))
+                .addComponent(addNewDishButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
+                .addComponent(searchDishTextBox, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(searchDishSearchButton)
                 .addContainerGap())
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -285,8 +283,7 @@ public class AdminView extends javax.swing.JPanel {
                     .addComponent(searchDishSearchButton)
                     .addComponent(searchDishTextBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 461, Short.MAX_VALUE))
         );
 
         jSplitPane1.setLeftComponent(jPanel1);
@@ -314,10 +311,10 @@ public class AdminView extends javax.swing.JPanel {
         jLabel19.setText(resourceMap.getString("jLabel19.text")); // NOI18N
         jLabel19.setName("jLabel19"); // NOI18N
 
-        jTextField5.setName("jTextField5"); // NOI18N
+        editExtraExtraNameTextBox.setName("editExtraExtraNameTextBox"); // NOI18N
 
-        jFormattedTextField3.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("¤#,##0.00"))));
-        jFormattedTextField3.setName("jFormattedTextField3"); // NOI18N
+        editDishPriceTextBox.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("¤#,##0.00"))));
+        editDishPriceTextBox.setName("editDishPriceTextBox"); // NOI18N
 
         jLabel21.setText(resourceMap.getString("jLabel21.text")); // NOI18N
         jLabel21.setName("jLabel21"); // NOI18N
@@ -325,11 +322,11 @@ public class AdminView extends javax.swing.JPanel {
         jLabel27.setText(resourceMap.getString("jLabel27.text")); // NOI18N
         jLabel27.setName("jLabel27"); // NOI18N
 
-        jComboBox18.setModel(new javax.swing.DefaultComboBoxModel());
-        jComboBox18.setName("jComboBox18"); // NOI18N
+        editExtraExtraIsActiveComboBox.setModel(new javax.swing.DefaultComboBoxModel());
+        editExtraExtraIsActiveComboBox.setName("editExtraExtraIsActiveComboBox"); // NOI18N
 
-        jButton7.setText(resourceMap.getString("jButton7.text")); // NOI18N
-        jButton7.setName("jButton7"); // NOI18N
+        confirmEditExtraButton.setText(resourceMap.getString("confirmEditExtraButton.text")); // NOI18N
+        confirmEditExtraButton.setName("confirmEditExtraButton"); // NOI18N
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -344,13 +341,13 @@ public class AdminView extends javax.swing.JPanel {
                             .addComponent(jLabel21))
                         .addGap(30, 30, 30)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jFormattedTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)))
+                            .addComponent(editDishPriceTextBox, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(editExtraExtraNameTextBox, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabel27)
                         .addGap(18, 18, 18)
-                        .addComponent(jComboBox18, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton7))
+                        .addComponent(editExtraExtraIsActiveComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(confirmEditExtraButton))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -359,17 +356,17 @@ public class AdminView extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel19)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(editExtraExtraNameTextBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jFormattedTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(editDishPriceTextBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel21))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(editExtraExtraIsActiveComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel27))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton7)
+                .addComponent(confirmEditExtraButton)
                 .addContainerGap(389, Short.MAX_VALUE))
         );
 
@@ -379,45 +376,42 @@ public class AdminView extends javax.swing.JPanel {
 
         jScrollPane6.setName("jScrollPane6"); // NOI18N
 
-        jTable3.setModel(new DefaultTableModel());
-        jTable3.setName("jTable3"); // NOI18N
-        jScrollPane6.setViewportView(jTable3);
+        allRegisteredExtrasTable.setModel(new DefaultTableModel());
+        allRegisteredExtrasTable.setName("allRegisteredExtrasTable"); // NOI18N
+        jScrollPane6.setViewportView(allRegisteredExtrasTable);
 
-        jButton8.setText(resourceMap.getString("jButton8.text")); // NOI18N
-        jButton8.setName("jButton8"); // NOI18N
+        searchExtraSearchButton.setText(resourceMap.getString("searchExtraSearchButton.text")); // NOI18N
+        searchExtraSearchButton.setName("searchExtraSearchButton"); // NOI18N
 
-        jTextField6.setName("jTextField6"); // NOI18N
+        searchExtraTextBox.setName("searchExtraTextBox"); // NOI18N
 
-        jButton9.setText(resourceMap.getString("jButton9.text")); // NOI18N
-        jButton9.setName("jButton9"); // NOI18N
+        createNewExtraButton.setText(resourceMap.getString("createNewExtraButton.text")); // NOI18N
+        createNewExtraButton.setName("createNewExtraButton"); // NOI18N
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jButton9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
-                        .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton8)))
+                .addComponent(createNewExtraButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
+                .addComponent(searchExtraTextBox, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(searchExtraSearchButton)
                 .addContainerGap())
+            .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton9)
-                    .addComponent(jButton8)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(createNewExtraButton)
+                    .addComponent(searchExtraSearchButton)
+                    .addComponent(searchExtraTextBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 461, Short.MAX_VALUE))
         );
 
         jSplitPane3.setLeftComponent(jPanel6);
@@ -480,6 +474,19 @@ public class AdminView extends javax.swing.JPanel {
     private javax.swing.JPanel ExtrasEditingPanel;
     private javax.swing.JButton addNewDishButton;
     private javax.swing.JTable allActiveDishesTable;
+    private javax.swing.JTable allRegisteredExtrasTable;
+    private javax.swing.JButton confirmDishEditButton;
+    private javax.swing.JButton confirmEditExtraButton;
+    private javax.swing.JButton createNewExtraButton;
+    private javax.swing.JLabel dishEditContainsDairyLabel;
+    private javax.swing.JLabel dishEditContainsGlutenLabel;
+    private javax.swing.JLabel dishEditContainsNutsLabel;
+    private javax.swing.JLabel dishEditDescriptionLabel;
+    private javax.swing.JLabel dishEditIsActiveLabel;
+    private javax.swing.JLabel dishEditIsPSpicyLabel;
+    private javax.swing.JLabel dishEditNameLabel;
+    private javax.swing.JLabel dishEditPriceLabel;
+    private javax.swing.JLabel dishIsVegetarianLabel;
     private javax.swing.JComboBox editDIshContainsGlutenComboBox;
     private javax.swing.JComboBox editDIshContainsNutsComboBox;
     private javax.swing.JComboBox editDishContainsDairyComboBox;
@@ -489,25 +496,13 @@ public class AdminView extends javax.swing.JPanel {
     private javax.swing.JComboBox editDishIsPsicyComboBox;
     private javax.swing.JComboBox editDishIsVegetarianComboBox;
     private javax.swing.JTextField editDishNameTextBox;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
-    private javax.swing.JComboBox jComboBox18;
-    private javax.swing.JFormattedTextField jFormattedTextField3;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JFormattedTextField editDishPriceTextBox;
+    private javax.swing.JComboBox editExtraExtraIsActiveComboBox;
+    private javax.swing.JTextField editExtraExtraNameTextBox;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -519,12 +514,11 @@ public class AdminView extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JSplitPane jSplitPane3;
-    private javax.swing.JTable jTable3;
     private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
     private javax.swing.JTabbedPane mainTabbedPane;
     private javax.swing.JButton searchDishSearchButton;
     private javax.swing.JTextField searchDishTextBox;
+    private javax.swing.JButton searchExtraSearchButton;
+    private javax.swing.JTextField searchExtraTextBox;
     // End of variables declaration//GEN-END:variables
 }
