@@ -88,16 +88,24 @@ public class DatabaseWriter {
 		int dishIsActive = convertBooleanToTinyInt(dish.isActive);
 		try {
 			DatabaseConnection.executeWriteQuery("INSERT INTO Dishes VALUES (NULL, "+dish.price+", '"+dish.name+"', "+containsGluten+", "+containsNuts+", "+containsDairy+", "+isSpicy+", "+isVegetarian+", '"+dish.description+"', "+dishIsActive+");");
-			DatabaseResultsFeedbackProvider.showAddNewExtraSucceededMessage();
+			DatabaseResultsFeedbackProvider.showAddNewDishSucceededMessage();
 		} catch (SQLException e) {
-			DatabaseResultsFeedbackProvider.showAddNewExtraFailedMessage();
+			DatabaseResultsFeedbackProvider.showAddNewDishFailedMessage();
 			e.printStackTrace();
 		}
 	}
 	
 	public static void writeNewExtra(Extra extra)
 	{
-		
+		int extraIsActive = convertBooleanToTinyInt(extra.isActive);
+		String priceString = extra.priceFuncPart + Double.toString(extra.priceValPart);
+		try {
+			DatabaseConnection.executeWriteQuery("INSERT INTO Extras VALUES (NULL, '"+extra.name+"', '"+priceString+"', "+extraIsActive+");");
+			DatabaseResultsFeedbackProvider.showAddNewExtraSucceededMessage();
+		} catch (SQLException e) {
+			DatabaseResultsFeedbackProvider.showAddNewExtraFailedMessage();
+			e.printStackTrace();
+		}
 	}
 	
 	private static void updateOrderStatusIfStatusMatchesCurrentStatus(Order order, String currentStatus, String newStatus)

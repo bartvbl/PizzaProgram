@@ -85,5 +85,9 @@ public class EventType {
 
 	public static final String DATABASE_MARK_ORDER_BEING_DELIVERED = "databaseMarkOrderAsBeingDelivered";
 
+	public static final String DATABASE_ADD_NEW_EXTRA = "databaseAddNewExtra";
+
+	public static final String DATABASE_ADD_NEW_DISH = "databaseAddNewDish";
+
 	
 }

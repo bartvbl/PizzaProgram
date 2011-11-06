@@ -1,5 +1,7 @@
 package pizzaProgram.events.moduleEventHandlers;
 
+import pizzaProgram.dataObjects.Dish;
+import pizzaProgram.dataObjects.Extra;
 import pizzaProgram.dataObjects.Order;
 import pizzaProgram.dataObjects.UnaddedCustomer;
 import pizzaProgram.dataObjects.UnaddedOrder;
@@ -28,10 +30,13 @@ public class Database_WriteEventHandler implements EventHandler {
 	private void addListeners() {
 		this.eventDispatcher.addEventListener(this, EventType.DATABASE_ADD_NEW_ORDER);
 		this.eventDispatcher.addEventListener(this, EventType.DATABASE_ADD_NEW_CUSTOMER);
+		this.eventDispatcher.addEventListener(this, EventType.DATABASE_ADD_NEW_EXTRA);
+		this.eventDispatcher.addEventListener(this, EventType.DATABASE_ADD_NEW_DISH);
 		this.eventDispatcher.addEventListener(this, EventType.DATABASE_MARK_ORDER_IN_PROGRESS);
 		this.eventDispatcher.addEventListener(this, EventType.DATABASE_MARK_ORDER_FINISHED_COOKING);
 		this.eventDispatcher.addEventListener(this, EventType.DATABASE_MARK_ORDER_BEING_DELIVERED);
 		this.eventDispatcher.addEventListener(this, EventType.DATABASE_MARK_ORDER_DELIVERED);
+		
 	}
 
 	public void handleEvent(Event<?> event) {
@@ -53,7 +58,31 @@ public class Database_WriteEventHandler implements EventHandler {
 		} else if(event.eventType.equals(EventType.DATABASE_MARK_ORDER_DELIVERED))
 		{
 			this.markOrderAsDelivered(event);
+		} else if(event.eventType.equals(EventType.DATABASE_ADD_NEW_DISH))
+		{
+			this.addNewDish(event);
+		} else if(event.eventType.equals(EventType.DATABASE_ADD_NEW_EXTRA))
+		{
+			this.addNewExtra(event);
 		} 
+	}
+
+	private void addNewExtra(Event<?> event) {
+		if(!(event.getEventParameterObject() instanceof Extra))
+		{
+			DatabaseResultsFeedbackProvider.showAddNewExtraFailedMessage();
+			return;
+		}
+		DatabaseWriter.writeNewExtra((Extra)event.getEventParameterObject());
+	}
+
+	private void addNewDish(Event<?> event) {
+		if(!(event.getEventParameterObject() instanceof Dish))
+		{
+			DatabaseResultsFeedbackProvider.showAddNewExtraFailedMessage();
+			return;
+		}
+		DatabaseWriter.writeNewDish((Dish)event.getEventParameterObject());
 	}
 
 	private void markOrderFinishedCooking(Event<?> event) {
