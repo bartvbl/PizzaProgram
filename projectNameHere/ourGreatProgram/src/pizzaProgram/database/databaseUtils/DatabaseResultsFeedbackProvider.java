@@ -78,4 +78,8 @@ public class DatabaseResultsFeedbackProvider {
 		JOptionPane.showMessageDialog(null, "New dish has been added successfully.", DEFAULT_ERROR_TITLE, JOptionPane.INFORMATION_MESSAGE);
 	}
 
+	public static void showUpdateConfigValueFailedMessage() {
+		JOptionPane.showMessageDialog(null, "Failed to update config value.", DEFAULT_ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
+	}
+
 }

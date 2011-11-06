@@ -7,6 +7,7 @@ import pizzaProgram.dataObjects.Dish;
 import pizzaProgram.dataObjects.Extra;
 import pizzaProgram.dataObjects.Order;
 import pizzaProgram.dataObjects.OrderDish;
+import pizzaProgram.dataObjects.Setting;
 import pizzaProgram.dataObjects.UnaddedCustomer;
 import pizzaProgram.dataObjects.UnaddedOrder;
 import pizzaProgram.database.DatabaseConnection;
@@ -104,6 +105,16 @@ public class DatabaseWriter {
 			DatabaseResultsFeedbackProvider.showAddNewExtraSucceededMessage();
 		} catch (SQLException e) {
 			DatabaseResultsFeedbackProvider.showAddNewExtraFailedMessage();
+			e.printStackTrace();
+		}
+	}
+	
+	public static void updateConfigValue(Setting setting)
+	{
+		try {
+			DatabaseConnection.executeWriteQuery("UPDATE Config SET ConfigValue='"+setting.value+"' WHERE ConfigKey='"+setting.key+"'");
+		} catch (SQLException e) {
+			DatabaseResultsFeedbackProvider.showUpdateConfigValueFailedMessage();
 			e.printStackTrace();
 		}
 	}

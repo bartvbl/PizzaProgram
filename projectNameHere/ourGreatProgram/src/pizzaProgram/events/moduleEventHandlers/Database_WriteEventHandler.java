@@ -3,6 +3,7 @@ package pizzaProgram.events.moduleEventHandlers;
 import pizzaProgram.dataObjects.Dish;
 import pizzaProgram.dataObjects.Extra;
 import pizzaProgram.dataObjects.Order;
+import pizzaProgram.dataObjects.Setting;
 import pizzaProgram.dataObjects.UnaddedCustomer;
 import pizzaProgram.dataObjects.UnaddedOrder;
 import pizzaProgram.database.DatabaseConnection;
@@ -36,7 +37,7 @@ public class Database_WriteEventHandler implements EventHandler {
 		this.eventDispatcher.addEventListener(this, EventType.DATABASE_MARK_ORDER_FINISHED_COOKING);
 		this.eventDispatcher.addEventListener(this, EventType.DATABASE_MARK_ORDER_BEING_DELIVERED);
 		this.eventDispatcher.addEventListener(this, EventType.DATABASE_MARK_ORDER_DELIVERED);
-		
+		this.eventDispatcher.addEventListener(this, EventType.DATABASE_UPDATE_CONFIG_VALUE);
 	}
 
 	public void handleEvent(Event<?> event) {
@@ -64,7 +65,19 @@ public class Database_WriteEventHandler implements EventHandler {
 		} else if(event.eventType.equals(EventType.DATABASE_ADD_NEW_EXTRA))
 		{
 			this.addNewExtra(event);
+		} else if(event.eventType.equals(EventType.DATABASE_UPDATE_CONFIG_VALUE))
+		{
+			this.updateConfigValue(event);
 		} 
+	}
+
+	private void updateConfigValue(Event<?> event) {
+		if(!(event.getEventParameterObject() instanceof Setting))
+		{
+			DatabaseResultsFeedbackProvider.showUpdateConfigValueFailedMessage();
+			return;
+		}
+		DatabaseWriter.updateConfigValue((Setting)event.getEventParameterObject());
 	}
 
 	private void addNewExtra(Event<?> event) {
