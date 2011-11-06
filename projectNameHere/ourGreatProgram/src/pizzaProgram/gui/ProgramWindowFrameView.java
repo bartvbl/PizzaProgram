@@ -43,14 +43,6 @@ public class ProgramWindowFrameView extends FrameView {
         PizzaProgram.getApplication().show(aboutBox);
     }
 
-    public JMenuItem getOpenEditMenuWindowMenuItem() {
-        return openEditMenuWindowMenuItem;
-    }
-
-    public JMenuItem getOpenSettingsWindowMenuItem() {
-        return openSettingsWindowMenuItem;
-    }
-
     public JMenuItem getRefreshDataMenuItem() {
         return refreshDataMenuItem;
     }
@@ -80,13 +72,12 @@ public class ProgramWindowFrameView extends FrameView {
         javax.swing.JMenu fileMenu = new javax.swing.JMenu();
         javax.swing.JMenuItem exitMenuItem = new javax.swing.JMenuItem();
         editMenu = new javax.swing.JMenu();
-        openSettingsWindowMenuItem = new javax.swing.JMenuItem();
-        openEditMenuWindowMenuItem = new javax.swing.JMenuItem();
         refreshDataMenuItem = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         showOrderGUIMenuItem = new javax.swing.JRadioButtonMenuItem();
         showCookGUIMenuItem = new javax.swing.JRadioButtonMenuItem();
         showDeliveryGUIMenuItem = new javax.swing.JRadioButtonMenuItem();
+        showSettingsMenuItem = new javax.swing.JRadioButtonMenuItem();
         javax.swing.JMenu helpMenu = new javax.swing.JMenu();
         javax.swing.JMenuItem aboutMenuItem = new javax.swing.JMenuItem();
         GUIMenuItemSelectionButtonGroup = new javax.swing.ButtonGroup();
@@ -106,14 +97,6 @@ public class ProgramWindowFrameView extends FrameView {
 
         editMenu.setText(resourceMap.getString("editMenu.text")); // NOI18N
         editMenu.setName("editMenu"); // NOI18N
-
-        openSettingsWindowMenuItem.setText(resourceMap.getString("openSettingsWindowMenuItem.text")); // NOI18N
-        openSettingsWindowMenuItem.setName("openSettingsWindowMenuItem"); // NOI18N
-        editMenu.add(openSettingsWindowMenuItem);
-
-        openEditMenuWindowMenuItem.setText(resourceMap.getString("openEditMenuWindowMenuItem.text")); // NOI18N
-        openEditMenuWindowMenuItem.setName("openEditMenuWindowMenuItem"); // NOI18N
-        editMenu.add(openEditMenuWindowMenuItem);
 
         refreshDataMenuItem.setText(resourceMap.getString("refreshDataMenuItem.text")); // NOI18N
         refreshDataMenuItem.setName("refreshDataMenuItem"); // NOI18N
@@ -140,6 +123,11 @@ public class ProgramWindowFrameView extends FrameView {
         showDeliveryGUIMenuItem.setName("showDeliveryGUIMenuItem"); // NOI18N
         jMenu2.add(showDeliveryGUIMenuItem);
 
+        GUIMenuItemSelectionButtonGroup.add(showSettingsMenuItem);
+        showSettingsMenuItem.setText("Settings"); // NOI18N
+        showSettingsMenuItem.setName("jRadioButtonMenuItem1"); // NOI18N
+        jMenu2.add(showSettingsMenuItem);
+
         menuBar.add(jMenu2);
 
         helpMenu.setText(resourceMap.getString("helpMenu.text")); // NOI18N
@@ -156,16 +144,15 @@ public class ProgramWindowFrameView extends FrameView {
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.ButtonGroup GUIMenuItemSelectionButtonGroup;
-    private javax.swing.JMenu editMenu;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuBar menuBar;
-    private javax.swing.JMenuItem openEditMenuWindowMenuItem;
-    private javax.swing.JMenuItem openSettingsWindowMenuItem;
-    private javax.swing.JMenuItem refreshDataMenuItem;
-    private javax.swing.JRadioButtonMenuItem showCookGUIMenuItem;
-    private javax.swing.JRadioButtonMenuItem showDeliveryGUIMenuItem;
-    private javax.swing.JRadioButtonMenuItem showOrderGUIMenuItem;
+    public static javax.swing.ButtonGroup GUIMenuItemSelectionButtonGroup;
+    public static javax.swing.JMenu editMenu;
+    public static javax.swing.JMenu jMenu2;
+    public static javax.swing.JRadioButtonMenuItem showSettingsMenuItem;
+    public static javax.swing.JMenuBar menuBar;
+    public static javax.swing.JMenuItem refreshDataMenuItem;
+    public static javax.swing.JRadioButtonMenuItem showCookGUIMenuItem;
+    public static javax.swing.JRadioButtonMenuItem showDeliveryGUIMenuItem;
+    public static javax.swing.JRadioButtonMenuItem showOrderGUIMenuItem;
     // End of variables declaration//GEN-END:variables
 
 

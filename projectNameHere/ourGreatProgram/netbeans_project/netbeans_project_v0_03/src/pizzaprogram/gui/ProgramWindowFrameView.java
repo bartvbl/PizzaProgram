@@ -80,13 +80,12 @@ public class ProgramWindowFrameView extends FrameView {
         javax.swing.JMenu fileMenu = new javax.swing.JMenu();
         javax.swing.JMenuItem exitMenuItem = new javax.swing.JMenuItem();
         editMenu = new javax.swing.JMenu();
-        openSettingsWindowMenuItem = new javax.swing.JMenuItem();
-        openEditMenuWindowMenuItem = new javax.swing.JMenuItem();
         refreshDataMenuItem = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         showOrderGUIMenuItem = new javax.swing.JRadioButtonMenuItem();
         showCookGUIMenuItem = new javax.swing.JRadioButtonMenuItem();
         showDeliveryGUIMenuItem = new javax.swing.JRadioButtonMenuItem();
+        jRadioButtonMenuItem1 = new javax.swing.JRadioButtonMenuItem();
         javax.swing.JMenu helpMenu = new javax.swing.JMenu();
         javax.swing.JMenuItem aboutMenuItem = new javax.swing.JMenuItem();
         GUIMenuItemSelectionButtonGroup = new javax.swing.ButtonGroup();
@@ -106,14 +105,6 @@ public class ProgramWindowFrameView extends FrameView {
 
         editMenu.setText(resourceMap.getString("editMenu.text")); // NOI18N
         editMenu.setName("editMenu"); // NOI18N
-
-        openSettingsWindowMenuItem.setText(resourceMap.getString("openSettingsWindowMenuItem.text")); // NOI18N
-        openSettingsWindowMenuItem.setName("openSettingsWindowMenuItem"); // NOI18N
-        editMenu.add(openSettingsWindowMenuItem);
-
-        openEditMenuWindowMenuItem.setText(resourceMap.getString("openEditMenuWindowMenuItem.text")); // NOI18N
-        openEditMenuWindowMenuItem.setName("openEditMenuWindowMenuItem"); // NOI18N
-        editMenu.add(openEditMenuWindowMenuItem);
 
         refreshDataMenuItem.setText(resourceMap.getString("refreshDataMenuItem.text")); // NOI18N
         refreshDataMenuItem.setName("refreshDataMenuItem"); // NOI18N
@@ -140,6 +131,11 @@ public class ProgramWindowFrameView extends FrameView {
         showDeliveryGUIMenuItem.setName("showDeliveryGUIMenuItem"); // NOI18N
         jMenu2.add(showDeliveryGUIMenuItem);
 
+        jRadioButtonMenuItem1.setSelected(true);
+        jRadioButtonMenuItem1.setText(resourceMap.getString("jRadioButtonMenuItem1.text")); // NOI18N
+        jRadioButtonMenuItem1.setName("jRadioButtonMenuItem1"); // NOI18N
+        jMenu2.add(jRadioButtonMenuItem1);
+
         menuBar.add(jMenu2);
 
         helpMenu.setText(resourceMap.getString("helpMenu.text")); // NOI18N
@@ -159,9 +155,8 @@ public class ProgramWindowFrameView extends FrameView {
     private javax.swing.ButtonGroup GUIMenuItemSelectionButtonGroup;
     private javax.swing.JMenu editMenu;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem1;
     private javax.swing.JMenuBar menuBar;
-    private javax.swing.JMenuItem openEditMenuWindowMenuItem;
-    private javax.swing.JMenuItem openSettingsWindowMenuItem;
     private javax.swing.JMenuItem refreshDataMenuItem;
     private javax.swing.JRadioButtonMenuItem showCookGUIMenuItem;
     private javax.swing.JRadioButtonMenuItem showDeliveryGUIMenuItem;

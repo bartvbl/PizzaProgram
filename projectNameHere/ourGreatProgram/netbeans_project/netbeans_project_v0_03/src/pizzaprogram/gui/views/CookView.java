@@ -41,7 +41,7 @@ public class CookView extends javax.swing.JPanel {
         setName("Form"); // NOI18N
         setLayout(new java.awt.BorderLayout());
 
-        mainSplitPane.setDividerLocation(250);
+        mainSplitPane.setDividerLocation(280);
         mainSplitPane.setName("mainSplitPane"); // NOI18N
 
         orderEditSplitPane.setDividerLocation(350);
@@ -86,7 +86,7 @@ public class CookView extends javax.swing.JPanel {
             .addGroup(generalOrderPropertiesPaneLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(generalOrderPropertiesPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(orderCommentsFieldScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE)
+                    .addComponent(orderCommentsFieldScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 429, Short.MAX_VALUE)
                     .addComponent(orderCommentsLabel)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, generalOrderPropertiesPaneLayout.createSequentialGroup()
                         .addComponent(markOrderInProgressButton)
@@ -134,11 +134,11 @@ public class CookView extends javax.swing.JPanel {
             orderSelectionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, orderSelectionPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(orderSearchTextPane, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
+                .addComponent(orderSearchTextPane, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(searchOrderButton)
                 .addGap(10, 10, 10))
-            .addComponent(ordersTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
+            .addComponent(ordersTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
         );
         orderSelectionPanelLayout.setVerticalGroup(
             orderSelectionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

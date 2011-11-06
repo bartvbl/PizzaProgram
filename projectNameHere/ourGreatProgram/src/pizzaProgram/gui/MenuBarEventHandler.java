@@ -56,17 +56,15 @@ public class MenuBarEventHandler implements ActionListener {
     }
 
     private void fillMenuItemsTable() {
-        this.registerComponentEvent(this.mainFrameView.getOpenEditMenuWindowMenuItem(), EventType.EDIT_MENU_VIEW_REQUESTED);
-        this.registerComponentEvent(this.mainFrameView.getOpenSettingsWindowMenuItem(), EventType.OPEN_SETTINGS_WINDOW_REQUESTED);
-        this.registerComponentEvent(this.mainFrameView.getRefreshDataMenuItem(), EventType.DATA_REFRESH_REQUESTED);
+        this.registerComponentEvent(ProgramWindowFrameView.showSettingsMenuItem, EventType.OPEN_SETTINGS_WINDOW_REQUESTED);
+        this.registerComponentEvent(ProgramWindowFrameView.refreshDataMenuItem, EventType.DATA_REFRESH_REQUESTED);
         this.registerComponentEvent(this.mainFrameView.getShowCookGUIMenuItem(), EventType.COOK_GUI_REQUESTED);
         this.registerComponentEvent(this.mainFrameView.getShowDeliveryGUIMenuItem(), EventType.DELIVERY_GUI_REQUESTED);
         this.registerComponentEvent(this.mainFrameView.getShowOrderGUIMenuItem(), EventType.ORDER_GUI_REQUESTED);
     }
 
     private void registerActionListeners() {
-        this.mainFrameView.getOpenEditMenuWindowMenuItem().addActionListener(this);
-        this.mainFrameView.getOpenSettingsWindowMenuItem().addActionListener(this);
+        ProgramWindowFrameView.showSettingsMenuItem.addActionListener(this);
         this.mainFrameView.getRefreshDataMenuItem().addActionListener(this);
         this.mainFrameView.getShowCookGUIMenuItem().addActionListener(this);
         this.mainFrameView.getShowDeliveryGUIMenuItem().addActionListener(this);

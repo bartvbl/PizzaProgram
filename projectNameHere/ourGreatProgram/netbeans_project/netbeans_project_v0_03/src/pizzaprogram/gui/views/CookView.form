@@ -21,7 +21,7 @@
   <SubComponents>
     <Container class="javax.swing.JSplitPane" name="mainSplitPane">
       <Properties>
-        <Property name="dividerLocation" type="int" value="250"/>
+        <Property name="dividerLocation" type="int" value="280"/>
         <Property name="name" type="java.lang.String" value="mainSplitPane" noResource="true"/>
       </Properties>
       <Constraints>
@@ -94,7 +94,7 @@
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="orderCommentsFieldScrollPane" alignment="0" pref="459" max="32767" attributes="0"/>
+                              <Component id="orderCommentsFieldScrollPane" alignment="0" pref="429" max="32767" attributes="0"/>
                               <Component id="orderCommentsLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Group type="102" alignment="1" attributes="0">
                                   <Component id="markOrderInProgressButton" min="-2" max="-2" attributes="0"/>
@@ -182,12 +182,12 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="orderSearchTextPane" pref="158" max="32767" attributes="0"/>
+                      <Component id="orderSearchTextPane" pref="188" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="searchOrderButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="ordersTableScrollPane" alignment="0" pref="249" max="32767" attributes="0"/>
+                  <Component id="ordersTableScrollPane" alignment="0" pref="279" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">

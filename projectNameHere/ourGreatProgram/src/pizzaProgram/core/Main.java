@@ -1,5 +1,6 @@
 package pizzaProgram.core;
 
+import pizzaProgram.gui.AdminGUI;
 import pizzaProgram.gui.OrderGUI;
 import pizzaProgram.gui.CookGUI;
 import java.sql.SQLException;
@@ -73,9 +74,7 @@ public class Main implements EventHandler {
 	 * After they are operational, they will dispatch events to the event dispatcher when the user interacts with the program
 	 */
 	private void createGUIModules(){
-		//TODO: remove database connection parameter when database events are operational
-		//TODO: remove jframe parameter
-		
+		AdminGUI adminGUI = new AdminGUI(this.programWindow, this.eventDispatcher);
 		DeliverGUI deliverGUI  = new DeliverGUI(this.programWindow, this.eventDispatcher);
 		OrderGUI orderGUI = new OrderGUI(this.programWindow, this.eventDispatcher);
 		CookGUI cookGUI  = new CookGUI(this.programWindow, this.eventDispatcher);
