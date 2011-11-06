@@ -89,7 +89,7 @@ public class DeliveryView extends javax.swing.JPanel {
                     .addComponent(markOrderDeliveredButton)
                     .addComponent(markOrderBeingDeliveredButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(orderContentsTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE))
+                .addComponent(orderContentsTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE))
         );
 
         rightHorizontallSplitPane.setTopComponent(orderContentsPanel);
@@ -106,7 +106,7 @@ public class DeliveryView extends javax.swing.JPanel {
         );
         mapImagePanelLayout.setVerticalGroup(
             mapImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 678, Short.MAX_VALUE)
+            .addGap(0, 551, Short.MAX_VALUE)
         );
 
         rightHorizontallSplitPane.setRightComponent(mapImagePanel);
@@ -130,10 +130,6 @@ public class DeliveryView extends javax.swing.JPanel {
         activeOrdersTable.setModel(new DefaultTableModel());
         activeOrdersTable.setName("activeOrdersTable"); // NOI18N
         jScrollPane1.setViewportView(activeOrdersTable);
-        activeOrdersTable.getColumnModel().getColumn(0).setHeaderValue(resourceMap.getString("activeOrdersTable.columnModel.title0")); // NOI18N
-        activeOrdersTable.getColumnModel().getColumn(1).setHeaderValue(resourceMap.getString("activeOrdersTable.columnModel.title1")); // NOI18N
-        activeOrdersTable.getColumnModel().getColumn(2).setHeaderValue(resourceMap.getString("activeOrdersTable.columnModel.title2")); // NOI18N
-        activeOrdersTable.getColumnModel().getColumn(3).setHeaderValue(resourceMap.getString("activeOrdersTable.columnModel.title3")); // NOI18N
 
         javax.swing.GroupLayout activeOrderListPanelLayout = new javax.swing.GroupLayout(activeOrderListPanel);
         activeOrderListPanel.setLayout(activeOrderListPanelLayout);
@@ -155,7 +151,7 @@ public class DeliveryView extends javax.swing.JPanel {
                     .addComponent(orderSearchButton)
                     .addComponent(orderSearchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE))
         );
 
         leftHorizontalSplitPanel.setTopComponent(activeOrderListPanel);
@@ -275,7 +271,7 @@ public class DeliveryView extends javax.swing.JPanel {
         orderDetailsPanelLayout.setVerticalGroup(
             orderDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, orderDetailsPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(250, Short.MAX_VALUE)
                 .addComponent(orderPriceOverviewPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(orderDetailsSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -316,7 +312,11 @@ public class DeliveryView extends javax.swing.JPanel {
     public static final javax.swing.JScrollPane orderCommentsScrollPane = new javax.swing.JScrollPane();
     public static final javax.swing.JTextArea orderCommentsTextArea = new javax.swing.JTextArea();
     public static final javax.swing.JPanel orderContentsPanel = new javax.swing.JPanel();
-    public static final javax.swing.JTable orderContentsTable = new javax.swing.JTable();
+    public static final javax.swing.JTable orderContentsTable = new javax.swing.JTable(){
+        public boolean isCellEditable(int rowIndex, int colIndex) {
+            return false; //Disallow the editing of any cell
+        }
+    };
     public static final javax.swing.JScrollPane orderContentsTableScrollPane = new javax.swing.JScrollPane();
     public static final javax.swing.JLabel orderCostDeliveryCost = new javax.swing.JLabel();
     public static final javax.swing.JLabel orderCostDeliveryCostLabel = new javax.swing.JLabel();

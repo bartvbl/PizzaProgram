@@ -62,11 +62,7 @@ public class AdminView extends javax.swing.JPanel {
         confirmDishEditButton = new javax.swing.JButton();
         dishEditDishListJPanel = new javax.swing.JPanel();
         allActiveDishesDishTableScrollPane = new javax.swing.JScrollPane();
-        allActiveDishesTable = new javax.swing.JTable(){
-            public boolean isCellEditable(int rowIndex, int colIndex) {
-                return false; //Disallow the editing of any cell
-            }
-        };
+        allActiveDishesTable = new javax.swing.JTable();
         searchDishSearchButton = new javax.swing.JButton();
         searchDishTextBox = new javax.swing.JTextField();
         addNewDishButton = new javax.swing.JButton();
@@ -261,6 +257,11 @@ public class AdminView extends javax.swing.JPanel {
 
         allActiveDishesDishTableScrollPane.setName("allActiveDishesDishTableScrollPane"); // NOI18N
 
+        allActiveDishesTable = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                return false; //Disallow the editing of any cell
+            }
+        };
         allActiveDishesTable.setAutoCreateRowSorter(true);
         allActiveDishesTable.setModel(new DefaultTableModel());
         allActiveDishesTable.setName("allActiveDishesTable"); // NOI18N
