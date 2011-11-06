@@ -67,7 +67,6 @@ public class AdminView extends javax.swing.JPanel {
                 return false; //Disallow the editing of any cell
             }
         };
-        allActiveDishesTable = new javax.swing.JTable();
         searchDishSearchButton = new javax.swing.JButton();
         searchDishTextBox = new javax.swing.JTextField();
         addNewDishButton = new javax.swing.JButton();
