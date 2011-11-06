@@ -60,7 +60,14 @@ public class DatabaseResultsFeedbackProvider {
 
 	public static void showUpdateOrderStatusFailedInvalidDeliveryMethodMessage() {
 		JOptionPane.showMessageDialog(null, "You can not mark an order as being delivered when that order is set to be picked up at the restaurant!", DEFAULT_ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
-		
+	}
+
+	public static void showAddNewExtraFailedMessage() {
+		JOptionPane.showMessageDialog(null, "Failed to create a new extra.", DEFAULT_ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
+	}
+
+	public static void showAddNewExtraSucceededMessage() {
+		JOptionPane.showMessageDialog(null, "New extra has been added successfully.", DEFAULT_ERROR_TITLE, JOptionPane.INFORMATION_MESSAGE);
 	}
 
 }

@@ -62,6 +62,11 @@ public class AdminView extends javax.swing.JPanel {
         confirmDishEditButton = new javax.swing.JButton();
         dishEditDishListJPanel = new javax.swing.JPanel();
         allActiveDishesDishTableScrollPane = new javax.swing.JScrollPane();
+        allActiveDishesTable = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                return false; //Disallow the editing of any cell
+            }
+        };
         allActiveDishesTable = new javax.swing.JTable();
         searchDishSearchButton = new javax.swing.JButton();
         searchDishTextBox = new javax.swing.JTextField();
@@ -78,7 +83,11 @@ public class AdminView extends javax.swing.JPanel {
         confirmEditExtraButton = new javax.swing.JButton();
         editExtraExtraSelectionJPanel = new javax.swing.JPanel();
         allRegisteredExtrasScrollPane = new javax.swing.JScrollPane();
-        allRegisteredExtrasTable = new javax.swing.JTable();
+        allRegisteredExtrasTable = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                return false; //Disallow the editing of any cell
+            }
+        };
         searchExtraSearchButton = new javax.swing.JButton();
         searchExtraTextBox = new javax.swing.JTextField();
         createNewExtraButton = new javax.swing.JButton();

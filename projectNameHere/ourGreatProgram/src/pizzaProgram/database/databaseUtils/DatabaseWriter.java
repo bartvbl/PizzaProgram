@@ -3,6 +3,7 @@ package pizzaProgram.database.databaseUtils;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import pizzaProgram.dataObjects.Dish;
 import pizzaProgram.dataObjects.Extra;
 import pizzaProgram.dataObjects.Order;
 import pizzaProgram.dataObjects.OrderDish;
@@ -69,12 +70,34 @@ public class DatabaseWriter {
 		int commentID;
 		try {
 			commentID = createCustomerNote(customer.comment);
-			DatabaseConnection.insertIntoDB("INSERT INTO Customer VALUES (NULL, '"+customer.firstName+"', '"+customer.lastName+"', '"+customer.address+"', "+customer.postalCode+", '"+customer.city+"', "+customer.phoneNumber+", "+commentID+");");
+			DatabaseConnection.executeWriteQuery("INSERT INTO Customer VALUES (NULL, '"+customer.firstName+"', '"+customer.lastName+"', '"+customer.address+"', "+customer.postalCode+", '"+customer.city+"', "+customer.phoneNumber+", "+commentID+");");
 			DatabaseResultsFeedbackProvider.showAddNewCustomerSuccessMessage();
 		} catch (SQLException e) {
 			DatabaseResultsFeedbackProvider.showAddNewCustomerFailedMessage();
 			e.printStackTrace();
 		}
+	}
+	
+	public static void writeNewDish(Dish dish)
+	{
+		int containsGluten = convertBooleanToTinyInt(dish.containsGluten);
+		int containsNuts = convertBooleanToTinyInt(dish.containsNuts);
+		int containsDairy = convertBooleanToTinyInt(dish.containsDiary);
+		int isSpicy = convertBooleanToTinyInt(dish.isSpicy);
+		int isVegetarian = convertBooleanToTinyInt(dish.isVegetarian);
+		int dishIsActive = convertBooleanToTinyInt(dish.isActive);
+		try {
+			DatabaseConnection.executeWriteQuery("INSERT INTO Dishes VALUES (NULL, "+dish.price+", '"+dish.name+"', "+containsGluten+", "+containsNuts+", "+containsDairy+", "+isSpicy+", "+isVegetarian+", '"+dish.description+"', "+dishIsActive+");");
+			DatabaseResultsFeedbackProvider.showAddNewExtraSucceededMessage();
+		} catch (SQLException e) {
+			DatabaseResultsFeedbackProvider.showAddNewExtraFailedMessage();
+			e.printStackTrace();
+		}
+	}
+	
+	public static void writeNewExtra(Extra extra)
+	{
+		
 	}
 	
 	private static void updateOrderStatusIfStatusMatchesCurrentStatus(Order order, String currentStatus, String newStatus)
@@ -108,10 +131,9 @@ public class DatabaseWriter {
 		return currentStatus;
 	}
 
-	private static void updateOrderStatus(String status, int orderID)
+	private static void updateOrderStatus(String status, int orderID) throws SQLException
 	{
-		System.out.println("updating order status");
-		DatabaseConnection.insertIntoDB("UPDATE Orders SET OrdersStatus='"+status+"' WHERE OrdersID="+orderID+";");
+		DatabaseConnection.executeWriteQuery("UPDATE Orders SET OrdersStatus='"+status+"' WHERE OrdersID="+orderID+";");
 	}
 	
 	private static void lockTablesForUpdatingOrderStatus() throws SQLException
@@ -160,5 +182,15 @@ public class DatabaseWriter {
 	private static int createCustomerNote(String comment) throws SQLException {
 		int commentID = DatabaseConnection.insertIntoDBAndReturnID("INSERT INTO OrderComments VALUES (NULL, '"+comment+"');");
 		return commentID;
+	}
+	
+	private static int convertBooleanToTinyInt(boolean bool)
+	{
+		if(bool == true)
+		{
+			return 1;
+		} else {
+			return 0;
+		}
 	}
 }
