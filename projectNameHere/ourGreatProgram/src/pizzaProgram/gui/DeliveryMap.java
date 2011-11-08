@@ -65,20 +65,6 @@ public class DeliveryMap extends JPanel {
 		return s;
 	}
 
-	/**
-	 * 
-	 * This is not final code
-	 * 
-	 * @param z
-	 *            input for zoom-level
-	 * 
-	 * 
-	 * @return
-	 */
-	/*
-	 * private String zoom(String z){ String x = z; while (z >= "10" ) {} return
-	 * x; }
-	 */
 
 	/**
 	 * 
@@ -94,7 +80,7 @@ public class DeliveryMap extends JPanel {
 		try {
 			URL url = new URL(
 					"http://maps.googleapis.com/maps/api/staticmap?size="+width+"x"+height+"&sensor=false&markers="
-							+ formatAddress(address())+ "&markers="+ formatAddress(customer.address));
+							+ formatAddress(address())+ "&markers="+ formatAddress(customer.address+","+customer.postalCode));
 			kart = ImageIO.read(url);
 
 		} catch (MalformedURLException e) {

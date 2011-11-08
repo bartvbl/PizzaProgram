@@ -13,8 +13,7 @@ import pizzaProgram.dataObjects.OrderDish;
 import pizzaProgram.database.DatabaseConnection;
 
 public class DatabaseReader {
-	public static ArrayList<Customer> getAllCustomers()
-	{
+	public static ArrayList<Customer> getAllCustomers(){
 		ResultSet results = DatabaseConnection.fetchData("SELECT * FROM Customer LEFT JOIN CustomerNotes ON ( Customer.commentID = CustomerNotes.NoteID );");
 		ArrayList<Customer> customerList = new ArrayList<Customer>();
 		try {
@@ -27,8 +26,7 @@ public class DatabaseReader {
 		return null;
 	}
 	
-	public static ArrayList<Customer> searchCustomerByString(String searchQuery)
-	{
+	public static ArrayList<Customer> searchCustomerByString(String searchQuery){
 		String query = generateCustomerSearchQuery(searchQuery);
 		ResultSet results = DatabaseConnection.fetchData(query);
 		ArrayList<Customer> customerList = new ArrayList<Customer>();

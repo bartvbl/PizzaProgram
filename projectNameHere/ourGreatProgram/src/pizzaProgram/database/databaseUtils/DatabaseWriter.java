@@ -11,7 +11,6 @@ import pizzaProgram.dataObjects.Setting;
 import pizzaProgram.dataObjects.UnaddedCustomer;
 import pizzaProgram.dataObjects.UnaddedOrder;
 import pizzaProgram.database.DatabaseConnection;
-import pizzaProgram.database.OrderList;
 
 public class DatabaseWriter {
 	public static void markOrderAsInProgress(Order order)
@@ -44,25 +43,19 @@ public class DatabaseWriter {
 		}
 	}
 	
-	public static void writeNewOrder(UnaddedOrder order)
-	{
-		try
-		{
+	public static void writeNewOrder(UnaddedOrder order){
+		try{
 			int commentID = -1;
-			if(order.comment != "")
-			{
+			if(order.comment != ""){
 				commentID = createOrderComment(order.comment);
 			}
 			int orderID = createNewOrder(order, commentID);
-			if(orderID != -1)
-			{
+			if(orderID != -1){
 				addDishesToOrder(order, orderID);
 			}
 			DatabaseResultsFeedbackProvider.showAddNewOrderSuccessMessage();
 		}
-		catch(SQLException e)
-		{
-			e.printStackTrace();
+		catch(SQLException e){
 			DatabaseResultsFeedbackProvider.showAddNewOrderFailedMessage();
 		}
 	}

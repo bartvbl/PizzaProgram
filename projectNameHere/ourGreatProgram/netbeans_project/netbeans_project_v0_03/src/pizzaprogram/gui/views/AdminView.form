@@ -90,7 +90,7 @@
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="editDishNameTextBox" alignment="0" pref="201" max="32767" attributes="0"/>
                                           <Component id="editDishDescriptionScrollPane" alignment="0" pref="201" max="32767" attributes="0"/>
-                                          <Component id="editDishDishPriceTextArea" alignment="0" min="-2" pref="97" max="-2" attributes="0"/>
+                                          <Component id="editDishDishPriceTextArea" alignment="0" min="-2" pref="93" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
@@ -210,15 +210,6 @@
                         </Component>
                       </SubComponents>
                     </Container>
-                    <Component class="javax.swing.JFormattedTextField" name="editDishDishPriceTextArea">
-                      <Properties>
-                        <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
-                          <Format format="&#xa4;#,##0.00" subtype="-1" type="4"/>
-                        </Property>
-                        <Property name="text" type="java.lang.String" resourceKey="editDishDishPriceTextArea.text"/>
-                        <Property name="name" type="java.lang.String" value="editDishDishPriceTextArea" noResource="true"/>
-                      </Properties>
-                    </Component>
                     <Component class="javax.swing.JLabel" name="dishEditPriceLabel">
                       <Properties>
                         <Property name="text" type="java.lang.String" resourceKey="dishEditPriceLabel.text"/>
@@ -313,6 +304,12 @@
                       <Properties>
                         <Property name="text" type="java.lang.String" resourceKey="confirmDishEditButton.text"/>
                         <Property name="name" type="java.lang.String" value="confirmDishEditButton" noResource="true"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="editDishDishPriceTextArea">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" resourceKey="editDishDishPriceTextArea.text"/>
+                        <Property name="name" type="java.lang.String" value="editDishDishPriceTextArea" noResource="true"/>
                       </Properties>
                     </Component>
                   </SubComponents>
@@ -421,13 +418,11 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="688" max="32767" attributes="0"/>
                   <Component id="extrasMainSplitPane" alignment="0" pref="688" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="497" max="32767" attributes="0"/>
                   <Component id="extrasMainSplitPane" alignment="0" pref="497" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
@@ -464,13 +459,13 @@
                                       </Group>
                                       <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="editExtraPriceTextBox" alignment="0" min="-2" pref="97" max="-2" attributes="0"/>
+                                          <Component id="editExtraExtraPriceTextArea" min="-2" pref="83" max="-2" attributes="0"/>
                                           <Component id="editExtraExtraNameTextBox" alignment="0" pref="201" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="editExtraIsActiveLabel" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Component id="editExtraExtraIsActiveComboBox" min="-2" pref="94" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="confirmEditExtraButton" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -489,13 +484,13 @@
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="editExtraPriceTextBox" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="extraEditPriceTextBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="editExtraExtraPriceTextArea" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="editExtraExtraIsActiveComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="editExtraIsActiveLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="editExtraExtraIsActiveComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="confirmEditExtraButton" min="-2" max="-2" attributes="0"/>
@@ -514,14 +509,6 @@
                     <Component class="javax.swing.JTextField" name="editExtraExtraNameTextBox">
                       <Properties>
                         <Property name="name" type="java.lang.String" value="editExtraExtraNameTextBox" noResource="true"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JFormattedTextField" name="editExtraPriceTextBox">
-                      <Properties>
-                        <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
-                          <Format format="&#xa4;#,##0.00" subtype="-1" type="4"/>
-                        </Property>
-                        <Property name="name" type="java.lang.String" value="editExtraPriceTextBox" noResource="true"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="extraEditPriceTextBox">
@@ -548,6 +535,12 @@
                       <Properties>
                         <Property name="text" type="java.lang.String" resourceKey="confirmEditExtraButton.text"/>
                         <Property name="name" type="java.lang.String" value="confirmEditExtraButton" noResource="true"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="editExtraExtraPriceTextArea">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" resourceKey="editExtraExtraPriceTextArea.text"/>
+                        <Property name="name" type="java.lang.String" value="editExtraExtraPriceTextArea" noResource="true"/>
                       </Properties>
                     </Component>
                   </SubComponents>

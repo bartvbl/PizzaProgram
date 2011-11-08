@@ -1,25 +1,94 @@
 package pizzaProgram.gui;
 
+import java.util.ArrayList;
+
+import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableModel;
+
+import pizzaProgram.dataObjects.Dish;
+import pizzaProgram.dataObjects.Extra;
 import pizzaProgram.events.Event;
 import pizzaProgram.events.EventDispatcher;
 import pizzaProgram.events.EventHandler;
 import pizzaProgram.events.EventType;
+import pizzaProgram.events.moduleEventHandlers.AdminGUI_AdminViewEventHandler;
+import pizzaProgram.events.moduleEventHandlers.AdminGUI_SystemEventHandler;
 import pizzaProgram.gui.views.AdminView;
 import pizzaProgram.modules.GUIModule;
 
 public class AdminGUI extends GUIModule implements EventHandler{
 	private ProgramWindow programWindow;
 	private AdminView adminView;
+
+	public ArrayList<Dish> currentDishList;
+	public Dish currentSelectedDish;
+
+	public ArrayList<Extra> currentExtraList;
+	public Extra currentSelectedExtra;
 	
-	public AdminGUI(ProgramWindow programWindow, EventDispatcher eventDispatcher)
-	{
+	private AdminGUI_SystemEventHandler systemEventhandler;
+	private AdminGUI_AdminViewEventHandler adminViewEventHandler;
+
+	public AdminGUI(ProgramWindow programWindow, EventDispatcher eventDispatcher){
 		super(eventDispatcher);
 		this.programWindow = programWindow;
 		this.adminView = new AdminView();
 		programWindow.addJPanel(this.adminView);
-		
 		eventDispatcher.addEventListener(this, EventType.OPEN_SETTINGS_WINDOW_REQUESTED);
+
+		this.adminViewEventHandler = new AdminGUI_AdminViewEventHandler(this);
+		this.systemEventhandler = new AdminGUI_SystemEventHandler(eventDispatcher, this);
+		this.setupComponents();
 		this.hide();
+	}
+
+	private void setupComponents() {
+		DefaultTableModel dishTableModel = (DefaultTableModel) AdminView.allActiveDishesTable.getModel();
+		dishTableModel.addColumn("Name");
+		dishTableModel.addColumn("Price");
+		dishTableModel.addColumn("Active");
+		AdminView.allActiveDishesTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+		//DROPDOWNS
+		AdminView.editDishContainsDairyComboBox.addItem("yes");
+		AdminView.editDishContainsDairyComboBox.addItem("no");
+		AdminView.editDIshContainsGlutenComboBox.addItem("yes");
+		AdminView.editDIshContainsGlutenComboBox.addItem("no");
+		AdminView.editDIshContainsNutsComboBox.addItem("yes");
+		AdminView.editDIshContainsNutsComboBox.addItem("no");
+		AdminView.editDishIsDishActiveComboBox.addItem("yes");
+		AdminView.editDishIsDishActiveComboBox.addItem("no");
+		AdminView.editDishIsPsicyComboBox.addItem("yes");
+		AdminView.editDishIsPsicyComboBox.addItem("no");
+		AdminView.editDishIsVegetarianComboBox.addItem("yes");
+		AdminView.editDishIsVegetarianComboBox.addItem("no");
+		
+		DefaultTableModel extraTableModel = (DefaultTableModel) AdminView.allRegisteredExtrasTable.getModel();
+		extraTableModel.addColumn("Name");
+		extraTableModel.addColumn("Price");
+		extraTableModel.addColumn("Active");
+		AdminView.allRegisteredExtrasTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		
+		AdminView.editExtraExtraIsActiveComboBox.addItem("yes");
+		AdminView.editExtraExtraIsActiveComboBox.addItem("no");
+
+	}
+
+	private void resetUI() {
+		AdminView.allActiveDishesTable.getSelectionModel().clearSelection();
+		this.currentSelectedDish = null;
+
+		AdminView.editDishNameTextBox.setText("");
+		AdminView.editDishDescriptionTextArea.setText("");
+		AdminView.editDishDishPriceTextArea.setText("");
+
+		AdminView.editDishContainsDairyComboBox.selectWithKeyChar('n');
+		AdminView.editDIshContainsGlutenComboBox.selectWithKeyChar('n');
+		AdminView.editDIshContainsNutsComboBox.selectWithKeyChar('n');
+		AdminView.editDishIsPsicyComboBox.selectWithKeyChar('n');
+		AdminView.editDishIsVegetarianComboBox.selectWithKeyChar('n');
+		AdminView.editDishIsDishActiveComboBox.selectWithKeyChar('n');
+		
 	}
 
 	public void show() {
@@ -29,16 +98,19 @@ public class AdminGUI extends GUIModule implements EventHandler{
 	public void hide() {
 		this.programWindow.hidePanel(this.adminView);
 	}
-	
-	public void handleEvent(Event<?> event)
-	{
-		if(event.eventType.equals(EventType.OPEN_SETTINGS_WINDOW_REQUESTED))
-		{
-			this.show();
+
+	@Override
+	public void handleEvent(Event<?> event){
+		if(event.eventType.equals(EventType.OPEN_SETTINGS_WINDOW_REQUESTED)){
+			show();
+			this.dispatchEvent(new Event<Object>(EventType.DATABASE_UPDATE_ADMINGUI_GUI_SEND_ALL_DISHES));
+			this.dispatchEvent(new Event<Object>(EventType.DATABASE_UPDATE_ADMINGUI_GUI_SEND_ALL_EXTRAS));
 		}
 	}
-	
+
+	@Override
 	public void initialize() {
-		
+		// TODO REMOVE
 	}
-}
+
+}//END

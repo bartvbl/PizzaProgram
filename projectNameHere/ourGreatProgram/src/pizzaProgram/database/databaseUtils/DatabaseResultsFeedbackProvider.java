@@ -70,11 +70,11 @@ public class DatabaseResultsFeedbackProvider {
 		JOptionPane.showMessageDialog(null, "New extra has been added successfully.", DEFAULT_ERROR_TITLE, JOptionPane.INFORMATION_MESSAGE);
 	}
 
-	public static void showAddNewDishSucceededMessage() {
+	public static void showAddNewDishFailedMessage() {
 		JOptionPane.showMessageDialog(null, "Failed to create a new dish.", DEFAULT_ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
 	}
 
-	public static void showAddNewDishFailedMessage() {
+	public static void showAddNewDishSucceededMessage() {
 		JOptionPane.showMessageDialog(null, "New dish has been added successfully.", DEFAULT_ERROR_TITLE, JOptionPane.INFORMATION_MESSAGE);
 	}
 

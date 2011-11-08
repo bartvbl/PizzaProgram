@@ -39,35 +39,43 @@ public class Database_ReadEventHandler implements EventHandler {
 		this.eventDispatcher.addEventListener(this, EventType.DATABASE_UPDATE_COOK_GUI_SEARCH_ORDERS_BY_KEYWORDS);
 		this.eventDispatcher.addEventListener(this, EventType.DATABASE_UPDATE_DELIVERY_GUI_SEND_ALL_ORDERS);
 		this.eventDispatcher.addEventListener(this, EventType.DATABASE_UPDATE_DELIVERY_GUI_SEARCH_ORDERS);
+		
+		this.eventDispatcher.addEventListener(this, EventType.DATABASE_UPDATE_ADMINGUI_GUI_SEND_ALL_DISHES);
+		this.eventDispatcher.addEventListener(this, EventType.DATABASE_UPDATE_ADMINGUI_GUI_SEND_ALL_EXTRAS);
 	}
 
 	@Override
 	public void handleEvent(Event<?> event) {
-		if(event.eventType.equals(EventType.DATABASE_UPDATE_ORDER_GUI_SEND_ALL_CUSTOMERS))
-		{
+		if(event.eventType.equals(EventType.DATABASE_UPDATE_ORDER_GUI_SEND_ALL_CUSTOMERS)){
 			this.sendListOfAllCustomersToOrderGUI();
-		} else if(event.eventType.equals(EventType.DATABASE_UPDATE_ORDER_GUI_DISH_LIST))
-		{
+		}
+		else if(event.eventType.equals(EventType.DATABASE_UPDATE_ORDER_GUI_DISH_LIST)){
 			this.sendListOfAllDishesToOrderGUI();
-		} else if(event.eventType.equals(EventType.DATABASE_UPDATE_ORDER_GUI_EXTRAS_LIST_BY_DISH_ID))
-		{
+		}
+		else if(event.eventType.equals(EventType.DATABASE_UPDATE_ORDER_GUI_EXTRAS_LIST_BY_DISH_ID)){
 			this.sendListOfAllExtrasToOrderGUI();
-		} else if(event.eventType.equals(EventType.DATABASE_UPDATE_ORDER_GUI_SEARCH_CUSTOMERS_BY_KEYWORDS))
-		{
+		}
+		else if(event.eventType.equals(EventType.DATABASE_UPDATE_ORDER_GUI_SEARCH_CUSTOMERS_BY_KEYWORDS)){
 			this.searchCustomers(event);
-		} else if(event.eventType.equals(EventType.DATABASE_UPDATE_COOK_GUI_SEND_ALL_ORDERS))
-		{
+		}
+		else if(event.eventType.equals(EventType.DATABASE_UPDATE_COOK_GUI_SEND_ALL_ORDERS)){
 			this.sendListOfAllUncookedOrders(event);
-		} else if(event.eventType.equals(EventType.DATABASE_UPDATE_COOK_GUI_SEARCH_ORDERS_BY_KEYWORDS))
-		{
+		}
+		else if(event.eventType.equals(EventType.DATABASE_UPDATE_COOK_GUI_SEARCH_ORDERS_BY_KEYWORDS)){
 			this.searchUncookedOrders(event);
-		} else if(event.eventType.equals(EventType.DATABASE_UPDATE_DELIVERY_GUI_SEND_ALL_ORDERS))
-		{
+		}
+		else if(event.eventType.equals(EventType.DATABASE_UPDATE_DELIVERY_GUI_SEND_ALL_ORDERS)){
 			this.sendListOfActiveOrdersToDeliveryGUI(event);
-		} else if(event.eventType.equals(EventType.DATABASE_UPDATE_DELIVERY_GUI_SEARCH_ORDERS))
-		{
+		}
+		else if(event.eventType.equals(EventType.DATABASE_UPDATE_DELIVERY_GUI_SEARCH_ORDERS)){
 			this.searchUndeliveredOrders(event);
-		}    
+		}
+		else if(event.eventType.equals(EventType.DATABASE_UPDATE_ADMINGUI_GUI_SEND_ALL_DISHES)){
+			this.sendListOfAllDishesToAdminGUI();
+		}
+		else if(event.eventType.equals(EventType.DATABASE_UPDATE_ADMINGUI_GUI_SEND_ALL_EXTRAS)){
+			this.sendListOfAllExtrasToAdminGUI();
+		}
 	}
 
 
@@ -134,6 +142,21 @@ public class Database_ReadEventHandler implements EventHandler {
 		}
 	}
 
+	
+	private void sendListOfAllDishesToAdminGUI() {
+		ArrayList<Dish> dishList = DatabaseReader.getAllDishes();
+		if(dishList != null){
+			this.eventDispatcher.dispatchEvent(new Event<ArrayList<Dish>>(EventType.ADMIN_GUI_UPDATE_DISH_LIST, dishList));
+		}
+	}
+	
+	private void sendListOfAllExtrasToAdminGUI() {
+		ArrayList<Extra> extraList = DatabaseReader.getAllExtras();
+		if(extraList != null){
+			this.eventDispatcher.dispatchEvent(new Event<ArrayList<Extra>>(EventType.ADMIN_GUI_UPDATE_EXTRA_LIST, extraList));
+		}
+	}
+	
 	private void sendListOfAllDishesToOrderGUI() 
 	{
 		ArrayList<Dish> dishList = DatabaseReader.getAllDishes();
