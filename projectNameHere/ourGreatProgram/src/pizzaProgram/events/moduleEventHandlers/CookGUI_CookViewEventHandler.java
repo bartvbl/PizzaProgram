@@ -29,8 +29,7 @@ public class CookGUI_CookViewEventHandler extends ComponentEventHandler implemen
 		this.resetUI();
 		this.addEventListeners();
 	}
-	private void addEventListeners()
-	{
+	private void addEventListeners(){
 		CookView.orderDetailsTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
 				handleOrderSelection(e);

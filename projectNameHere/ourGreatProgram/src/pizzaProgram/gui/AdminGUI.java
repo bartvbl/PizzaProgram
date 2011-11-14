@@ -108,9 +108,4 @@ public class AdminGUI extends GUIModule implements EventHandler{
 		}
 	}
 
-	@Override
-	public void initialize() {
-		// TODO REMOVE
-	}
-
 }//END

@@ -71,8 +71,4 @@ public class CookGUI extends GUIModule implements EventHandler{
 		this.programWindow.hidePanel(this.cookView);
 	}
 
-	@Override
-	public void initialize() {
-		// TODO Auto-generated method stub
-	}
 }

@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.DefaultListSelectionModel;
+import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -13,7 +14,11 @@ import pizzaProgram.events.Event;
 import pizzaProgram.events.EventType;
 import pizzaProgram.gui.AdminGUI;
 import pizzaProgram.gui.views.AdminView;
-
+/**
+ * 
+ * This class hendles events dispatched from the gui-components in AdminWiev
+ * 
+ */
 public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implements ActionListener {
 	private AdminGUI adminGUI;
 	
@@ -22,7 +27,10 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 		this.adminGUI = adminGUI;
 		this.addEventListeners();
 	}
-	
+	/**
+	 * This method adds listeners to the desiered components in AdminWiev
+	 * The code to be run when an event is recived is splitt up into different methodes, one for each component/event
+	 */
 	private void addEventListeners(){
 		AdminView.allActiveDishesTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
@@ -55,6 +63,10 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 			}
 		});
 	}
+	/**
+	 * The method called when a user selects an extra from the extra-list
+	 * @param e
+	 */
 	private void handleExtraSelection(ListSelectionEvent e) {
 		int selectedIndex = ((DefaultListSelectionModel)e.getSource()).getMinSelectionIndex();
 		if(selectedIndex == -1){
@@ -74,8 +86,23 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 	private void handleExtraConfirmButtonClick() {
 		if(adminGUI.currentSelectedExtra == null){
 			String name = AdminView.editExtraExtraNameTextBox.getText();
+			if(name.trim().equals("")){
+				JOptionPane.showMessageDialog(null, "Feltet med navn kan ikke være tomt!");
+				return;
+			}
 			boolean active = AdminView.editExtraExtraIsActiveComboBox.getSelectedItem().equals("yes") ? true :false;
-			String price = AdminView.editExtraExtraPriceTextArea.getText();
+			String price = AdminView.editExtraExtraPriceTextArea.getText().trim().replaceAll(" ", "");
+			if(!(price.charAt(0) == '+' || price.charAt(0) == '*' || price.charAt(0) == '-')){
+				JOptionPane.showMessageDialog(null, "Første tegn i prisen skal være +(pluss) -(minus) eller *(gange)\n" +
+						"Dette anngir om prisen på ekstraen er pristillegg, prisfradrag, eller en multiplikasjon");
+				return;
+			}
+			try {
+				Double.parseDouble(price.substring(1));
+			} catch (NumberFormatException e) {
+				JOptionPane.showMessageDialog(null, "Etter +/-/* må det komme et tall!");
+				return;
+			}
 			//lagger til i databsen
 			Extra e = new Extra(-1, name, price, active);
 			this.dispatchEvent(new Event<Extra>(EventType.DATABASE_ADD_NEW_EXTRA, e));
@@ -94,8 +121,23 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 			boolean vegan = AdminView.editDishIsVegetarianComboBox.getSelectedItem().equals("yes") ? true : false;
 			
 			String description = AdminView.editDishDescriptionTextArea.getText();
+			if(description.trim().equals("")){
+				JOptionPane.showMessageDialog(null, "Feltet med innhold i retten kan ikke være tomt!");
+				return;
+			}
 			String name = AdminView.editDishNameTextBox.getText();
-			int price = Integer.parseInt(AdminView.editDishDishPriceTextArea.getText());
+			if(name.trim().equals("")){
+				JOptionPane.showMessageDialog(null, "Feltet med navn kan ikke være tomt!");
+				return;
+			}
+			int price = 0;
+			try {
+				price = Integer.parseInt(AdminView.editDishDishPriceTextArea.getText().trim());
+			} catch (NumberFormatException e) {
+				JOptionPane.showMessageDialog(null, "Feltet med pris må være et tall!");
+				return;
+			}
+			
 			Dish d = new Dish(-1, price, name, gluten, nuts, diary, vegan, spicy, description, active);
 			this.dispatchEvent(new Event<Dish>(EventType.DATABASE_ADD_NEW_DISH, d));
 			showAllDishes();
@@ -149,7 +191,7 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 		AdminView.editDishDescriptionTextArea.setText(selectedDish.description);
 		AdminView.editDishDishPriceTextArea.setText(""+selectedDish.price);
 		
-		//dropdownmenyer
+		//her resetter vi alle valgboksene til sin defaultverdi
 		char selectDiaryYN = selectedDish.containsDiary ? 'y': 'n';
 		AdminView.editDishContainsDairyComboBox.selectWithKeyChar(selectDiaryYN);
 		

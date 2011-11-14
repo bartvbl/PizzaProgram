@@ -13,8 +13,8 @@ public class Module implements EventHandler{
 	}
 	
 	//methods to be overridden by child classes
-	public void initialize() {}
-	public void destroy() {}
+	//public void initialize() {}
+	//public void destroy() {}
 	public void handleEvent(Event<?> event){}
 	
 	public void dispatchEvent(Event event)
