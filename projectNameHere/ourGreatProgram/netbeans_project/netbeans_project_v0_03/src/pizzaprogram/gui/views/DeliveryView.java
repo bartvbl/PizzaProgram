@@ -10,6 +10,7 @@
  */
 package pizzaprogram.gui.views;
 
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -150,7 +151,7 @@ public class DeliveryView extends javax.swing.JPanel {
                     .addComponent(orderSearchButton)
                     .addComponent(orderSearchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 444, Short.MAX_VALUE))
         );
 
         leftHorizontalSplitPanel.setTopComponent(activeOrderListPanel);
@@ -270,7 +271,7 @@ public class DeliveryView extends javax.swing.JPanel {
         orderDetailsPanelLayout.setVerticalGroup(
             orderDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, orderDetailsPanelLayout.createSequentialGroup()
-                .addContainerGap(250, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(orderPriceOverviewPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(orderDetailsSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -293,7 +294,7 @@ public class DeliveryView extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static final javax.swing.JPanel activeOrderListPanel = new javax.swing.JPanel();
-    public static final javax.swing.JTable activeOrdersTable = {
+    public static final javax.swing.JTable activeOrdersTable = new JTable(){
         public boolean isCellEditable(int rowIndex, int colIndex) {
             return false; //Disallow the editing of any cell
         }

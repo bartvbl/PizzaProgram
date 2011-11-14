@@ -65,14 +65,23 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 		
 		//tekstbokser
 		AdminView.editExtraExtraNameTextBox.setText(selectedExtra.name);
-		AdminView.editExtraPriceTextBox.setText(""+selectedExtra.priceFuncPart + selectedExtra.priceValPart);
+		AdminView.editExtraExtraPriceTextArea.setText(""+selectedExtra.priceFuncPart + selectedExtra.priceValPart);
 		
 		char selectchar = selectedExtra.isActive ? 'y' : 'n';
 		AdminView.editExtraExtraIsActiveComboBox.selectWithKeyChar(selectchar);
 		
 	}
 	private void handleExtraConfirmButtonClick() {
-		// TODO Auto-generated method stub
+		if(adminGUI.currentSelectedExtra == null){
+			String name = AdminView.editExtraExtraNameTextBox.getText();
+			boolean active = AdminView.editExtraExtraIsActiveComboBox.getSelectedItem().equals("yes") ? true :false;
+			String price = AdminView.editExtraExtraPriceTextArea.getText();
+			//lagger til i databsen
+			Extra e = new Extra(-1, name, price, active);
+			this.dispatchEvent(new Event<Extra>(EventType.DATABASE_ADD_NEW_EXTRA, e));
+			//oppdaterer
+			showAllExtras();
+		}
 
 	}
 	private void handleDishConfirmButtonClick() {
@@ -86,7 +95,6 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 			
 			String description = AdminView.editDishDescriptionTextArea.getText();
 			String name = AdminView.editDishNameTextBox.getText();
-			System.out.println("price:" + AdminView.editDishDishPriceTextArea.getText());
 			int price = Integer.parseInt(AdminView.editDishDishPriceTextArea.getText());
 			Dish d = new Dish(-1, price, name, gluten, nuts, diary, vegan, spicy, description, active);
 			this.dispatchEvent(new Event<Dish>(EventType.DATABASE_ADD_NEW_DISH, d));
@@ -100,7 +108,7 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 		
 		//tekstbokser
 		AdminView.editExtraExtraNameTextBox.setText("Navn på tilbehør");
-		AdminView.editExtraPriceTextBox.setText("+50");
+		AdminView.editExtraExtraPriceTextArea.setText("+50");
 		
 		AdminView.editExtraExtraIsActiveComboBox.selectWithKeyChar('y');
 

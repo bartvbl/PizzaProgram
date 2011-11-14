@@ -11,6 +11,7 @@
 package pizzaprogram.gui.views;
 
 import javax.swing.DefaultListModel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
