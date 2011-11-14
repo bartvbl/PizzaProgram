@@ -18,22 +18,16 @@ import pizzaProgram.database.databaseUtils.DataCleaner;
 @SuppressWarnings("serial")
 public class NewCustomerWindow extends JFrame{
 
-	OrderGUI parent;
+	private OrderGUI parent;
+	private TextField fyllnavn;
+	private TextField fylletternavn;
+	private TextField fylladresse;
+	private TextField fyllpostnr;
+	private TextField fyllpoststed;
+	private TextField fylltlf;
 	
-	TextField fyllnavn;
+	private JFrame denne;
 	
-	TextField fylletternavn;
-	
-	TextField fylladresse;
-	
-	TextField fyllpostnr;
-	
-	TextField fyllpoststed;
-	
-	TextField fylltlf;
-	
-	
-	JFrame denne;
 	public NewCustomerWindow(OrderGUI parentWindow) {
 		parent = parentWindow;
 		denne = this;
@@ -88,19 +82,44 @@ public class NewCustomerWindow extends JFrame{
 				
 				int postNumber = 0;
 				int phoneNumber = 0;
+				String firstName = DataCleaner.cleanDbData(fyllnavn.getText());
+				String lastName = DataCleaner.cleanDbData(fylletternavn.getText());
+				String address = DataCleaner.cleanDbData(fylladresse.getText());
+				String city = DataCleaner.cleanDbData(fyllpoststed.getText());
+				
 				try{
 					postNumber = Integer.parseInt(fyllpostnr.getText());
 				}catch(NumberFormatException ex){
-					JOptionPane.showMessageDialog(denne, "Postnummer må være et tall", "Feil", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(denne, "Postnummer må være et tall!", "Feil", JOptionPane.ERROR_MESSAGE);
 					return;
 				}
+				
 				try{
 					phoneNumber = Integer.parseInt(fylltlf.getText());
 				}catch(NumberFormatException ex){
-					JOptionPane.showMessageDialog(denne, "Telefonnummer må være et tall", "Feil", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(denne, "Telefonnummer må være et tall!", "Feil", JOptionPane.ERROR_MESSAGE);
 					return;
 				}
-				UnaddedCustomer customer = generateCustomerObject(postNumber, phoneNumber);
+				
+				if(firstName.isEmpty()){
+					JOptionPane.showMessageDialog(denne, "Fornavn kan ikke være tomt!", "Feil", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				if(lastName.isEmpty()){
+					JOptionPane.showMessageDialog(denne, "Etternavn kan ikke være tomt!", "Feil", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				if(address.isEmpty()){
+					JOptionPane.showMessageDialog(denne, "Adressen kan ikke være tomt!", "Feil", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				if(city.isEmpty()){
+					JOptionPane.showMessageDialog(denne, "By kan ikke være tomt!", "Feil", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				
+				
+				UnaddedCustomer customer = new UnaddedCustomer(firstName, lastName, address, postNumber, city, phoneNumber, "");
 				parent.createNewCustomer(customer);
 				dispose();
 			}
@@ -109,17 +128,6 @@ public class NewCustomerWindow extends JFrame{
 		
 		setVisible(true);
 		
-	}
-	
-	private UnaddedCustomer generateCustomerObject(int postNumber, int phoneNumber)
-	{
-		
-		String firstName = DataCleaner.cleanDbData(fyllnavn.getText());
-		String lastName = DataCleaner.cleanDbData(fylletternavn.getText());
-		String address = DataCleaner.cleanDbData(fylladresse.getText());
-		String city = DataCleaner.cleanDbData(fyllpoststed.getText());
-		UnaddedCustomer customer = new UnaddedCustomer(firstName, lastName, address, postNumber, city, phoneNumber, "");
-		return customer;
 	}
 	
 	private GridBagConstraints createConstraints08(int x, int y){

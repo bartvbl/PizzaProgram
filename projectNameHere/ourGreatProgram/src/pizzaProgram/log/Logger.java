@@ -8,9 +8,9 @@ import java.io.PrintWriter;
 public class Logger {
 	public static final String FILEPATH = System.getProperty("user.home") + "/pizzaProgram/";
 	public static final String LOGFILENAME = "log.txt";
-	
+
 	private PrintWriter printWriter;
-	
+
 	public void start()
 	{
 		File directory = new File(FILEPATH);
@@ -39,12 +39,11 @@ public class Logger {
 		}
 		printWriter.println("----- PizzaProgram log file -----");
 	}
-	public void log(String message)
-	{
+	public void log(String message){
 		printWriter.println(message);
 	}
-	public void stop()
-	{
+	
+	public void stop(){
 		printWriter.close();
 	}
 }
