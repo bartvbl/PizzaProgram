@@ -46,6 +46,7 @@ public class OrderView extends javax.swing.JPanel {
         mainSplitPane.setName("mainSplitPane"); // NOI18N
 
         customerLookupUI.setName("customerLookupUI"); // NOI18N
+        customerLookupUI.setPreferredSize(new java.awt.Dimension(220, 512));
 
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(pizzaprogram.core.PizzaProgram.class).getContext().getResourceMap(OrderView.class);
         newCustomerButton.setText(resourceMap.getString("newCustomerButton.text")); // NOI18N
@@ -236,30 +237,30 @@ public class OrderView extends javax.swing.JPanel {
         dishDescriptionAreaLayout.setVerticalGroup(
             dishDescriptionAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(dishDescriptionAreaLayout.createSequentialGroup()
+                .addComponent(dishDescriptionLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(dishDescriptionScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dishDescriptionAreaLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(dishDescriptionAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(dishDescriptionLabel)
                     .addComponent(dishContainsGlutenLabel)
                     .addComponent(dishContainsGlutenText))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(dishDescriptionAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(dishDescriptionAreaLayout.createSequentialGroup()
-                        .addGroup(dishDescriptionAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(dishContainsNutsLabel)
-                            .addComponent(dishContainsNutsText))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(dishDescriptionAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(dishContainsDairyLabel)
-                            .addComponent(dishContainsDairyText))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(dishDescriptionAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(dishIsVegetarianLabel)
-                            .addComponent(dishIsVegetarianText))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(dishDescriptionAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(dishIsSpicyLabel)
-                            .addComponent(dishisSpicyText))
-                        .addContainerGap())
-                    .addComponent(dishDescriptionScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)))
+                .addGroup(dishDescriptionAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(dishContainsNutsLabel)
+                    .addComponent(dishContainsNutsText))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(dishDescriptionAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(dishContainsDairyLabel)
+                    .addComponent(dishContainsDairyText))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(dishDescriptionAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(dishIsVegetarianLabel)
+                    .addComponent(dishIsVegetarianText))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(dishDescriptionAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(dishIsSpicyLabel)
+                    .addComponent(dishisSpicyText)))
         );
 
         javax.swing.GroupLayout dishSelectionAreaLayout = new javax.swing.GroupLayout(dishSelectionArea);
