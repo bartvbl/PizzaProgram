@@ -96,6 +96,11 @@ public class DatabaseWriter {
 		}
 	}
 	
+	public static void updateDishByDishID(Dish dish)
+	{
+		
+	}
+	
 	public static void writeNewExtra(Extra extra)
 	{
 		int extraIsActive = convertBooleanToTinyInt(extra.isActive);
