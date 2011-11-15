@@ -15,7 +15,6 @@ import pizzaProgram.events.EventType;
 import pizzaProgram.gui.DeliverGUI;
 import pizzaProgram.gui.utils.DeliveryGUIUpdater;
 import pizzaProgram.gui.views.DeliveryView;
-import pizzaProgram.gui.views.ReceiptWindow;
 import pizzaProgram.utils.ReceiptGenerator;
 
 public class DeliveryGUI_DeliveryViewEventHandler extends ComponentEventHandler implements ActionListener  {
@@ -30,13 +29,13 @@ public class DeliveryGUI_DeliveryViewEventHandler extends ComponentEventHandler 
 		this.addEventListeners();
 		this.guiUpdater = new DeliveryGUIUpdater();
 	}
-	
+
 	private void addEventListeners() {
 		DeliveryView.activeOrdersTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
 				handleOrderSelection();
 			}});
-		
+
 		DeliveryView.orderSearchTextField.addKeyListener(new KeyListener(){
 			public void keyPressed(KeyEvent arg0) {}
 			public void keyReleased(KeyEvent arg0) {
@@ -44,13 +43,13 @@ public class DeliveryGUI_DeliveryViewEventHandler extends ComponentEventHandler 
 			}
 			public void keyTyped(KeyEvent arg0) {}
 		});
-		
+
 		DeliveryView.showReceiptButton.addActionListener(this);
 		this.registerEventType(DeliveryView.showReceiptButton, "showReceipt");
-		
+
 		DeliveryView.markOrderDeliveredButton.addActionListener(this);
 		this.registerEventType(DeliveryView.markOrderDeliveredButton, "markOrderDelivered");
-		
+
 		DeliveryView.markOrderBeingDeliveredButton.addActionListener(this);
 		this.registerEventType(DeliveryView.markOrderBeingDeliveredButton, "markOrderBeingDelivered");
 	}
@@ -64,15 +63,15 @@ public class DeliveryGUI_DeliveryViewEventHandler extends ComponentEventHandler 
 			this.markOrderAsBeingDelivered();
 		}
 	}
-	
+
 	private void searchOrders(){
 		this.dispatchEvent(new Event<String>(EventType.DATABASE_UPDATE_DELIVERY_GUI_SEARCH_ORDERS, DeliveryView.orderSearchTextField.getText()));
 	}
-	
+
 	private void showAllOrders(){
 		this.dispatchEvent(new Event<Object>(EventType.DATABASE_UPDATE_DELIVERY_GUI_SEND_ALL_ORDERS));
 	}
-	
+
 	private void showOrdersBasedOnSearchBox(){
 		if(DeliveryView.orderSearchTextField.getText().equals("")){
 			showAllOrders();
@@ -81,12 +80,11 @@ public class DeliveryGUI_DeliveryViewEventHandler extends ComponentEventHandler 
 			searchOrders();
 		}
 	}
-	
+
 	private void markOrderAsBeingDelivered(){
 		int selectedIndex = DeliveryView.activeOrdersTable.getSelectionModel().getMinSelectionIndex();
 		this.dispatchEvent(new Event<Order>(EventType.DATABASE_MARK_ORDER_BEING_DELIVERED, this.deliveryGUI.currentOrder));
-		if(selectedIndex == -1)
-		{
+		if(selectedIndex == -1){
 			return;
 		}
 		showOrdersBasedOnSearchBox();
@@ -95,20 +93,19 @@ public class DeliveryGUI_DeliveryViewEventHandler extends ComponentEventHandler 
 		this.deliveryGUI.currentOrder = order;
 		this.guiUpdater.showOrder(order);
 	}
-	
+
 	private void markOrderAsDelivered(){
 		this.dispatchEvent(new Event<Order>(EventType.DATABASE_MARK_ORDER_DELIVERED, this.deliveryGUI.currentOrder));
 		this.resetUI();
 		this.showAllOrders();
 	}
-	
+
 	private void showReceipt() {
 		Order order = this.getCurrentSelectedOrder();
 		if(order == null){
 			return;
 		}
-		String receipt = ReceiptGenerator.generateReceipt(order);
-		new ReceiptWindow(receipt);
+		ReceiptGenerator.generateReceiptAndWindow(order);
 	}
 
 	private void handleOrderSelection(){
@@ -120,7 +117,7 @@ public class DeliveryGUI_DeliveryViewEventHandler extends ComponentEventHandler 
 		this.guiUpdater.showOrder(order);
 		this.deliveryGUI.currentOrder = order;
 	}
-	
+
 	private Order getCurrentSelectedOrder(){
 		int selectedIndex = DeliveryView.activeOrdersTable.getSelectionModel().getLeadSelectionIndex();
 		if((selectedIndex == -1) || (selectedIndex >= this.deliveryGUI.currentOrderList.size()))
@@ -130,7 +127,7 @@ public class DeliveryGUI_DeliveryViewEventHandler extends ComponentEventHandler 
 		Order order = this.deliveryGUI.currentOrderList.get(selectedIndex);
 		return order;
 	}
-	
+
 	private void resetUI() {
 		DeliveryView.orderCostDeliveryCost.setText("");
 		DeliveryView.orderCostOrderPrice.setText("");

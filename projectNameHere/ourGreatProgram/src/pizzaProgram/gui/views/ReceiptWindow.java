@@ -1,7 +1,5 @@
 package pizzaProgram.gui.views;
 
-import java.awt.Dimension;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
@@ -9,18 +7,20 @@ import javax.swing.JLabel;
 public class ReceiptWindow extends JFrame{
 
 	private JLabel html;
-	
-	public ReceiptWindow(String kvittering) {
+
+	public ReceiptWindow(String kvittering, int rows) {
 		this.setLayout(null);
-		this.setMinimumSize(new Dimension(300, 400));
 		this.setLocation(100, 100);
 		this.setResizable(false);
 		this.setTitle("Kvittering");
-		html = new JLabel();
-		html.setText(kvittering);
-		html.setBounds(0, 0, 260, 400);
+		html = new JLabel(kvittering, JLabel.LEFT);
+		html.setBounds(0, 5, 160, rows*20);
+		this.setSize(html.getWidth() + 10, html.getHeight() + 40);//40 is the height of the framedecoration 10 is the width
+		html.setVerticalAlignment(JLabel.TOP);
+		html.setHorizontalTextPosition(JLabel.LEFT);
+		html.setVerticalTextPosition(JLabel.TOP);
 		add(html);
 		setVisible(true);
 	}
-	
+
 }//END
