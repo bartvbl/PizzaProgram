@@ -32,17 +32,24 @@ public class DateFormatter {
 	private static String formatDate(String date) {
 		if(dateIsYesterday(date))
 		{
-			return date + " ";
+			return formatDateOnlyString(date) + " ";
 		} else {
 			return "";
 		}
 	}
 	
+	private static String formatDateOnlyString(String date) {
+		String[] dateParts = date.split("-");
+	    return dateParts[2] + "-" + dateParts[1];
+	}
+
 	private static boolean dateIsYesterday(String date)
 	{
 		int[] dateParts = convertDateStringToComponentValues(date);
 		int[] todayDateParts = getCurrentDate();
-		if((dateParts[0] <= todayDateParts[0]) && (dateParts[1] <= todayDateParts[1]) && (dateParts[2] < todayDateParts[2]))
+		if(((dateParts[0] <= todayDateParts[0]) && (dateParts[1] == todayDateParts[1]) && (dateParts[2] < todayDateParts[2])) 
+				|| ((dateParts[0] <= todayDateParts[0]) && (dateParts[1] < todayDateParts[1])) 
+				|| ((dateParts[0] < todayDateParts[0])))
 		{
 			return true;
 		} else {
@@ -52,7 +59,6 @@ public class DateFormatter {
 	
 	private static int[] getCurrentDate()
 	{
-		Date date = new Date();
 		Calendar cal = Calendar.getInstance();
 	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	    String currentDate = sdf.format(cal.getTime());
@@ -63,7 +69,7 @@ public class DateFormatter {
 	private static int[] convertDateStringToComponentValues(String currentDate)
 	{
 		String[] dateParts = currentDate.split("-");
-	    int years = Integer.parseInt(dateParts[0]);
+		int years = Integer.parseInt(dateParts[0]);
 	    int months = Integer.parseInt(dateParts[1]);
 	    int days = Integer.parseInt(dateParts[2]);
 	    int[] datePartsIntValues = new int[]{years, months, days};
