@@ -82,4 +82,12 @@ public class DatabaseResultsFeedbackProvider {
 		JOptionPane.showMessageDialog(null, "Failed to update config value.", DEFAULT_ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
 	}
 
+	public static void showUpdateExtraFailedMessage() {
+		JOptionPane.showMessageDialog(null, "Failed to update extra.", DEFAULT_ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
+	}
+
+	public static void showUpdateDishFailedMessage() {
+		JOptionPane.showMessageDialog(null, "Failed to update dish.", DEFAULT_ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
+	}
+
 }

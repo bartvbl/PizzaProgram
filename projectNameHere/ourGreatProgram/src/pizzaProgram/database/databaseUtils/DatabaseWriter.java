@@ -91,7 +91,30 @@ public class DatabaseWriter {
 	
 	public static void updateDishByDishID(Dish dish)
 	{
-		
+		try {
+			int containsGluten = convertBooleanToTinyInt(dish.containsGluten);
+			int containsDairy = convertBooleanToTinyInt(dish.containsDiary);
+			int containsNuts = convertBooleanToTinyInt(dish.containsNuts);
+			int isVegetarian = convertBooleanToTinyInt(dish.isVegetarian);
+			int isSpicy = convertBooleanToTinyInt(dish.isSpicy);
+			int isActive = convertBooleanToTinyInt(dish.isActive);
+			DatabaseConnection.executeWriteQuery("UPDATE Dishes SET Price="+dish.price+", Name='"+dish.name+"', ContainsGluten="+containsGluten+", ContainsNuts="+containsNuts+", ContainsDairy="+containsDairy+", IsSpicy="+isSpicy+", IsVegetarian="+isVegetarian+", Description='"+dish.description+"', IsActive="+isActive+" WHERE DishID="+dish.dishID+";");
+		} catch (SQLException e) {
+			DatabaseResultsFeedbackProvider.showUpdateDishFailedMessage();
+			e.printStackTrace();
+		}
+	}
+	
+	public static void updateExtraByExtraID(Extra extra) 
+	{
+		try {
+			int isActive = convertBooleanToTinyInt(extra.isActive);
+			String price = extra.priceFuncPart + Double.toString(extra.priceValPart);
+			DatabaseConnection.executeWriteQuery("UPDATE Extras SET Name='"+extra.name+"', Price='"+price+"', IsActive="+isActive+" WHERE ExtrasID="+extra.id+";");
+		} catch (SQLException e) {
+			DatabaseResultsFeedbackProvider.showUpdateExtraFailedMessage();
+			e.printStackTrace();
+		}
 	}
 	
 	public static void writeNewExtra(Extra extra)

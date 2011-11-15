@@ -38,6 +38,8 @@ public class Database_WriteEventHandler implements EventHandler {
 		this.eventDispatcher.addEventListener(this, EventType.DATABASE_MARK_ORDER_BEING_DELIVERED);
 		this.eventDispatcher.addEventListener(this, EventType.DATABASE_MARK_ORDER_DELIVERED);
 		this.eventDispatcher.addEventListener(this, EventType.DATABASE_UPDATE_CONFIG_VALUE);
+		this.eventDispatcher.addEventListener(this, EventType.DATABASE_UPDATE_DISH_BY_DISH_ID);
+		this.eventDispatcher.addEventListener(this, EventType.DATABASE_UPDATE_EXTRA_BY_EXTRA_ID);
 	}
 
 	public void handleEvent(Event<?> event) {
@@ -68,7 +70,31 @@ public class Database_WriteEventHandler implements EventHandler {
 		} else if(event.eventType.equals(EventType.DATABASE_UPDATE_CONFIG_VALUE))
 		{
 			this.updateConfigValue(event);
-		} 
+		} else if(event.eventType.equals(EventType.DATABASE_UPDATE_DISH_BY_DISH_ID))
+		{
+			this.updateDish(event);
+		} else if(event.eventType.equals(EventType.DATABASE_UPDATE_EXTRA_BY_EXTRA_ID))
+		{
+			this.updateExtra(event);
+		}
+	}
+
+	private void updateExtra(Event<?> event) {
+		if(!(event.getEventParameterObject() instanceof Extra))
+		{
+			DatabaseResultsFeedbackProvider.showUpdateExtraFailedMessage();
+			return;
+		}
+		DatabaseWriter.updateExtraByExtraID((Extra)event.getEventParameterObject());
+	}
+
+	private void updateDish(Event<?> event) {
+		if(!(event.getEventParameterObject() instanceof Dish))
+		{
+			DatabaseResultsFeedbackProvider.showUpdateDishFailedMessage();
+			return;
+		}
+		DatabaseWriter.updateDishByDishID((Dish)event.getEventParameterObject());
 	}
 
 	private void updateConfigValue(Event<?> event) {

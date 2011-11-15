@@ -86,17 +86,19 @@ public class EventType {
 	public static final String DATABASE_MARK_ORDER_BEING_DELIVERED = "databaseMarkOrderAsBeingDelivered";
 
 	public static final String DATABASE_ADD_NEW_EXTRA = "databaseAddNewExtra";
+	
+	public static final String DATABASE_UPDATE_EXTRA_BY_EXTRA_ID = "databaseUpdateExtraByExtraID";
 
 	public static final String DATABASE_ADD_NEW_DISH = "databaseAddNewDish";
+	
+	public static final String DATABASE_UPDATE_DISH_BY_DISH_ID = "databaseUpdateDishByDishID";
 
 	public static final String DATABASE_UPDATE_CONFIG_VALUE = "databaseUpdateConfigValue";
-
-	
 	
 	public static final String ADMIN_GUI_UPDATE_DISH_LIST = "adminGUIUpdateDishList";
+	
 	public static final String ADMIN_GUI_UPDATE_EXTRA_LIST = "adminGUIUpdateExtraList";
 	
-
 	public static final String ADMIN_GUI_REQUESTED = "adminGUIRequested";
 
 	public static final String DATABASE_UPDATE_ADMINGUI_GUI_SEND_ALL_DISHES = "dupdatesendalldishes";
