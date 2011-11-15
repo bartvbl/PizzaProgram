@@ -25,7 +25,6 @@ public class NewCustomerWindow extends JFrame{
 	private TextField fyllpostnr;
 	private TextField fyllpoststed;
 	private TextField fylltlf;
-
 	private JFrame denne;
 
 	public NewCustomerWindow(OrderGUI parentWindow) {
@@ -38,43 +37,43 @@ public class NewCustomerWindow extends JFrame{
 		this.setTitle("New customer");
 
 		Label fornavn = new Label("Fornavn:");
-		add(fornavn, createConstraints02(0, 0));
+		add(fornavn, createConstraints(0, 0, 0.2));
 
 		Label etternavn = new Label("Etternavn:");
-		add(etternavn, createConstraints02(0, 1));
+		add(etternavn, createConstraints(0, 1, 0.2));
 
 		Label adresse = new Label("Adresse:");
-		add(adresse, createConstraints02(0, 2));
+		add(adresse, createConstraints(0, 2, 0.2));
 
 		Label postnr = new Label("Postnr:");
-		add(postnr, createConstraints02(0, 3));
+		add(postnr, createConstraints(0, 3, 0.2));
 
 		Label poststed = new Label("Poststed:");
-		add(poststed, createConstraints02(0, 4));
+		add(poststed, createConstraints(0, 4, 0.2));
 
 		Label telefon = new Label("Telefon:");
-		add(telefon, createConstraints02(0, 5));
+		add(telefon, createConstraints(0, 5, 0.2));
 
 		fyllnavn = new TextField();
-		add(fyllnavn, createConstraints08(1, 0));
+		add(fyllnavn, createConstraints(1, 0, 0.8));
 
 		fylletternavn = new TextField();
-		add(fylletternavn, createConstraints08(1, 1));
+		add(fylletternavn, createConstraints(1, 1, 0.8));
 
 		fylladresse = new TextField();
-		add(fylladresse, createConstraints08(1, 2));
+		add(fylladresse, createConstraints(1, 2, 0.8));
 
 		fyllpostnr = new TextField();
-		add(fyllpostnr, createConstraints08(1, 3));
+		add(fyllpostnr, createConstraints(1, 3, 0.8));
 
 		fyllpoststed = new TextField();
-		add(fyllpoststed, createConstraints08(1, 4));
+		add(fyllpoststed, createConstraints(1, 4, 0.8));
 
 		fylltlf = new TextField();
-		add(fylltlf, createConstraints08(1, 5));
+		add(fylltlf, createConstraints(1, 5, 0.8));
 
 		Label fill = new Label("");
-		add(fill, createConstraints02(0, 5));
+		add(fill, createConstraints(0, 5, 0.2));
 
 		JButton finishKnapp = new JButton("Ok");
 		finishKnapp.addActionListener(new ActionListener() {
@@ -124,31 +123,19 @@ public class NewCustomerWindow extends JFrame{
 				dispose();
 			}
 		});
-		add(finishKnapp, createConstraints08(1, 6));
+		add(finishKnapp, createConstraints(1, 6, 0.8));
 
 		setVisible(true);
-
 	}
 
-	private GridBagConstraints createConstraints08(int x, int y){
+	private GridBagConstraints createConstraints(int x, int y, double widthpercent){
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.gridx = x;
 		gbc.gridy = y;
 		gbc.gridwidth = 1;
 		gbc.gridheight = 1;
 		gbc.fill = GridBagConstraints.BOTH;
-		gbc.weightx = 0.8;
-		gbc.weighty = 0.1;
-		return gbc;
-	}
-	private GridBagConstraints createConstraints02(int x, int y){
-		GridBagConstraints gbc = new GridBagConstraints();
-		gbc.gridx = x;
-		gbc.gridy = y;
-		gbc.gridwidth = 1;
-		gbc.gridheight = 1;
-		gbc.fill = GridBagConstraints.BOTH;
-		gbc.weightx = 0.2;
+		gbc.weightx = widthpercent;
 		gbc.weighty = 0.1;
 		return gbc;
 	}

@@ -2,6 +2,7 @@ package pizzaProgram.utils;
 
 import java.text.DecimalFormat;
 
+import pizzaProgram.core.Constants;
 import pizzaProgram.dataObjects.Dish;
 import pizzaProgram.dataObjects.Extra;
 import pizzaProgram.dataObjects.Order;
@@ -16,8 +17,8 @@ public class ReceiptGenerator {
 		double totalpris = 0;
 
 		receiptString += "<html>";
-		receiptString += "<table width=\"160\" border=\"0\">";
-		receiptString += "<tr><td align=\"center\"colspan=\"2\">=====Pizza Di Papa=====</td></tr>";
+		receiptString += "<table width=\"" + Constants.RECIPT_WIDTH + "\" border=\"0\">";
+		receiptString += "<tr><td align=\"center\"colspan=\"2\">=====" + Constants.RESTAURANT_NAME + "=====</td></tr>";
 		for (OrderDish d : order.orderedDishes) {
 			receiptString += createHeaderRow(d.dish.name, formatPrice(d.dish.price));
 			totalpris += d.dish.price;
@@ -31,9 +32,10 @@ public class ReceiptGenerator {
 
 		receiptString += createRow("", "");
 		receiptString += createRow("Alle retter", formatPrice(totalpris));
-		receiptString += createRow("Herav MVA", formatPrice(totalpris*  (order.deliveryMethod == Order.DELIVER_AT_HOME ? 0.25 : 0.14) ));
-		receiptString += createRow("Levering", formatPrice(50));
-		receiptString += createHeaderRow("Totalt", formatPrice(totalpris + 50));
+		receiptString += createRow("Herav MVA", formatPrice(totalpris*  (order.deliveryMethod == Order.DELIVER_AT_HOME ? Constants.DELIVER_MOMS : Constants.PICKUP_MOMS) ));
+		int leveringskostnad = totalpris > Constants.FREE_DELIVERY_TRESHOLD ? 0 : Constants.DELIVERY_COST;
+		receiptString += createRow("Levering", formatPrice(leveringskostnad));
+		receiptString += createHeaderRow("Totalt", formatPrice(totalpris + leveringskostnad));
 		receiptString += "</table>";
 		receiptString += "</html>";
 

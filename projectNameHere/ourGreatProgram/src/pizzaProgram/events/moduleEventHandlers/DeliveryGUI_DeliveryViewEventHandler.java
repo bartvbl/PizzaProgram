@@ -57,9 +57,12 @@ public class DeliveryGUI_DeliveryViewEventHandler extends ComponentEventHandler 
 	public void actionPerformed(ActionEvent event){
 		if (this.getEventNameByComponent((Component) event.getSource()).equals("showReceipt")) {
 			this.showReceipt();
-		} else if (this.getEventNameByComponent((Component) event.getSource()).equals("markOrderDelivered")) {
+		}
+		else if (this.getEventNameByComponent((Component) event.getSource()).equals("markOrderDelivered")) 
+		{
 			this.markOrderAsDelivered();
-		} else if (this.getEventNameByComponent((Component) event.getSource()).equals("markOrderBeingDelivered")) {
+		}
+		else if (this.getEventNameByComponent((Component) event.getSource()).equals("markOrderBeingDelivered")) {
 			this.markOrderAsBeingDelivered();
 		}
 	}
@@ -110,8 +113,7 @@ public class DeliveryGUI_DeliveryViewEventHandler extends ComponentEventHandler 
 
 	private void handleOrderSelection(){
 		Order order = this.getCurrentSelectedOrder();
-		if(order == null)
-		{
+		if(order == null){
 			return;
 		}
 		this.guiUpdater.showOrder(order);
@@ -120,8 +122,7 @@ public class DeliveryGUI_DeliveryViewEventHandler extends ComponentEventHandler 
 
 	private Order getCurrentSelectedOrder(){
 		int selectedIndex = DeliveryView.activeOrdersTable.getSelectionModel().getLeadSelectionIndex();
-		if((selectedIndex == -1) || (selectedIndex >= this.deliveryGUI.currentOrderList.size()))
-		{
+		if((selectedIndex == -1) || (selectedIndex >= this.deliveryGUI.currentOrderList.size())){
 			return null;
 		}
 		Order order = this.deliveryGUI.currentOrderList.get(selectedIndex);
@@ -138,4 +139,4 @@ public class DeliveryGUI_DeliveryViewEventHandler extends ComponentEventHandler 
 		DeliveryView.markOrderDeliveredButton.setEnabled(false);
 	}
 
-}
+}//END

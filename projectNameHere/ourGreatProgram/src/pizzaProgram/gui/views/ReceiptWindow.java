@@ -3,6 +3,8 @@ package pizzaProgram.gui.views;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import pizzaProgram.core.Constants;
+
 @SuppressWarnings("serial")
 public class ReceiptWindow extends JFrame{
 
@@ -14,7 +16,7 @@ public class ReceiptWindow extends JFrame{
 		this.setResizable(false);
 		this.setTitle("Kvittering");
 		html = new JLabel(kvittering, JLabel.LEFT);
-		html.setBounds(0, 5, 160, rows*20);
+		html.setBounds(0, 5, Constants.RECIPT_WIDTH, rows * Constants.RECIPT_ROW_HEIGHT);
 		this.setSize(html.getWidth() + 10, html.getHeight() + 40);//40 is the height of the framedecoration 10 is the width
 		html.setVerticalAlignment(JLabel.TOP);
 		html.setHorizontalTextPosition(JLabel.LEFT);

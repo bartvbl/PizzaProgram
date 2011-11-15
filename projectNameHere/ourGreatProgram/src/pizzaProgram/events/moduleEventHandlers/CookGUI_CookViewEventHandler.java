@@ -48,8 +48,7 @@ public class CookGUI_CookViewEventHandler extends ComponentEventHandler implemen
 			public void keyPressed(KeyEvent arg0) {}
 			public void keyTyped(KeyEvent arg0) {}
 			public void keyReleased(KeyEvent arg0) {
-				if(CookView.orderSearchTextPane.getText().equals(""))
-				{
+				if(CookView.orderSearchTextPane.getText().equals("")) {
 					showAllOrders();
 				} else {
 					searchOrdersBySearchBoxQuery();
