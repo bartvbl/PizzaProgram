@@ -1,52 +1,28 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
- * ReceiptWindow.java
- *
- * Created on Nov 2, 2011, 8:39:16 PM
- */
 package pizzaProgram.gui.views;
 
-/**
- *
- * @author Bart
- */
-public class ReceiptWindow extends javax.swing.JFrame {
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 
-    /** Creates new form ReceiptWindow */
-    public ReceiptWindow(String receiptString) {
-        initComponents();
-        this.jEditorPane1.setText(receiptString);
-        this.jEditorPane1.setEditable(false);
-    }
+import pizzaProgram.core.Constants;
 
-    private void initComponents() {
+@SuppressWarnings("serial")
+public class ReceiptWindow extends JFrame{
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jEditorPane1 = new javax.swing.JEditorPane();
+	private JLabel html;
 
-        setName("Form"); // NOI18N
-        jScrollPane1.setViewportView(jEditorPane1);
+	public ReceiptWindow(String kvittering, int rows) {
+		this.setLayout(null);
+		this.setLocation(100, 100);
+		this.setResizable(false);
+		this.setTitle("Kvittering");
+		html = new JLabel(kvittering, JLabel.LEFT);
+		html.setBounds(0, 5, Constants.RECIPT_WIDTH, rows * Constants.RECIPT_ROW_HEIGHT);
+		this.setSize(html.getWidth() + 10, html.getHeight() + 40);//40 is the height of the framedecoration 10 is the width
+		html.setVerticalAlignment(JLabel.TOP);
+		html.setHorizontalTextPosition(JLabel.LEFT);
+		html.setVerticalTextPosition(JLabel.TOP);
+		add(html);
+		setVisible(true);
+	}
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
-        );
-        setTitle("Receipt Window");
-        pack();
-        
-        setVisible(true);
-        setLocation(100, 100);
-    }
-    private javax.swing.JEditorPane jEditorPane1;
-    private javax.swing.JScrollPane jScrollPane1;
-}
+}//END

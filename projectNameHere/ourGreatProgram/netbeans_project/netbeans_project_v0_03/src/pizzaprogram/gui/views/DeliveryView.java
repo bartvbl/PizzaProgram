@@ -10,6 +10,7 @@
  */
 package pizzaprogram.gui.views;
 
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -105,7 +106,7 @@ public class DeliveryView extends javax.swing.JPanel {
         );
         mapImagePanelLayout.setVerticalGroup(
             mapImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 551, Short.MAX_VALUE)
+            .addGap(0, 378, Short.MAX_VALUE)
         );
 
         rightHorizontallSplitPane.setRightComponent(mapImagePanel);
@@ -116,6 +117,7 @@ public class DeliveryView extends javax.swing.JPanel {
         leftHorizontalSplitPanel.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
         leftHorizontalSplitPanel.setName("leftHorizontalSplitPanel"); // NOI18N
 
+        activeOrderListPanel.setMinimumSize(new java.awt.Dimension(0, 300));
         activeOrderListPanel.setName("activeOrderListPanel"); // NOI18N
 
         orderSearchTextField.setName("orderSearchTextField"); // NOI18N
@@ -150,12 +152,14 @@ public class DeliveryView extends javax.swing.JPanel {
                     .addComponent(orderSearchButton)
                     .addComponent(orderSearchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE))
         );
 
         leftHorizontalSplitPanel.setTopComponent(activeOrderListPanel);
 
+        orderDetailsPanel.setMaximumSize(new java.awt.Dimension(32767, 200));
         orderDetailsPanel.setName("orderDetailsPanel"); // NOI18N
+        orderDetailsPanel.setPreferredSize(new java.awt.Dimension(220, 200));
 
         orderCommentsScrollPane.setName("orderCommentsScrollPane"); // NOI18N
 
@@ -270,7 +274,7 @@ public class DeliveryView extends javax.swing.JPanel {
         orderDetailsPanelLayout.setVerticalGroup(
             orderDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, orderDetailsPanelLayout.createSequentialGroup()
-                .addContainerGap(250, Short.MAX_VALUE)
+                .addContainerGap(16, Short.MAX_VALUE)
                 .addComponent(orderPriceOverviewPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(orderDetailsSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -293,7 +297,7 @@ public class DeliveryView extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static final javax.swing.JPanel activeOrderListPanel = new javax.swing.JPanel();
-    public static final javax.swing.JTable activeOrdersTable = {
+    public static final javax.swing.JTable activeOrdersTable = new JTable(){
         public boolean isCellEditable(int rowIndex, int colIndex) {
             return false; //Disallow the editing of any cell
         }

@@ -54,6 +54,9 @@
             <Container class="javax.swing.JPanel" name="customerLookupUI">
               <Properties>
                 <Property name="name" type="java.lang.String" value="customerLookupUI" noResource="true"/>
+                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[220, 512]"/>
+                </Property>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout$JSplitPaneConstraintsDescription">
@@ -414,43 +417,42 @@
                                               </Group>
                                           </Group>
                                       </Group>
-                                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
                             <DimensionLayout dim="1">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
+                                      <Component id="dishDescriptionLabel" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="dishDescriptionScrollPane" pref="85" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="dishDescriptionLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="dishContainsGlutenLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="dishContainsGlutenText" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="1" attributes="0">
-                                          <Group type="102" attributes="0">
-                                              <Group type="103" groupAlignment="3" attributes="0">
-                                                  <Component id="dishContainsNutsLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="dishContainsNutsText" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="3" attributes="0">
-                                                  <Component id="dishContainsDairyLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="dishContainsDairyText" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="3" attributes="0">
-                                                  <Component id="dishIsVegetarianLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="dishIsVegetarianText" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="3" attributes="0">
-                                                  <Component id="dishIsSpicyLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="dishisSpicyText" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                          </Group>
-                                          <Component id="dishDescriptionScrollPane" pref="85" max="32767" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="dishContainsNutsLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="dishContainsNutsText" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="dishContainsDairyLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="dishContainsDairyText" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="dishIsVegetarianLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="dishIsVegetarianText" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="dishIsSpicyLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="dishisSpicyText" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>

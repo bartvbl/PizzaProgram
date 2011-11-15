@@ -8,12 +8,10 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 import javax.swing.DefaultListSelectionModel;
-import javax.swing.JList;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
-import pizzaProgram.dataObjects.Dish;
 import pizzaProgram.dataObjects.Extra;
 import pizzaProgram.dataObjects.Order;
 import pizzaProgram.dataObjects.OrderDish;
@@ -21,8 +19,6 @@ import pizzaProgram.events.Event;
 import pizzaProgram.events.EventType;
 import pizzaProgram.gui.CookGUI;
 import pizzaProgram.gui.views.CookView;
-import pizzaProgram.gui.views.OrderView;
-import pizzaProgram.modules.Module;
 
 public class CookGUI_CookViewEventHandler extends ComponentEventHandler implements ActionListener {
 	private CookGUI cookGUI;
@@ -33,8 +29,7 @@ public class CookGUI_CookViewEventHandler extends ComponentEventHandler implemen
 		this.resetUI();
 		this.addEventListeners();
 	}
-	private void addEventListeners()
-	{
+	private void addEventListeners(){
 		CookView.orderDetailsTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
 				handleOrderSelection(e);
@@ -53,8 +48,7 @@ public class CookGUI_CookViewEventHandler extends ComponentEventHandler implemen
 			public void keyPressed(KeyEvent arg0) {}
 			public void keyTyped(KeyEvent arg0) {}
 			public void keyReleased(KeyEvent arg0) {
-				if(CookView.orderSearchTextPane.getText().equals(""))
-				{
+				if(CookView.orderSearchTextPane.getText().equals("")) {
 					showAllOrders();
 				} else {
 					searchOrdersBySearchBoxQuery();

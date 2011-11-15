@@ -122,6 +122,7 @@ public class CookView extends javax.swing.JPanel {
         orderDetailsTable.setAutoCreateRowSorter(true);
         orderDetailsTable.setModel(new DefaultTableModel());
         orderDetailsTable.setName("orderDetailsTable"); // NOI18N
+        orderDetailsTable.setPreferredSize(new java.awt.Dimension(220, 0));
         orderDetailsTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         ordersTableScrollPane.setViewportView(orderDetailsTable);
 

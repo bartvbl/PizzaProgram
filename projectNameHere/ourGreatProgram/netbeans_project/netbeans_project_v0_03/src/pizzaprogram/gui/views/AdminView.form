@@ -80,30 +80,31 @@
                           <Group type="102" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="confirmDishEditButton" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="dishEditDescriptionLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="dishEditNameLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="dishEditPriceLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Group type="102" attributes="0">
+                                              <Group type="103" groupAlignment="1" attributes="0">
+                                                  <Component id="dishEditPriceLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="dishIsVegetarianLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="dishEditIsPSpicyLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="dishEditContainsNutsLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="dishEditContainsDairyLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="dishEditContainsGlutenLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="dishEditIsActiveLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                          </Group>
+                                          <Component id="dishEditDescriptionLabel" min="-2" max="-2" attributes="0"/>
+                                          <Group type="102" alignment="1" attributes="0">
+                                              <Component id="dishEditNameLabel" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                          </Group>
                                       </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="editDishNameTextBox" alignment="0" pref="201" max="32767" attributes="0"/>
-                                          <Component id="editDishDescriptionScrollPane" alignment="0" pref="201" max="32767" attributes="0"/>
-                                          <Component id="editDishDishPriceTextArea" alignment="0" min="-2" pref="97" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="dishIsVegetarianLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="dishEditContainsNutsLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="dishEditIsPSpicyLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="dishEditContainsDairyLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="dishEditContainsGlutenLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="dishEditIsActiveLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="editDishNameTextBox" alignment="0" pref="179" max="32767" attributes="0"/>
+                                          <Component id="editDishDescriptionScrollPane" alignment="0" pref="179" max="32767" attributes="0"/>
+                                          <Component id="editDishDishPriceTextArea" min="-2" pref="93" max="-2" attributes="0"/>
                                           <Component id="editDishIsDishActiveComboBox" alignment="0" min="-2" pref="94" max="-2" attributes="0"/>
                                           <Component id="editDishIsPsicyComboBox" alignment="0" min="-2" pref="94" max="-2" attributes="0"/>
                                           <Component id="editDishIsVegetarianComboBox" alignment="0" min="-2" pref="94" max="-2" attributes="0"/>
@@ -112,7 +113,6 @@
                                           <Component id="editDIshContainsGlutenComboBox" alignment="0" min="-2" pref="94" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <Component id="confirmDishEditButton" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
@@ -123,23 +123,23 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="dishEditNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="editDishNameTextBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="dishEditNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="dishEditDescriptionLabel" min="-2" max="-2" attributes="0"/>
                                   <Component id="editDishDescriptionScrollPane" min="-2" pref="73" max="-2" attributes="0"/>
+                                  <Component id="dishEditDescriptionLabel" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="dishEditPriceLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="editDishDishPriceTextArea" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="dishEditPriceLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="dishIsVegetarianLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="editDishIsVegetarianComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="dishIsVegetarianLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
@@ -189,6 +189,7 @@
                     <Component class="javax.swing.JLabel" name="dishEditDescriptionLabel">
                       <Properties>
                         <Property name="text" type="java.lang.String" resourceKey="dishEditDescriptionLabel.text"/>
+                        <Property name="horizontalTextPosition" type="int" value="4"/>
                         <Property name="name" type="java.lang.String" value="dishEditDescriptionLabel" noResource="true"/>
                       </Properties>
                     </Component>
@@ -210,15 +211,6 @@
                         </Component>
                       </SubComponents>
                     </Container>
-                    <Component class="javax.swing.JFormattedTextField" name="editDishDishPriceTextArea">
-                      <Properties>
-                        <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
-                          <Format format="&#xa4;#,##0.00" subtype="-1" type="4"/>
-                        </Property>
-                        <Property name="text" type="java.lang.String" resourceKey="editDishDishPriceTextArea.text"/>
-                        <Property name="name" type="java.lang.String" value="editDishDishPriceTextArea" noResource="true"/>
-                      </Properties>
-                    </Component>
                     <Component class="javax.swing.JLabel" name="dishEditPriceLabel">
                       <Properties>
                         <Property name="text" type="java.lang.String" resourceKey="dishEditPriceLabel.text"/>
@@ -313,6 +305,12 @@
                       <Properties>
                         <Property name="text" type="java.lang.String" resourceKey="confirmDishEditButton.text"/>
                         <Property name="name" type="java.lang.String" value="confirmDishEditButton" noResource="true"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="editDishDishPriceTextArea">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" resourceKey="editDishDishPriceTextArea.text"/>
+                        <Property name="name" type="java.lang.String" value="editDishDishPriceTextArea" noResource="true"/>
                       </Properties>
                     </Component>
                   </SubComponents>
@@ -421,13 +419,11 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="688" max="32767" attributes="0"/>
                   <Component id="extrasMainSplitPane" alignment="0" pref="688" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="497" max="32767" attributes="0"/>
                   <Component id="extrasMainSplitPane" alignment="0" pref="497" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
@@ -457,23 +453,25 @@
                           <Group type="102" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="extraEditNameLabel" min="-2" max="-2" attributes="0"/>
-                                          <Component id="extraEditPriceTextBox" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="editExtraPriceTextBox" alignment="0" min="-2" pref="97" max="-2" attributes="0"/>
-                                          <Component id="editExtraExtraNameTextBox" alignment="0" pref="201" max="32767" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="editExtraIsActiveLabel" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                                      <Component id="editExtraExtraIsActiveComboBox" min="-2" pref="94" max="-2" attributes="0"/>
-                                  </Group>
                                   <Component id="confirmEditExtraButton" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Component id="extraEditNameLabel" min="-2" max="-2" attributes="0"/>
+                                          <Group type="102" alignment="1" attributes="0">
+                                              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="1" attributes="0">
+                                                  <Component id="extraEditPriceTextBox" alignment="1" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="editExtraIsActiveLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="editExtraExtraNameTextBox" pref="199" max="32767" attributes="0"/>
+                                          <Component id="editExtraExtraPriceTextArea" min="-2" pref="83" max="-2" attributes="0"/>
+                                          <Component id="editExtraExtraIsActiveComboBox" alignment="0" min="-2" pref="94" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
@@ -484,12 +482,12 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="extraEditNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="editExtraExtraNameTextBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="extraEditNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="editExtraPriceTextBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="editExtraExtraPriceTextArea" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="extraEditPriceTextBox" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -516,14 +514,6 @@
                         <Property name="name" type="java.lang.String" value="editExtraExtraNameTextBox" noResource="true"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JFormattedTextField" name="editExtraPriceTextBox">
-                      <Properties>
-                        <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
-                          <Format format="&#xa4;#,##0.00" subtype="-1" type="4"/>
-                        </Property>
-                        <Property name="name" type="java.lang.String" value="editExtraPriceTextBox" noResource="true"/>
-                      </Properties>
-                    </Component>
                     <Component class="javax.swing.JLabel" name="extraEditPriceTextBox">
                       <Properties>
                         <Property name="text" type="java.lang.String" resourceKey="extraEditPriceTextBox.text"/>
@@ -548,6 +538,12 @@
                       <Properties>
                         <Property name="text" type="java.lang.String" resourceKey="confirmEditExtraButton.text"/>
                         <Property name="name" type="java.lang.String" value="confirmEditExtraButton" noResource="true"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="editExtraExtraPriceTextArea">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" resourceKey="editExtraExtraPriceTextArea.text"/>
+                        <Property name="name" type="java.lang.String" value="editExtraExtraPriceTextArea" noResource="true"/>
                       </Properties>
                     </Component>
                   </SubComponents>
@@ -671,24 +667,26 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="editSettingsNameOfRestaurantLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="editSettingsMinimumOrderPriceLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="editSettingsDeliveryPriceLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="editSettingsNameOfRestaurantLabel" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Component id="editSettingsDeliveryPriceLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="editSettingsMinimumOrderPriceLabel" alignment="1" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="settingsDeliveryPriceTextBox" max="32767" attributes="1"/>
-                                      <Component id="settingsEditMinimumPriceFreeDeliveryTextBox" max="32767" attributes="1"/>
-                                      <Component id="settingsEditNameOfRestaurantTextBox" alignment="0" pref="216" max="32767" attributes="1"/>
-                                  </Group>
                               </Group>
+                          </Group>
+                          <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="settingsResetSettingsButton" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
                                   <Component id="settingsApplyChangesButton" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="settingsResetSettingsButton" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="settingsDeliveryPriceTextBox" max="32767" attributes="1"/>
+                                  <Component id="settingsEditMinimumPriceFreeDeliveryTextBox" max="32767" attributes="1"/>
+                                  <Component id="settingsEditNameOfRestaurantTextBox" alignment="0" pref="216" max="32767" attributes="1"/>
                               </Group>
                           </Group>
                           <EmptySpace pref="416" max="32767" attributes="0"/>
@@ -700,8 +698,8 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="editSettingsNameOfRestaurantLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="settingsEditNameOfRestaurantTextBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="editSettingsNameOfRestaurantLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -710,13 +708,13 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="editSettingsDeliveryPriceLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="settingsDeliveryPriceTextBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="editSettingsDeliveryPriceLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="settingsResetSettingsButton" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="settingsApplyChangesButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="settingsResetSettingsButton" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="401" max="32767" attributes="0"/>
                       </Group>

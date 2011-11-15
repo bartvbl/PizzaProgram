@@ -92,4 +92,14 @@ public class EventType {
 	public static final String DATABASE_UPDATE_CONFIG_VALUE = "databaseUpdateConfigValue";
 
 	
+	
+	public static final String ADMIN_GUI_UPDATE_DISH_LIST = "adminGUIUpdateDishList";
+	public static final String ADMIN_GUI_UPDATE_EXTRA_LIST = "adminGUIUpdateExtraList";
+	
+
+	public static final String ADMIN_GUI_REQUESTED = "adminGUIRequested";
+
+	public static final String DATABASE_UPDATE_ADMINGUI_GUI_SEND_ALL_DISHES = "dupdatesendalldishes";
+	
+	public static final String DATABASE_UPDATE_ADMINGUI_GUI_SEND_ALL_EXTRAS = "dupatesendallextras";
 }

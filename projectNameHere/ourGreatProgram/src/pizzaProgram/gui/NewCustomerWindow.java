@@ -18,22 +18,15 @@ import pizzaProgram.database.databaseUtils.DataCleaner;
 @SuppressWarnings("serial")
 public class NewCustomerWindow extends JFrame{
 
-	OrderGUI parent;
-	
-	TextField fyllnavn;
-	
-	TextField fylletternavn;
-	
-	TextField fylladresse;
-	
-	TextField fyllpostnr;
-	
-	TextField fyllpoststed;
-	
-	TextField fylltlf;
-	
-	
-	JFrame denne;
+	private OrderGUI parent;
+	private TextField fyllnavn;
+	private TextField fylletternavn;
+	private TextField fylladresse;
+	private TextField fyllpostnr;
+	private TextField fyllpoststed;
+	private TextField fylltlf;
+	private JFrame denne;
+
 	public NewCustomerWindow(OrderGUI parentWindow) {
 		parent = parentWindow;
 		denne = this;
@@ -42,107 +35,109 @@ public class NewCustomerWindow extends JFrame{
 		this.setLocation(100, 100);
 		this.setResizable(false);
 		this.setTitle("New customer");
-		
+
 		Label fornavn = new Label("Fornavn:");
-		add(fornavn, createConstraints02(0, 0));
-		
+		add(fornavn, createConstraints(0, 0, 0.2));
+
 		Label etternavn = new Label("Etternavn:");
-		add(etternavn, createConstraints02(0, 1));
-		
+		add(etternavn, createConstraints(0, 1, 0.2));
+
 		Label adresse = new Label("Adresse:");
-		add(adresse, createConstraints02(0, 2));
-		
+		add(adresse, createConstraints(0, 2, 0.2));
+
 		Label postnr = new Label("Postnr:");
-		add(postnr, createConstraints02(0, 3));
-		
+		add(postnr, createConstraints(0, 3, 0.2));
+
 		Label poststed = new Label("Poststed:");
-		add(poststed, createConstraints02(0, 4));
-		
+		add(poststed, createConstraints(0, 4, 0.2));
+
 		Label telefon = new Label("Telefon:");
-		add(telefon, createConstraints02(0, 5));
-		
+		add(telefon, createConstraints(0, 5, 0.2));
+
 		fyllnavn = new TextField();
-		add(fyllnavn, createConstraints08(1, 0));
-		
+		add(fyllnavn, createConstraints(1, 0, 0.8));
+
 		fylletternavn = new TextField();
-		add(fylletternavn, createConstraints08(1, 1));
-		
+		add(fylletternavn, createConstraints(1, 1, 0.8));
+
 		fylladresse = new TextField();
-		add(fylladresse, createConstraints08(1, 2));
-		
+		add(fylladresse, createConstraints(1, 2, 0.8));
+
 		fyllpostnr = new TextField();
-		add(fyllpostnr, createConstraints08(1, 3));
-		
+		add(fyllpostnr, createConstraints(1, 3, 0.8));
+
 		fyllpoststed = new TextField();
-		add(fyllpoststed, createConstraints08(1, 4));
-		
+		add(fyllpoststed, createConstraints(1, 4, 0.8));
+
 		fylltlf = new TextField();
-		add(fylltlf, createConstraints08(1, 5));
-		
+		add(fylltlf, createConstraints(1, 5, 0.8));
+
 		Label fill = new Label("");
-		add(fill, createConstraints02(0, 5));
-		
+		add(fill, createConstraints(0, 5, 0.2));
+
 		JButton finishKnapp = new JButton("Ok");
 		finishKnapp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				int postNumber = 0;
 				int phoneNumber = 0;
+				String firstName = DataCleaner.cleanDbData(fyllnavn.getText());
+				String lastName = DataCleaner.cleanDbData(fylletternavn.getText());
+				String address = DataCleaner.cleanDbData(fylladresse.getText());
+				String city = DataCleaner.cleanDbData(fyllpoststed.getText());
+
 				try{
 					postNumber = Integer.parseInt(fyllpostnr.getText());
 				}catch(NumberFormatException ex){
-					JOptionPane.showMessageDialog(denne, "Postnummer må være et tall", "Feil", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(denne, "Postnummer må være et tall!", "Feil", JOptionPane.ERROR_MESSAGE);
 					return;
 				}
+
 				try{
 					phoneNumber = Integer.parseInt(fylltlf.getText());
 				}catch(NumberFormatException ex){
-					JOptionPane.showMessageDialog(denne, "Telefonnummer må være et tall", "Feil", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(denne, "Telefonnummer må være et tall!", "Feil", JOptionPane.ERROR_MESSAGE);
 					return;
 				}
-				UnaddedCustomer customer = generateCustomerObject(postNumber, phoneNumber);
+
+				if(firstName.isEmpty()){
+					JOptionPane.showMessageDialog(denne, "Fornavn kan ikke være tomt!", "Feil", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				if(lastName.isEmpty()){
+					JOptionPane.showMessageDialog(denne, "Etternavn kan ikke være tomt!", "Feil", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				if(address.isEmpty()){
+					JOptionPane.showMessageDialog(denne, "Adressen kan ikke være tomt!", "Feil", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				if(city.isEmpty()){
+					JOptionPane.showMessageDialog(denne, "By kan ikke være tomt!", "Feil", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+
+
+				UnaddedCustomer customer = new UnaddedCustomer(firstName, lastName, address, postNumber, city, phoneNumber, "");
 				parent.createNewCustomer(customer);
 				dispose();
 			}
 		});
-		add(finishKnapp, createConstraints08(1, 6));
-		
+		add(finishKnapp, createConstraints(1, 6, 0.8));
+
 		setVisible(true);
-		
 	}
-	
-	private UnaddedCustomer generateCustomerObject(int postNumber, int phoneNumber)
-	{
-		
-		String firstName = DataCleaner.cleanDbData(fyllnavn.getText());
-		String lastName = DataCleaner.cleanDbData(fylletternavn.getText());
-		String address = DataCleaner.cleanDbData(fylladresse.getText());
-		String city = DataCleaner.cleanDbData(fyllpoststed.getText());
-		UnaddedCustomer customer = new UnaddedCustomer(firstName, lastName, address, postNumber, city, phoneNumber, "");
-		return customer;
-	}
-	
-	private GridBagConstraints createConstraints08(int x, int y){
+
+	private GridBagConstraints createConstraints(int x, int y, double widthpercent){
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.gridx = x;
 		gbc.gridy = y;
 		gbc.gridwidth = 1;
 		gbc.gridheight = 1;
 		gbc.fill = GridBagConstraints.BOTH;
-		gbc.weightx = 0.8;
+		gbc.weightx = widthpercent;
 		gbc.weighty = 0.1;
 		return gbc;
 	}
-	private GridBagConstraints createConstraints02(int x, int y){
-		GridBagConstraints gbc = new GridBagConstraints();
-		gbc.gridx = x;
-		gbc.gridy = y;
-		gbc.gridwidth = 1;
-		gbc.gridheight = 1;
-		gbc.fill = GridBagConstraints.BOTH;
-		gbc.weightx = 0.2;
-		gbc.weighty = 0.1;
-		return gbc;
-	}
-	
+
 }
