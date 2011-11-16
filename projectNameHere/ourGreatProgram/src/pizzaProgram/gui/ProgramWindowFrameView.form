@@ -49,10 +49,10 @@
             </MenuItem>
           </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="jMenu2">
+        <Menu class="javax.swing.JMenu" name="viewMenu">
           <Properties>
-            <Property name="text" type="java.lang.String" resourceKey="jMenu2.text"/>
-            <Property name="name" type="java.lang.String" value="jMenu2" noResource="true"/>
+            <Property name="text" type="java.lang.String" resourceKey="viewMenu.text"/>
+            <Property name="name" type="java.lang.String" value="viewMenu" noResource="true"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JRadioButtonMenuItem" name="showOrderGUIMenuItem">
@@ -83,11 +83,11 @@
                 <Property name="name" type="java.lang.String" value="showDeliveryGUIMenuItem" noResource="true"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JRadioButtonMenuItem" name="jRadioButtonMenuItem1">
+            <MenuItem class="javax.swing.JRadioButtonMenuItem" name="showSettingsGUIMenuItem">
               <Properties>
                 <Property name="selected" type="boolean" value="true"/>
-                <Property name="text" type="java.lang.String" resourceKey="jRadioButtonMenuItem1.text"/>
-                <Property name="name" type="java.lang.String" value="jRadioButtonMenuItem1" noResource="true"/>
+                <Property name="text" type="java.lang.String" resourceKey="showSettingsGUIMenuItem.text"/>
+                <Property name="name" type="java.lang.String" value="showSettingsGUIMenuItem" noResource="true"/>
               </Properties>
             </MenuItem>
           </SubComponents>

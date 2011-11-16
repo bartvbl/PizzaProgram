@@ -56,7 +56,7 @@ public class MenuBarEventHandler implements ActionListener {
     }
 
     private void fillMenuItemsTable() {
-        this.registerComponentEvent(ProgramWindowFrameView.showSettingsMenuItem, EventType.OPEN_SETTINGS_WINDOW_REQUESTED);
+        this.registerComponentEvent(ProgramWindowFrameView.showSettingsGUIMenuItem, EventType.OPEN_SETTINGS_WINDOW_REQUESTED);
         this.registerComponentEvent(ProgramWindowFrameView.refreshDataMenuItem, EventType.DATA_REFRESH_REQUESTED);
         this.registerComponentEvent(this.mainFrameView.getShowCookGUIMenuItem(), EventType.COOK_GUI_REQUESTED);
         this.registerComponentEvent(this.mainFrameView.getShowDeliveryGUIMenuItem(), EventType.DELIVERY_GUI_REQUESTED);
@@ -64,7 +64,7 @@ public class MenuBarEventHandler implements ActionListener {
     }
 
     private void registerActionListeners() {
-        ProgramWindowFrameView.showSettingsMenuItem.addActionListener(this);
+        ProgramWindowFrameView.showSettingsGUIMenuItem.addActionListener(this);
         this.mainFrameView.getRefreshDataMenuItem().addActionListener(this);
         this.mainFrameView.getShowCookGUIMenuItem().addActionListener(this);
         this.mainFrameView.getShowDeliveryGUIMenuItem().addActionListener(this);
