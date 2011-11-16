@@ -3,7 +3,6 @@ package pizzaProgram.gui.utils;
 import java.awt.BorderLayout;
 import java.util.ArrayList;
 
-import javax.swing.JLabel;
 import javax.swing.table.DefaultTableModel;
 
 import pizzaProgram.dataObjects.Customer;
@@ -20,8 +19,7 @@ import pizzaProgram.utils.OrderPriceCalculator;
 public class DeliveryGUIUpdater {
 	private OrderPriceCalculator orderPriceCalculator;
 	
-	public void showOrder(Order order)
-	{
+	public void showOrder(Order order){
 		this.orderPriceCalculator = new OrderPriceCalculator();
 		this.fillDishTable(order);
 		this.fillOrderPriceLabels();
@@ -42,9 +40,6 @@ public class DeliveryGUIUpdater {
 		map.repaint();
 		DeliveryView.mapImagePanel.validate();
 		DeliveryView.mapImagePanel.repaint();
-		
-
-		
 	}
 
 	private void fillDishTable(Order order) {
@@ -53,8 +48,7 @@ public class DeliveryGUIUpdater {
 		tableModel.setRowCount(0);
 		ArrayList<OrderDish> dishList = order.getOrderedDishes();
 		DishPrice currentDishPrice;
-		for(OrderDish dish : dishList)
-		{
+		for(OrderDish dish : dishList){
 			currentDishPrice = DishPriceCalculator.getPrice(dish);
 			this.orderPriceCalculator.addDishToTotalPrice(currentDishPrice);
 			tableModel.addRow(new Object[]{dish.dish.name, this.generateExtrasString(dish.getExtras()), currentDishPrice.getPriceAsString()});

@@ -33,9 +33,11 @@ public class AdminGUI_SystemEventHandler implements EventHandler {
 	public void handleEvent(Event<?> event) {
 		if(event.eventType.equals(EventType.ADMIN_GUI_UPDATE_DISH_LIST)){
 			this.updateDishList(event);
-		}else if(event.eventType.equals(EventType.ADMIN_GUI_UPDATE_EXTRA_LIST)){
+		}
+		else if(event.eventType.equals(EventType.ADMIN_GUI_UPDATE_EXTRA_LIST)){
 			this.updateExtraList(event);
-		}else if(event.eventType.equals(EventType.ADMIN_GUI_REQUESTED)){
+		}
+		else if(event.eventType.equals(EventType.ADMIN_GUI_REQUESTED)){
 			this.adminGUI.show();
 		}
 	}
@@ -68,4 +70,5 @@ public class AdminGUI_SystemEventHandler implements EventHandler {
 			tableModel.addRow(new Object[]{d.name, d.price + " kr", d.isActive});
 		}
 	}
-}
+	
+}//END

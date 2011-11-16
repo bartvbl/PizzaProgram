@@ -37,40 +37,11 @@ public class AdminView extends javax.swing.JPanel {
     private void initComponents() {
 
         mainTabbedPane = new javax.swing.JTabbedPane();
-        CustomerEditingJPanel = new javax.swing.JPanel();
-        editCustomerMainSplitPane = new javax.swing.JSplitPane();
-        customerEditCustomerListPanel = new javax.swing.JPanel();
-        allCustomersTableScrollPane = new javax.swing.JScrollPane();
-        allActiveCustomersTable = new javax.swing.JTable();
-        searchCustomerButton = new javax.swing.JButton();
-        searchCustomerTextBox = new javax.swing.JTextField();
-        addNewCustomerButton = new javax.swing.JButton();
-        customerEditDeleteSelectedCustomerButton = new javax.swing.JButton();
-        editCustomerEditScrollPane = new javax.swing.JScrollPane();
-        editCustomerEditPanel = new javax.swing.JPanel();
-        editCustomerFirstNameLabel = new javax.swing.JLabel();
-        customerEditFirstNameTextBox = new javax.swing.JTextField();
-        editCustomerLastNameLabel = new javax.swing.JLabel();
-        customerEditCityTextBox = new javax.swing.JTextField();
-        editCustomerAddressLabel = new javax.swing.JLabel();
-        customerEditPostalCodeTextBox = new javax.swing.JTextField();
-        editCustomerPostalCodeLabel = new javax.swing.JLabel();
-        editCustomerCityLabel = new javax.swing.JLabel();
-        editCustomerPhoneNumberLabel = new javax.swing.JLabel();
-        editCustomerCommentsLabel = new javax.swing.JLabel();
-        customerEditAddressTextBox = new javax.swing.JTextField();
-        customerEditLastNameTextBox = new javax.swing.JTextField();
-        customerEditPhoneNumberTextBox = new javax.swing.JTextField();
-        customerEditResetChangesButton = new javax.swing.JButton();
-        customerEditConfirmChangesButton = new javax.swing.JButton();
-        editCustomerCommentsTextAreaScrollPane = new javax.swing.JScrollPane();
-        customerEditCommentsTextArea = new javax.swing.JTextArea();
         DishEditingPanel = new javax.swing.JPanel();
         editDishesMainSplitPane = new javax.swing.JSplitPane();
         dishEditDishListJPanel = new javax.swing.JPanel();
         allActiveDishesDishTableScrollPane = new javax.swing.JScrollPane();
         allActiveDishesTable = new javax.swing.JTable();
-        searchDishSearchButton = new javax.swing.JButton();
         searchDishTextBox = new javax.swing.JTextField();
         addNewDishButton = new javax.swing.JButton();
         editDishScrollPane = new javax.swing.JScrollPane();
@@ -112,7 +83,6 @@ public class AdminView extends javax.swing.JPanel {
                 return false; //Disallow the editing of any cell
             }
         };
-        searchExtraSearchButton = new javax.swing.JButton();
         searchExtraTextBox = new javax.swing.JTextField();
         createNewExtraButton = new javax.swing.JButton();
         settingsScrollPane = new javax.swing.JScrollPane();
@@ -130,212 +100,6 @@ public class AdminView extends javax.swing.JPanel {
         setLayout(new java.awt.BorderLayout());
 
         mainTabbedPane.setName("mainTabbedPane"); // NOI18N
-
-        CustomerEditingJPanel.setName("CustomerEditingJPanel"); // NOI18N
-
-        editCustomerMainSplitPane.setDividerLocation(400);
-        editCustomerMainSplitPane.setName("editCustomerMainSplitPane"); // NOI18N
-
-        customerEditCustomerListPanel.setName("customerEditCustomerListPanel"); // NOI18N
-
-        allCustomersTableScrollPane.setName("allCustomersTableScrollPane"); // NOI18N
-
-        allActiveDishesTable = new javax.swing.JTable(){
-            public boolean isCellEditable(int rowIndex, int colIndex) {
-                return false; //Disallow the editing of any cell
-            }
-        };
-        allActiveCustomersTable.setAutoCreateRowSorter(true);
-        allActiveCustomersTable.setModel(new DefaultTableModel());
-        allActiveCustomersTable.setName("allActiveCustomersTable"); // NOI18N
-        allCustomersTableScrollPane.setViewportView(allActiveCustomersTable);
-
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(pizzaProgram.core.PizzaProgram.class).getContext().getResourceMap(AdminView.class);
-        searchCustomerButton.setText(resourceMap.getString("searchCustomerButton.text")); // NOI18N
-        searchCustomerButton.setName("searchCustomerButton"); // NOI18N
-
-        searchCustomerTextBox.setName("searchCustomerTextBox"); // NOI18N
-
-        addNewCustomerButton.setText(resourceMap.getString("addNewCustomerButton.text")); // NOI18N
-        addNewCustomerButton.setName("addNewCustomerButton"); // NOI18N
-
-        customerEditDeleteSelectedCustomerButton.setText(resourceMap.getString("customerEditDeleteSelectedCustomerButton.text")); // NOI18N
-        customerEditDeleteSelectedCustomerButton.setName("customerEditDeleteSelectedCustomerButton"); // NOI18N
-
-        javax.swing.GroupLayout customerEditCustomerListPanelLayout = new javax.swing.GroupLayout(customerEditCustomerListPanel);
-        customerEditCustomerListPanel.setLayout(customerEditCustomerListPanelLayout);
-        customerEditCustomerListPanelLayout.setHorizontalGroup(
-            customerEditCustomerListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, customerEditCustomerListPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(addNewCustomerButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
-                .addComponent(searchCustomerTextBox, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(searchCustomerButton)
-                .addContainerGap())
-            .addComponent(allCustomersTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE)
-            .addGroup(customerEditCustomerListPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(customerEditDeleteSelectedCustomerButton)
-                .addContainerGap(282, Short.MAX_VALUE))
-        );
-        customerEditCustomerListPanelLayout.setVerticalGroup(
-            customerEditCustomerListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(customerEditCustomerListPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(customerEditCustomerListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(addNewCustomerButton)
-                    .addComponent(searchCustomerButton)
-                    .addComponent(searchCustomerTextBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(allCustomersTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 449, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(customerEditDeleteSelectedCustomerButton)
-                .addGap(4, 4, 4))
-        );
-
-        editCustomerMainSplitPane.setLeftComponent(customerEditCustomerListPanel);
-
-        editCustomerEditScrollPane.setName("editCustomerEditScrollPane"); // NOI18N
-
-        editCustomerEditPanel.setName("editCustomerEditPanel"); // NOI18N
-
-        editCustomerFirstNameLabel.setText(resourceMap.getString("editCustomerFirstNameLabel.text")); // NOI18N
-        editCustomerFirstNameLabel.setName("editCustomerFirstNameLabel"); // NOI18N
-
-        customerEditFirstNameTextBox.setText(resourceMap.getString("customerEditFirstNameTextBox.text")); // NOI18N
-        customerEditFirstNameTextBox.setName("customerEditFirstNameTextBox"); // NOI18N
-
-        editCustomerLastNameLabel.setText(resourceMap.getString("editCustomerLastNameLabel.text")); // NOI18N
-        editCustomerLastNameLabel.setName("editCustomerLastNameLabel"); // NOI18N
-
-        customerEditCityTextBox.setName("customerEditCityTextBox"); // NOI18N
-
-        editCustomerAddressLabel.setText(resourceMap.getString("editCustomerAddressLabel.text")); // NOI18N
-        editCustomerAddressLabel.setName("editCustomerAddressLabel"); // NOI18N
-
-        customerEditPostalCodeTextBox.setName("customerEditPostalCodeTextBox"); // NOI18N
-
-        editCustomerPostalCodeLabel.setText(resourceMap.getString("editCustomerPostalCodeLabel.text")); // NOI18N
-        editCustomerPostalCodeLabel.setName("editCustomerPostalCodeLabel"); // NOI18N
-
-        editCustomerCityLabel.setText(resourceMap.getString("editCustomerCityLabel.text")); // NOI18N
-        editCustomerCityLabel.setName("editCustomerCityLabel"); // NOI18N
-
-        editCustomerPhoneNumberLabel.setText(resourceMap.getString("editCustomerPhoneNumberLabel.text")); // NOI18N
-        editCustomerPhoneNumberLabel.setName("editCustomerPhoneNumberLabel"); // NOI18N
-
-        editCustomerCommentsLabel.setText(resourceMap.getString("editCustomerCommentsLabel.text")); // NOI18N
-        editCustomerCommentsLabel.setName("editCustomerCommentsLabel"); // NOI18N
-
-        customerEditAddressTextBox.setName("customerEditAddressTextBox"); // NOI18N
-
-        customerEditLastNameTextBox.setName("customerEditLastNameTextBox"); // NOI18N
-
-        customerEditPhoneNumberTextBox.setText(resourceMap.getString("customerEditPhoneNumberTextBox.text")); // NOI18N
-        customerEditPhoneNumberTextBox.setName("customerEditPhoneNumberTextBox"); // NOI18N
-
-        customerEditResetChangesButton.setText(resourceMap.getString("customerEditResetChangesButton.text")); // NOI18N
-        customerEditResetChangesButton.setName("customerEditResetChangesButton"); // NOI18N
-
-        customerEditConfirmChangesButton.setText(resourceMap.getString("customerEditConfirmChangesButton.text")); // NOI18N
-        customerEditConfirmChangesButton.setName("customerEditConfirmChangesButton"); // NOI18N
-
-        editCustomerCommentsTextAreaScrollPane.setName("editCustomerCommentsTextAreaScrollPane"); // NOI18N
-
-        customerEditCommentsTextArea.setColumns(20);
-        customerEditCommentsTextArea.setLineWrap(true);
-        customerEditCommentsTextArea.setRows(5);
-        customerEditCommentsTextArea.setName("customerEditCommentsTextArea"); // NOI18N
-        editCustomerCommentsTextAreaScrollPane.setViewportView(customerEditCommentsTextArea);
-
-        javax.swing.GroupLayout editCustomerEditPanelLayout = new javax.swing.GroupLayout(editCustomerEditPanel);
-        editCustomerEditPanel.setLayout(editCustomerEditPanelLayout);
-        editCustomerEditPanelLayout.setHorizontalGroup(
-            editCustomerEditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(editCustomerEditPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(editCustomerEditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(editCustomerEditPanelLayout.createSequentialGroup()
-                        .addGroup(editCustomerEditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(editCustomerPostalCodeLabel)
-                            .addComponent(editCustomerPhoneNumberLabel)
-                            .addComponent(editCustomerFirstNameLabel)
-                            .addComponent(editCustomerAddressLabel)
-                            .addComponent(editCustomerLastNameLabel)
-                            .addComponent(editCustomerCityLabel)
-                            .addComponent(editCustomerCommentsLabel))
-                        .addGap(18, 18, 18)
-                        .addGroup(editCustomerEditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(customerEditFirstNameTextBox, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
-                            .addComponent(customerEditLastNameTextBox, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
-                            .addComponent(customerEditAddressTextBox, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
-                            .addComponent(customerEditCityTextBox, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
-                            .addComponent(customerEditPostalCodeTextBox, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
-                            .addComponent(customerEditPhoneNumberTextBox, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
-                            .addComponent(editCustomerCommentsTextAreaScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE))
-                        .addContainerGap())
-                    .addGroup(editCustomerEditPanelLayout.createSequentialGroup()
-                        .addComponent(customerEditResetChangesButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(customerEditConfirmChangesButton)
-                        .addContainerGap())))
-        );
-        editCustomerEditPanelLayout.setVerticalGroup(
-            editCustomerEditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(editCustomerEditPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(editCustomerEditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(editCustomerFirstNameLabel)
-                    .addComponent(customerEditFirstNameTextBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(editCustomerEditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(editCustomerLastNameLabel)
-                    .addComponent(customerEditLastNameTextBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(editCustomerEditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(editCustomerAddressLabel)
-                    .addComponent(customerEditAddressTextBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(editCustomerEditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(editCustomerCityLabel)
-                    .addComponent(customerEditCityTextBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(editCustomerEditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(editCustomerPostalCodeLabel)
-                    .addComponent(customerEditPostalCodeTextBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(editCustomerEditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(editCustomerPhoneNumberLabel)
-                    .addComponent(customerEditPhoneNumberTextBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(editCustomerEditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(editCustomerCommentsLabel)
-                    .addComponent(editCustomerCommentsTextAreaScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(editCustomerEditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(customerEditResetChangesButton)
-                    .addComponent(customerEditConfirmChangesButton))
-                .addContainerGap())
-        );
-
-        editCustomerEditScrollPane.setViewportView(editCustomerEditPanel);
-
-        editCustomerMainSplitPane.setRightComponent(editCustomerEditScrollPane);
-
-        javax.swing.GroupLayout CustomerEditingJPanelLayout = new javax.swing.GroupLayout(CustomerEditingJPanel);
-        CustomerEditingJPanel.setLayout(CustomerEditingJPanelLayout);
-        CustomerEditingJPanelLayout.setHorizontalGroup(
-            CustomerEditingJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(editCustomerMainSplitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 688, Short.MAX_VALUE)
-        );
-        CustomerEditingJPanelLayout.setVerticalGroup(
-            CustomerEditingJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(editCustomerMainSplitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 524, Short.MAX_VALUE)
-        );
-
-        mainTabbedPane.addTab(resourceMap.getString("CustomerEditingJPanel.TabConstraints.tabTitle"), CustomerEditingJPanel); // NOI18N
 
         DishEditingPanel.setName("DishEditingPanel"); // NOI18N
 
@@ -356,9 +120,7 @@ public class AdminView extends javax.swing.JPanel {
         allActiveDishesTable.setName("allActiveDishesTable"); // NOI18N
         allActiveDishesDishTableScrollPane.setViewportView(allActiveDishesTable);
 
-        searchDishSearchButton.setText(resourceMap.getString("searchDishSearchButton.text")); // NOI18N
-        searchDishSearchButton.setName("searchDishSearchButton"); // NOI18N
-
+        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(pizzaProgram.core.PizzaProgram.class).getContext().getResourceMap(AdminView.class);
         searchDishTextBox.setText(resourceMap.getString("searchDishTextBox.text")); // NOI18N
         searchDishTextBox.setName("searchDishTextBox"); // NOI18N
 
@@ -372,12 +134,9 @@ public class AdminView extends javax.swing.JPanel {
             .addGroup(dishEditDishListJPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(addNewDishButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
-                .addComponent(searchDishTextBox, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(searchDishSearchButton)
-                .addContainerGap())
-            .addComponent(allActiveDishesDishTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(searchDishTextBox, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(allActiveDishesDishTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
         );
         dishEditDishListJPanelLayout.setVerticalGroup(
             dishEditDishListJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -385,7 +144,6 @@ public class AdminView extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(dishEditDishListJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addNewDishButton)
-                    .addComponent(searchDishSearchButton)
                     .addComponent(searchDishTextBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(allActiveDishesDishTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 482, Short.MAX_VALUE))
@@ -464,34 +222,32 @@ public class AdminView extends javax.swing.JPanel {
             editDishJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(editDishJPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(editDishJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(confirmDishEditButton)
+                .addGroup(editDishJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(editDishJPanelLayout.createSequentialGroup()
                         .addGroup(editDishJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(editDishJPanelLayout.createSequentialGroup()
-                                .addGroup(editDishJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(dishEditPriceLabel)
-                                    .addComponent(dishIsVegetarianLabel)
-                                    .addComponent(dishEditIsPSpicyLabel)
-                                    .addComponent(dishEditContainsNutsLabel)
-                                    .addComponent(dishEditContainsDairyLabel)
-                                    .addComponent(dishEditContainsGlutenLabel)
-                                    .addComponent(dishEditIsActiveLabel))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                            .addComponent(dishEditDescriptionLabel)
-                            .addGroup(editDishJPanelLayout.createSequentialGroup()
-                                .addComponent(dishEditNameLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                        .addGroup(editDishJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(editDishNameTextBox, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
-                            .addComponent(editDishDescriptionScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
-                            .addComponent(editDishDishPriceTextArea, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(editDishIsDishActiveComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(editDishIsPsicyComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(editDishIsVegetarianComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(editDIshContainsNutsComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(editDishContainsDairyComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(editDIshContainsGlutenComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(dishEditPriceLabel)
+                            .addComponent(dishIsVegetarianLabel)
+                            .addComponent(dishEditIsPSpicyLabel)
+                            .addComponent(dishEditContainsNutsLabel)
+                            .addComponent(dishEditContainsDairyLabel)
+                            .addComponent(dishEditContainsGlutenLabel)
+                            .addComponent(dishEditIsActiveLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addComponent(dishEditDescriptionLabel)
+                    .addGroup(editDishJPanelLayout.createSequentialGroup()
+                        .addComponent(dishEditNameLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGroup(editDishJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(confirmDishEditButton)
+                    .addComponent(editDishNameTextBox, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
+                    .addComponent(editDishDescriptionScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
+                    .addComponent(editDishDishPriceTextArea, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(editDishIsDishActiveComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(editDishIsPsicyComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(editDishIsVegetarianComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(editDIshContainsNutsComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(editDishContainsDairyComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(editDIshContainsGlutenComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         editDishJPanelLayout.setVerticalGroup(
@@ -550,7 +306,7 @@ public class AdminView extends javax.swing.JPanel {
         );
         DishEditingPanelLayout.setVerticalGroup(
             DishEditingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(editDishesMainSplitPane)
+            .addComponent(editDishesMainSplitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 524, Short.MAX_VALUE)
         );
 
         mainTabbedPane.addTab(resourceMap.getString("DishEditingPanel.TabConstraints.tabTitle"), DishEditingPanel); // NOI18N
@@ -587,22 +343,19 @@ public class AdminView extends javax.swing.JPanel {
         editExtraJPanelLayout.setHorizontalGroup(
             editExtraJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(editExtraJPanelLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(24, 24, 24)
+                .addGroup(editExtraJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(extraEditNameLabel)
+                    .addGroup(editExtraJPanelLayout.createSequentialGroup()
+                        .addGroup(editExtraJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(extraEditPriceTextBox)
+                            .addComponent(editExtraIsActiveLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addGroup(editExtraJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(confirmEditExtraButton)
-                    .addGroup(editExtraJPanelLayout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addGroup(editExtraJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(extraEditNameLabel)
-                            .addGroup(editExtraJPanelLayout.createSequentialGroup()
-                                .addGroup(editExtraJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(extraEditPriceTextBox)
-                                    .addComponent(editExtraIsActiveLabel))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                        .addGroup(editExtraJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(editExtraExtraNameTextBox, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
-                            .addComponent(editExtraExtraPriceTextArea, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(editExtraExtraIsActiveComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(editExtraExtraNameTextBox, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
+                    .addComponent(editExtraExtraPriceTextArea, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(editExtraExtraIsActiveComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         editExtraJPanelLayout.setVerticalGroup(
@@ -636,9 +389,7 @@ public class AdminView extends javax.swing.JPanel {
         allRegisteredExtrasTable.setName("allRegisteredExtrasTable"); // NOI18N
         allRegisteredExtrasScrollPane.setViewportView(allRegisteredExtrasTable);
 
-        searchExtraSearchButton.setText(resourceMap.getString("searchExtraSearchButton.text")); // NOI18N
-        searchExtraSearchButton.setName("searchExtraSearchButton"); // NOI18N
-
+        searchExtraTextBox.setText(resourceMap.getString("searchExtraTextBox.text")); // NOI18N
         searchExtraTextBox.setName("searchExtraTextBox"); // NOI18N
 
         createNewExtraButton.setText(resourceMap.getString("createNewExtraButton.text")); // NOI18N
@@ -648,14 +399,11 @@ public class AdminView extends javax.swing.JPanel {
         editExtraExtraSelectionJPanel.setLayout(editExtraExtraSelectionJPanelLayout);
         editExtraExtraSelectionJPanelLayout.setHorizontalGroup(
             editExtraExtraSelectionJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, editExtraExtraSelectionJPanelLayout.createSequentialGroup()
+            .addGroup(editExtraExtraSelectionJPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(createNewExtraButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
-                .addComponent(searchExtraTextBox, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(searchExtraSearchButton)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                .addComponent(searchExtraTextBox, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addComponent(allRegisteredExtrasScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE)
         );
         editExtraExtraSelectionJPanelLayout.setVerticalGroup(
@@ -664,7 +412,6 @@ public class AdminView extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(editExtraExtraSelectionJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(createNewExtraButton)
-                    .addComponent(searchExtraSearchButton)
                     .addComponent(searchExtraTextBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(allRegisteredExtrasScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 482, Short.MAX_VALUE))
@@ -757,7 +504,7 @@ public class AdminView extends javax.swing.JPanel {
                 .addGroup(editSettingsJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(settingsApplyChangesButton)
                     .addComponent(settingsResetSettingsButton))
-                .addContainerGap(410, Short.MAX_VALUE))
+                .addContainerGap(421, Short.MAX_VALUE))
         );
 
         settingsScrollPane.setViewportView(editSettingsJPanel);
@@ -767,31 +514,16 @@ public class AdminView extends javax.swing.JPanel {
         add(mainTabbedPane, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public static javax.swing.JPanel CustomerEditingJPanel;
     public static javax.swing.JPanel DishEditingPanel;
     public static javax.swing.JPanel ExtrasEditingPanel;
-    public static javax.swing.JButton addNewCustomerButton;
     public static javax.swing.JButton addNewDishButton;
-    public static javax.swing.JTable allActiveCustomersTable;
     public static javax.swing.JScrollPane allActiveDishesDishTableScrollPane;
     public static javax.swing.JTable allActiveDishesTable;
-    public static javax.swing.JScrollPane allCustomersTableScrollPane;
     public static javax.swing.JScrollPane allRegisteredExtrasScrollPane;
     public static javax.swing.JTable allRegisteredExtrasTable;
     public static javax.swing.JButton confirmDishEditButton;
     public static javax.swing.JButton confirmEditExtraButton;
     public static javax.swing.JButton createNewExtraButton;
-    public static javax.swing.JTextField customerEditAddressTextBox;
-    public static javax.swing.JTextField customerEditCityTextBox;
-    public static javax.swing.JTextArea customerEditCommentsTextArea;
-    public static javax.swing.JButton customerEditConfirmChangesButton;
-    public static javax.swing.JPanel customerEditCustomerListPanel;
-    public static javax.swing.JButton customerEditDeleteSelectedCustomerButton;
-    public static javax.swing.JTextField customerEditFirstNameTextBox;
-    public static javax.swing.JTextField customerEditLastNameTextBox;
-    public static javax.swing.JTextField customerEditPhoneNumberTextBox;
-    public static javax.swing.JTextField customerEditPostalCodeTextBox;
-    public static javax.swing.JButton customerEditResetChangesButton;
     public static javax.swing.JLabel dishEditContainsDairyLabel;
     public static javax.swing.JLabel dishEditContainsGlutenLabel;
     public static javax.swing.JLabel dishEditContainsNutsLabel;
@@ -802,17 +534,6 @@ public class AdminView extends javax.swing.JPanel {
     public static javax.swing.JLabel dishEditNameLabel;
     public static javax.swing.JLabel dishEditPriceLabel;
     public static javax.swing.JLabel dishIsVegetarianLabel;
-    public static javax.swing.JLabel editCustomerAddressLabel;
-    public static javax.swing.JLabel editCustomerCityLabel;
-    public static javax.swing.JLabel editCustomerCommentsLabel;
-    public static javax.swing.JScrollPane editCustomerCommentsTextAreaScrollPane;
-    public static javax.swing.JPanel editCustomerEditPanel;
-    public static javax.swing.JScrollPane editCustomerEditScrollPane;
-    public static javax.swing.JLabel editCustomerFirstNameLabel;
-    public static javax.swing.JLabel editCustomerLastNameLabel;
-    public static javax.swing.JSplitPane editCustomerMainSplitPane;
-    public static javax.swing.JLabel editCustomerPhoneNumberLabel;
-    public static javax.swing.JLabel editCustomerPostalCodeLabel;
     public static javax.swing.JComboBox editDIshContainsGlutenComboBox;
     public static javax.swing.JComboBox editDIshContainsNutsComboBox;
     public static javax.swing.JComboBox editDishContainsDairyComboBox;
@@ -840,11 +561,7 @@ public class AdminView extends javax.swing.JPanel {
     public static javax.swing.JLabel extraEditPriceTextBox;
     public static javax.swing.JSplitPane extrasMainSplitPane;
     public static javax.swing.JTabbedPane mainTabbedPane;
-    public static javax.swing.JButton searchCustomerButton;
-    public static javax.swing.JTextField searchCustomerTextBox;
-    public static javax.swing.JButton searchDishSearchButton;
     public static javax.swing.JTextField searchDishTextBox;
-    public static javax.swing.JButton searchExtraSearchButton;
     public static javax.swing.JTextField searchExtraTextBox;
     public static javax.swing.JButton settingsApplyChangesButton;
     public static javax.swing.JTextField settingsDeliveryPriceTextBox;

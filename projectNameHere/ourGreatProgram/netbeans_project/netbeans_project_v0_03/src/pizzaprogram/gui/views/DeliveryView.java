@@ -77,8 +77,8 @@ public class DeliveryView extends javax.swing.JPanel {
                 .addComponent(markOrderBeingDeliveredButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(markOrderDeliveredButton)
-                .addContainerGap(85, Short.MAX_VALUE))
-            .addComponent(orderContentsTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE)
+                .addContainerGap(277, Short.MAX_VALUE))
+            .addComponent(orderContentsTableScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 658, Short.MAX_VALUE)
         );
         orderContentsPanelLayout.setVerticalGroup(
             orderContentsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -102,7 +102,7 @@ public class DeliveryView extends javax.swing.JPanel {
         mapImagePanel.setLayout(mapImagePanelLayout);
         mapImagePanelLayout.setHorizontalGroup(
             mapImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 492, Short.MAX_VALUE)
+            .addGap(0, 658, Short.MAX_VALUE)
         );
         mapImagePanelLayout.setVerticalGroup(
             mapImagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -113,17 +113,15 @@ public class DeliveryView extends javax.swing.JPanel {
 
         mainVerticalSplitPanel.setRightComponent(rightHorizontallSplitPane);
 
-        leftHorizontalSplitPanel.setDividerLocation(240);
+        leftHorizontalSplitPanel.setDividerLocation(this.getHeight() - 200);
         leftHorizontalSplitPanel.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
         leftHorizontalSplitPanel.setName("leftHorizontalSplitPanel"); // NOI18N
 
         activeOrderListPanel.setMinimumSize(new java.awt.Dimension(0, 300));
         activeOrderListPanel.setName("activeOrderListPanel"); // NOI18N
 
+        orderSearchTextField.setText(resourceMap.getString("orderSearchTextField.text")); // NOI18N
         orderSearchTextField.setName("orderSearchTextField"); // NOI18N
-
-        orderSearchButton.setText(resourceMap.getString("orderSearchButton.text")); // NOI18N
-        orderSearchButton.setName("orderSearchButton"); // NOI18N
 
         jScrollPane1.setName("jScrollPane1"); // NOI18N
 
@@ -136,23 +134,18 @@ public class DeliveryView extends javax.swing.JPanel {
         activeOrderListPanel.setLayout(activeOrderListPanelLayout);
         activeOrderListPanelLayout.setHorizontalGroup(
             activeOrderListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
             .addGroup(activeOrderListPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(orderSearchTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(orderSearchButton)
-                .addContainerGap())
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 397, Short.MAX_VALUE)
+                .addGap(10, 10, 10)
+                .addComponent(orderSearchTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE))
         );
         activeOrderListPanelLayout.setVerticalGroup(
             activeOrderListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(activeOrderListPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(activeOrderListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(orderSearchButton)
-                    .addComponent(orderSearchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(orderSearchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE))
         );
 
         leftHorizontalSplitPanel.setTopComponent(activeOrderListPanel);
@@ -255,19 +248,19 @@ public class DeliveryView extends javax.swing.JPanel {
                 .addGroup(orderDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(orderDetailsPanelLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(orderDetailsSeparator, javax.swing.GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE))
+                        .addComponent(orderDetailsSeparator, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE))
                     .addGroup(orderDetailsPanelLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(orderCommentsLabel))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, orderDetailsPanelLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(orderCommentsScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE))
+                        .addComponent(orderCommentsScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE))
                     .addGroup(orderDetailsPanelLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(orderAddressLabel))
                     .addGroup(orderDetailsPanelLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(orderAddressScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE))
+                        .addComponent(orderAddressScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE))
                     .addComponent(orderPriceOverviewPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -330,7 +323,6 @@ public class DeliveryView extends javax.swing.JPanel {
     public static final javax.swing.JPanel orderDetailsPanel = new javax.swing.JPanel();
     public static final javax.swing.JSeparator orderDetailsSeparator = new javax.swing.JSeparator();
     public static final javax.swing.JPanel orderPriceOverviewPanel = new javax.swing.JPanel();
-    public static final javax.swing.JButton orderSearchButton = new javax.swing.JButton();
     public static final javax.swing.JTextField orderSearchTextField = new javax.swing.JTextField();
     public static final javax.swing.JSplitPane rightHorizontallSplitPane = new javax.swing.JSplitPane();
     public static final javax.swing.JButton showReceiptButton = new javax.swing.JButton();

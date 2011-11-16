@@ -21,6 +21,7 @@ import pizzaProgram.gui.CookGUI;
 import pizzaProgram.gui.views.CookView;
 
 public class CookGUI_CookViewEventHandler extends ComponentEventHandler implements ActionListener {
+	
 	private CookGUI cookGUI;
 	
 	public CookGUI_CookViewEventHandler(CookGUI cookGUI) {
@@ -29,6 +30,7 @@ public class CookGUI_CookViewEventHandler extends ComponentEventHandler implemen
 		this.resetUI();
 		this.addEventListeners();
 	}
+	
 	private void addEventListeners(){
 		CookView.orderDetailsTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
@@ -41,8 +43,8 @@ public class CookGUI_CookViewEventHandler extends ComponentEventHandler implemen
 		CookView.markOrderCompletedButton.addActionListener(this);
 		this.registerEventType(CookView.markOrderCompletedButton, "markOrderCompleted");
 		
-		CookView.searchOrderButton.addActionListener(this);
-		this.registerEventType(CookView.searchOrderButton, "searchOrders");
+//		CookView.searchOrderButton.addActionListener(this);
+//		this.registerEventType(CookView.searchOrderButton, "searchOrders");
 		
 		CookView.orderSearchTextPane.addKeyListener(new KeyListener(){
 			public void keyPressed(KeyEvent arg0) {}
@@ -67,8 +69,7 @@ public class CookGUI_CookViewEventHandler extends ComponentEventHandler implemen
 		}
 	}
 	
-	private void showAllOrders()
-	{
+	private void showAllOrders(){
 		this.dispatchEvent(new Event<Object>(EventType.DATABASE_UPDATE_COOK_GUI_SEND_ALL_ORDERS));
 	}
 	
@@ -104,8 +105,7 @@ public class CookGUI_CookViewEventHandler extends ComponentEventHandler implemen
 		this.dispatchEvent(new Event<String>(EventType.DATABASE_UPDATE_COOK_GUI_SEARCH_ORDERS_BY_KEYWORDS, CookView.orderSearchTextPane.getText()));
 	}
 	
-	private void resetUI()
-	{
+	private void resetUI(){
 		CookView.markOrderCompletedButton.setEnabled(false);
 		CookView.markOrderInProgressButton.setEnabled(false);
 		DefaultTableModel tableModel = (DefaultTableModel)CookView.currentOrderTable.getModel();
@@ -115,8 +115,7 @@ public class CookGUI_CookViewEventHandler extends ComponentEventHandler implemen
 		CookView.orderCommentsTextArea.setText("");
 	}
 	
-	private void handleOrderSelection(ListSelectionEvent e) 
-	{
+	private void handleOrderSelection(ListSelectionEvent e) {
 		int selectedIndex = ((DefaultListSelectionModel)e.getSource()).getMinSelectionIndex();
 		if(selectedIndex == -1)
 		{
@@ -131,8 +130,7 @@ public class CookGUI_CookViewEventHandler extends ComponentEventHandler implemen
 		DefaultTableModel tableModel = (DefaultTableModel) CookView.currentOrderTable.getModel();
 		tableModel.setRowCount(0);
 		String extrasString;
-		for(OrderDish dish : order.getOrderedDishes())
-		{
+		for(OrderDish dish : order.getOrderedDishes()){
 			extrasString = generateExtrasStringFromExtrasList(dish.getExtras());
 			tableModel.addRow(new Object[]{dish.dish.name, extrasString});
 		}
@@ -141,27 +139,24 @@ public class CookGUI_CookViewEventHandler extends ComponentEventHandler implemen
 	}
 	
 	private void enableOrderMarkButtons(Order order) {
-		if(order.status.equals(Order.REGISTERED))
-		{
+		if(order.status.equals(Order.REGISTERED)){
 			CookView.markOrderCompletedButton.setEnabled(false);
 			CookView.markOrderInProgressButton.setEnabled(true);
-		} else if (order.status.equals(Order.BEING_COOKED))
-		{
+		}
+		else if (order.status.equals(Order.BEING_COOKED)){
 			CookView.markOrderCompletedButton.setEnabled(true);
 			CookView.markOrderInProgressButton.setEnabled(false);
-		} else {
+		}
+		else {
 			CookView.markOrderCompletedButton.setEnabled(false);
 			CookView.markOrderInProgressButton.setEnabled(false);
 		}
 	}
-	private String generateExtrasStringFromExtrasList(ArrayList<Extra> extrasList)
-	{
+	private String generateExtrasStringFromExtrasList(ArrayList<Extra> extrasList){
 		String extrasString = "";
 		int counter = 0;
-		for(Extra extra : extrasList)
-		{
-			if(counter != 0)
-			{
+		for(Extra extra : extrasList){
+			if(counter != 0){
 				extrasString += ", ";
 			}
 			counter = 1;
@@ -170,4 +165,4 @@ public class CookGUI_CookViewEventHandler extends ComponentEventHandler implemen
 		return extrasString;
 	}
 
-}
+}//END

@@ -3,7 +3,6 @@ package pizzaProgram.database.databaseUtils;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.sql.Date;
 
 import pizzaProgram.dataObjects.Customer;
 import pizzaProgram.dataObjects.Dish;
@@ -13,6 +12,7 @@ import pizzaProgram.dataObjects.OrderDish;
 import pizzaProgram.database.DatabaseConnection;
 
 public class DatabaseReader {
+	
 	public static ArrayList<Customer> getAllCustomers(){
 		ResultSet results = DatabaseConnection.fetchData("SELECT * FROM Customer LEFT JOIN CustomerNotes ON ( Customer.commentID = CustomerNotes.NoteID );");
 		ArrayList<Customer> customerList = new ArrayList<Customer>();
@@ -40,8 +40,8 @@ public class DatabaseReader {
 		return null;
 	}
 	
-	public static ArrayList<Dish> getAllDishes() {
-		ResultSet results = DatabaseConnection.fetchData("SELECT * FROM Dishes WHERE (isActive=1);");
+	public static ArrayList<Dish> getAllActiveDishes() {
+		ResultSet results = DatabaseConnection.fetchData("SELECT * FROM Dishes WHERE (isactive=1);");
 		ArrayList<Dish> dishList = new ArrayList<Dish>();
 		try {
 			dishList = generateDishList(results);
@@ -52,8 +52,32 @@ public class DatabaseReader {
 		return dishList;
 	}
 	
+	public static ArrayList<Dish> getAllDishes() {
+		ResultSet results = DatabaseConnection.fetchData("SELECT * FROM Dishes;");
+		ArrayList<Dish> dishList = new ArrayList<Dish>();
+		try {
+			dishList = generateDishList(results);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			DatabaseResultsFeedbackProvider.showGetAllDishesFailedMessage();
+		}
+		return dishList;
+	}
+	
+	public static ArrayList<Extra> getAllActiveExtras() {
+		ResultSet results = DatabaseConnection.fetchData("SELECT * FROM Extras WHERE (isactive=1);");
+		ArrayList<Extra> dishList = new ArrayList<Extra>();
+		try {
+			dishList = generateExtrasList(results);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			DatabaseResultsFeedbackProvider.showGetAllExtrasFailedMessage();
+		}
+		return dishList;
+	}
+	
 	public static ArrayList<Extra> getAllExtras() {
-		ResultSet results = DatabaseConnection.fetchData("SELECT * FROM Extras WHERE (isActive=1);");
+		ResultSet results = DatabaseConnection.fetchData("SELECT * FROM Extras;");
 		ArrayList<Extra> dishList = new ArrayList<Extra>();
 		try {
 			dishList = generateExtrasList(results);
@@ -80,10 +104,8 @@ public class DatabaseReader {
 		String query = "SELECT * FROM Customer LEFT JOIN CustomerNotes ON (Customer.commentID = CustomerNotes.NoteID) WHERE (";
 		String[] keywords = searchQuery.split(" ");
 		int counter = 0;
-		for(String keyword : keywords)
-		{
-			if(counter != 0)
-			{
+		for(String keyword : keywords){
+			if(counter != 0){
 				query += "OR";
 			}
 			query += "(Customer.FirstName LIKE '%"+keyword+"%') OR ";
@@ -98,8 +120,7 @@ public class DatabaseReader {
 	private static ArrayList<Customer> generateCustomerList(ResultSet results) throws SQLException {
 		ArrayList<Customer> customerList = new ArrayList<Customer>();
 		Customer currentCustomer;
-		while(results.next())
-		{
+		while(results.next()){
 			currentCustomer = createCustomer(results, 1, 9);
 			customerList.add(currentCustomer);
 		}
@@ -109,8 +130,7 @@ public class DatabaseReader {
 	private static ArrayList<Dish> generateDishList(ResultSet results) throws SQLException {
 		ArrayList<Dish> dishList = new ArrayList<Dish>();
 		Dish currentDish;
-		while(results.next())
-		{
+		while(results.next()){
 			currentDish = createDish(results, 1);	
 			dishList.add(currentDish);
 		}
@@ -120,16 +140,14 @@ public class DatabaseReader {
 	private static ArrayList<Extra> generateExtrasList(ResultSet results) throws SQLException {
 		ArrayList<Extra> extrasList = new ArrayList<Extra>();
 		Extra currentExtra;
-		while(results.next())
-		{
+		while(results.next()){
 			currentExtra = createExtra(results, 1);
 			extrasList.add(currentExtra);
 		}
 		return extrasList;
 	}
 
-	private static ArrayList<Order> generateOrderListFromResultSet(ResultSet result) throws SQLException
-	{
+	private static ArrayList<Order> generateOrderListFromResultSet(ResultSet result) throws SQLException{
 		System.out.println("generating order list");
 		ArrayList<Order> orderList = new ArrayList<Order>();
 		//order has dummy parameters due to java not liking uninitialized variables. 
@@ -141,17 +159,14 @@ public class DatabaseReader {
 		Extra currentExtra;
 		int currentOrderID = -1;
 		int currentOrderContentID = -1;
-		while(result.next())
-		{
-			if(result.getInt(1) != currentOrderID)
-			{
+		while(result.next()){
+			if(result.getInt(1) != currentOrderID){
 				currentOrderID = result.getInt(1);
 				currentCustomer = createCustomer(result, 1, 9);
 				currentOrder = createOrder(result, currentCustomer, 27, 25);
 				orderList.add(currentOrder);
 			}
-			if(result.getInt(33) != currentOrderContentID)
-			{
+			if(result.getInt(33) != currentOrderContentID){
 				currentOrderContentID = result.getInt(33);
 				currentDish = createDish(result, 11);
 				currentOrderDish = new OrderDish(currentOrder.orderID, currentDish);
@@ -178,26 +193,23 @@ public class DatabaseReader {
 		return null;
 	}
 	
-	private static String generateOrderSearchWhereClause(String keywordString, String[] orderStatus)
-	{
+	private static String generateOrderSearchWhereClause(String keywordString, String[] orderStatus){
 		String[] keywords = keywordString.split(" ");
 		String whereClause = "(";
 		int counter = 0;
-		for(String status : orderStatus)
-		{
-			if(counter != 0)
-			{
+		for(String status : orderStatus){
+			if(counter != 0){
 				whereClause += " OR ";
 			}
+			
 			counter++;
 			whereClause += "(Orders.OrdersStatus = '"+status+"')";
 		}
+		
 		whereClause += ") AND (";
 		counter = 0;
-		for(String keyword : keywords)
-		{
-			if(counter != 0)
-			{
+		for(String keyword : keywords){
+			if(counter != 0){
 				whereClause += "OR ";
 			}
 			whereClause += "(Orders.OrdersStatus LIKE '%"+keyword+"%') OR ";
@@ -209,8 +221,7 @@ public class DatabaseReader {
 		return whereClause;
 	}
 	
-	private static String getOrderSelectionQuery(String whereClause, String extraOptions)
-	{
+	private static String getOrderSelectionQuery(String whereClause, String extraOptions){
 		String query = "SELECT Customer.* , CustomerNotes.* , Dishes.* , Extras.* , OrderComments.* , Orders.*, OrdersContents.* FROM Orders " +
 		"LEFT JOIN OrderComments ON ( Orders.CommentID = OrderComments.CommentID ) " +
 		"INNER JOIN OrdersContents ON ( Orders.OrdersID = OrdersContents.OrdersID ) " +
@@ -240,8 +251,7 @@ public class DatabaseReader {
 		return null;
 	}
 	
-	private static Customer createCustomer(ResultSet resultSet, int customerTableColumnOffset, int customerNotesTableColumnOffset) throws SQLException
-	{
+	private static Customer createCustomer(ResultSet resultSet, int customerTableColumnOffset, int customerNotesTableColumnOffset) throws SQLException{
 		int customerID = resultSet.getInt(customerTableColumnOffset + 0);
 		String firstName = resultSet.getString(customerTableColumnOffset + 1);
 		String lastName = resultSet.getString(customerTableColumnOffset + 2);
@@ -254,8 +264,7 @@ public class DatabaseReader {
 		return customer;
 	}
 	
-	private static Dish createDish(ResultSet resultSet, int columnOffset) throws SQLException
-	{
+	private static Dish createDish(ResultSet resultSet, int columnOffset) throws SQLException{
 		int dishID = resultSet.getInt(columnOffset + 0);
 		int price = resultSet.getInt(columnOffset + 1);
 		String name = resultSet.getString(columnOffset + 2);
@@ -270,8 +279,7 @@ public class DatabaseReader {
 		return dish;
 	}
 	
-	private static Extra createExtra(ResultSet resultSet, int columnOffset) throws SQLException
-	{
+	private static Extra createExtra(ResultSet resultSet, int columnOffset) throws SQLException{
 		int extrasID = resultSet.getInt(columnOffset + 0);
 		String name = resultSet.getString(columnOffset + 1);
 		String price = resultSet.getString(columnOffset + 2);
@@ -280,8 +288,7 @@ public class DatabaseReader {
 		return extra;
 	}
 	
-	private static Order createOrder(ResultSet resultSet, Customer customer, int orderTableColumnOffset, int orderCommentsTableColumnOffset) throws SQLException
-	{
+	private static Order createOrder(ResultSet resultSet, Customer customer, int orderTableColumnOffset, int orderCommentsTableColumnOffset) throws SQLException{
 		int orderID = resultSet.getInt(orderTableColumnOffset + 0);
 		String timeRegistered = resultSet.getString(orderTableColumnOffset + 2);
 		String orderStatus = resultSet.getString(orderTableColumnOffset + 3);
@@ -291,5 +298,4 @@ public class DatabaseReader {
 		return order;
 	}
 
-	
-}
+}//END

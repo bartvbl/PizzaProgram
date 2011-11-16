@@ -19,10 +19,8 @@ public class EventDispatcher {
 	 * Notifies (e.g. calls all listener functions) all event listeners about the event passed into the function
 	 * @param event The event to be dispatched
 	 */
-	public void dispatchEvent(Event<?> event)
-	{
-		if(!eventTypeExists(event.eventType))
-		{
+	public void dispatchEvent(Event<?> event){
+		if(!eventTypeExists(event.eventType)){
 			System.out.println("WARNING: dispatch attempted of event with event type '"+event.eventType+"', which has no listeners");
 			return;
 		}else{
@@ -30,10 +28,8 @@ public class EventDispatcher {
 		}
 		
 		ArrayList<EventHandler> eventHandlersList = this.listeners.get(event.eventType);
-		for(EventHandler i : eventHandlersList)
-		{
-			if(!event.isPropagating())
-			{
+		for(EventHandler i : eventHandlersList){
+			if(!event.isPropagating()){
 				break;
 			}
 			i.handleEvent(event);
@@ -45,8 +41,7 @@ public class EventDispatcher {
 	 * @param listenerModule The object that implements the EventHandler interface, that will be notified upon occurrence of the event
 	 * @param eventType The string representing the event type. A constand from EventType should be used for this.
 	 */
-	public void addEventListener(EventHandler listenerModule, String eventType)
-	{
+	public void addEventListener(EventHandler listenerModule, String eventType){
 		this.addEventTypeIfNotExistent(eventType);
 		ArrayList<EventHandler> listenerList = this.listeners.get(eventType);
 		listenerList.add(listenerModule);
@@ -57,10 +52,8 @@ public class EventDispatcher {
 	 * Creates a new entry in the HashMap holding the listener lists if the inserted event type does not yet exist
 	 * @param eventType The event type to be added upon non-existence
 	 */
-	private void addEventTypeIfNotExistent(String eventType)
-	{
-		if(!eventTypeExists(eventType))
-		{
+	private void addEventTypeIfNotExistent(String eventType){
+		if(!eventTypeExists(eventType)){
 			this.listeners.put(eventType, new ArrayList<EventHandler>());
 		}
 	}
@@ -70,8 +63,7 @@ public class EventDispatcher {
 	 * @param eventType The name of the event to check existence of
 	 * @return returns true if the event type exists. false otherwise
 	 */
-	private boolean eventTypeExists(String eventType)
-	{
+	private boolean eventTypeExists(String eventType){
 		return this.listeners.containsKey(eventType);
 	}
 }

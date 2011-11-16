@@ -14,6 +14,7 @@ public class Constants{
 	public static final int RECIPT_WIDTH = 160;
 	public static final int RECIPT_ROW_HEIGHT = 20;
 	
+	public static final String GUI_TRUE = "Ja";
+	public static final String GUI_FALSE = "Nei";
 	
-
 }

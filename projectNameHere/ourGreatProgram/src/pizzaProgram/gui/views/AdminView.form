@@ -31,368 +31,13 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
       <SubComponents>
-        <Container class="javax.swing.JPanel" name="CustomerEditingJPanel">
-          <Properties>
-            <Property name="name" type="java.lang.String" value="CustomerEditingJPanel" noResource="true"/>
-          </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Customers">
-                <Property name="tabTitle" type="java.lang.String" resourceKey="CustomerEditingJPanel.TabConstraints.tabTitle"/>
-              </JTabbedPaneConstraints>
-            </Constraint>
-          </Constraints>
-
-          <Layout>
-            <DimensionLayout dim="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="editCustomerMainSplitPane" alignment="0" pref="688" max="32767" attributes="0"/>
-              </Group>
-            </DimensionLayout>
-            <DimensionLayout dim="1">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="editCustomerMainSplitPane" alignment="0" pref="524" max="32767" attributes="0"/>
-              </Group>
-            </DimensionLayout>
-          </Layout>
-          <SubComponents>
-            <Container class="javax.swing.JSplitPane" name="editCustomerMainSplitPane">
-              <Properties>
-                <Property name="dividerLocation" type="int" value="400"/>
-                <Property name="name" type="java.lang.String" value="editCustomerMainSplitPane" noResource="true"/>
-              </Properties>
-
-              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout"/>
-              <SubComponents>
-                <Container class="javax.swing.JPanel" name="customerEditCustomerListPanel">
-                  <Properties>
-                    <Property name="name" type="java.lang.String" value="customerEditCustomerListPanel" noResource="true"/>
-                  </Properties>
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout$JSplitPaneConstraintsDescription">
-                      <JSplitPaneConstraints position="left"/>
-                    </Constraint>
-                  </Constraints>
-
-                  <Layout>
-                    <DimensionLayout dim="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="addNewCustomerButton" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="95" max="32767" attributes="0"/>
-                              <Component id="searchCustomerTextBox" min="-2" pref="152" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="searchCustomerButton" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="allCustomersTableScrollPane" alignment="0" pref="399" max="32767" attributes="2"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="customerEditDeleteSelectedCustomerButton" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="282" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
-                    </DimensionLayout>
-                    <DimensionLayout dim="1">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="addNewCustomerButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="searchCustomerButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="searchCustomerTextBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="allCustomersTableScrollPane" pref="449" max="32767" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="customerEditDeleteSelectedCustomerButton" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                    </DimensionLayout>
-                  </Layout>
-                  <SubComponents>
-                    <Container class="javax.swing.JScrollPane" name="allCustomersTableScrollPane">
-                      <Properties>
-                        <Property name="name" type="java.lang.String" value="allCustomersTableScrollPane" noResource="true"/>
-                      </Properties>
-                      <AuxValues>
-                        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                      </AuxValues>
-
-                      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-                      <SubComponents>
-                        <Component class="javax.swing.JTable" name="allActiveCustomersTable">
-                          <Properties>
-                            <Property name="autoCreateRowSorter" type="boolean" value="true"/>
-                            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                              <Connection code="new DefaultTableModel()" type="code"/>
-                            </Property>
-                            <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
-                              <TableColumnModel selectionModel="0"/>
-                            </Property>
-                            <Property name="name" type="java.lang.String" value="allActiveCustomersTable" noResource="true"/>
-                            <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
-                              <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
-                            </Property>
-                          </Properties>
-                          <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="allActiveDishesTable = new javax.swing.JTable(){&#xa;public boolean isCellEditable(int rowIndex, int colIndex) {&#xa;            return false; //Disallow the editing of any cell&#xa;        }&#xa;};"/>
-                          </AuxValues>
-                        </Component>
-                      </SubComponents>
-                    </Container>
-                    <Component class="javax.swing.JButton" name="searchCustomerButton">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" resourceKey="searchCustomerButton.text"/>
-                        <Property name="name" type="java.lang.String" value="searchCustomerButton" noResource="true"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="searchCustomerTextBox">
-                      <Properties>
-                        <Property name="name" type="java.lang.String" value="searchCustomerTextBox" noResource="true"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JButton" name="addNewCustomerButton">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" resourceKey="addNewCustomerButton.text"/>
-                        <Property name="name" type="java.lang.String" value="addNewCustomerButton" noResource="true"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JButton" name="customerEditDeleteSelectedCustomerButton">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" resourceKey="customerEditDeleteSelectedCustomerButton.text"/>
-                        <Property name="name" type="java.lang.String" value="customerEditDeleteSelectedCustomerButton" noResource="true"/>
-                      </Properties>
-                    </Component>
-                  </SubComponents>
-                </Container>
-                <Container class="javax.swing.JScrollPane" name="editCustomerEditScrollPane">
-                  <Properties>
-                    <Property name="name" type="java.lang.String" value="editCustomerEditScrollPane" noResource="true"/>
-                  </Properties>
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout$JSplitPaneConstraintsDescription">
-                      <JSplitPaneConstraints position="right"/>
-                    </Constraint>
-                  </Constraints>
-
-                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-                  <SubComponents>
-                    <Container class="javax.swing.JPanel" name="editCustomerEditPanel">
-                      <Properties>
-                        <Property name="name" type="java.lang.String" value="editCustomerEditPanel" noResource="true"/>
-                      </Properties>
-
-                      <Layout>
-                        <DimensionLayout dim="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="editCustomerPostalCodeLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="editCustomerPhoneNumberLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="editCustomerFirstNameLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="editCustomerAddressLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="editCustomerLastNameLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="editCustomerCityLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="editCustomerCommentsLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="customerEditFirstNameTextBox" pref="130" max="32767" attributes="0"/>
-                                              <Component id="customerEditLastNameTextBox" pref="130" max="32767" attributes="1"/>
-                                              <Component id="customerEditAddressTextBox" pref="130" max="32767" attributes="1"/>
-                                              <Component id="customerEditCityTextBox" alignment="0" pref="130" max="32767" attributes="0"/>
-                                              <Component id="customerEditPostalCodeTextBox" alignment="0" pref="130" max="32767" attributes="0"/>
-                                              <Component id="customerEditPhoneNumberTextBox" alignment="0" pref="130" max="32767" attributes="1"/>
-                                              <Component id="editCustomerCommentsTextAreaScrollPane" alignment="0" pref="130" max="32767" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="customerEditResetChangesButton" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="customerEditConfirmChangesButton" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                              </Group>
-                          </Group>
-                        </DimensionLayout>
-                        <DimensionLayout dim="1">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="editCustomerFirstNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="customerEditFirstNameTextBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="editCustomerLastNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="customerEditLastNameTextBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="editCustomerAddressLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="customerEditAddressTextBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="editCustomerCityLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="customerEditCityTextBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="editCustomerPostalCodeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="customerEditPostalCodeTextBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="editCustomerPhoneNumberLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="customerEditPhoneNumberTextBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="editCustomerCommentsLabel" min="-2" max="-2" attributes="0"/>
-                                      <Component id="editCustomerCommentsTextAreaScrollPane" min="-2" pref="103" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="customerEditResetChangesButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="customerEditConfirmChangesButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                        </DimensionLayout>
-                      </Layout>
-                      <SubComponents>
-                        <Component class="javax.swing.JLabel" name="editCustomerFirstNameLabel">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" resourceKey="editCustomerFirstNameLabel.text"/>
-                            <Property name="name" type="java.lang.String" value="editCustomerFirstNameLabel" noResource="true"/>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JTextField" name="customerEditFirstNameTextBox">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" resourceKey="customerEditFirstNameTextBox.text"/>
-                            <Property name="name" type="java.lang.String" value="customerEditFirstNameTextBox" noResource="true"/>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JLabel" name="editCustomerLastNameLabel">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" resourceKey="editCustomerLastNameLabel.text"/>
-                            <Property name="name" type="java.lang.String" value="editCustomerLastNameLabel" noResource="true"/>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JTextField" name="customerEditCityTextBox">
-                          <Properties>
-                            <Property name="name" type="java.lang.String" value="customerEditCityTextBox" noResource="true"/>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JLabel" name="editCustomerAddressLabel">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" resourceKey="editCustomerAddressLabel.text"/>
-                            <Property name="name" type="java.lang.String" value="editCustomerAddressLabel" noResource="true"/>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JTextField" name="customerEditPostalCodeTextBox">
-                          <Properties>
-                            <Property name="name" type="java.lang.String" value="customerEditPostalCodeTextBox" noResource="true"/>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JLabel" name="editCustomerPostalCodeLabel">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" resourceKey="editCustomerPostalCodeLabel.text"/>
-                            <Property name="name" type="java.lang.String" value="editCustomerPostalCodeLabel" noResource="true"/>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JLabel" name="editCustomerCityLabel">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" resourceKey="editCustomerCityLabel.text"/>
-                            <Property name="name" type="java.lang.String" value="editCustomerCityLabel" noResource="true"/>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JLabel" name="editCustomerPhoneNumberLabel">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" resourceKey="editCustomerPhoneNumberLabel.text"/>
-                            <Property name="name" type="java.lang.String" value="editCustomerPhoneNumberLabel" noResource="true"/>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JLabel" name="editCustomerCommentsLabel">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" resourceKey="editCustomerCommentsLabel.text"/>
-                            <Property name="name" type="java.lang.String" value="editCustomerCommentsLabel" noResource="true"/>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JTextField" name="customerEditAddressTextBox">
-                          <Properties>
-                            <Property name="name" type="java.lang.String" value="customerEditAddressTextBox" noResource="true"/>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JTextField" name="customerEditLastNameTextBox">
-                          <Properties>
-                            <Property name="name" type="java.lang.String" value="customerEditLastNameTextBox" noResource="true"/>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JTextField" name="customerEditPhoneNumberTextBox">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" resourceKey="customerEditPhoneNumberTextBox.text"/>
-                            <Property name="name" type="java.lang.String" value="customerEditPhoneNumberTextBox" noResource="true"/>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JButton" name="customerEditResetChangesButton">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" resourceKey="customerEditResetChangesButton.text"/>
-                            <Property name="name" type="java.lang.String" value="customerEditResetChangesButton" noResource="true"/>
-                          </Properties>
-                        </Component>
-                        <Component class="javax.swing.JButton" name="customerEditConfirmChangesButton">
-                          <Properties>
-                            <Property name="text" type="java.lang.String" resourceKey="customerEditConfirmChangesButton.text"/>
-                            <Property name="name" type="java.lang.String" value="customerEditConfirmChangesButton" noResource="true"/>
-                          </Properties>
-                        </Component>
-                        <Container class="javax.swing.JScrollPane" name="editCustomerCommentsTextAreaScrollPane">
-                          <Properties>
-                            <Property name="name" type="java.lang.String" value="editCustomerCommentsTextAreaScrollPane" noResource="true"/>
-                          </Properties>
-                          <AuxValues>
-                            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-                          </AuxValues>
-
-                          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-                          <SubComponents>
-                            <Component class="javax.swing.JTextArea" name="customerEditCommentsTextArea">
-                              <Properties>
-                                <Property name="columns" type="int" value="20"/>
-                                <Property name="lineWrap" type="boolean" value="true"/>
-                                <Property name="rows" type="int" value="5"/>
-                                <Property name="name" type="java.lang.String" value="customerEditCommentsTextArea" noResource="true"/>
-                              </Properties>
-                            </Component>
-                          </SubComponents>
-                        </Container>
-                      </SubComponents>
-                    </Container>
-                  </SubComponents>
-                </Container>
-              </SubComponents>
-            </Container>
-          </SubComponents>
-        </Container>
         <Container class="javax.swing.JPanel" name="DishEditingPanel">
           <Properties>
             <Property name="name" type="java.lang.String" value="DishEditingPanel" noResource="true"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Dishes">
+              <JTabbedPaneConstraints tabName="Retter">
                 <Property name="tabTitle" type="java.lang.String" resourceKey="DishEditingPanel.TabConstraints.tabTitle"/>
               </JTabbedPaneConstraints>
             </Constraint>
@@ -406,7 +51,7 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="editDishesMainSplitPane" alignment="0" max="32767" attributes="0"/>
+                  <Component id="editDishesMainSplitPane" alignment="0" pref="524" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -435,13 +80,10 @@
                           <Group type="102" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="addNewDishButton" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="95" max="32767" attributes="0"/>
-                              <Component id="searchDishTextBox" min="-2" pref="152" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="searchDishSearchButton" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="searchDishTextBox" min="-2" pref="233" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="allActiveDishesDishTableScrollPane" alignment="0" pref="399" max="32767" attributes="2"/>
+                          <Component id="allActiveDishesDishTableScrollPane" alignment="0" pref="318" max="32767" attributes="2"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
@@ -450,7 +92,6 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="addNewDishButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="searchDishSearchButton" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="searchDishTextBox" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -484,12 +125,6 @@
                         </Component>
                       </SubComponents>
                     </Container>
-                    <Component class="javax.swing.JButton" name="searchDishSearchButton">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" resourceKey="searchDishSearchButton.text"/>
-                        <Property name="name" type="java.lang.String" value="searchDishSearchButton" noResource="true"/>
-                      </Properties>
-                    </Component>
                     <Component class="javax.swing.JTextField" name="searchDishTextBox">
                       <Properties>
                         <Property name="text" type="java.lang.String" resourceKey="searchDishTextBox.text"/>
@@ -524,42 +159,38 @@
                       <Layout>
                         <DimensionLayout dim="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Group type="103" groupAlignment="1" attributes="0">
+                                              <Component id="dishEditPriceLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                                              <Component id="dishIsVegetarianLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                                              <Component id="dishEditIsPSpicyLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                                              <Component id="dishEditContainsNutsLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                                              <Component id="dishEditContainsDairyLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                                              <Component id="dishEditContainsGlutenLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                                              <Component id="dishEditIsActiveLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                      </Group>
+                                      <Component id="dishEditDescriptionLabel" min="-2" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Component id="dishEditNameLabel" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="confirmDishEditButton" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Group type="103" groupAlignment="1" attributes="0">
-                                              <Group type="102" attributes="0">
-                                                  <Group type="103" groupAlignment="1" attributes="0">
-                                                      <Component id="dishEditPriceLabel" alignment="1" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="dishIsVegetarianLabel" alignment="1" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="dishEditIsPSpicyLabel" alignment="1" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="dishEditContainsNutsLabel" alignment="1" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="dishEditContainsDairyLabel" alignment="1" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="dishEditContainsGlutenLabel" alignment="1" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="dishEditIsActiveLabel" alignment="1" min="-2" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                              </Group>
-                                              <Component id="dishEditDescriptionLabel" min="-2" max="-2" attributes="0"/>
-                                              <Group type="102" alignment="1" attributes="0">
-                                                  <Component id="dishEditNameLabel" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                              </Group>
-                                          </Group>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="editDishNameTextBox" alignment="0" pref="320" max="32767" attributes="0"/>
-                                              <Component id="editDishDescriptionScrollPane" alignment="0" pref="320" max="32767" attributes="0"/>
-                                              <Component id="editDishDishPriceTextArea" min="-2" pref="93" max="-2" attributes="0"/>
-                                              <Component id="editDishIsDishActiveComboBox" alignment="0" min="-2" pref="94" max="-2" attributes="0"/>
-                                              <Component id="editDishIsPsicyComboBox" alignment="0" min="-2" pref="94" max="-2" attributes="0"/>
-                                              <Component id="editDishIsVegetarianComboBox" alignment="0" min="-2" pref="94" max="-2" attributes="0"/>
-                                              <Component id="editDIshContainsNutsComboBox" alignment="0" min="-2" pref="94" max="-2" attributes="0"/>
-                                              <Component id="editDishContainsDairyComboBox" alignment="0" min="-2" pref="94" max="-2" attributes="0"/>
-                                              <Component id="editDIshContainsGlutenComboBox" alignment="0" min="-2" pref="94" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
+                                      <Component id="editDishNameTextBox" alignment="0" pref="320" max="32767" attributes="0"/>
+                                      <Component id="editDishDescriptionScrollPane" alignment="0" pref="320" max="32767" attributes="0"/>
+                                      <Component id="editDishDishPriceTextArea" min="-2" pref="93" max="-2" attributes="0"/>
+                                      <Component id="editDishIsDishActiveComboBox" alignment="0" min="-2" pref="94" max="-2" attributes="0"/>
+                                      <Component id="editDishIsPsicyComboBox" alignment="0" min="-2" pref="94" max="-2" attributes="0"/>
+                                      <Component id="editDishIsVegetarianComboBox" alignment="0" min="-2" pref="94" max="-2" attributes="0"/>
+                                      <Component id="editDIshContainsNutsComboBox" alignment="0" min="-2" pref="94" max="-2" attributes="0"/>
+                                      <Component id="editDishContainsDairyComboBox" alignment="0" min="-2" pref="94" max="-2" attributes="0"/>
+                                      <Component id="editDIshContainsGlutenComboBox" alignment="0" min="-2" pref="94" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
@@ -774,7 +405,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Extras">
+              <JTabbedPaneConstraints tabName="Tilbeh&#xf8;r">
                 <Property name="tabTitle" type="java.lang.String" resourceKey="ExtrasEditingPanel.TabConstraints.tabTitle"/>
               </JTabbedPaneConstraints>
             </Constraint>
@@ -814,28 +445,23 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="extraEditNameLabel" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Component id="extraEditPriceTextBox" alignment="1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="editExtraIsActiveLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="confirmEditExtraButton" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="1" attributes="0">
-                                          <Component id="extraEditNameLabel" min="-2" max="-2" attributes="0"/>
-                                          <Group type="102" alignment="1" attributes="0">
-                                              <Group type="103" groupAlignment="1" attributes="0">
-                                                  <Component id="extraEditPriceTextBox" alignment="1" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="editExtraIsActiveLabel" alignment="1" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="editExtraExtraNameTextBox" pref="199" max="32767" attributes="0"/>
-                                          <Component id="editExtraExtraPriceTextArea" min="-2" pref="83" max="-2" attributes="0"/>
-                                          <Component id="editExtraExtraIsActiveComboBox" alignment="0" min="-2" pref="94" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
+                                  <Component id="editExtraExtraNameTextBox" pref="187" max="32767" attributes="0"/>
+                                  <Component id="editExtraExtraPriceTextArea" min="-2" pref="83" max="-2" attributes="0"/>
+                                  <Component id="editExtraExtraIsActiveComboBox" alignment="0" min="-2" pref="94" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
@@ -925,14 +551,11 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="createNewExtraButton" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="95" max="32767" attributes="0"/>
-                              <Component id="searchExtraTextBox" min="-2" pref="152" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="searchExtraSearchButton" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <EmptySpace pref="61" max="32767" attributes="0"/>
+                              <Component id="searchExtraTextBox" min="-2" pref="233" max="-2" attributes="0"/>
                           </Group>
                           <Component id="allRegisteredExtrasScrollPane" alignment="0" pref="399" max="32767" attributes="2"/>
                       </Group>
@@ -943,7 +566,6 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="createNewExtraButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="searchExtraSearchButton" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="searchExtraTextBox" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -983,14 +605,9 @@
                         </Component>
                       </SubComponents>
                     </Container>
-                    <Component class="javax.swing.JButton" name="searchExtraSearchButton">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" resourceKey="searchExtraSearchButton.text"/>
-                        <Property name="name" type="java.lang.String" value="searchExtraSearchButton" noResource="true"/>
-                      </Properties>
-                    </Component>
                     <Component class="javax.swing.JTextField" name="searchExtraTextBox">
                       <Properties>
+                        <Property name="text" type="java.lang.String" resourceKey="searchExtraTextBox.text"/>
                         <Property name="name" type="java.lang.String" value="searchExtraTextBox" noResource="true"/>
                       </Properties>
                     </Component>
@@ -1013,7 +630,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Settings">
+              <JTabbedPaneConstraints tabName="Innstillinger">
                 <Property name="tabTitle" type="java.lang.String" resourceKey="settingsScrollPane.TabConstraints.tabTitle"/>
               </JTabbedPaneConstraints>
             </Constraint>
@@ -1080,7 +697,7 @@
                               <Component id="settingsApplyChangesButton" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="settingsResetSettingsButton" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="410" max="32767" attributes="0"/>
+                          <EmptySpace pref="421" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>

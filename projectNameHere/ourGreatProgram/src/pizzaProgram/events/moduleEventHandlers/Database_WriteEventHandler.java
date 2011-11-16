@@ -1,5 +1,6 @@
 package pizzaProgram.events.moduleEventHandlers;
 
+import pizzaProgram.dataObjects.Customer;
 import pizzaProgram.dataObjects.Dish;
 import pizzaProgram.dataObjects.Extra;
 import pizzaProgram.dataObjects.Order;
@@ -16,14 +17,13 @@ import pizzaProgram.events.EventHandler;
 import pizzaProgram.events.EventType;
 
 public class Database_WriteEventHandler implements EventHandler {
-	private DatabaseModule databaseModule;
-	private DatabaseConnection databaseConnection;
+	//private DatabaseModule databaseModule;
+	//private DatabaseConnection databaseConnection;
 	private EventDispatcher eventDispatcher;
 	
-	public Database_WriteEventHandler(DatabaseModule databaseModule, DatabaseConnection databaseConnection, EventDispatcher eventDispatcher) 
-	{
-		this.databaseModule = databaseModule;
-		this.databaseConnection = databaseConnection;
+	public Database_WriteEventHandler(DatabaseModule databaseModule, DatabaseConnection databaseConnection, EventDispatcher eventDispatcher) {
+		//this.databaseModule = databaseModule;
+		//this.databaseConnection = databaseConnection;
 		this.eventDispatcher = eventDispatcher;
 		this.addListeners();
 	}
@@ -40,48 +40,50 @@ public class Database_WriteEventHandler implements EventHandler {
 		this.eventDispatcher.addEventListener(this, EventType.DATABASE_UPDATE_CONFIG_VALUE);
 		this.eventDispatcher.addEventListener(this, EventType.DATABASE_UPDATE_DISH_BY_DISH_ID);
 		this.eventDispatcher.addEventListener(this, EventType.DATABASE_UPDATE_EXTRA_BY_EXTRA_ID);
+		this.eventDispatcher.addEventListener(this, EventType.DATABASE_UPDATE_CUSTOMER_BY_CUSTOMER_ID);
 	}
 
 	public void handleEvent(Event<?> event) {
-		if(event.eventType.equals(EventType.DATABASE_ADD_NEW_ORDER))
-		{
+		if(event.eventType.equals(EventType.DATABASE_ADD_NEW_ORDER)){
 			this.addNewOrder(event);
-		} else if(event.eventType.equals(EventType.DATABASE_ADD_NEW_CUSTOMER))
-		{
+		}
+		else if(event.eventType.equals(EventType.DATABASE_ADD_NEW_CUSTOMER)){
 			this.addNewCustomer(event);
-		} else if(event.eventType.equals(EventType.DATABASE_MARK_ORDER_FINISHED_COOKING))
-		{
+		}
+		else if(event.eventType.equals(EventType.DATABASE_MARK_ORDER_FINISHED_COOKING)){
 			this.markOrderFinishedCooking(event);
-		} else if(event.eventType.equals(EventType.DATABASE_MARK_ORDER_IN_PROGRESS))
-		{
+		}
+		else if(event.eventType.equals(EventType.DATABASE_MARK_ORDER_IN_PROGRESS)){
 			this.markOrderInProgress(event);
-		} else if(event.eventType.equals(EventType.DATABASE_MARK_ORDER_BEING_DELIVERED))
-		{
+		}
+		else if(event.eventType.equals(EventType.DATABASE_MARK_ORDER_BEING_DELIVERED)){
 			this.markOrderAsBeingDelivered(event);
-		} else if(event.eventType.equals(EventType.DATABASE_MARK_ORDER_DELIVERED))
-		{
+		}
+		else if(event.eventType.equals(EventType.DATABASE_MARK_ORDER_DELIVERED)){
 			this.markOrderAsDelivered(event);
-		} else if(event.eventType.equals(EventType.DATABASE_ADD_NEW_DISH))
-		{
+		}
+		else if(event.eventType.equals(EventType.DATABASE_ADD_NEW_DISH)){
 			this.addNewDish(event);
-		} else if(event.eventType.equals(EventType.DATABASE_ADD_NEW_EXTRA))
-		{
+		}
+		else if(event.eventType.equals(EventType.DATABASE_ADD_NEW_EXTRA)){
 			this.addNewExtra(event);
-		} else if(event.eventType.equals(EventType.DATABASE_UPDATE_CONFIG_VALUE))
-		{
+		}
+		else if(event.eventType.equals(EventType.DATABASE_UPDATE_CONFIG_VALUE)){
 			this.updateConfigValue(event);
-		} else if(event.eventType.equals(EventType.DATABASE_UPDATE_DISH_BY_DISH_ID))
-		{
+		}
+		else if(event.eventType.equals(EventType.DATABASE_UPDATE_DISH_BY_DISH_ID)){
 			this.updateDish(event);
-		} else if(event.eventType.equals(EventType.DATABASE_UPDATE_EXTRA_BY_EXTRA_ID))
-		{
+		}
+		else if(event.eventType.equals(EventType.DATABASE_UPDATE_EXTRA_BY_EXTRA_ID)){
 			this.updateExtra(event);
+		}
+		else if(event.eventType.equals(EventType.DATABASE_UPDATE_CUSTOMER_BY_CUSTOMER_ID)){
+			this.updateCustomer(event);
 		}
 	}
 
 	private void updateExtra(Event<?> event) {
-		if(!(event.getEventParameterObject() instanceof Extra))
-		{
+		if(!(event.getEventParameterObject() instanceof Extra)){
 			DatabaseResultsFeedbackProvider.showUpdateExtraFailedMessage();
 			return;
 		}
@@ -89,8 +91,7 @@ public class Database_WriteEventHandler implements EventHandler {
 	}
 
 	private void updateDish(Event<?> event) {
-		if(!(event.getEventParameterObject() instanceof Dish))
-		{
+		if(!(event.getEventParameterObject() instanceof Dish)){
 			DatabaseResultsFeedbackProvider.showUpdateDishFailedMessage();
 			return;
 		}
@@ -98,8 +99,7 @@ public class Database_WriteEventHandler implements EventHandler {
 	}
 
 	private void updateConfigValue(Event<?> event) {
-		if(!(event.getEventParameterObject() instanceof Setting))
-		{
+		if(!(event.getEventParameterObject() instanceof Setting)){
 			DatabaseResultsFeedbackProvider.showUpdateConfigValueFailedMessage();
 			return;
 		}
@@ -107,8 +107,7 @@ public class Database_WriteEventHandler implements EventHandler {
 	}
 
 	private void addNewExtra(Event<?> event) {
-		if(!(event.getEventParameterObject() instanceof Extra))
-		{
+		if(!(event.getEventParameterObject() instanceof Extra)){
 			DatabaseResultsFeedbackProvider.showAddNewExtraFailedMessage();
 			return;
 		}
@@ -116,8 +115,7 @@ public class Database_WriteEventHandler implements EventHandler {
 	}
 
 	private void addNewDish(Event<?> event) {
-		if(!(event.getEventParameterObject() instanceof Dish))
-		{
+		if(!(event.getEventParameterObject() instanceof Dish)){
 			DatabaseResultsFeedbackProvider.showAddNewExtraFailedMessage();
 			return;
 		}
@@ -125,8 +123,7 @@ public class Database_WriteEventHandler implements EventHandler {
 	}
 
 	private void markOrderFinishedCooking(Event<?> event) {
-		if(!(event.getEventParameterObject() instanceof Order))
-		{
+		if(!(event.getEventParameterObject() instanceof Order)){
 			DatabaseResultsFeedbackProvider.showUpdateOrderStatusFailedMessage();
 			return;
 		}
@@ -134,8 +131,7 @@ public class Database_WriteEventHandler implements EventHandler {
 	}
 	
 	private void markOrderAsBeingDelivered(Event<?> event) {
-		if(!(event.getEventParameterObject() instanceof Order))
-		{
+		if(!(event.getEventParameterObject() instanceof Order)){
 			DatabaseResultsFeedbackProvider.showUpdateOrderStatusFailedMessage();
 			return;
 		}
@@ -143,8 +139,7 @@ public class Database_WriteEventHandler implements EventHandler {
 	}
 	
 	private void markOrderAsDelivered(Event<?> event) {
-		if(!(event.getEventParameterObject() instanceof Order))
-		{
+		if(!(event.getEventParameterObject() instanceof Order)){
 			DatabaseResultsFeedbackProvider.showUpdateOrderStatusFailedMessage();
 			return;
 		}
@@ -152,8 +147,7 @@ public class Database_WriteEventHandler implements EventHandler {
 	}
 
 	private void markOrderInProgress(Event<?> event) {
-		if(!(event.getEventParameterObject() instanceof Order))
-		{
+		if(!(event.getEventParameterObject() instanceof Order)){
 			DatabaseResultsFeedbackProvider.showUpdateOrderStatusFailedMessage();
 			return;
 		}
@@ -161,22 +155,28 @@ public class Database_WriteEventHandler implements EventHandler {
 	}
 
 	private void addNewCustomer(Event<?> event) {
-		if(!(event.getEventParameterObject() instanceof UnaddedCustomer))
-		{
+		if(!(event.getEventParameterObject() instanceof UnaddedCustomer)){
 			DatabaseResultsFeedbackProvider.showAddNewCustomerFailedMessage();
 			return;
 		}
 		DatabaseWriter.writeNewCustomer((UnaddedCustomer)event.getEventParameterObject());
 		this.eventDispatcher.dispatchEvent(new Event<Object>(EventType.DATABASE_UPDATE_ORDER_GUI_SEND_ALL_CUSTOMERS));
 	}
+	private void updateCustomer(Event<?> event) {
+		if(!(event.getEventParameterObject() instanceof Customer)){
+			DatabaseResultsFeedbackProvider.showAddNewCustomerFailedMessage();
+			return;
+		}
+		DatabaseWriter.updateCustomerById((Customer)event.getEventParameterObject());
+		this.eventDispatcher.dispatchEvent(new Event<Object>(EventType.DATABASE_UPDATE_ORDER_GUI_SEND_ALL_CUSTOMERS));
+	}
 
-	private void addNewOrder(Event<?> event) 
-	{
-		if(!(event.getEventParameterObject() instanceof UnaddedOrder))
-		{
+	private void addNewOrder(Event<?> event) {
+		if(!(event.getEventParameterObject() instanceof UnaddedOrder)){
 			DatabaseResultsFeedbackProvider.showAddNewOrderFailedMessage();
 			return;
 		}
 		DatabaseWriter.writeNewOrder((UnaddedOrder)event.getEventParameterObject());
 	}
-}
+	
+}//END

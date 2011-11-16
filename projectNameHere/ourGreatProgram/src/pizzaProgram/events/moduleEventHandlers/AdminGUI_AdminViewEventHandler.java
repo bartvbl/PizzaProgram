@@ -8,16 +8,17 @@ import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import pizzaProgram.core.Constants;
 import pizzaProgram.dataObjects.Dish;
 import pizzaProgram.dataObjects.Extra;
+import pizzaProgram.database.databaseUtils.DataCleaner;
 import pizzaProgram.events.Event;
 import pizzaProgram.events.EventType;
 import pizzaProgram.gui.AdminGUI;
 import pizzaProgram.gui.views.AdminView;
+
 /**
- * 
  * This class hendles events dispatched from the gui-components in AdminWiev
- * 
  */
 public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implements ActionListener {
 	private AdminGUI adminGUI;
@@ -27,6 +28,7 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 		this.adminGUI = adminGUI;
 		this.addEventListeners();
 	}
+	
 	/**
 	 * This method adds listeners to the desiered components in AdminWiev
 	 * The code to be run when an event is recived is splitt up into different methodes, one for each component/event
@@ -63,6 +65,7 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 			}
 		});
 	}
+	
 	/**
 	 * The method called when a user selects an extra from the extra-list
 	 * @param e
@@ -72,76 +75,93 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 		if(selectedIndex == -1){
 			return;
 		}
+		
 		Extra selectedExtra = adminGUI.currentExtraList.get(selectedIndex);
 		adminGUI.currentSelectedExtra = selectedExtra;
 		
 		//tekstbokser
 		AdminView.editExtraExtraNameTextBox.setText(selectedExtra.name);
+		AdminView.editExtraExtraNameTextBox.setEnabled(false);
 		AdminView.editExtraExtraPriceTextArea.setText(""+selectedExtra.priceFuncPart + selectedExtra.priceValPart);
 		
-		char selectchar = selectedExtra.isActive ? 'y' : 'n';
+		char selectchar = selectedExtra.isActive ? Constants.GUI_TRUE.charAt(0) : Constants.GUI_FALSE.charAt(0);
 		AdminView.editExtraExtraIsActiveComboBox.selectWithKeyChar(selectchar);
-		
 	}
+	
 	private void handleExtraConfirmButtonClick() {
+		boolean active = AdminView.editExtraExtraIsActiveComboBox.getSelectedItem().equals("yes") ? true :false;
+		String name = DataCleaner.cleanDbData(AdminView.editExtraExtraNameTextBox.getText());
+		String price = DataCleaner.cleanDbData(AdminView.editExtraExtraPriceTextArea.getText()).replaceAll(" ", "");
+		
+		if(name.isEmpty()){
+			JOptionPane.showMessageDialog(null, "Feltet med navn kan ikke være tomt!");
+			return;
+		}
+		
+		if(!(price.charAt(0) == '+' || price.charAt(0) == '*' || price.charAt(0) == '-')){
+			JOptionPane.showMessageDialog(null, "Første tegn i prisen skal være +(pluss) -(minus) eller *(gange)\n" +
+					"Dette anngir om prisen på ekstraen er pristillegg, prisfradrag, eller en multiplikasjon");
+			return;
+		}
+		
+		try {
+			Double.parseDouble(price.substring(1));
+		} catch (NumberFormatException e) {
+			JOptionPane.showMessageDialog(null, "Tegnene etter +/-/* i prisen må være et tall!");
+			return;
+		}
+		
 		if(adminGUI.currentSelectedExtra == null){
-			String name = AdminView.editExtraExtraNameTextBox.getText();
-			if(name.trim().equals("")){
-				JOptionPane.showMessageDialog(null, "Feltet med navn kan ikke være tomt!");
-				return;
-			}
-			boolean active = AdminView.editExtraExtraIsActiveComboBox.getSelectedItem().equals("yes") ? true :false;
-			String price = AdminView.editExtraExtraPriceTextArea.getText().trim().replaceAll(" ", "");
-			if(!(price.charAt(0) == '+' || price.charAt(0) == '*' || price.charAt(0) == '-')){
-				JOptionPane.showMessageDialog(null, "Første tegn i prisen skal være +(pluss) -(minus) eller *(gange)\n" +
-						"Dette anngir om prisen på ekstraen er pristillegg, prisfradrag, eller en multiplikasjon");
-				return;
-			}
-			try {
-				Double.parseDouble(price.substring(1));
-			} catch (NumberFormatException e) {
-				JOptionPane.showMessageDialog(null, "Etter +/-/* må det komme et tall!");
-				return;
-			}
-			//lagger til i databsen
 			Extra e = new Extra(-1, name, price, active);
 			this.dispatchEvent(new Event<Extra>(EventType.DATABASE_ADD_NEW_EXTRA, e));
-			//oppdaterer
-			showAllExtras();
 		}
-
+		else{
+			Extra e = new Extra(adminGUI.currentSelectedExtra.id, name, price, active);
+			this.dispatchEvent(new Event<Extra>(EventType.DATABASE_UPDATE_EXTRA_BY_EXTRA_ID, e));
+		}
+		//oppdaterer
+		showAllExtras();
 	}
 	private void handleDishConfirmButtonClick() {
+		boolean diary = AdminView.editDishContainsDairyComboBox.getSelectedItem().equals(Constants.GUI_TRUE) ? true : false;
+		boolean nuts = AdminView.editDIshContainsNutsComboBox.getSelectedItem().equals(Constants.GUI_TRUE) ? true : false;
+		boolean gluten = AdminView.editDIshContainsGlutenComboBox.getSelectedItem().equals(Constants.GUI_TRUE) ? true : false;
+		boolean spicy = AdminView.editDishIsPsicyComboBox.getSelectedItem().equals(Constants.GUI_TRUE) ? true : false;
+		boolean active = AdminView.editDishIsDishActiveComboBox.getSelectedItem().equals(Constants.GUI_TRUE) ? true : false;
+		boolean vegan = AdminView.editDishIsVegetarianComboBox.getSelectedItem().equals(Constants.GUI_TRUE) ? true : false;
+		
+		String name = DataCleaner.cleanDbData(AdminView.editDishNameTextBox.getText());
+		String description = DataCleaner.cleanDbData(AdminView.editDishDescriptionTextArea.getText());
+		int price = 0;
+		
+		if(description.isEmpty()){
+			JOptionPane.showMessageDialog(null, "Feltet med innhold i retten kan ikke være tomt!");
+			return;
+		}
+		
+		if(name.isEmpty()){
+			JOptionPane.showMessageDialog(null, "Feltet med navn kan ikke være tomt!");
+			return;
+		}
+		
+		try {
+			price = Integer.parseInt(AdminView.editDishDishPriceTextArea.getText().trim());
+		} catch (NumberFormatException e) {
+			JOptionPane.showMessageDialog(null, "Feltet med pris må være et tall!");
+			return;
+		}
+		
 		if(adminGUI.currentSelectedDish == null){
-			boolean diary = AdminView.editDishContainsDairyComboBox.getSelectedItem().equals("yes") ? true : false;
-			boolean nuts = AdminView.editDIshContainsNutsComboBox.getSelectedItem().equals("yes") ? true : false;
-			boolean gluten = AdminView.editDIshContainsGlutenComboBox.getSelectedItem().equals("yes") ? true : false;
-			boolean spicy = AdminView.editDishIsPsicyComboBox.getSelectedItem().equals("yes") ? true : false;
-			boolean active = AdminView.editDishIsDishActiveComboBox.getSelectedItem().equals("yes") ? true : false;
-			boolean vegan = AdminView.editDishIsVegetarianComboBox.getSelectedItem().equals("yes") ? true : false;
-			
-			String description = AdminView.editDishDescriptionTextArea.getText();
-			if(description.trim().equals("")){
-				JOptionPane.showMessageDialog(null, "Feltet med innhold i retten kan ikke være tomt!");
-				return;
-			}
-			String name = AdminView.editDishNameTextBox.getText();
-			if(name.trim().equals("")){
-				JOptionPane.showMessageDialog(null, "Feltet med navn kan ikke være tomt!");
-				return;
-			}
-			int price = 0;
-			try {
-				price = Integer.parseInt(AdminView.editDishDishPriceTextArea.getText().trim());
-			} catch (NumberFormatException e) {
-				JOptionPane.showMessageDialog(null, "Feltet med pris må være et tall!");
-				return;
-			}
-			
 			Dish d = new Dish(-1, price, name, gluten, nuts, diary, vegan, spicy, description, active);
 			this.dispatchEvent(new Event<Dish>(EventType.DATABASE_ADD_NEW_DISH, d));
-			showAllDishes();
 		}
+		else{
+			Dish d = new Dish(adminGUI.currentSelectedDish.dishID, price, name, gluten, nuts, diary, vegan, spicy, description, active);
+			this.dispatchEvent(new Event<Dish>(EventType.DATABASE_UPDATE_DISH_BY_DISH_ID, d));
+		}
+		
+		//update lists after update
+		showAllDishes();
 	}
 	
 	private void handleNewExtraButtonClick() {
@@ -150,10 +170,10 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 		
 		//tekstbokser
 		AdminView.editExtraExtraNameTextBox.setText("Navn på tilbehør");
+		AdminView.editExtraExtraNameTextBox.setEnabled(true);
 		AdminView.editExtraExtraPriceTextArea.setText("+50");
 		
-		AdminView.editExtraExtraIsActiveComboBox.selectWithKeyChar('y');
-
+		AdminView.editExtraExtraIsActiveComboBox.selectWithKeyChar(Constants.GUI_TRUE.charAt(0));
 	}
 	
 	private void handleNewDishButtonClick() {
@@ -161,22 +181,27 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 		adminGUI.currentSelectedDish = null;
 		
 		AdminView.editDishNameTextBox.setText("Eksempelpizza");
+		AdminView.editDishNameTextBox.setEnabled(true);
 		AdminView.editDishDescriptionTextArea.setText("Ost - Jarlsberg\nSkinke\nTomatsaus");
 		AdminView.editDishDishPriceTextArea.setText("150");
 		
-		AdminView.editDishContainsDairyComboBox.selectWithKeyChar('y');
-		AdminView.editDIshContainsGlutenComboBox.selectWithKeyChar('y');
-		AdminView.editDIshContainsNutsComboBox.selectWithKeyChar('n');
-		AdminView.editDishIsPsicyComboBox.selectWithKeyChar('n');
-		AdminView.editDishIsVegetarianComboBox.selectWithKeyChar('n');
-		AdminView.editDishIsDishActiveComboBox.selectWithKeyChar('y');
+		char trueChar = Constants.GUI_TRUE.charAt(0);
+		char falseChar = Constants.GUI_FALSE.charAt(0);
 		
+		AdminView.editDishContainsDairyComboBox.selectWithKeyChar(trueChar);
+		AdminView.editDIshContainsGlutenComboBox.selectWithKeyChar(trueChar);
+		AdminView.editDIshContainsNutsComboBox.selectWithKeyChar(falseChar);
+		AdminView.editDishIsPsicyComboBox.selectWithKeyChar(falseChar);
+		AdminView.editDishIsVegetarianComboBox.selectWithKeyChar(trueChar);
+		AdminView.editDishIsDishActiveComboBox.selectWithKeyChar(trueChar);
 	}
+	
 	private void showAllDishes(){
 		this.dispatchEvent(new Event<Object>(EventType.DATABASE_UPDATE_ADMINGUI_GUI_SEND_ALL_DISHES));
 	}
+	
 	private void showAllExtras(){
-		this.dispatchEvent(new Event<Object>(EventType.DATABASE_UPDATE_ADMINGUI_GUI_SEND_ALL_DISHES));
+		this.dispatchEvent(new Event<Object>(EventType.DATABASE_UPDATE_ADMINGUI_GUI_SEND_ALL_EXTRAS));
 	}
 	
 	private void handleDishSelection(ListSelectionEvent e) {
@@ -188,28 +213,31 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 		adminGUI.currentSelectedDish = selectedDish;
 		//tekstbokser
 		AdminView.editDishNameTextBox.setText(selectedDish.name);
+		AdminView.editDishNameTextBox.setEnabled(false);
 		AdminView.editDishDescriptionTextArea.setText(selectedDish.description);
 		AdminView.editDishDishPriceTextArea.setText(""+selectedDish.price);
 		
 		//her resetter vi alle valgboksene til sin defaultverdi
-		char selectDiaryYN = selectedDish.containsDiary ? 'y': 'n';
+		char trueChar = Constants.GUI_TRUE.charAt(0);
+		char falseChar = Constants.GUI_FALSE.charAt(0);
+		
+		char selectDiaryYN = selectedDish.containsDiary ? trueChar: falseChar;
 		AdminView.editDishContainsDairyComboBox.selectWithKeyChar(selectDiaryYN);
 		
-		char selectGlutenYN = selectedDish.containsGluten ? 'y': 'n';
+		char selectGlutenYN = selectedDish.containsGluten ? trueChar: falseChar;
 		AdminView.editDIshContainsGlutenComboBox.selectWithKeyChar(selectGlutenYN);
 		
-		char selectNutsYN = selectedDish.containsNuts ? 'y': 'n';
+		char selectNutsYN = selectedDish.containsNuts ? trueChar: falseChar;
 		AdminView.editDIshContainsNutsComboBox.selectWithKeyChar(selectNutsYN);
 		
-		char selectSpicyYN = selectedDish.isSpicy ? 'y': 'n';
+		char selectSpicyYN = selectedDish.isSpicy ? trueChar: falseChar;
 		AdminView.editDishIsPsicyComboBox.selectWithKeyChar(selectSpicyYN);
 		
-		char selectVeganYN = selectedDish.isVegetarian ? 'y': 'n';
+		char selectVeganYN = selectedDish.isVegetarian ? trueChar: falseChar;
 		AdminView.editDishIsVegetarianComboBox.selectWithKeyChar(selectVeganYN);
 
-		char selectActiveYN = selectedDish.isActive ? 'y': 'n';
+		char selectActiveYN = selectedDish.isActive ? trueChar: falseChar;
 		AdminView.editDishIsDishActiveComboBox.selectWithKeyChar(selectActiveYN);
-		
 	}
 	
 }//END

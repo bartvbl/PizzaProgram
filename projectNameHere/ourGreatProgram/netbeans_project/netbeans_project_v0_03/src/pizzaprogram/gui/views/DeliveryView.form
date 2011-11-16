@@ -66,9 +66,9 @@
                           <Component id="markOrderBeingDeliveredButton" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="markOrderDeliveredButton" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="85" max="32767" attributes="0"/>
+                          <EmptySpace pref="277" max="32767" attributes="0"/>
                       </Group>
-                      <Component id="orderContentsTableScrollPane" alignment="0" pref="492" max="32767" attributes="0"/>
+                      <Component id="orderContentsTableScrollPane" alignment="0" pref="658" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
@@ -152,7 +152,7 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="492" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="658" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
@@ -166,7 +166,9 @@
         </Container>
         <Container class="javax.swing.JSplitPane" name="leftHorizontalSplitPanel">
           <Properties>
-            <Property name="dividerLocation" type="int" value="240"/>
+            <Property name="dividerLocation" type="int" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="this.getHeight() - 200" type="code"/>
+            </Property>
             <Property name="orientation" type="int" value="0"/>
             <Property name="name" type="java.lang.String" value="leftHorizontalSplitPanel" noResource="true"/>
           </Properties>
@@ -194,26 +196,20 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="orderSearchTextField" pref="306" max="32767" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="orderSearchButton" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jScrollPane1" alignment="1" pref="231" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="10" pref="10" max="10" attributes="0"/>
+                          <Component id="orderSearchTextField" pref="221" max="32767" attributes="0"/>
                       </Group>
-                      <Component id="jScrollPane1" alignment="1" pref="397" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="orderSearchButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="orderSearchTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="orderSearchTextField" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jScrollPane1" pref="260" max="32767" attributes="0"/>
+                          <Component id="jScrollPane1" pref="263" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -221,13 +217,8 @@
               <SubComponents>
                 <Component class="javax.swing.JTextField" name="orderSearchTextField">
                   <Properties>
+                    <Property name="text" type="java.lang.String" resourceKey="orderSearchTextField.text"/>
                     <Property name="name" type="java.lang.String" value="orderSearchTextField" noResource="true"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JButton" name="orderSearchButton">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" resourceKey="orderSearchButton.text"/>
-                    <Property name="name" type="java.lang.String" value="orderSearchButton" noResource="true"/>
                   </Properties>
                 </Component>
                 <Container class="javax.swing.JScrollPane" name="jScrollPane1">
@@ -285,7 +276,7 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="orderDetailsSeparator" pref="377" max="32767" attributes="0"/>
+                                  <Component id="orderDetailsSeparator" pref="211" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
@@ -293,7 +284,7 @@
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="orderCommentsScrollPane" pref="377" max="32767" attributes="1"/>
+                                  <Component id="orderCommentsScrollPane" pref="211" max="32767" attributes="1"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
@@ -301,7 +292,7 @@
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="orderAddressScrollPane" pref="377" max="32767" attributes="1"/>
+                                  <Component id="orderAddressScrollPane" pref="211" max="32767" attributes="1"/>
                               </Group>
                               <Component id="orderPriceOverviewPanel" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>

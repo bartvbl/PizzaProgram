@@ -12,13 +12,13 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import pizzaProgram.dataObjects.Customer;
 import pizzaProgram.dataObjects.UnaddedCustomer;
 import pizzaProgram.database.databaseUtils.DataCleaner;
 
 @SuppressWarnings("serial")
 public class NewCustomerWindow extends JFrame{
 
-	private OrderGUI parent;
 	private TextField fyllnavn;
 	private TextField fylletternavn;
 	private TextField fylladresse;
@@ -27,14 +27,21 @@ public class NewCustomerWindow extends JFrame{
 	private TextField fylltlf;
 	private JFrame denne;
 
-	public NewCustomerWindow(OrderGUI parentWindow) {
-		parent = parentWindow;
-		denne = this;
+	public static final String NEW_CUSTOMER = "new";
+	public static final String UPDATE_CUSTOMER = "update";
+	
+	private OrderGUI source;
+	private String type;
+	private Customer updateCustomer;
+	
+	public NewCustomerWindow(OrderGUI parent, String typeof, Customer c) {
+		this.source = parent;
+		this.type = typeof;
+		this.updateCustomer = c;
 		this.setLayout(new GridBagLayout());
 		this.setMinimumSize(new Dimension(220, 200));
 		this.setLocation(100, 100);
 		this.setResizable(false);
-		this.setTitle("New customer");
 
 		Label fornavn = new Label("Fornavn:");
 		add(fornavn, createConstraints(0, 0, 0.2));
@@ -56,21 +63,43 @@ public class NewCustomerWindow extends JFrame{
 
 		fyllnavn = new TextField();
 		add(fyllnavn, createConstraints(1, 0, 0.8));
+		if(type.equals(NewCustomerWindow.UPDATE_CUSTOMER)){
+			fyllnavn.setText(c.firstName);
+			fyllnavn.setEnabled(false);
+			fyllnavn.setEditable(false);
+		}
 
 		fylletternavn = new TextField();
 		add(fylletternavn, createConstraints(1, 1, 0.8));
+		if(type.equals(NewCustomerWindow.UPDATE_CUSTOMER)){
+			fylletternavn.setText(c.lastName);
+			fylletternavn.setEnabled(false);
+			fylletternavn.setEditable(false);
+		}
 
 		fylladresse = new TextField();
 		add(fylladresse, createConstraints(1, 2, 0.8));
+		if(type.equals(NewCustomerWindow.UPDATE_CUSTOMER)){
+			fylladresse.setText(c.address);
+		}
 
 		fyllpostnr = new TextField();
 		add(fyllpostnr, createConstraints(1, 3, 0.8));
+		if(type.equals(NewCustomerWindow.UPDATE_CUSTOMER)){
+			fyllpostnr.setText(""+c.postalCode);
+		}
 
 		fyllpoststed = new TextField();
 		add(fyllpoststed, createConstraints(1, 4, 0.8));
+		if(type.equals(NewCustomerWindow.UPDATE_CUSTOMER)){
+			fyllpoststed.setText(c.city);
+		}
 
 		fylltlf = new TextField();
 		add(fylltlf, createConstraints(1, 5, 0.8));
+		if(type.equals(NewCustomerWindow.UPDATE_CUSTOMER)){
+			fylltlf.setText(""+c.phoneNumber);
+		}
 
 		Label fill = new Label("");
 		add(fill, createConstraints(0, 5, 0.2));
@@ -100,11 +129,11 @@ public class NewCustomerWindow extends JFrame{
 					return;
 				}
 
-				if(firstName.isEmpty()){
+				if(!type.equals(NewCustomerWindow.UPDATE_CUSTOMER) && firstName.isEmpty()){
 					JOptionPane.showMessageDialog(denne, "Fornavn kan ikke være tomt!", "Feil", JOptionPane.ERROR_MESSAGE);
 					return;
 				}
-				if(lastName.isEmpty()){
+				if(!type.equals(NewCustomerWindow.UPDATE_CUSTOMER) && lastName.isEmpty()){
 					JOptionPane.showMessageDialog(denne, "Etternavn kan ikke være tomt!", "Feil", JOptionPane.ERROR_MESSAGE);
 					return;
 				}
@@ -116,10 +145,15 @@ public class NewCustomerWindow extends JFrame{
 					JOptionPane.showMessageDialog(denne, "By kan ikke være tomt!", "Feil", JOptionPane.ERROR_MESSAGE);
 					return;
 				}
-
-
-				UnaddedCustomer customer = new UnaddedCustomer(firstName, lastName, address, postNumber, city, phoneNumber, "");
-				parent.createNewCustomer(customer);
+	
+				if(type.equals(UPDATE_CUSTOMER)){
+					Customer customer = new Customer(updateCustomer.customerID, updateCustomer.firstName, updateCustomer.lastName, address, postNumber, city, phoneNumber, "");
+					source.updateCustomer(customer);
+				}else if(type.equals(NEW_CUSTOMER)){
+					UnaddedCustomer customer = new UnaddedCustomer(firstName, lastName, address, postNumber, city, phoneNumber, "");
+					source.createNewCustomer(customer);
+				}
+					
 				dispose();
 			}
 		});
@@ -140,4 +174,4 @@ public class NewCustomerWindow extends JFrame{
 		return gbc;
 	}
 
-}
+}//END

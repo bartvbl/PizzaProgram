@@ -20,54 +20,49 @@ import pizzaProgram.events.EventType;
  * @author Bart
  */
 public class MenuBarEventHandler implements ActionListener {
-    private final EventDispatcher eventDispatcher;
-    private Hashtable<JMenuItem, String> menuItems;
-    private ProgramWindowFrameView mainFrameView;
-    
-    public MenuBarEventHandler(ProgramWindowFrameView mainFrameView, EventDispatcher eventDispatcher)
-    {
-        this.eventDispatcher = eventDispatcher;
-        this.menuItems = new Hashtable<JMenuItem, String>();
-        this.mainFrameView = mainFrameView;
-        this.fillMenuItemsTable();
-        this.registerActionListeners();
-    }
+	private final EventDispatcher eventDispatcher;
+	private Hashtable<JMenuItem, String> menuItems;
+	private ProgramWindowFrameView mainFrameView;
 
-    public void actionPerformed(ActionEvent actionEvent) 
-    {
-        
-        if(!(actionEvent.getSource() instanceof JMenuItem))
-        {
-            System.out.println("ERROR: events handled by the MenuBar class can only originate from JMenuItem instances!");
-            return;
-        }
-        String eventType = this.getEventNameByMenuItem((JMenuItem)actionEvent.getSource());
-        this.eventDispatcher.dispatchEvent(new Event<Object>(eventType));
-        System.out.println("Event received: " + actionEvent.getActionCommand());
+	public MenuBarEventHandler(ProgramWindowFrameView mainFrameView, EventDispatcher eventDispatcher){
+		this.eventDispatcher = eventDispatcher;
+		this.menuItems = new Hashtable<JMenuItem, String>();
+		this.mainFrameView = mainFrameView;
+		this.fillMenuItemsTable();
+		this.registerActionListeners();
+	}
 
-    }
-    private String getEventNameByMenuItem(JMenuItem menuItem)
-    {
-        return this.menuItems.get(menuItem);
-    }
-    private void registerComponentEvent(JMenuItem menuItem, String eventName)
-    {
-        this.menuItems.put(menuItem, eventName);
-    }
+	public void actionPerformed(ActionEvent actionEvent) {
 
-    private void fillMenuItemsTable() {
-        this.registerComponentEvent(ProgramWindowFrameView.showSettingsGUIMenuItem, EventType.OPEN_SETTINGS_WINDOW_REQUESTED);
-        this.registerComponentEvent(ProgramWindowFrameView.refreshDataMenuItem, EventType.DATA_REFRESH_REQUESTED);
-        this.registerComponentEvent(this.mainFrameView.getShowCookGUIMenuItem(), EventType.COOK_GUI_REQUESTED);
-        this.registerComponentEvent(this.mainFrameView.getShowDeliveryGUIMenuItem(), EventType.DELIVERY_GUI_REQUESTED);
-        this.registerComponentEvent(this.mainFrameView.getShowOrderGUIMenuItem(), EventType.ORDER_GUI_REQUESTED);
-    }
+		if(!(actionEvent.getSource() instanceof JMenuItem)){
+			System.out.println("ERROR: events handled by the MenuBar class can only originate from JMenuItem instances!");
+			return;
+		}
+		String eventType = this.getEventNameByMenuItem((JMenuItem)actionEvent.getSource());
+		this.eventDispatcher.dispatchEvent(new Event<Object>(eventType));
+		System.out.println("HHHHHHHHEvent received: " + actionEvent.getActionCommand());
 
-    private void registerActionListeners() {
-        ProgramWindowFrameView.showSettingsGUIMenuItem.addActionListener(this);
-        this.mainFrameView.getRefreshDataMenuItem().addActionListener(this);
-        this.mainFrameView.getShowCookGUIMenuItem().addActionListener(this);
-        this.mainFrameView.getShowDeliveryGUIMenuItem().addActionListener(this);
-        this.mainFrameView.getShowOrderGUIMenuItem().addActionListener(this);
-    }
+	}
+	private String getEventNameByMenuItem(JMenuItem menuItem){
+		return this.menuItems.get(menuItem);
+	}
+	private void registerComponentEvent(JMenuItem menuItem, String eventName){
+		this.menuItems.put(menuItem, eventName);
+	}
+
+	private void fillMenuItemsTable() {
+		this.registerComponentEvent(ProgramWindowFrameView.showSettingsGUIMenuItem, EventType.OPEN_SETTINGS_WINDOW_REQUESTED);
+		this.registerComponentEvent(ProgramWindowFrameView.refreshDataMenuItem, EventType.DATA_REFRESH_REQUESTED);
+		this.registerComponentEvent(this.mainFrameView.getShowCookGUIMenuItem(), EventType.COOK_GUI_REQUESTED);
+		this.registerComponentEvent(this.mainFrameView.getShowDeliveryGUIMenuItem(), EventType.DELIVERY_GUI_REQUESTED);
+		this.registerComponentEvent(this.mainFrameView.getShowOrderGUIMenuItem(), EventType.ORDER_GUI_REQUESTED);
+	}
+
+	private void registerActionListeners() {
+		ProgramWindowFrameView.showSettingsGUIMenuItem.addActionListener(this);
+		this.mainFrameView.getRefreshDataMenuItem().addActionListener(this);
+		this.mainFrameView.getShowCookGUIMenuItem().addActionListener(this);
+		this.mainFrameView.getShowDeliveryGUIMenuItem().addActionListener(this);
+		this.mainFrameView.getShowOrderGUIMenuItem().addActionListener(this);
+	}
 }

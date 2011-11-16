@@ -11,6 +11,10 @@ import pizzaProgram.gui.views.ReceiptWindow;
 
 public class ReceiptGenerator {
 
+	/**
+	 * This method takes an order and creates an html-receipt form its data
+	 * @param order
+	 */
 	public static void generateReceiptAndWindow(Order order) {
 		int rows = 6;
 		String receiptString = "";
@@ -33,7 +37,7 @@ public class ReceiptGenerator {
 		receiptString += createRow("", "");
 		receiptString += createRow("Alle retter", formatPrice(totalpris));
 		receiptString += createRow("Herav MVA", formatPrice(totalpris*  (order.deliveryMethod == Order.DELIVER_AT_HOME ? Constants.DELIVER_MOMS : Constants.PICKUP_MOMS) ));
-		int leveringskostnad = totalpris > Constants.FREE_DELIVERY_TRESHOLD ? 0 : Constants.DELIVERY_COST;
+		int leveringskostnad = (((int)totalpris > Constants.FREE_DELIVERY_TRESHOLD) ? 0 : Constants.DELIVERY_COST);
 		receiptString += createRow("Levering", formatPrice(leveringskostnad));
 		receiptString += createHeaderRow("Totalt", formatPrice(totalpris + leveringskostnad));
 		receiptString += "</table>";

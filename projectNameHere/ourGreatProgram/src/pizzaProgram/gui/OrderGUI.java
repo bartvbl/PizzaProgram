@@ -44,7 +44,7 @@ public class OrderGUI extends GUIModule implements EventHandler {
 		this.setupComponents();
 		hide();
 	}
-
+	
 	private void setupComponents(){
 		OrderView.deliveryMethodComboBox.removeAllItems();
 		OrderView.deliveryMethodComboBox.addItem(Order.DELIVER_AT_HOME);
@@ -53,13 +53,16 @@ public class OrderGUI extends GUIModule implements EventHandler {
 		OrderView.dishSelectionList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		OrderView.customerList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		DefaultTableModel tableModel = (DefaultTableModel)OrderView.orderContentsTable.getModel();
-		tableModel.addColumn("Dish");
-		tableModel.addColumn("Extras");
+		tableModel.addColumn("Rett");
+		tableModel.addColumn("Tilbehør");
 		OrderView.orderContentsTable.removeEditor();
 	}
 
 	public void createNewCustomer(UnaddedCustomer customer) {
 		this.dispatchEvent(new Event<UnaddedCustomer>(EventType.DATABASE_ADD_NEW_CUSTOMER, customer));
+	}
+	public void updateCustomer(Customer customer) {
+		this.dispatchEvent(new Event<Customer>(EventType.DATABASE_UPDATE_CUSTOMER_BY_CUSTOMER_ID, customer));
 	}
 
 	@Override

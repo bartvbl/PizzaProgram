@@ -39,7 +39,6 @@ public class CookGUI_SystemEventHandler implements EventHandler {
 			System.err.println("ERROR: got a list that was not a list of Order instances when trying to update the order list in the cook GUI.");
 			return;
 		}
-		@SuppressWarnings("unchecked")
 		ArrayList<Order> orderList = (ArrayList<Order>)event.getEventParameterObject();
 		this.cookGUI.currentOrderList = orderList;
 		DefaultTableModel tableModel = (DefaultTableModel)CookView.orderDetailsTable.getModel();
@@ -48,4 +47,5 @@ public class CookGUI_SystemEventHandler implements EventHandler {
 			tableModel.addRow(new Object[]{order.orderID, order.status, order.timeRegistered});
 		}
 	}
-}
+	
+}//END

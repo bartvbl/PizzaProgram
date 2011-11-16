@@ -1,7 +1,5 @@
 package pizzaProgram.events.moduleEventHandlers;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import pizzaProgram.dataObjects.Customer;
@@ -9,7 +7,6 @@ import pizzaProgram.dataObjects.Dish;
 import pizzaProgram.dataObjects.Extra;
 import pizzaProgram.dataObjects.Order;
 import pizzaProgram.database.DatabaseConnection;
-import pizzaProgram.database.DatabaseModule;
 import pizzaProgram.database.databaseUtils.DataCleaner;
 import pizzaProgram.database.databaseUtils.DatabaseReader;
 import pizzaProgram.database.databaseUtils.DatabaseResultsFeedbackProvider;
@@ -23,8 +20,7 @@ public class Database_ReadEventHandler implements EventHandler {
 	private EventDispatcher eventDispatcher;
 	
 	
-	public Database_ReadEventHandler(DatabaseConnection databaseConnection, EventDispatcher eventDispatcher) 
-	{
+	public Database_ReadEventHandler(DatabaseConnection databaseConnection, EventDispatcher eventDispatcher) {
 		this.databaseConnection = databaseConnection;
 		this.eventDispatcher = eventDispatcher;
 		this.addEventListeners();
@@ -80,16 +76,14 @@ public class Database_ReadEventHandler implements EventHandler {
 
 
 	private void searchUndeliveredOrders(Event<?> event) {
-		if(!(event.getEventParameterObject() instanceof String))
-		{
+		if(!(event.getEventParameterObject() instanceof String)){
 			DatabaseResultsFeedbackProvider.showSearchCustomersFailedMessage();
 			return;
 		}
 		String searchQuery = (String)event.getEventParameterObject();
 		searchQuery = DataCleaner.cleanDbData(searchQuery);
 		ArrayList<Order> orderList = DatabaseReader.getOrdersByKeywords(searchQuery, new String[]{Order.HAS_BEEN_COOKED, Order.BEING_DELIVERED});
-		if(orderList != null)
-		{
+		if(orderList != null){
 			this.eventDispatcher.dispatchEvent(new Event<ArrayList<Order>>(EventType.DELIVERY_GUI_UPDATE_ORDER_LIST, orderList));
 		}
 	}
@@ -100,8 +94,7 @@ public class Database_ReadEventHandler implements EventHandler {
 	}
 
 	private void searchUncookedOrders(Event<?> event) {
-		if(!(event.getEventParameterObject() instanceof String))
-		{
+		if(!(event.getEventParameterObject() instanceof String)){
 			DatabaseResultsFeedbackProvider.showSearchCustomersFailedMessage();
 			return;
 		}
@@ -116,28 +109,26 @@ public class Database_ReadEventHandler implements EventHandler {
 
 	private void sendListOfAllUncookedOrders(Event<?> event) {
 		ArrayList<Order> orderList = DatabaseReader.getAllUncookedOrders();
+		//System.out.println(orderList);
 		this.eventDispatcher.dispatchEvent(new Event<ArrayList<Order>>(EventType.COOK_GUI_UPDATE_ORDER_LIST, orderList));
 	}
 
 	private void searchCustomers(Event<?> event) {
-		if(!(event.getEventParameterObject() instanceof String))
-		{
+		if(!(event.getEventParameterObject() instanceof String)){
 			DatabaseResultsFeedbackProvider.showSearchCustomersFailedMessage();
 			return;
 		}
 		String searchQuery = (String)event.getEventParameterObject();
 		searchQuery = DataCleaner.cleanDbData(searchQuery);
 		ArrayList<Customer> customerList = DatabaseReader.searchCustomerByString(searchQuery);
-		if(customerList != null)
-		{
+		if(customerList != null){
 			this.eventDispatcher.dispatchEvent(new Event<ArrayList<Customer>>(EventType.ORDER_GUI_UPDATE_CUSTOMER_LIST, customerList));
 		}
 	}
 
 	private void sendListOfAllExtrasToOrderGUI() {
-		ArrayList<Extra> extraList = DatabaseReader.getAllExtras();
-		if(extraList != null)
-		{
+		ArrayList<Extra> extraList = DatabaseReader.getAllActiveExtras();
+		if(extraList != null){
 			this.eventDispatcher.dispatchEvent(new Event<ArrayList<Extra>>(EventType.ORDER_GUI_UPDATE_EXTRAS_LIST, extraList));
 		}
 	}
@@ -157,22 +148,18 @@ public class Database_ReadEventHandler implements EventHandler {
 		}
 	}
 	
-	private void sendListOfAllDishesToOrderGUI() 
-	{
-		ArrayList<Dish> dishList = DatabaseReader.getAllDishes();
-		if(dishList != null)
-		{
+	private void sendListOfAllDishesToOrderGUI() {
+		ArrayList<Dish> dishList = DatabaseReader.getAllActiveDishes();
+		if(dishList != null){
 			this.eventDispatcher.dispatchEvent(new Event<ArrayList<Dish>>(EventType.ORDER_GUI_UPDATE_DISH_LIST, dishList));
 		}
 	}
 
-	private void sendListOfAllCustomersToOrderGUI() 
-	{
+	private void sendListOfAllCustomersToOrderGUI() {
 		ArrayList<Customer> customerList = DatabaseReader.getAllCustomers();
-		if(customerList != null)
-		{
+		if(customerList != null){
 			this.eventDispatcher.dispatchEvent(new Event<ArrayList<Customer>>(EventType.ORDER_GUI_UPDATE_CUSTOMER_LIST, customerList));
 		}
 	}
 	
-}
+}//END
