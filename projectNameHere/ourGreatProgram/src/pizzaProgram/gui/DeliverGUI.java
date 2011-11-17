@@ -1,12 +1,7 @@
 package pizzaProgram.gui;
 
-import java.awt.List;
-import java.awt.TextArea;
 import java.util.ArrayList;
-import java.util.HashMap;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
@@ -52,13 +47,13 @@ public class DeliverGUI extends GUIModule implements EventHandler {
 		DefaultTableModel tableModel = (DefaultTableModel)DeliveryView.activeOrdersTable.getModel();
 		tableModel.addColumn("ID");
 		tableModel.addColumn("Status");
-		tableModel.addColumn("Time Registered");
-		tableModel.addColumn("Delivery method");
+		tableModel.addColumn("Tid mottatt");
+		tableModel.addColumn("Leveringsmetode");
 		DeliveryView.activeOrdersTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tableModel = (DefaultTableModel)DeliveryView.orderContentsTable.getModel();
-		tableModel.addColumn("Dish");
-		tableModel.addColumn("Extras");
-		tableModel.addColumn("Total dish price");
+		tableModel.addColumn("Rett");
+		tableModel.addColumn("Tilbehør");
+		tableModel.addColumn("Pris for retter");
 		DeliveryView.showReceiptButton.setEnabled(false);
 	}
 	

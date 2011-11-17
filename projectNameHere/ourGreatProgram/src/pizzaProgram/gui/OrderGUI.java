@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
+import pizzaProgram.core.Constants;
 import pizzaProgram.dataObjects.Customer;
 import pizzaProgram.dataObjects.Dish;
 import pizzaProgram.dataObjects.Extra;
-import pizzaProgram.dataObjects.Order;
 import pizzaProgram.dataObjects.UnaddedCustomer;
 import pizzaProgram.events.Event;
 import pizzaProgram.events.EventDispatcher;
@@ -47,8 +47,8 @@ public class OrderGUI extends GUIModule implements EventHandler {
 	
 	private void setupComponents(){
 		OrderView.deliveryMethodComboBox.removeAllItems();
-		OrderView.deliveryMethodComboBox.addItem(Order.DELIVER_AT_HOME);
-		OrderView.deliveryMethodComboBox.addItem(Order.PICKUP_AT_RESTAURANT);
+		OrderView.deliveryMethodComboBox.addItem(Constants.GUI_PICKUP);
+		OrderView.deliveryMethodComboBox.addItem(Constants.GUI_DELIVER);
 		OrderView.extrasSelectionList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		OrderView.dishSelectionList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		OrderView.customerList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

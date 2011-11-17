@@ -11,15 +11,12 @@ import pizzaProgram.events.EventDispatcher;
 import pizzaProgram.events.EventHandler;
 import pizzaProgram.events.EventType;
 import pizzaProgram.gui.DeliverGUI;
-import pizzaProgram.gui.OrderGUI;
-import pizzaProgram.gui.views.CookView;
 import pizzaProgram.gui.views.DeliveryView;
-import pizzaProgram.gui.views.OrderView;
 
 public class DeliveryGUI_SystemEventHandler implements EventHandler{
 	private DeliverGUI deliveryGUI;
 	private EventDispatcher eventDispatcher;
-	
+
 	public DeliveryGUI_SystemEventHandler(EventDispatcher eventDispatcher, DeliverGUI deliveryGUI){
 		this.deliveryGUI = deliveryGUI;
 		this.eventDispatcher = eventDispatcher;
@@ -31,15 +28,13 @@ public class DeliveryGUI_SystemEventHandler implements EventHandler{
 	}
 
 	public void handleEvent(Event<?> event) {
-		if(event.eventType.equals(EventType.DELIVERY_GUI_UPDATE_ORDER_LIST))
-    	{
-    		this.updateOrderList(event);
-    	}
+		if(event.eventType.equals(EventType.DELIVERY_GUI_UPDATE_ORDER_LIST)){
+			this.updateOrderList(event);
+		}
 	}
 
 	private void updateOrderList(Event<?> event) {
-		if(!(event.getEventParameterObject() instanceof ArrayList<?>))
-		{
+		if(!(event.getEventParameterObject() instanceof ArrayList<?>)){
 			DatabaseResultsFeedbackProvider.showGetAllUndeliveredOrdersFailedMessage();
 			return;
 		}
@@ -47,9 +42,9 @@ public class DeliveryGUI_SystemEventHandler implements EventHandler{
 		this.deliveryGUI.currentOrderList = orderList;
 		DefaultTableModel tableModel = (DefaultTableModel)DeliveryView.activeOrdersTable.getModel();
 		tableModel.setRowCount(0);
-		for(Order order : orderList)
-		{
+		for(Order order : orderList){
 			tableModel.addRow(new Object[]{order.orderID, order.status, order.timeRegistered, order.deliveryMethod});
 		}
 	}
-}
+	
+}//END

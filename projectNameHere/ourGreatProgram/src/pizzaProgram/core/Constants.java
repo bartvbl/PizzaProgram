@@ -17,4 +17,7 @@ public class Constants{
 	public static final String GUI_TRUE = "Ja";
 	public static final String GUI_FALSE = "Nei";
 	
+	public static final String GUI_DELIVER = "Lever hjem";
+	public static final String GUI_PICKUP = "Hent selv";
+	
 }

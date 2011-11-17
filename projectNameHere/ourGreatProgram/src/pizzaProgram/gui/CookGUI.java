@@ -43,12 +43,12 @@ public class CookGUI extends GUIModule implements EventHandler{
 
 	private void setupComponents() {
 		DefaultTableModel tableModel = (DefaultTableModel) CookView.orderDetailsTable.getModel();
-		tableModel.addColumn("Order ID");
+		tableModel.addColumn("ID");
 		tableModel.addColumn("Status");
-		tableModel.addColumn("Time registered");
+		tableModel.addColumn("Tid mottatt");
 		tableModel = (DefaultTableModel) CookView.currentOrderTable.getModel();
-		tableModel.addColumn("Dish");
-		tableModel.addColumn("Extras");
+		tableModel.addColumn("Rett");
+		tableModel.addColumn("Tilbehør");
 		CookView.orderDetailsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		CookView.currentOrderTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	}

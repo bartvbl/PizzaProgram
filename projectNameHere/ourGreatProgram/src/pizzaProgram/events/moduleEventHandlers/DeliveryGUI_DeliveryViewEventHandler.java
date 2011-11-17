@@ -58,8 +58,7 @@ public class DeliveryGUI_DeliveryViewEventHandler extends ComponentEventHandler 
 		if (this.getEventNameByComponent((Component) event.getSource()).equals("showReceipt")) {
 			this.showReceipt();
 		}
-		else if (this.getEventNameByComponent((Component) event.getSource()).equals("markOrderDelivered")) 
-		{
+		else if (this.getEventNameByComponent((Component) event.getSource()).equals("markOrderDelivered")) {
 			this.markOrderAsDelivered();
 		}
 		else if (this.getEventNameByComponent((Component) event.getSource()).equals("markOrderBeingDelivered")) {

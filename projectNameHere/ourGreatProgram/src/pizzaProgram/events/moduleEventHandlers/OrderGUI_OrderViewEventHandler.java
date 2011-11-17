@@ -21,6 +21,7 @@ import pizzaProgram.core.Constants;
 import pizzaProgram.dataObjects.Customer;
 import pizzaProgram.dataObjects.Dish;
 import pizzaProgram.dataObjects.Extra;
+import pizzaProgram.dataObjects.Order;
 import pizzaProgram.dataObjects.UnaddedOrder;
 import pizzaProgram.database.databaseUtils.DatabaseResultsFeedbackProvider;
 import pizzaProgram.events.Event;
@@ -83,9 +84,6 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler implem
 		OrderView.selectCustomerButton.addActionListener(this);
 		this.registerEventType(OrderView.selectCustomerButton, "selectCustomer");
 
-//		OrderView.searchCustomerSearchButton.addActionListener(this);
-//		this.registerEventType(OrderView.searchCustomerSearchButton, "searchCustomer");
-
 		OrderView.addDishButton.addActionListener(this);
 		this.registerEventType(OrderView.addDishButton, "addDish");
 
@@ -104,8 +102,6 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler implem
 		OrderView.newCustomerButton.addActionListener(this);
 		this.registerEventType(OrderView.newCustomerButton, "newCustomer");
 
-//		OrderView.searchCustomerSearchButton.addActionListener(this);
-//		this.registerEventType(OrderView.searchCustomerSearchButton, "searchCustomers");
 	}
 
 	public void actionPerformed(ActionEvent event) {
@@ -170,7 +166,10 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler implem
 
 	private void confirmOrder(ActionEvent event) {
 		this.temporaryOrderData.setOrderComments(OrderView.orderCommentsTextArea.getText());
-		this.temporaryOrderData.setDeliveryMethod((String)OrderView.deliveryMethodComboBox.getSelectedItem());
+		
+		String selectedDeliveryMethod = (String)OrderView.deliveryMethodComboBox.getSelectedItem();
+		String deliveryMethod = selectedDeliveryMethod.equals(Constants.GUI_PICKUP) ? Order.PICKUP_AT_RESTAURANT :  Order.DELIVER_AT_HOME;
+		this.temporaryOrderData.setDeliveryMethod(deliveryMethod);
 		
 		UnaddedOrder orderToConfirm = this.temporaryOrderData.convertToOrderObjectAndReset();
 		if(orderToConfirm.orderedDishes.isEmpty()){
@@ -275,7 +274,6 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler implem
 	private void setCustomerSelectionAreaEnabled(boolean enabled) {
 		OrderView.selectCustomerButton.setEnabled(enabled);
 		OrderView.customerList.setEnabled(enabled);
-//		OrderView.searchCustomerSearchButton.setEnabled(enabled);
 		OrderView.searchCustomerTextArea.setEnabled(enabled);
 		OrderView.newCustomerButton.setEnabled(enabled);
 	}

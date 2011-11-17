@@ -24,8 +24,7 @@ public class CookView extends javax.swing.JPanel {
         initComponents();
     }
     
-    public String toString()
-    {
+    public String toString(){
         return "CookView";
     }
 

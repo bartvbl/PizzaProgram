@@ -1,23 +1,20 @@
 package pizzaProgram.core;
 
-import pizzaProgram.gui.AdminGUI;
-import pizzaProgram.gui.OrderGUI;
-import pizzaProgram.gui.CookGUI;
-import java.sql.SQLException;
-
 import org.jdesktop.application.SingleFrameApplication;
 
 import pizzaProgram.database.CustomerList;
-import pizzaProgram.database.DatabaseConnection;
+import pizzaProgram.database.DatabaseModule;
 import pizzaProgram.database.DishList;
 import pizzaProgram.database.OrderList;
 import pizzaProgram.events.Event;
 import pizzaProgram.events.EventDispatcher;
 import pizzaProgram.events.EventHandler;
 import pizzaProgram.events.EventType;
+import pizzaProgram.gui.AdminGUI;
+import pizzaProgram.gui.CookGUI;
 import pizzaProgram.gui.DeliverGUI;
+import pizzaProgram.gui.OrderGUI;
 import pizzaProgram.gui.ProgramWindow;
-import pizzaProgram.database.DatabaseModule;
 
 /**
  * The Main class acts as the root of the system. Its main task is to hold references and initialize various parts/modules

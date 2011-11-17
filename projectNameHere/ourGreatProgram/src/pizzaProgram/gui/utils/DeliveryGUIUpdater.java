@@ -67,6 +67,7 @@ public class DeliveryGUIUpdater {
 		String customerAddress = new String();
 		Customer customer = order.customer;
 		customerAddress += customer.firstName + " " + customer.lastName + "\n";
+		customerAddress += customer.phoneNumber + "\n";
 		customerAddress += customer.address + "\n";
 		customerAddress += customer.postalCode + " " + customer.city;
 		DeliveryView.orderAddressTextArea.setText(customerAddress);

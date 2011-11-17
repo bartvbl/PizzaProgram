@@ -1,10 +1,8 @@
 package pizzaProgram.gui;
 
 import java.awt.CardLayout;
-import java.awt.Dimension;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import pizzaProgram.gui.ProgramWindowFrameView;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -12,10 +10,10 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import org.jdesktop.application.SingleFrameApplication;
+
 import pizzaProgram.events.Event;
 import pizzaProgram.events.EventDispatcher;
 import pizzaProgram.events.EventHandler;
-import pizzaProgram.events.EventType;
 
 /**
  * The ProgramWindow class creates the application's main window, with several
@@ -36,7 +34,6 @@ public class ProgramWindow implements EventHandler {
 	private MenuBarEventHandler menuBarEventHandler;
 	private CardLayout cardLayoutManager;
 	private JPanel mainJPanel;
-	private NewCustomerWindow newCustomerWindow;
 
 	private JFrame jframe;
 
@@ -46,8 +43,7 @@ public class ProgramWindow implements EventHandler {
 	 * 
 	 * @param eventDispatcher
 	 */
-	public ProgramWindow(EventDispatcher eventDispatcher,
-			SingleFrameApplication mainApplication) {
+	public ProgramWindow(EventDispatcher eventDispatcher, SingleFrameApplication mainApplication) {
 		this.eventDispatcher = eventDispatcher;
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -62,13 +58,21 @@ public class ProgramWindow implements EventHandler {
 		}
 		this.frameView = new ProgramWindowFrameView(mainApplication);
 		this.jframe = this.frameView.getFrame();
+		this.jframe.addWindowListener(new WindowListener() {
+			public void windowOpened(WindowEvent e) {}
+			public void windowDeiconified(WindowEvent e) {}
+			public void windowDeactivated(WindowEvent e) {}
+			public void windowClosing(WindowEvent e) {}
+			public void windowClosed(WindowEvent e) {}
+			public void windowActivated(WindowEvent e) {
+				jframe.setExtendedState(JFrame.MAXIMIZED_BOTH);
+			}
+			public void windowIconified(WindowEvent e) {}
+		});
+		
 		this.createFrame();
 		mainApplication.show(this.frameView);
 		this.menuBarEventHandler = new MenuBarEventHandler(this.frameView, this.eventDispatcher);
-	}
-
-	public JFrame getWindowFrame() {
-		return jframe;
 	}
 
 	private void createFrame() {
@@ -81,19 +85,11 @@ public class ProgramWindow implements EventHandler {
 		this.mainJPanel.add(newPanel, newPanel.toString());
 	}
 
-	/**
-	 * Creates the main window
-	 */
-	public void createMainWindow(SingleFrameApplication app) {
-
-	}
-
 	@Override
 	public void handleEvent(Event<?> event) {
 
 	}
-
-
+	
 	public void hidePanel(JPanel panel) {
 		this.refreshFrame();
 	}
