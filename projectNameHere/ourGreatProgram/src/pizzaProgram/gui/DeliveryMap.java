@@ -16,34 +16,27 @@ import pizzaProgram.dataObjects.Customer;
 @SuppressWarnings("serial")
 public class DeliveryMap extends JPanel {
 
-	BufferedImage kart;
-	/**
-	 * sets dimensions
-	 * 
-	 */
+	private BufferedImage kart;
+	private int drawWidth;
+	private int drawHeight;
+	
+	private final int googleMaxWidthAndHeight = 640;
+	
 	public DeliveryMap() {
 		setBackground(Color.white);
-//		loadImage(address());
 		setPreferredSize(new Dimension());
 	}
 
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
-		g.drawImage(kart, 0, 0, null);
+		g.drawImage(kart, 0, 0, drawWidth, drawHeight, null);
 	}
 
-	/**
-	 * 
-	 * Home address for the Pizza house to be placed on the google map to get a
-	 * Reference point
-	 * 
-	 * @return returns The address
-	 */
 	private String address() {
+		//hjemmeadressen til restauranten
 		String adr = "sem sælandsvei 2,trondheim,no";
 		return adr;
-
 	}
 
 	/**
@@ -52,8 +45,7 @@ public class DeliveryMap extends JPanel {
 	 * in the google maps API call and converts the norwegian special characters
 	 * (æ,ø,å,) and replaces spaces with '+'
 	 * 
-	 * @param s
-	 *            - The address to get converted into a valid url for the google
+	 * @param s - The address to get converted into a valid url for the google
 	 *            maps API.
 	 * @return - Returns a valid string
 	 */
@@ -67,19 +59,29 @@ public class DeliveryMap extends JPanel {
 
 
 	/**
-	 * 
-	 * loadImage gets an image from the google static API, so that the image can
-	 * be used for pasting in the Delivery GUI
-	 * 
-	 * @param til
-	 *            - Used
+	 * Loads an image into the mapdisplayarea, the width and height parameter 
+	 * specifies how much space is awailable for the map
+	 * the map wil be the correct aspectratio, and be zoomed so that the size of the map
+	 * matches the width and height
 	 */
-
 	public void loadImage(Customer customer, int width, int height) {
-
+		drawWidth = width;
+		drawHeight = height;
+		
+		int requestWidth = 0;
+		int requestHeight = 0;
+		
+		if(width > height){
+			requestWidth = googleMaxWidthAndHeight;
+			requestHeight = (int)(googleMaxWidthAndHeight * ((double)height/(double)width));
+		}else{
+			requestHeight = googleMaxWidthAndHeight;
+			requestWidth = (int)(googleMaxWidthAndHeight * ((double)width/(double)height));
+		}
+		
 		try {
 			URL url = new URL(
-					"http://maps.googleapis.com/maps/api/staticmap?size="+width+"x"+height+"&sensor=false&markers="
+					"http://maps.googleapis.com/maps/api/staticmap?size="+requestWidth+"x"+requestHeight+"&sensor=false&markers="
 							+ formatAddress(address())+ "&markers="+ formatAddress(customer.address+","+customer.postalCode));
 			kart = ImageIO.read(url);
 
@@ -92,4 +94,4 @@ public class DeliveryMap extends JPanel {
 		repaint();
 	}
 
-}
+}//END
