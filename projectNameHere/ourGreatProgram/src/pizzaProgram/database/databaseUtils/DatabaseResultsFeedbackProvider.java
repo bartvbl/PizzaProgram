@@ -103,6 +103,10 @@ public class DatabaseResultsFeedbackProvider {
 		showInformationMessage("Customer updated successfully.");
 	}
 	
+	public static void showSearchDishesFailedMessage() {
+		showErrorMessage("Failed to search for dishes");
+	}
+	
 	private static void showErrorMessage(String message)
 	{
 		JOptionPane.showMessageDialog(null, message, DEFAULT_ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
@@ -111,4 +115,6 @@ public class DatabaseResultsFeedbackProvider {
 	private static void showInformationMessage(String message) {
 		JOptionPane.showMessageDialog(null, message, DEFAULT_ERROR_TITLE, JOptionPane.INFORMATION_MESSAGE);
 	}
+
+	
 }

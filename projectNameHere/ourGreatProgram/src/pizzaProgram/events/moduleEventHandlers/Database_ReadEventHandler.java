@@ -7,6 +7,7 @@ import pizzaProgram.dataObjects.Dish;
 import pizzaProgram.dataObjects.Extra;
 import pizzaProgram.dataObjects.Order;
 import pizzaProgram.database.DatabaseConnection;
+import pizzaProgram.database.DatabaseSearcher;
 import pizzaProgram.database.databaseUtils.DataCleaner;
 import pizzaProgram.database.databaseUtils.DatabaseReader;
 import pizzaProgram.database.databaseUtils.DatabaseResultsFeedbackProvider;
@@ -82,7 +83,7 @@ public class Database_ReadEventHandler implements EventHandler {
 		}
 		String searchQuery = (String)event.getEventParameterObject();
 		searchQuery = DataCleaner.cleanDbData(searchQuery);
-		ArrayList<Order> orderList = DatabaseReader.getOrdersByKeywords(searchQuery, new String[]{Order.HAS_BEEN_COOKED, Order.BEING_DELIVERED});
+		ArrayList<Order> orderList = DatabaseSearcher.getOrdersByKeywords(searchQuery, new String[]{Order.HAS_BEEN_COOKED, Order.BEING_DELIVERED});
 		if(orderList != null){
 			this.eventDispatcher.dispatchEvent(new Event<ArrayList<Order>>(EventType.DELIVERY_GUI_UPDATE_ORDER_LIST, orderList));
 		}
@@ -100,7 +101,7 @@ public class Database_ReadEventHandler implements EventHandler {
 		}
 		String searchQuery = (String)event.getEventParameterObject();
 		searchQuery = DataCleaner.cleanDbData(searchQuery);
-		ArrayList<Order> orderList = DatabaseReader.getOrdersByKeywords(searchQuery, new String[]{Order.BEING_COOKED, Order.REGISTERED});
+		ArrayList<Order> orderList = DatabaseSearcher.getOrdersByKeywords(searchQuery, new String[]{Order.BEING_COOKED, Order.REGISTERED});
 		if(orderList != null)
 		{
 			this.eventDispatcher.dispatchEvent(new Event<ArrayList<Order>>(EventType.COOK_GUI_UPDATE_ORDER_LIST, orderList));
@@ -120,7 +121,7 @@ public class Database_ReadEventHandler implements EventHandler {
 		}
 		String searchQuery = (String)event.getEventParameterObject();
 		searchQuery = DataCleaner.cleanDbData(searchQuery);
-		ArrayList<Customer> customerList = DatabaseReader.searchCustomerByString(searchQuery);
+		ArrayList<Customer> customerList = DatabaseSearcher.searchCustomerByString(searchQuery);
 		if(customerList != null){
 			this.eventDispatcher.dispatchEvent(new Event<ArrayList<Customer>>(EventType.ORDER_GUI_UPDATE_CUSTOMER_LIST, customerList));
 		}
