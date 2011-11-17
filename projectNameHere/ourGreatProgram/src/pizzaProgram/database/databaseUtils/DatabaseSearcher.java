@@ -43,10 +43,10 @@ public class DatabaseSearcher {
 	public static ArrayList<Extra> searchExtraByString(String searchQuery){
 		String query = DatabaseSearcher.generateExtraSearchQuery(searchQuery);
 		ResultSet results = DatabaseConnection.fetchData(query);
-		ArrayList<Extra> dishList = new ArrayList<Extra>();
+		ArrayList<Extra> extrasList = new ArrayList<Extra>();
 		try {
-			dishList = DatabaseDataObjectGenerator.generateExtrasList(results);
-			return dishList;
+			extrasList = DatabaseDataObjectGenerator.generateExtrasList(results);
+			return extrasList;
 		} catch (SQLException e) {
 			e.printStackTrace();
 			DatabaseResultsFeedbackProvider.showSearchDishesFailedMessage();
@@ -114,7 +114,7 @@ public class DatabaseSearcher {
 				query += "OR";
 			}
 			query += "(Extras.Price LIKE '%"+keyword+"%') OR ";
-			query += "(Extras.Name LIKE '%"+keyword+"%') OR ";
+			query += "(Extras.Name LIKE '%"+keyword+"%')";
 			counter++;
 		}
 		query += ") LIMIT 30;";

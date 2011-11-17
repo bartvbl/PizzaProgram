@@ -28,49 +28,71 @@ public class Database_ReadEventHandler implements EventHandler {
 		this.eventDispatcher.addEventListener(this, EventType.DATABASE_UPDATE_ORDER_GUI_SEND_ALL_CUSTOMERS);
 		this.eventDispatcher.addEventListener(this, EventType.DATABASE_UPDATE_ORDER_GUI_SEARCH_CUSTOMERS_BY_KEYWORDS);
 		this.eventDispatcher.addEventListener(this, EventType.DATABASE_UPDATE_ORDER_GUI_DISH_LIST);
-		this.eventDispatcher.addEventListener(this, EventType.DATABASE_UPDATE_ORDER_GUI_EXTRAS_LIST_BY_DISH_ID);
+		this.eventDispatcher.addEventListener(this, EventType.DATABASE_UPDATE_ORDER_GUI_EXTRAS_LIST);
 		this.eventDispatcher.addEventListener(this, EventType.DATABASE_UPDATE_COOK_GUI_SEND_ALL_ORDERS);
 		this.eventDispatcher.addEventListener(this, EventType.DATABASE_UPDATE_COOK_GUI_SEARCH_ORDERS_BY_KEYWORDS);
 		this.eventDispatcher.addEventListener(this, EventType.DATABASE_UPDATE_DELIVERY_GUI_SEND_ALL_ORDERS);
 		this.eventDispatcher.addEventListener(this, EventType.DATABASE_UPDATE_DELIVERY_GUI_SEARCH_ORDERS);
 		this.eventDispatcher.addEventListener(this, EventType.DATABASE_UPDATE_ADMINGUI_GUI_SEND_ALL_DISHES);
 		this.eventDispatcher.addEventListener(this, EventType.DATABASE_UPDATE_ADMINGUI_GUI_SEND_ALL_EXTRAS);
+		this.eventDispatcher.addEventListener(this, EventType.DATABASE_UPDATE_ORDER_GUI_SEARCH_DISHES);
+		this.eventDispatcher.addEventListener(this, EventType.DATABASE_UPDATE_ORDER_GUI_SEARCH_EXTRAS);
 	}
 
 	@Override
 	public void handleEvent(Event<?> event) {
 		if(event.eventType.equals(EventType.DATABASE_UPDATE_ORDER_GUI_SEND_ALL_CUSTOMERS)){
 			this.sendListOfAllCustomersToOrderGUI();
-		}
-		else if(event.eventType.equals(EventType.DATABASE_UPDATE_ORDER_GUI_DISH_LIST)){
+		} else if(event.eventType.equals(EventType.DATABASE_UPDATE_ORDER_GUI_DISH_LIST)){
 			this.sendListOfAllDishesToOrderGUI();
-		}
-		else if(event.eventType.equals(EventType.DATABASE_UPDATE_ORDER_GUI_EXTRAS_LIST_BY_DISH_ID)){
+		} else if(event.eventType.equals(EventType.DATABASE_UPDATE_ORDER_GUI_EXTRAS_LIST)){
 			this.sendListOfAllExtrasToOrderGUI();
-		}
-		else if(event.eventType.equals(EventType.DATABASE_UPDATE_ORDER_GUI_SEARCH_CUSTOMERS_BY_KEYWORDS)){
+		} else if(event.eventType.equals(EventType.DATABASE_UPDATE_ORDER_GUI_SEARCH_CUSTOMERS_BY_KEYWORDS)){
 			this.searchCustomers(event);
-		}
-		else if(event.eventType.equals(EventType.DATABASE_UPDATE_COOK_GUI_SEND_ALL_ORDERS)){
+		} else if(event.eventType.equals(EventType.DATABASE_UPDATE_COOK_GUI_SEND_ALL_ORDERS)){
 			this.sendListOfAllUncookedOrders(event);
-		}
-		else if(event.eventType.equals(EventType.DATABASE_UPDATE_COOK_GUI_SEARCH_ORDERS_BY_KEYWORDS)){
+		} else if(event.eventType.equals(EventType.DATABASE_UPDATE_COOK_GUI_SEARCH_ORDERS_BY_KEYWORDS)){
 			this.searchUncookedOrders(event);
-		}
-		else if(event.eventType.equals(EventType.DATABASE_UPDATE_DELIVERY_GUI_SEND_ALL_ORDERS)){
+		} else if(event.eventType.equals(EventType.DATABASE_UPDATE_DELIVERY_GUI_SEND_ALL_ORDERS)){
 			this.sendListOfActiveOrdersToDeliveryGUI(event);
-		}
-		else if(event.eventType.equals(EventType.DATABASE_UPDATE_DELIVERY_GUI_SEARCH_ORDERS)){
+		} else if(event.eventType.equals(EventType.DATABASE_UPDATE_DELIVERY_GUI_SEARCH_ORDERS)){
 			this.searchUndeliveredOrders(event);
-		}
-		else if(event.eventType.equals(EventType.DATABASE_UPDATE_ADMINGUI_GUI_SEND_ALL_DISHES)){
+		} else if(event.eventType.equals(EventType.DATABASE_UPDATE_ADMINGUI_GUI_SEND_ALL_DISHES)){
 			this.sendListOfAllDishesToAdminGUI();
-		}
-		else if(event.eventType.equals(EventType.DATABASE_UPDATE_ADMINGUI_GUI_SEND_ALL_EXTRAS)){
+		} else if(event.eventType.equals(EventType.DATABASE_UPDATE_ADMINGUI_GUI_SEND_ALL_EXTRAS)){
 			this.sendListOfAllExtrasToAdminGUI();
+		} else if(event.eventType.equals(EventType.DATABASE_UPDATE_ORDER_GUI_SEARCH_DISHES)){
+			this.searchDishesByKeywords(event);
+		} else if(event.eventType.equals(EventType.DATABASE_UPDATE_ORDER_GUI_SEARCH_EXTRAS)){
+			this.searchExtrasByKeywords(event);
 		}
 	}
 
+	private void searchDishesByKeywords(Event<?> event) {
+		if(!(event.getEventParameterObject() instanceof String)){
+			DatabaseResultsFeedbackProvider.showSearchDishesFailedMessage();
+			return;
+		}
+		String searchQuery = (String)event.getEventParameterObject();
+		searchQuery = DataCleaner.cleanDbData(searchQuery);
+		ArrayList<Dish> dishList = DatabaseSearcher.searchDishByString(searchQuery);
+		if(dishList != null){
+			this.eventDispatcher.dispatchEvent(new Event<ArrayList<Dish>>(EventType.ORDER_GUI_UPDATE_DISH_LIST, dishList));
+		}
+	}
+
+	private void searchExtrasByKeywords(Event<?> event) {
+		if(!(event.getEventParameterObject() instanceof String)){
+			DatabaseResultsFeedbackProvider.showSearchExtrasFailedMessage();
+			return;
+		}
+		String searchQuery = (String)event.getEventParameterObject();
+		searchQuery = DataCleaner.cleanDbData(searchQuery);
+		ArrayList<Extra> extrasList = DatabaseSearcher.searchExtraByString(searchQuery);
+		if(extrasList != null){
+			this.eventDispatcher.dispatchEvent(new Event<ArrayList<Extra>>(EventType.ORDER_GUI_UPDATE_EXTRAS_LIST, extrasList));
+		}
+	}
 
 	private void searchUndeliveredOrders(Event<?> event) {
 		if(!(event.getEventParameterObject() instanceof String)){

@@ -107,6 +107,10 @@ public class DatabaseResultsFeedbackProvider {
 		showErrorMessage("Failed to search for dishes");
 	}
 	
+	public static void showSearchExtrasFailedMessage() {
+		showErrorMessage("Failed to search for extras.");
+	}
+	
 	private static void showErrorMessage(String message)
 	{
 		JOptionPane.showMessageDialog(null, message, DEFAULT_ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
@@ -115,6 +119,8 @@ public class DatabaseResultsFeedbackProvider {
 	private static void showInformationMessage(String message) {
 		JOptionPane.showMessageDialog(null, message, DEFAULT_MESSAGE_TITLE, JOptionPane.INFORMATION_MESSAGE);
 	}
+
+
 
 	
 }
