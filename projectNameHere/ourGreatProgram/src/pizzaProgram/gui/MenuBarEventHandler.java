@@ -9,7 +9,6 @@ import pizzaProgram.gui.ProgramWindowFrameView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Hashtable;
-import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import pizzaProgram.events.Event;
 import pizzaProgram.events.EventDispatcher;

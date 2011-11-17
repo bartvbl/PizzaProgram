@@ -113,7 +113,7 @@ public class DatabaseResultsFeedbackProvider {
 	}
 	
 	private static void showInformationMessage(String message) {
-		JOptionPane.showMessageDialog(null, message, DEFAULT_ERROR_TITLE, JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(null, message, DEFAULT_MESSAGE_TITLE, JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	

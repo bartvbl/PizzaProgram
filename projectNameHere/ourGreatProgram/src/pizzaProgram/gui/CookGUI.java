@@ -21,9 +21,6 @@ public class CookGUI extends GUIModule implements EventHandler{
 	private JPanel cookView;
 	private ProgramWindow programWindow;
 
-	private CookGUI_CookViewEventHandler cookViewEventHandler;
-	private CookGUI_SystemEventHandler systemEventhandler;
-
 	public ArrayList<Order> currentOrderList;
 	public Order currentSelectedOrder;
 
@@ -36,8 +33,8 @@ public class CookGUI extends GUIModule implements EventHandler{
 		mainWindow.addJPanel(this.cookView);
 		this.programWindow = mainWindow;
 		this.hide();
-		this.cookViewEventHandler = new CookGUI_CookViewEventHandler(this);
-		this.systemEventhandler = new CookGUI_SystemEventHandler(eventDispatcher, this);
+		new CookGUI_CookViewEventHandler(this);
+		new CookGUI_SystemEventHandler(eventDispatcher, this);
 		this.setupComponents();
 	}
 

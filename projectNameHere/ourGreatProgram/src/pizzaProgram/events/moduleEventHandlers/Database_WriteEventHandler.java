@@ -7,7 +7,6 @@ import pizzaProgram.dataObjects.Order;
 import pizzaProgram.dataObjects.Setting;
 import pizzaProgram.dataObjects.UnaddedCustomer;
 import pizzaProgram.dataObjects.UnaddedOrder;
-import pizzaProgram.database.DatabaseConnection;
 import pizzaProgram.database.DatabaseModule;
 import pizzaProgram.database.databaseUtils.DatabaseResultsFeedbackProvider;
 import pizzaProgram.database.databaseUtils.DatabaseWriter;
@@ -17,13 +16,9 @@ import pizzaProgram.events.EventHandler;
 import pizzaProgram.events.EventType;
 
 public class Database_WriteEventHandler implements EventHandler {
-	//private DatabaseModule databaseModule;
-	//private DatabaseConnection databaseConnection;
 	private EventDispatcher eventDispatcher;
 	
-	public Database_WriteEventHandler(DatabaseModule databaseModule, DatabaseConnection databaseConnection, EventDispatcher eventDispatcher) {
-		//this.databaseModule = databaseModule;
-		//this.databaseConnection = databaseConnection;
+	public Database_WriteEventHandler(DatabaseModule databaseModule, EventDispatcher eventDispatcher) {
 		this.eventDispatcher = eventDispatcher;
 		this.addListeners();
 	}

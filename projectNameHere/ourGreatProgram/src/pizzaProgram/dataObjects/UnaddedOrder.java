@@ -1,7 +1,5 @@
 package pizzaProgram.dataObjects;
 
-import java.sql.Date;
-
 public class UnaddedOrder extends Order {
 
 	public UnaddedOrder(Customer customer, String deliveryMethod, String comment) {

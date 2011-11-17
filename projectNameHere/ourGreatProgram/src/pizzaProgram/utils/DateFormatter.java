@@ -2,7 +2,6 @@ package pizzaProgram.utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 public class DateFormatter {
 	public static String formatDateString(String databaseDateTimeResultString)

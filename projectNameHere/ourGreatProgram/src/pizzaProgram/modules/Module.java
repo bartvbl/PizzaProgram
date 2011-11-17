@@ -17,7 +17,7 @@ public class Module implements EventHandler{
 	//public void destroy() {}
 	public void handleEvent(Event<?> event){}
 	
-	public void dispatchEvent(Event event)
+	public void dispatchEvent(Event<?> event)
 	{
 		this.eventDispatcher.dispatchEvent(event);
 	}

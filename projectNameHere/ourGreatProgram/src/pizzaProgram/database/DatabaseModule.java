@@ -16,14 +16,13 @@ import pizzaProgram.events.moduleEventHandlers.Database_SystemEventHandler;
  */
 public class DatabaseModule extends Module {
     private Database_SystemEventHandler eventHandler;
-    private DatabaseConnection databaseConnection;
     
     public DatabaseModule(EventDispatcher eventDispatcher)
     {
         super(eventDispatcher);
         
-        this.databaseConnection = new DatabaseConnection();
-        this.eventHandler = new Database_SystemEventHandler(this, this.databaseConnection, eventDispatcher);
+        new DatabaseConnection();
+        this.eventHandler = new Database_SystemEventHandler(this, eventDispatcher);
     }
     
     public void handleEvent(Event<?> event)
@@ -33,11 +32,11 @@ public class DatabaseModule extends Module {
     
     public void connect()
     {
-        this.databaseConnection.connect();
+        DatabaseConnection.connect();
     }
     
     public void disconnect()
     {
-        this.databaseConnection.disconnect();
+        DatabaseConnection.disconnect();
     }
 }

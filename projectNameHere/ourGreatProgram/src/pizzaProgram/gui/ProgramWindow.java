@@ -31,7 +31,6 @@ public class ProgramWindow implements EventHandler {
 	public static final String MAIN_WINDOW_NAME = "Pizza Manager";
 
 	private ProgramWindowFrameView frameView;
-	private MenuBarEventHandler menuBarEventHandler;
 	private CardLayout cardLayoutManager;
 	private JPanel mainJPanel;
 
@@ -72,7 +71,7 @@ public class ProgramWindow implements EventHandler {
 		
 		this.createFrame();
 		mainApplication.show(this.frameView);
-		this.menuBarEventHandler = new MenuBarEventHandler(this.frameView, this.eventDispatcher);
+		new MenuBarEventHandler(this.frameView, this.eventDispatcher);
 	}
 
 	private void createFrame() {

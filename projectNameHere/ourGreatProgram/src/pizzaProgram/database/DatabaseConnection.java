@@ -37,7 +37,6 @@ public class DatabaseConnection implements EventHandler {
 	static final int VARCHAR_MAX_LENGTH_LONG = 100;
 
 	private static Connection connection;
-	private static QueryHandler queryHandler;
 
 	/**
 	 * Method that attempts to make a connection to the mySQL database that
@@ -167,8 +166,9 @@ public class DatabaseConnection implements EventHandler {
 		return id;
 	}
 
+	@Override
 	public void handleEvent(Event<?> event) {
-
-		queryHandler.handleEvent(event);
+		// TODO Auto-generated method stub
+		
 	}
 }

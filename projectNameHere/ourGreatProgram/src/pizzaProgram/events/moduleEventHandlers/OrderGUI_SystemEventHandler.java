@@ -7,7 +7,6 @@ package pizzaProgram.events.moduleEventHandlers;
 import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
-import javax.swing.JOptionPane;
 
 import pizzaProgram.dataObjects.Customer;
 import pizzaProgram.dataObjects.Dish;
@@ -24,14 +23,9 @@ import pizzaProgram.gui.views.OrderView;
  * @author Bart
  */
 public class OrderGUI_SystemEventHandler implements EventHandler {
-
-	private OrderView orderView;
-	private EventDispatcher eventDispatcher;
 	private OrderGUI orderGUI;
 
-	public OrderGUI_SystemEventHandler(OrderView orderView, EventDispatcher eventDispatcher, OrderGUI orderGUI){
-		this.orderView = orderView;
-		this.eventDispatcher = eventDispatcher;
+	public OrderGUI_SystemEventHandler(EventDispatcher eventDispatcher, OrderGUI orderGUI){
 		this.orderGUI = orderGUI;
 		eventDispatcher.addEventListener(this, EventType.ORDER_GUI_UPDATE_CUSTOMER_LIST);
 		eventDispatcher.addEventListener(this, EventType.ORDER_GUI_UPDATE_DISH_LIST);
@@ -55,6 +49,7 @@ public class OrderGUI_SystemEventHandler implements EventHandler {
 			System.out.println("ERROR: received event containing a wrong data type [order GUI update extras list]");
 			return;
 		}
+		@SuppressWarnings("unchecked")
 		ArrayList<Extra> extrasList = (ArrayList<Extra>)event.getEventParameterObject();
 		this.orderGUI.currentExtrasList = extrasList;
 
@@ -72,6 +67,7 @@ public class OrderGUI_SystemEventHandler implements EventHandler {
 			return;
 		}
 		System.out.println("updating dish list");
+		@SuppressWarnings("unchecked")
 		ArrayList<Dish> dishList = (ArrayList<Dish>)event.getEventParameterObject();
 		this.orderGUI.currentDishList = dishList;
 
@@ -88,9 +84,10 @@ public class OrderGUI_SystemEventHandler implements EventHandler {
 			System.out.println("ERROR: received event containing a wrong data type [order GUI update customer list]");
 			return;
 		}
+		@SuppressWarnings("unchecked")
 		ArrayList<Customer> customerList = (ArrayList<Customer>) event.getEventParameterObject();
 		this.orderGUI.currentCustomerList = customerList;
-		DefaultListModel model = (DefaultListModel)orderView.customerList.getModel();
+		DefaultListModel model = (DefaultListModel)OrderView.customerList.getModel();
 		model.clear();
 
 		for (Customer customer : customerList) {

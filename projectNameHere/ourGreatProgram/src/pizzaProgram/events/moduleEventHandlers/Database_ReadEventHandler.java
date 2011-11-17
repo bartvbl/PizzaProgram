@@ -6,7 +6,6 @@ import pizzaProgram.dataObjects.Customer;
 import pizzaProgram.dataObjects.Dish;
 import pizzaProgram.dataObjects.Extra;
 import pizzaProgram.dataObjects.Order;
-import pizzaProgram.database.DatabaseConnection;
 import pizzaProgram.database.DatabaseSearcher;
 import pizzaProgram.database.databaseUtils.DataCleaner;
 import pizzaProgram.database.databaseUtils.DatabaseReader;
@@ -17,12 +16,10 @@ import pizzaProgram.events.EventHandler;
 import pizzaProgram.events.EventType;
 
 public class Database_ReadEventHandler implements EventHandler {
-	private DatabaseConnection databaseConnection;
 	private EventDispatcher eventDispatcher;
 	
 	
-	public Database_ReadEventHandler(DatabaseConnection databaseConnection, EventDispatcher eventDispatcher) {
-		this.databaseConnection = databaseConnection;
+	public Database_ReadEventHandler(EventDispatcher eventDispatcher) {
 		this.eventDispatcher = eventDispatcher;
 		this.addEventListeners();
 	}
@@ -36,7 +33,6 @@ public class Database_ReadEventHandler implements EventHandler {
 		this.eventDispatcher.addEventListener(this, EventType.DATABASE_UPDATE_COOK_GUI_SEARCH_ORDERS_BY_KEYWORDS);
 		this.eventDispatcher.addEventListener(this, EventType.DATABASE_UPDATE_DELIVERY_GUI_SEND_ALL_ORDERS);
 		this.eventDispatcher.addEventListener(this, EventType.DATABASE_UPDATE_DELIVERY_GUI_SEARCH_ORDERS);
-		
 		this.eventDispatcher.addEventListener(this, EventType.DATABASE_UPDATE_ADMINGUI_GUI_SEND_ALL_DISHES);
 		this.eventDispatcher.addEventListener(this, EventType.DATABASE_UPDATE_ADMINGUI_GUI_SEND_ALL_EXTRAS);
 	}
