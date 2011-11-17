@@ -1,6 +1,5 @@
 package pizzaProgram.dataObjects;
 
-import java.sql.Date;
 import java.util.ArrayList;
 
 import pizzaProgram.utils.DateFormatter;

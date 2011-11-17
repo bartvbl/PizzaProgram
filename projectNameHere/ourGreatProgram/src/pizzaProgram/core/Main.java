@@ -51,7 +51,7 @@ public class Main implements EventHandler {
 	}
 	
 	private void initializeLists() {
-		OrderList orderList = new OrderList(eventDispatcher);
+		new OrderList(eventDispatcher);
 		CustomerList.updateCustomers();
 		DishList.updateDishes();
 	}
@@ -71,10 +71,10 @@ public class Main implements EventHandler {
 	 * After they are operational, they will dispatch events to the event dispatcher when the user interacts with the program
 	 */
 	private void createGUIModules(){
-		AdminGUI adminGUI = new AdminGUI(this.programWindow, this.eventDispatcher);
-		DeliverGUI deliverGUI  = new DeliverGUI(this.programWindow, this.eventDispatcher);
-		OrderGUI orderGUI = new OrderGUI(this.programWindow, this.eventDispatcher);
-		CookGUI cookGUI  = new CookGUI(this.programWindow, this.eventDispatcher);
+		new AdminGUI(this.programWindow, this.eventDispatcher);
+		new DeliverGUI(this.programWindow, this.eventDispatcher);
+		new OrderGUI(this.programWindow, this.eventDispatcher);
+		new CookGUI(this.programWindow, this.eventDispatcher);
 	}
 	
 	public void handleEvent(Event<?> event) {

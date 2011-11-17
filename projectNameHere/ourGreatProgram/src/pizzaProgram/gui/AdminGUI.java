@@ -26,9 +26,6 @@ public class AdminGUI extends GUIModule implements EventHandler{
 
 	public ArrayList<Extra> currentExtraList;
 	public Extra currentSelectedExtra;
-	
-	private AdminGUI_SystemEventHandler systemEventhandler;
-	private AdminGUI_AdminViewEventHandler adminViewEventHandler;
 
 	public AdminGUI(ProgramWindow programWindow, EventDispatcher eventDispatcher){
 		super(eventDispatcher);
@@ -37,8 +34,8 @@ public class AdminGUI extends GUIModule implements EventHandler{
 		programWindow.addJPanel(this.adminView);
 		eventDispatcher.addEventListener(this, EventType.OPEN_SETTINGS_WINDOW_REQUESTED);
 
-		this.adminViewEventHandler = new AdminGUI_AdminViewEventHandler(this);
-		this.systemEventhandler = new AdminGUI_SystemEventHandler(eventDispatcher, this);
+		new AdminGUI_AdminViewEventHandler(this);
+		new AdminGUI_SystemEventHandler(eventDispatcher, this);
 		this.setupComponents();
 		this.hide();
 	}

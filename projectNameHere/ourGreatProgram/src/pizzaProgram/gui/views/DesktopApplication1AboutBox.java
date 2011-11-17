@@ -6,6 +6,7 @@ package pizzaProgram.gui.views;
 
 import org.jdesktop.application.Action;
 
+@SuppressWarnings("serial")
 public class DesktopApplication1AboutBox extends javax.swing.JDialog {
 
     public DesktopApplication1AboutBox(java.awt.Frame parent) {

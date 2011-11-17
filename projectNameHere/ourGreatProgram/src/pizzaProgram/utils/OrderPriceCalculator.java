@@ -9,20 +9,17 @@ public class OrderPriceCalculator {
 	private BigDecimal totalOverallOrderCost = new BigDecimal(0);
 	private BigDecimal deliveryCost = new BigDecimal(0);
 	
-	public void reset()
-	{
+	public void reset(){
 		this.totalPrice = new BigDecimal(0);
 		this.totalOverallOrderCost = new BigDecimal(0);
 		this.deliveryCost = new BigDecimal(0);
 	}
 	
-	public void addDishToTotalPrice(DishPrice dishPrice)
-	{
+	public void addDishToTotalPrice(DishPrice dishPrice){
 		this.totalPrice = this.totalPrice.add(dishPrice.getPriceAsBigDecimal());
 	}
 	
-	public OrderPrice getTotalOrderPrice()
-	{
+	public OrderPrice getTotalOrderPrice(){
 		OrderPrice orderPrice = createOrderPriceObject();
 		return orderPrice;
 	}
@@ -33,16 +30,15 @@ public class OrderPriceCalculator {
 		return orderPrice;
 	}
 	
-	private void calculateIndividualPrices()
-	{
+	private void calculateIndividualPrices(){
 		this.deliveryCost = new BigDecimal(DELIVERY_COST);
 		this.totalOverallOrderCost = this.totalPrice.add(new BigDecimal(0));//a bit hacky
 		BigDecimal freeDeliveryLimit = new BigDecimal(FREE_DELIVERY_ABOVE_ORDER_COST);
-		if(this.totalPrice.compareTo(freeDeliveryLimit) > 0)
-		{
+		if(this.totalPrice.compareTo(freeDeliveryLimit) > 0){
 			this.deliveryCost = new BigDecimal(0);
-		} else {
+		}else {
 			this.totalOverallOrderCost = this.totalOverallOrderCost.add(this.deliveryCost);
 		}
 	}
-}
+	
+}//END

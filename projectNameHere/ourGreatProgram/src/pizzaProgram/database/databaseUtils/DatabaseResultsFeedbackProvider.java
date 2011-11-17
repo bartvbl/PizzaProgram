@@ -103,12 +103,24 @@ public class DatabaseResultsFeedbackProvider {
 		showInformationMessage("Customer updated successfully.");
 	}
 	
+	public static void showSearchDishesFailedMessage() {
+		showErrorMessage("Failed to search for dishes");
+	}
+	
+	public static void showSearchExtrasFailedMessage() {
+		showErrorMessage("Failed to search for extras.");
+	}
+	
 	private static void showErrorMessage(String message)
 	{
 		JOptionPane.showMessageDialog(null, message, DEFAULT_ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
 	}
 	
 	private static void showInformationMessage(String message) {
-		JOptionPane.showMessageDialog(null, message, DEFAULT_ERROR_TITLE, JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(null, message, DEFAULT_MESSAGE_TITLE, JOptionPane.INFORMATION_MESSAGE);
 	}
+
+
+
+	
 }

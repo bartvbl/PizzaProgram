@@ -23,8 +23,6 @@ public class OrderGUI extends GUIModule implements EventHandler {
 
 	private OrderView orderView;
 	private ProgramWindow programWindow;
-	private OrderGUI_OrderViewEventHandler orderViewEventHandler;
-	private OrderGUI_SystemEventHandler systemEventHandler;
 
 	public ArrayList<Customer> currentCustomerList;
 	public ArrayList<Dish> currentDishList;
@@ -39,8 +37,8 @@ public class OrderGUI extends GUIModule implements EventHandler {
 		mainWindow.addJPanel(orderView);
 		this.orderView.addPropertyChangeListener(null);
 		this.programWindow = mainWindow;
-		this.orderViewEventHandler = new OrderGUI_OrderViewEventHandler(this.orderView, this);
-		this.systemEventHandler = new OrderGUI_SystemEventHandler(this.orderView, eventDispatcher, this);
+		new OrderGUI_OrderViewEventHandler(this.orderView, this);
+		new OrderGUI_SystemEventHandler(eventDispatcher, this);
 		this.setupComponents();
 		hide();
 	}

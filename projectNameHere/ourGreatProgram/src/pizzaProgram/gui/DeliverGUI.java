@@ -20,9 +20,6 @@ public class DeliverGUI extends GUIModule implements EventHandler {
 
 	private DeliveryView deliverView;
 	private ProgramWindow programWindow;
-
-	private DeliveryGUI_DeliveryViewEventHandler deliveryViewEventHandler;
-	private DeliveryGUI_SystemEventHandler systemEventHandler;
 	
 	public ArrayList<Order> currentOrderList;
 	public Order currentOrder;
@@ -39,8 +36,8 @@ public class DeliverGUI extends GUIModule implements EventHandler {
 		this.programWindow = mainWindow;
 		hide();
 		this.setupComponents();
-		this.deliveryViewEventHandler = new DeliveryGUI_DeliveryViewEventHandler(this);
-		this.systemEventHandler = new DeliveryGUI_SystemEventHandler(eventDispatcher, this);
+		new DeliveryGUI_DeliveryViewEventHandler(this);
+		new DeliveryGUI_SystemEventHandler(eventDispatcher, this);
 	}
 	
 	private void setupComponents(){
