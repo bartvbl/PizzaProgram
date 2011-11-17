@@ -89,7 +89,7 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 	}
 	
 	private void handleExtraConfirmButtonClick() {
-		boolean active = AdminView.editExtraExtraIsActiveComboBox.getSelectedItem().equals("yes") ? true :false;
+		boolean active = AdminView.editExtraExtraIsActiveComboBox.getSelectedItem().equals(Constants.GUI_TRUE) ? true :false;
 		String name = DataCleaner.cleanDbData(AdminView.editExtraExtraNameTextBox.getText());
 		String price = DataCleaner.cleanDbData(AdminView.editExtraExtraPriceTextArea.getText()).replaceAll(" ", "");
 		

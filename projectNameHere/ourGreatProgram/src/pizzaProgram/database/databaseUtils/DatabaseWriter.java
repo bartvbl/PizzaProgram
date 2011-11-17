@@ -143,12 +143,12 @@ public class DatabaseWriter {
 
 	public static void updateExtraByExtraID(Extra extra) {
 		try {
-			int isActive = convertBooleanToTinyInt(extra.isActive);
+			//int isActive = convertBooleanToTinyInt(extra.isActive);
 			String price = extra.priceFuncPart
 					+ Double.toString(extra.priceValPart);
 			DatabaseConnection.executeWriteQuery("UPDATE Extras SET Name='"
 					+ extra.name + "', Price='" + price + "', IsActive="
-					+ isActive + " WHERE ExtrasID=" + extra.id + ";");
+					+ extra.isActive + " WHERE ExtrasID=" + extra.id + ";");
 		} catch (SQLException e) {
 			DatabaseResultsFeedbackProvider.showUpdateExtraFailedMessage();
 			e.printStackTrace();
