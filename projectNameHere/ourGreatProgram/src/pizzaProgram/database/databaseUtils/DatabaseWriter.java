@@ -91,9 +91,9 @@ public class DatabaseWriter {
 							+ ", '" + customer.city + "', "
 							+ customer.phoneNumber + ", " + commentID + ", '"
 							+ createCustomerIdentifier(customer) + "');");
-			DatabaseResultsFeedbackProvider.showAddNewCustomerSuccessMessage();
+			DatabaseResultsFeedbackProvider.showUpdateCustomerSuccessMessage();
 		} catch (SQLException e) {
-			DatabaseResultsFeedbackProvider.showAddNewCustomerFailedMessage();
+			DatabaseResultsFeedbackProvider.showUpdateCustomerFailedMessage();
 			e.printStackTrace();
 		}
 	}

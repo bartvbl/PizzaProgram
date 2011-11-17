@@ -52,7 +52,7 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler implem
 		OrderView.changeCustomerButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(currentSelecetedCustomer == null){
-					JOptionPane.showMessageDialog(null, "Du må velge en kunde for å endre en kunde!", "Feil", JOptionPane.ERROR_MESSAGE);
+					DatabaseResultsFeedbackProvider.showEditCustomerFailedNoCustomerSelectedMessage();
 					return;
 				}
 				new NewCustomerWindow(orderGUI, NewCustomerWindow.UPDATE_CUSTOMER, currentSelecetedCustomer);
