@@ -32,7 +32,7 @@ public class DatabaseDataObjectGenerator {
 		return customerList;
 	}
 
-	static ArrayList<Extra> generateExtrasList(ResultSet results) throws SQLException {
+	public static ArrayList<Extra> generateExtrasList(ResultSet results) throws SQLException {
 		ArrayList<Extra> extrasList = new ArrayList<Extra>();
 		Extra currentExtra;
 		while(results.next()){

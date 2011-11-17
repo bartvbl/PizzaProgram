@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import pizzaProgram.dataObjects.Customer;
 import pizzaProgram.dataObjects.Dish;
+import pizzaProgram.dataObjects.Extra;
 import pizzaProgram.dataObjects.Order;
 import pizzaProgram.database.databaseUtils.DatabaseDataObjectGenerator;
 import pizzaProgram.database.databaseUtils.DatabaseReader;
@@ -40,8 +41,37 @@ public class DatabaseSearcher {
 		}
 		return null;
 	}
+	
+	public static ArrayList<Extra> searchExtraByString(String searchQuery){
+		String query = DatabaseSearcher.generateExtraSearchQuery(searchQuery);
+		ResultSet results = DatabaseConnection.fetchData(query);
+		ArrayList<Extra> dishList = new ArrayList<Extra>();
+		try {
+			dishList = DatabaseDataObjectGenerator.generateExtrasList(results);
+			return dishList;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			DatabaseResultsFeedbackProvider.showSearchDishesFailedMessage();
+		}
+		return null;
+	}
+	
+	public static ArrayList<Order> getOrdersByKeywords(String keywordString, String[] orderStatusStringList) {
+		String whereClause = DatabaseSearcher.generateOrderSearchWhereClause(keywordString, orderStatusStringList);
+		String query = DatabaseReader.getOrderSelectionQuery(whereClause, "LIMIT 30");
+		ResultSet results = DatabaseConnection.fetchData(query);
+		ArrayList<Order> orderList = new ArrayList<Order>();
+		try {
+			orderList = DatabaseDataObjectGenerator.generateOrderListFromResultSet(results);
+			return orderList;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			DatabaseResultsFeedbackProvider.showSearchOrdersFailedMessage();
+		}
+		return null;
+	}
 
-	public static String generateCustomerSearchQuery(String searchQuery) {
+	private static String generateCustomerSearchQuery(String searchQuery) {
 		String query = "SELECT * FROM Customer LEFT JOIN CustomerNotes ON (Customer.commentID = CustomerNotes.NoteID) WHERE (";
 		String[] keywords = searchQuery.split(" ");
 		int counter = 0;
@@ -58,7 +88,7 @@ public class DatabaseSearcher {
 		return query;
 	}
 
-	public static String generateDishSearchQuery(String searchQuery)
+	private static String generateDishSearchQuery(String searchQuery)
 	{
 		String query = "SELECT * FROM Dishes WHERE (";
 		String[] keywords = searchQuery.split(" ");
@@ -78,38 +108,22 @@ public class DatabaseSearcher {
 
 	private static String generateExtraSearchQuery(String searchQuery)
 	{
-		String query = "SELECT * FROM Dishes WHERE (";
+		String query = "SELECT * FROM Extras WHERE (";
 		String[] keywords = searchQuery.split(" ");
 		int counter = 0;
 		for(String keyword : keywords){
 			if(counter != 0){
 				query += "OR";
 			}
-			query += "(Dishes.Price LIKE '%"+keyword+"%') OR ";
-			query += "(Dishes.Name LIKE '%"+keyword+"%') OR ";
-			query += "(Dishes.Description LIKE '%"+keyword+"%')";
+			query += "(Extras.Price LIKE '%"+keyword+"%') OR ";
+			query += "(Extras.Name LIKE '%"+keyword+"%') OR ";
 			counter++;
 		}
 		query += ") LIMIT 30;";
 		return query;
 	}
 
-	public static ArrayList<Order> getOrdersByKeywords(String keywordString, String[] orderStatusStringList) {
-		String whereClause = DatabaseSearcher.generateOrderSearchWhereClause(keywordString, orderStatusStringList);
-		String query = DatabaseReader.getOrderSelectionQuery(whereClause, "LIMIT 30");
-		ResultSet results = DatabaseConnection.fetchData(query);
-		ArrayList<Order> orderList = new ArrayList<Order>();
-		try {
-			orderList = DatabaseDataObjectGenerator.generateOrderListFromResultSet(results);
-			return orderList;
-		} catch (SQLException e) {
-			e.printStackTrace();
-			DatabaseResultsFeedbackProvider.showSearchOrdersFailedMessage();
-		}
-		return null;
-	}
-
-	public static String generateOrderSearchWhereClause(String keywordString, String[] orderStatus){
+	private static String generateOrderSearchWhereClause(String keywordString, String[] orderStatus){
 		String[] keywords = keywordString.split(" ");
 		String whereClause = "(";
 		int counter = 0;
