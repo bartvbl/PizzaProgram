@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.swing.table.DefaultTableModel;
 
+import pizzaProgram.core.Constants;
 import pizzaProgram.dataObjects.Order;
 import pizzaProgram.database.databaseUtils.DatabaseResultsFeedbackProvider;
 import pizzaProgram.events.Event;
@@ -34,16 +35,18 @@ public class DeliveryGUI_SystemEventHandler implements EventHandler{
 	}
 
 	private void updateOrderList(Event<?> event) {
-		if(!(event.getEventParameterObject() instanceof ArrayList<?>)){
+		if(event.getEventParameterObject() instanceof ArrayList<?>){
+			@SuppressWarnings("unchecked")
+			ArrayList<Order> orderList = (ArrayList<Order>)event.getEventParameterObject();
+			this.deliveryGUI.currentOrderList = orderList;
+			DefaultTableModel tableModel = (DefaultTableModel)DeliveryView.activeOrdersTable.getModel();
+			tableModel.setRowCount(0);
+			for(Order order : orderList){
+				tableModel.addRow(new Object[]{order.orderID, Constants.translateOrderStatus(order.status), order.timeRegistered, Constants.translateDeliveryMethod(order.deliveryMethod)});
+			}
+		}else{
 			DatabaseResultsFeedbackProvider.showGetAllUndeliveredOrdersFailedMessage();
 			return;
-		}
-		ArrayList<Order> orderList = (ArrayList<Order>)event.getEventParameterObject();
-		this.deliveryGUI.currentOrderList = orderList;
-		DefaultTableModel tableModel = (DefaultTableModel)DeliveryView.activeOrdersTable.getModel();
-		tableModel.setRowCount(0);
-		for(Order order : orderList){
-			tableModel.addRow(new Object[]{order.orderID, order.status, order.timeRegistered, order.deliveryMethod});
 		}
 	}
 	

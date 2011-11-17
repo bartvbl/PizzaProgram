@@ -1,10 +1,6 @@
 package pizzaProgram.utils;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-
-import pizzaProgram.dataObjects.Extra;
-import pizzaProgram.dataObjects.OrderDish;
 
 public class OrderPriceCalculator {
 	private static final int FREE_DELIVERY_ABOVE_ORDER_COST = 200;

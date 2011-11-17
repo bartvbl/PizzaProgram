@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.swing.table.DefaultTableModel;
 
+import pizzaProgram.core.Constants;
 import pizzaProgram.dataObjects.Order;
 import pizzaProgram.events.Event;
 import pizzaProgram.events.EventDispatcher;
@@ -35,17 +36,20 @@ public class CookGUI_SystemEventHandler implements EventHandler {
 	}
 
 	private void updateOrderList(Event<?> event) {
-		if(!(event.getEventParameterObject() instanceof ArrayList<?>)){
+		if(event.getEventParameterObject() instanceof ArrayList<?>){
+			@SuppressWarnings("unchecked")
+			ArrayList<Order> orderList = (ArrayList<Order>)event.getEventParameterObject();
+			this.cookGUI.currentOrderList = orderList;
+			DefaultTableModel tableModel = (DefaultTableModel)CookView.orderDetailsTable.getModel();
+			tableModel.setRowCount(0);
+			for(Order order : orderList){
+				tableModel.addRow(new Object[]{order.orderID, Constants.translateOrderStatus(order.status), order.timeRegistered});
+			}
+		}else{
 			System.err.println("ERROR: got a list that was not a list of Order instances when trying to update the order list in the cook GUI.");
 			return;
 		}
-		ArrayList<Order> orderList = (ArrayList<Order>)event.getEventParameterObject();
-		this.cookGUI.currentOrderList = orderList;
-		DefaultTableModel tableModel = (DefaultTableModel)CookView.orderDetailsTable.getModel();
-		tableModel.setRowCount(0);
-		for(Order order : orderList){
-			tableModel.addRow(new Object[]{order.orderID, order.status, order.timeRegistered});
-		}
+		
 	}
 	
 }//END
