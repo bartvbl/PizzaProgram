@@ -9,8 +9,7 @@ public class DishPrice {
 		this.totalPrice = totalPrice;
 	}
 	
-	public String getPriceAsString()
-	{
+	public String getPriceAsString(){
 		BigDecimal copyOfValue = this.totalPrice.setScale(1, BigDecimal.ROUND_HALF_EVEN);
 		String valueString = this.totalPrice.toPlainString();
 		if(valueString.indexOf('.') == -1)
@@ -21,8 +20,7 @@ public class DishPrice {
 		return valueString;
 	}
 	
-	public BigDecimal getPriceAsBigDecimal()
-	{
+	public BigDecimal getPriceAsBigDecimal(){
 		return this.totalPrice;
 	}
 

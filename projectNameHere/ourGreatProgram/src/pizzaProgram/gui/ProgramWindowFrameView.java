@@ -4,17 +4,18 @@
 
 package pizzaProgram.gui;
 
-import pizzaProgram.core.PizzaProgram;
-import pizzaProgram.gui.views.DesktopApplication1AboutBox;
-import java.awt.MenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JRadioButtonMenuItem;
-import org.jdesktop.application.Action;
-import org.jdesktop.application.SingleFrameApplication;
-import org.jdesktop.application.FrameView;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JRadioButtonMenuItem;
+
+import org.jdesktop.application.Action;
+import org.jdesktop.application.FrameView;
+import org.jdesktop.application.SingleFrameApplication;
+
+import pizzaProgram.core.PizzaProgram;
+import pizzaProgram.gui.views.DesktopApplication1AboutBox;
 
 /**
  * The application's main frame.

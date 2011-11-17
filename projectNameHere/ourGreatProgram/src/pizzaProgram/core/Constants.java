@@ -24,13 +24,25 @@ public class Constants{
 	public static final String GUI_DELIVER = "Lever hjem";
 	public static final String GUI_PICKUP = "Hent selv";
 
-	//norsk status
+	/**
+	 * The guiword for registered status
+	 */
 	public static final String GUI_REGISTERED = "Registrert";
-	public static final String GUI_COOKING = "Tilberedes";
-	public static final String GUI_FINCOOKING = "Klar for levering";
-	public static final String GUI_DELIVERING = "Underveis";
-	public static final String GUI_DELIVERED = "Levert";
 	
+	/**
+	 * The guiword for cooking status
+	 */
+	public static final String GUI_COOKING = "Tilberedes";
+	
+	/**
+	 * The guiword for cooking status
+	 */
+	public static final String GUI_FINCOOKING = "Klar for levering";
+	
+	/**
+	 * The guiword for being cooked status
+	 */
+	public static final String GUI_DELIVERING = "Underveis";
 	
 	public static String translateDeliveryMethod(String s){
 		if(s.equals(Order.DELIVER_AT_HOME)){
@@ -51,11 +63,9 @@ public class Constants{
 		else if(s.equals(Order.HAS_BEEN_COOKED)){
 			return GUI_FINCOOKING;
 		}
-		else if(s.equals(Order.BEING_DELIVERED)){
+		else{
 			return GUI_DELIVERING;
 		}
-		else{
-			return GUI_DELIVERED;
-		}
+		
 	}
 }
