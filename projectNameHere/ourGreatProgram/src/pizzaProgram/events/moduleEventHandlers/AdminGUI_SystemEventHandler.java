@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.swing.table.DefaultTableModel;
 
+import pizzaProgram.core.Constants;
 import pizzaProgram.dataObjects.Dish;
 import pizzaProgram.dataObjects.Extra;
 import pizzaProgram.events.Event;
@@ -52,7 +53,7 @@ public class AdminGUI_SystemEventHandler implements EventHandler {
 		DefaultTableModel tableModel = (DefaultTableModel)AdminView.allRegisteredExtrasTable.getModel();
 		tableModel.setRowCount(0);
 		for(Extra e : extraList){
-			tableModel.addRow(new Object[]{e.name, e.priceFuncPart + " " + e.priceValPart, e.isActive});
+			tableModel.addRow(new Object[]{e.name, e.priceFuncPart + "" + e.priceValPart, e.isActive ? Constants.GUI_TRUE : Constants.GUI_FALSE});
 		}
 	}
 	
@@ -67,7 +68,7 @@ public class AdminGUI_SystemEventHandler implements EventHandler {
 		DefaultTableModel tableModel = (DefaultTableModel)AdminView.allActiveDishesTable.getModel();
 		tableModel.setRowCount(0);
 		for(Dish d : dishList){
-			tableModel.addRow(new Object[]{d.name, d.price + " kr", d.isActive});
+			tableModel.addRow(new Object[]{d.name, d.price + " kr", d.isActive ? Constants.GUI_TRUE : Constants.GUI_FALSE});
 		}
 	}
 	

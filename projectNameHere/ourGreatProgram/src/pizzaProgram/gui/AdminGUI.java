@@ -45,9 +45,9 @@ public class AdminGUI extends GUIModule implements EventHandler{
 
 	private void setupComponents() {
 		DefaultTableModel dishTableModel = (DefaultTableModel) AdminView.allActiveDishesTable.getModel();
-		dishTableModel.addColumn("Name");
-		dishTableModel.addColumn("Price");
-		dishTableModel.addColumn("Active");
+		dishTableModel.addColumn("Navn");
+		dishTableModel.addColumn("Pris");
+		dishTableModel.addColumn("I sortiment");
 		AdminView.allActiveDishesTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
 		//DROPDOWNS
@@ -65,9 +65,9 @@ public class AdminGUI extends GUIModule implements EventHandler{
 		AdminView.editDishIsVegetarianComboBox.addItem(Constants.GUI_FALSE);
 		
 		DefaultTableModel extraTableModel = (DefaultTableModel) AdminView.allRegisteredExtrasTable.getModel();
-		extraTableModel.addColumn("Name");
-		extraTableModel.addColumn("Price");
-		extraTableModel.addColumn("Active");
+		extraTableModel.addColumn("Navn");
+		extraTableModel.addColumn("Pris");
+		extraTableModel.addColumn("I sortiment");
 		AdminView.allRegisteredExtrasTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
 		AdminView.editExtraExtraIsActiveComboBox.addItem(Constants.GUI_TRUE);

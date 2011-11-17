@@ -14,7 +14,7 @@
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="9"/>
-    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,40,0,0,2,-75"/>
+    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,40,0,0,3,20"/>
   </AuxValues>
 
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
@@ -46,7 +46,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="editDishesMainSplitPane" alignment="0" pref="688" max="32767" attributes="0"/>
+                  <Component id="editDishesMainSplitPane" alignment="0" pref="783" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -80,10 +80,10 @@
                           <Group type="102" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="addNewDishButton" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace pref="87" max="32767" attributes="0"/>
                               <Component id="searchDishTextBox" min="-2" pref="233" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="allActiveDishesDishTableScrollPane" alignment="0" pref="318" max="32767" attributes="2"/>
+                          <Component id="allActiveDishesDishTableScrollPane" alignment="0" pref="399" max="32767" attributes="2"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
@@ -414,7 +414,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="extrasMainSplitPane" alignment="0" pref="688" max="32767" attributes="0"/>
+                  <Component id="extrasMainSplitPane" alignment="0" pref="783" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -445,25 +445,32 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="extraEditNameLabel" min="-2" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="1" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="1" attributes="0">
                                           <Component id="extraEditPriceTextBox" alignment="1" min="-2" max="-2" attributes="0"/>
-                                          <Component id="editExtraIsActiveLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="extraEditNameLabel" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="editExtraExtraPriceTextArea" alignment="0" max="32767" attributes="1"/>
+                                          <Component id="editExtraExtraNameTextBox" alignment="0" max="32767" attributes="1"/>
+                                          <Component id="jScrollPane1" alignment="0" pref="339" max="32767" attributes="1"/>
+                                      </Group>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="editExtraIsActiveLabel" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="confirmEditExtraButton" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="editExtraExtraIsActiveComboBox" min="-2" pref="94" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
                               </Group>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="confirmEditExtraButton" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="editExtraExtraNameTextBox" pref="187" max="32767" attributes="0"/>
-                                  <Component id="editExtraExtraPriceTextArea" min="-2" pref="83" max="-2" attributes="0"/>
-                                  <Component id="editExtraExtraIsActiveComboBox" alignment="0" min="-2" pref="94" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <EmptySpace pref="22" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -481,13 +488,15 @@
                                   <Component id="extraEditPriceTextBox" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jScrollPane1" min="-2" pref="235" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="editExtraExtraIsActiveComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="editExtraIsActiveLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="editExtraExtraIsActiveComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="confirmEditExtraButton" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="410" max="32767" attributes="0"/>
+                              <EmptySpace pref="169" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -536,6 +545,27 @@
                         <Property name="name" type="java.lang.String" value="editExtraExtraPriceTextArea" noResource="true"/>
                       </Properties>
                     </Component>
+                    <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+                      <Properties>
+                        <Property name="name" type="java.lang.String" value="jScrollPane1" noResource="true"/>
+                      </Properties>
+                      <AuxValues>
+                        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                      </AuxValues>
+
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                      <SubComponents>
+                        <Component class="javax.swing.JTextArea" name="jTextArea1">
+                          <Properties>
+                            <Property name="columns" type="int" value="20"/>
+                            <Property name="editable" type="boolean" value="false"/>
+                            <Property name="rows" type="int" value="5"/>
+                            <Property name="text" type="java.lang.String" resourceKey="jTextArea1.text"/>
+                            <Property name="name" type="java.lang.String" value="jTextArea1" noResource="true"/>
+                          </Properties>
+                        </Component>
+                      </SubComponents>
+                    </Container>
                   </SubComponents>
                 </Container>
                 <Container class="javax.swing.JPanel" name="editExtraExtraSelectionJPanel">
@@ -554,10 +584,10 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="createNewExtraButton" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="61" max="32767" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                               <Component id="searchExtraTextBox" min="-2" pref="233" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="allRegisteredExtrasScrollPane" alignment="0" pref="399" max="32767" attributes="2"/>
+                          <Component id="allRegisteredExtrasScrollPane" alignment="0" pref="344" max="32767" attributes="2"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
