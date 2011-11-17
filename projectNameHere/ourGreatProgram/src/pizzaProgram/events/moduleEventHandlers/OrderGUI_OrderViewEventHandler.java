@@ -276,6 +276,8 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler implem
 		OrderView.customerList.setEnabled(enabled);
 		OrderView.searchCustomerTextArea.setEnabled(enabled);
 		OrderView.newCustomerButton.setEnabled(enabled);
+		OrderView.changeCustomerButton.setEnabled(enabled);
+		OrderView.deleteCustomerButton.setEnabled(enabled);
 	}
 
 }//END
