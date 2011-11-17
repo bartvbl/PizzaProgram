@@ -8,7 +8,7 @@ public class Dish {
 	public final String name;
 	public final boolean containsGluten;
 	public final boolean containsNuts;
-	public final boolean containsDiary;
+	public final boolean containsDairy;
 	public final boolean isVegetarian;
 	public final boolean isSpicy;
 	public final String description;
@@ -23,7 +23,7 @@ public class Dish {
 		this.name = name;
 		this.containsGluten = containsGluten;
 		this.containsNuts = containsNuts;
-		this.containsDiary = containsDiary;
+		this.containsDairy = containsDiary;
 		this.isVegetarian = isVegetarian;
 		this.isSpicy = isSpicy;
 		this.description = description;
@@ -31,7 +31,7 @@ public class Dish {
 	}
 	
 	public String toString(){
-		return dishID + " " + price + " " + name + " " + containsGluten + " " + containsNuts + " " + containsDiary + " " + isVegetarian + " " + isSpicy + " " + description;
+		return dishID + " " + price + " " + name + " " + containsGluten + " " + containsNuts + " " + containsDairy + " " + isVegetarian + " " + isSpicy + " " + description;
 	}
 
 }// END

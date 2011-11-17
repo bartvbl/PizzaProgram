@@ -221,7 +221,7 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 		char trueChar = Constants.GUI_TRUE.charAt(0);
 		char falseChar = Constants.GUI_FALSE.charAt(0);
 		
-		char selectDiaryYN = selectedDish.containsDiary ? trueChar: falseChar;
+		char selectDiaryYN = selectedDish.containsDairy ? trueChar: falseChar;
 		AdminView.editDishContainsDairyComboBox.selectWithKeyChar(selectDiaryYN);
 		
 		char selectGlutenYN = selectedDish.containsGluten ? trueChar: falseChar;

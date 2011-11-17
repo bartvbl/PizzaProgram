@@ -262,7 +262,7 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler implem
 		OrderView.dishDescriptionTextArea.setText(dish.description);
 		OrderView.dishContainsGlutenText.setText(this.convertBooleanToYesOrNoString(dish.containsGluten));
 		OrderView.dishContainsNutsText.setText(this.convertBooleanToYesOrNoString(dish.containsNuts));
-		OrderView.dishContainsDairyText.setText(this.convertBooleanToYesOrNoString(dish.containsDiary));
+		OrderView.dishContainsDairyText.setText(this.convertBooleanToYesOrNoString(dish.containsDairy));
 		OrderView.dishIsVegetarianText.setText(this.convertBooleanToYesOrNoString(dish.isVegetarian));
 		OrderView.dishisSpicyText.setText(this.convertBooleanToYesOrNoString(dish.isSpicy));
 	}

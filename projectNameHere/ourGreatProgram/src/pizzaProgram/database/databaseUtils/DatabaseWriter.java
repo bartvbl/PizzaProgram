@@ -99,20 +99,14 @@ public class DatabaseWriter {
 	}
 
 	public static void writeNewDish(Dish dish) {
-		int containsGluten = convertBooleanToTinyInt(dish.containsGluten);
-		int containsNuts = convertBooleanToTinyInt(dish.containsNuts);
-		int containsDairy = convertBooleanToTinyInt(dish.containsDiary);
-		int isSpicy = convertBooleanToTinyInt(dish.isSpicy);
-		int isVegetarian = convertBooleanToTinyInt(dish.isVegetarian);
-		int dishIsActive = convertBooleanToTinyInt(dish.isActive);
 		try {
 			DatabaseConnection
 					.executeWriteQuery("INSERT INTO Dishes VALUES (NULL, "
 							+ dish.price + ", '" + dish.name + "', "
-							+ containsGluten + ", " + containsNuts + ", "
-							+ containsDairy + ", " + isSpicy + ", "
-							+ isVegetarian + ", '" + dish.description + "', "
-							+ dishIsActive + ");");
+							+ dish.containsGluten + ", " + dish.containsNuts + ", "
+							+ dish.containsDairy + ", " + dish.isSpicy + ", "
+							+ dish.isVegetarian + ", '" + dish.description + "', "
+							+ dish.isActive + ");");
 			DatabaseResultsFeedbackProvider.showAddNewDishSucceededMessage();
 		} catch (SQLException e) {
 			DatabaseResultsFeedbackProvider.showAddNewDishFailedMessage();
@@ -122,19 +116,13 @@ public class DatabaseWriter {
 
 	public static void updateDishByDishID(Dish dish) {
 		try {
-			int containsGluten = convertBooleanToTinyInt(dish.containsGluten);
-			int containsDairy = convertBooleanToTinyInt(dish.containsDiary);
-			int containsNuts = convertBooleanToTinyInt(dish.containsNuts);
-			int isVegetarian = convertBooleanToTinyInt(dish.isVegetarian);
-			int isSpicy = convertBooleanToTinyInt(dish.isSpicy);
-			int isActive = convertBooleanToTinyInt(dish.isActive);
 			DatabaseConnection.executeWriteQuery("UPDATE Dishes SET Price="
 					+ dish.price + ", Name='" + dish.name
-					+ "', ContainsGluten=" + containsGluten + ", ContainsNuts="
-					+ containsNuts + ", ContainsDairy=" + containsDairy
-					+ ", IsSpicy=" + isSpicy + ", IsVegetarian=" + isVegetarian
+					+ "', ContainsGluten=" + dish.containsGluten + ", ContainsNuts="
+					+ dish.containsNuts + ", ContainsDairy=" + dish.containsDairy
+					+ ", IsSpicy=" + dish.isSpicy + ", IsVegetarian=" + dish.isVegetarian
 					+ ", Description='" + dish.description + "', IsActive="
-					+ isActive + " WHERE DishID=" + dish.dishID + ";");
+					+ dish.isActive + " WHERE DishID=" + dish.dishID + ";");
 		} catch (SQLException e) {
 			DatabaseResultsFeedbackProvider.showUpdateDishFailedMessage();
 			e.printStackTrace();
@@ -143,7 +131,6 @@ public class DatabaseWriter {
 
 	public static void updateExtraByExtraID(Extra extra) {
 		try {
-			//int isActive = convertBooleanToTinyInt(extra.isActive);
 			String price = extra.priceFuncPart
 					+ Double.toString(extra.priceValPart);
 			DatabaseConnection.executeWriteQuery("UPDATE Extras SET Name='"
@@ -156,14 +143,13 @@ public class DatabaseWriter {
 	}
 
 	public static void writeNewExtra(Extra extra) {
-		int extraIsActive = convertBooleanToTinyInt(extra.isActive);
 		String priceString = extra.priceFuncPart
 				+ Double.toString(extra.priceValPart);
 		try {
 			DatabaseConnection
 					.executeWriteQuery("INSERT INTO Extras VALUES (NULL, '"
 							+ extra.name + "', '" + priceString + "', "
-							+ extraIsActive + ");");
+							+ extra.isActive + ");");
 			DatabaseResultsFeedbackProvider.showAddNewExtraSucceededMessage();
 		} catch (SQLException e) {
 			DatabaseResultsFeedbackProvider.showAddNewExtraFailedMessage();
@@ -277,14 +263,6 @@ public class DatabaseWriter {
 				.insertIntoDBAndReturnID("INSERT INTO OrderComments VALUES (NULL, '"
 						+ comment + "');");
 		return commentID;
-	}
-
-	private static int convertBooleanToTinyInt(boolean bool) {
-		if (bool == true) {
-			return 1;
-		} else {
-			return 0;
-		}
 	}
 
 	public static String createCustomerIdentifier(Customer customer) {
