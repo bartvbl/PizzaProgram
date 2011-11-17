@@ -1,4 +1,4 @@
-package pizzaProgram.database;
+package pizzaProgram.database.databaseUtils;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,9 +8,7 @@ import pizzaProgram.dataObjects.Customer;
 import pizzaProgram.dataObjects.Dish;
 import pizzaProgram.dataObjects.Extra;
 import pizzaProgram.dataObjects.Order;
-import pizzaProgram.database.databaseUtils.DatabaseDataObjectGenerator;
-import pizzaProgram.database.databaseUtils.DatabaseReader;
-import pizzaProgram.database.databaseUtils.DatabaseResultsFeedbackProvider;
+import pizzaProgram.database.DatabaseConnection;
 
 public class DatabaseSearcher {
 
