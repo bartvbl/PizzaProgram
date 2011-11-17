@@ -7,6 +7,8 @@ package pizzaProgram.events.moduleEventHandlers;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -67,7 +69,19 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler implem
 		OrderView.extrasSearchTextField.addKeyListener(new KeyListener(){public void keyPressed(KeyEvent e) {} public void keyTyped(KeyEvent e) {}
 			public void keyReleased(KeyEvent e) {
 				handleExtrasSearchTyping(); }});
-
+		
+		OrderView.searchCustomerTextArea.addFocusListener(new FocusListener(){public void focusLost(FocusEvent arg0) {}
+			public void focusGained(FocusEvent arg0) {
+				handleCustomerSearchBoxSelection();}});
+		
+		OrderView.dishSearchTextBox.addFocusListener(new FocusListener(){public void focusLost(FocusEvent arg0) {}
+		public void focusGained(FocusEvent arg0) {
+			handleDishSearchBoxSelection();}});
+		
+		OrderView.extrasSearchTextField.addFocusListener(new FocusListener(){public void focusLost(FocusEvent arg0) {}
+		public void focusGained(FocusEvent arg0) {
+			handleExtrasSearchBoxSelection();}});
+		
 		OrderView.selectCustomerButton.addActionListener(this);
 		this.registerEventType(OrderView.selectCustomerButton, "selectCustomer");
 
@@ -115,6 +129,21 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler implem
 		}
 	}
 	
+	private void handleCustomerSearchBoxSelection() {
+		OrderView.searchCustomerTextArea.setSelectionStart(0);
+		OrderView.searchCustomerTextArea.setSelectionEnd(OrderView.searchCustomerTextArea.getText().length());
+	}
+	
+	private void handleDishSearchBoxSelection() {
+		OrderView.dishSearchTextBox.setSelectionStart(0);
+		OrderView.dishSearchTextBox.setSelectionEnd(OrderView.dishSearchTextBox.getText().length());
+	}
+	
+	private void handleExtrasSearchBoxSelection() {
+		OrderView.extrasSearchTextField.setSelectionStart(0);
+		OrderView.extrasSearchTextField.setSelectionEnd(OrderView.extrasSearchTextField.getText().length());
+	}
+
 	protected void handleCustomerSearchTyping() {
 		if(OrderView.searchCustomerTextArea.getText().equals("")){
 			showAllCustomers();
@@ -225,6 +254,7 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler implem
 		((DefaultListModel)OrderView.dishSelectionList.getModel()).clear();
 		((DefaultListModel)OrderView.extrasSelectionList.getModel()).clear();
 		this.setCustomerSelectionAreaEnabled(true);
+		this.setOrderEditingAreaEnabled(false);
 		OrderView.orderCommentsTextArea.setText("");
 		OrderView.dishDescriptionTextArea.setText("");
 		OrderView.dishContainsGlutenText.setText("");
@@ -265,6 +295,7 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler implem
 
 	private void selectCustomer(ActionEvent event) {
 		this.setCustomerSelectionAreaEnabled(false);
+		this.setOrderEditingAreaEnabled(true);
 		this.dispatchEvent(new Event<Object>(EventType.DATABASE_UPDATE_ORDER_GUI_DISH_LIST));
 		this.dispatchEvent(new Event<Integer>(EventType.DATABASE_UPDATE_ORDER_GUI_EXTRAS_LIST));
 	}
@@ -316,6 +347,23 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler implem
 		OrderView.newCustomerButton.setEnabled(enabled);
 		OrderView.changeCustomerButton.setEnabled(enabled);
 		OrderView.deleteCustomerButton.setEnabled(enabled);
+	}
+	
+	private void setOrderEditingAreaEnabled(boolean enabled)
+	{
+		OrderView.dishSearchTextBox.setEnabled(enabled);
+		OrderView.extrasSearchTextField.setEnabled(enabled);
+		OrderView.addDishButton.setEnabled(enabled);
+		OrderView.dishSelectionList.setEnabled(enabled);
+		OrderView.extrasSelectionList.setEnabled(enabled);
+		OrderView.dishDescriptionTextArea.setEnabled(enabled);
+		OrderView.orderCommentsTextArea.setEnabled(enabled);
+		OrderView.resetOrderButton.setEnabled(enabled);
+		OrderView.confirmOrderButton.setEnabled(enabled);
+		OrderView.deliveryMethodComboBox.setEnabled(enabled);
+		OrderView.duplicateSelectedOrderDishButton.setEnabled(enabled);
+		OrderView.deleteSelectedOrderDishButton.setEnabled(enabled);
+		OrderView.orderContentsTable.setEnabled(enabled);
 	}
 
 }//END
