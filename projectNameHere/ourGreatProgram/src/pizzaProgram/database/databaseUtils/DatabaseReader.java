@@ -168,11 +168,11 @@ public class DatabaseReader {
 			}
 			if(result.getInt(33) != currentOrderContentID){
 				currentOrderContentID = result.getInt(33);
-				currentDish = createDish(result, 11);
+				currentDish = createDish(result, 12);
 				currentOrderDish = new OrderDish(currentOrder.orderID, currentDish);
 				currentOrder.addOrderDish(currentOrderDish);
 			}
-			currentExtra = createExtra(result, 21);
+			currentExtra = createExtra(result, 22);
 			currentOrderDish.addExtra(currentExtra);
 		}
 		return orderList;
@@ -289,10 +289,10 @@ public class DatabaseReader {
 	}
 	
 	private static Order createOrder(ResultSet resultSet, Customer customer, int orderTableColumnOffset, int orderCommentsTableColumnOffset) throws SQLException{
-		int orderID = resultSet.getInt(orderTableColumnOffset + 0);
-		String timeRegistered = resultSet.getString(orderTableColumnOffset + 2);
-		String orderStatus = resultSet.getString(orderTableColumnOffset + 3);
-		String deliveryMethod = resultSet.getString(orderTableColumnOffset + 4);
+		int orderID = resultSet.getInt(orderTableColumnOffset + 1);
+		String timeRegistered = resultSet.getString(orderTableColumnOffset + 3);
+		String orderStatus = resultSet.getString(orderTableColumnOffset + 4);
+		String deliveryMethod = resultSet.getString(orderTableColumnOffset + 5);
 		String comment = resultSet.getString(orderCommentsTableColumnOffset + 1);
 		Order order = new Order(orderID, customer, timeRegistered, orderStatus, deliveryMethod, comment);
 		return order;
