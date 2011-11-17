@@ -164,7 +164,7 @@ public class Database_WriteEventHandler implements EventHandler {
 	}
 	private void updateCustomer(Event<?> event) {
 		if(!(event.getEventParameterObject() instanceof Customer)){
-			DatabaseResultsFeedbackProvider.showAddNewCustomerFailedMessage();
+			DatabaseResultsFeedbackProvider.showUpdateCustomerFailedMessage();
 			return;
 		}
 		DatabaseWriter.updateCustomerById((Customer)event.getEventParameterObject());
