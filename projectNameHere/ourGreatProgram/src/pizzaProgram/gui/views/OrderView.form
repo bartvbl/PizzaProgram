@@ -14,7 +14,7 @@
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="25"/>
-    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,54,0,0,3,-128"/>
+    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,54,0,0,3,-87"/>
   </AuxValues>
 
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
@@ -32,7 +32,7 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="mainSplitPane" alignment="0" pref="896" max="32767" attributes="0"/>
+              <Component id="mainSplitPane" alignment="0" pref="937" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -71,10 +71,6 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="searchCustomerTextArea" pref="243" max="32767" attributes="1"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
                                   <Component id="customerListScrollPane" pref="243" max="32767" attributes="3"/>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
@@ -102,6 +98,12 @@
                                   <Component id="selectCustomerButton" min="-2" pref="116" max="-2" attributes="1"/>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="searchCustomerTextArea" pref="177" max="32767" attributes="1"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
                   </Group>
@@ -112,7 +114,10 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="searchCustomerTextArea" min="-2" pref="20" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="searchCustomerTextArea" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
+                              <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="customerListScrollPane" pref="313" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
@@ -223,6 +228,12 @@
                     <Property name="name" type="java.lang.String" value="jLabel2" noResource="true"/>
                   </Properties>
                 </Component>
+                <Component class="javax.swing.JLabel" name="jLabel3">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" resourceKey="jLabel3.text"/>
+                    <Property name="name" type="java.lang.String" value="jLabel3" noResource="true"/>
+                  </Properties>
+                </Component>
               </SubComponents>
             </Container>
             <Container class="javax.swing.JPanel" name="orderCreationUI">
@@ -238,7 +249,7 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="orderCreationUIVerticalSplitPane" alignment="0" pref="630" max="32767" attributes="0"/>
+                      <Component id="orderCreationUIVerticalSplitPane" alignment="0" pref="671" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
@@ -271,29 +282,36 @@
                         <DimensionLayout dim="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="addDishButton" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <Group type="103" groupAlignment="1" attributes="0">
-                                              <Component id="dishDescriptionArea" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="jScrollPane1" alignment="1" pref="303" max="32767" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                      </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="dishSelectionSectionLabel" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
-                                          <Component id="DishSearchTextBox" pref="303" max="32767" attributes="0"/>
+                                          <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="dishSearchTextBox" pref="267" max="32767" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Group type="103" groupAlignment="1" attributes="0">
+                                              <Component id="jScrollPane1" alignment="0" pref="328" max="32767" attributes="0"/>
+                                              <Component id="dishDescriptionArea" alignment="1" max="32767" attributes="0"/>
+                                          </Group>
                                           <EmptySpace max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
+                                  <EmptySpace min="10" pref="10" max="10" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="extrasSearchTextField" pref="242" max="32767" attributes="0"/>
+                                      </Group>
+                                      <Component id="jScrollPane2" alignment="0" pref="311" max="32767" attributes="0"/>
                                       <Component id="extrasSelectionSectionLabel" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jScrollPane2" alignment="0" pref="299" max="32767" attributes="0"/>
-                                      <Component id="extrasSearchTextField" alignment="0" pref="299" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
@@ -304,22 +322,26 @@
                               <Group type="102" alignment="1" attributes="0">
                                   <EmptySpace min="-2" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="extrasSelectionSectionLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="dishSelectionSectionLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="extrasSelectionSectionLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="DishSearchTextBox" min="-2" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="dishSearchTextBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
                                       <Component id="extrasSearchTextField" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jScrollPane2" pref="242" max="32767" attributes="0"/>
                                       <Group type="102" attributes="0">
-                                          <Component id="jScrollPane1" pref="98" max="32767" attributes="0"/>
+                                          <Component id="jScrollPane1" pref="158" max="32767" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="dishDescriptionArea" min="-2" max="-2" attributes="0"/>
                                       </Group>
+                                      <Component id="jScrollPane2" pref="302" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" max="-2" attributes="0"/>
                                   <Component id="addDishButton" min="-2" max="-2" attributes="0"/>
@@ -367,10 +389,10 @@
                             </Component>
                           </SubComponents>
                         </Container>
-                        <Component class="javax.swing.JTextField" name="DishSearchTextBox">
+                        <Component class="javax.swing.JTextField" name="dishSearchTextBox">
                           <Properties>
-                            <Property name="text" type="java.lang.String" resourceKey="DishSearchTextBox.text"/>
-                            <Property name="name" type="java.lang.String" value="DishSearchTextBox" noResource="true"/>
+                            <Property name="text" type="java.lang.String" resourceKey="dishSearchTextBox.text"/>
+                            <Property name="name" type="java.lang.String" value="dishSearchTextBox" noResource="true"/>
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JTextField" name="extrasSearchTextField">
@@ -413,7 +435,7 @@
                                   <Group type="102" alignment="1" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="dishDescriptionLabel" min="-2" max="-2" attributes="0"/>
-                                          <Component id="dishDescriptionScrollPane" pref="220" max="32767" attributes="0"/>
+                                          <Component id="dishDescriptionScrollPane" pref="245" max="32767" attributes="0"/>
                                       </Group>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
@@ -563,6 +585,18 @@
                             </Container>
                           </SubComponents>
                         </Container>
+                        <Component class="javax.swing.JLabel" name="jLabel4">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" resourceKey="jLabel4.text"/>
+                            <Property name="name" type="java.lang.String" value="jLabel4" noResource="true"/>
+                          </Properties>
+                        </Component>
+                        <Component class="javax.swing.JLabel" name="jLabel5">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" resourceKey="jLabel5.text"/>
+                            <Property name="name" type="java.lang.String" value="jLabel5" noResource="true"/>
+                          </Properties>
+                        </Component>
                       </SubComponents>
                     </Container>
                     <Container class="javax.swing.JPanel" name="orderOverviewUI">
@@ -583,14 +617,14 @@
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="1" attributes="0">
                                           <Component id="orderCommentsTextAreaLabel" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace pref="402" max="32767" attributes="0"/>
+                                          <EmptySpace pref="443" max="32767" attributes="0"/>
                                           <Component id="deliveryMethodComboBox" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="duplicateSelectedOrderDishButton" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="deleteSelectedOrderDishButton" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <Component id="orderCommentsTextAreaScrollPane" alignment="0" pref="608" max="32767" attributes="1"/>
+                                      <Component id="orderCommentsTextAreaScrollPane" alignment="0" pref="649" max="32767" attributes="1"/>
                                       <Group type="102" alignment="1" attributes="0">
                                           <Component id="resetOrderButton" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
@@ -599,13 +633,13 @@
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
-                              <Component id="orderContentsTableScrollPane" alignment="0" pref="628" max="32767" attributes="0"/>
+                              <Component id="orderContentsTableScrollPane" alignment="0" pref="669" max="32767" attributes="0"/>
                           </Group>
                         </DimensionLayout>
                         <DimensionLayout dim="1">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="orderContentsTableScrollPane" pref="95" max="32767" attributes="0"/>
+                                  <Component id="orderContentsTableScrollPane" pref="35" max="32767" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="1" attributes="0">
                                       <Group type="103" alignment="1" groupAlignment="3" attributes="0">
