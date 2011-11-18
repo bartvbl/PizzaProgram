@@ -29,6 +29,14 @@ public class Constants{
 	public static final String SETTING_KEY_DELIVERY_PRICE = "deliveryPrice";
 	public static final String SETTING_KEY_DELIVERY_AT_HOME_TAX = "deliveryAtHomeTax";
 	public static final String SETTING_KEY_PICKUP_AT_RESTAURANT_TAX = "pickupAtRestaurantTax";
+	
+	public static final int CUSTOMERS_TABLE_NUM_COLUMNS= 9;
+	public static final int CUSTOMER_NOTES_TABLE_NUM_COLUMNS = 2;
+	public static final int DISHES_TABLE_NUM_COLUMNS = 10;
+	public static final int EXTRAS_TABLE_NUM_COLUMNS = 4;
+	public static final int ORDER_COMMENTS_TABLE_NUM_COLUMNS = 2;
+	public static final int ORDERS_TABLE_NUM_COLUMNS = 6;
+	public static final int ORDER_CONTENTS_TABLE_NUM_COLUMNS = 3;
 
 	/**
 	 * The guiword for registered status

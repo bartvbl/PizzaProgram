@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import pizzaProgram.core.Constants;
 import pizzaProgram.dataObjects.Customer;
 import pizzaProgram.dataObjects.Dish;
 import pizzaProgram.dataObjects.Extra;
@@ -59,6 +60,16 @@ public class DatabaseDataObjectGenerator {
 		ArrayList<Order> orderList = new ArrayList<Order>();
 		//order has dummy parameters due to java not liking uninitialized variables. 
 		//The variable will instantiate in the first loop; this one should therefore disappear
+		
+		//order of tables in incoming query: Customers - CustomerNotes - Dishes - Extras - OrderComments - Orders - OrdersContents
+		int customerTableOffset = 1;
+		int customerNotesTableOffset = customerTableOffset + Constants.CUSTOMERS_TABLE_NUM_COLUMNS;
+		int dishTableOffset = customerNotesTableOffset + Constants.CUSTOMER_NOTES_TABLE_NUM_COLUMNS;
+		int extrasTableOffset = dishTableOffset + Constants.DISHES_TABLE_NUM_COLUMNS;
+		int orderCommentsTableOffset = extrasTableOffset + Constants.EXTRAS_TABLE_NUM_COLUMNS;
+		int orderTableOffset = orderCommentsTableOffset + Constants.ORDER_COMMENTS_TABLE_NUM_COLUMNS;
+		int orderContentsTableOffset = orderTableOffset + Constants.ORDERS_TABLE_NUM_COLUMNS;
+		
 		Order currentOrder = new Order(-1, null, null, "", "", "");
 		OrderDish currentOrderDish = new OrderDish(-1, null);
 		Customer currentCustomer;
@@ -67,19 +78,19 @@ public class DatabaseDataObjectGenerator {
 		int currentOrderID = -1;
 		int currentOrderContentID = -1;
 		while(result.next()){
-			if(result.getInt(1) != currentOrderID){
-				currentOrderID = result.getInt(1);
-				currentCustomer = DatabaseDataObjectGenerator.createCustomer(result, 1, 9);
-				currentOrder = DatabaseDataObjectGenerator.createOrder(result, currentCustomer, 27, 25);
+			if(result.getInt(customerTableOffset) != currentOrderID){
+				currentOrderID = result.getInt(customerTableOffset);
+				currentCustomer = DatabaseDataObjectGenerator.createCustomer(result, customerTableOffset, Constants.CUSTOMERS_TABLE_NUM_COLUMNS+1);
+				currentOrder = DatabaseDataObjectGenerator.createOrder(result, currentCustomer, orderTableOffset, orderCommentsTableOffset);
 				orderList.add(currentOrder);
 			}
-			if(result.getInt(33) != currentOrderContentID){
-				currentOrderContentID = result.getInt(33);
-				currentDish = DatabaseDataObjectGenerator.createDish(result, 12);
+			if(result.getInt(orderContentsTableOffset) != currentOrderContentID){
+				currentOrderContentID = result.getInt(orderContentsTableOffset);
+				currentDish = DatabaseDataObjectGenerator.createDish(result, dishTableOffset);
 				currentOrderDish = new OrderDish(currentOrder.orderID, currentDish);
 				currentOrder.addOrderDish(currentOrderDish);
 			}
-			currentExtra = DatabaseDataObjectGenerator.createExtra(result, 22);
+			currentExtra = DatabaseDataObjectGenerator.createExtra(result, extrasTableOffset);
 			currentOrderDish.addExtra(currentExtra);
 		}
 		return orderList;
