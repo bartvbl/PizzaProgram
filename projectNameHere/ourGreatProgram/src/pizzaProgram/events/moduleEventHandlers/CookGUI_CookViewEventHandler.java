@@ -3,6 +3,8 @@ package pizzaProgram.events.moduleEventHandlers;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
@@ -19,6 +21,7 @@ import pizzaProgram.events.Event;
 import pizzaProgram.events.EventType;
 import pizzaProgram.gui.CookGUI;
 import pizzaProgram.gui.views.CookView;
+import pizzaProgram.gui.views.OrderView;
 
 public class CookGUI_CookViewEventHandler extends ComponentEventHandler implements ActionListener {
 	
@@ -37,6 +40,11 @@ public class CookGUI_CookViewEventHandler extends ComponentEventHandler implemen
 				handleOrderSelection(e);
 			}
 		});
+		
+		CookView.orderSearchTextPane.addFocusListener(new FocusListener(){public void focusLost(FocusEvent arg0) {}
+		public void focusGained(FocusEvent arg0) {
+			handleSearchBoxSelection();}});
+		
 		CookView.markOrderInProgressButton.addActionListener(this);
 		this.registerEventType(CookView.markOrderInProgressButton, "markOrderAsInProgress");
 		
@@ -58,7 +66,7 @@ public class CookGUI_CookViewEventHandler extends ComponentEventHandler implemen
 			}
 		});
 	}
-	
+
 	public void actionPerformed(ActionEvent event) {
 		if (this.getEventNameByComponent((Component) event.getSource()).equals("markOrderAsInProgress")) {
 			this.markOrderAsInProgress(event);
@@ -67,6 +75,11 @@ public class CookGUI_CookViewEventHandler extends ComponentEventHandler implemen
 		} else if (this.getEventNameByComponent((Component) event.getSource()).equals("searchOrders")) {
 			this.searchOrdersBySearchBoxQuery();
 		}
+	}
+	
+	protected void handleSearchBoxSelection() {
+		CookView.orderSearchTextPane.setSelectionStart(0);
+		CookView.orderSearchTextPane.setSelectionEnd(CookView.orderSearchTextPane.getText().length());
 	}
 	
 	private void showAllOrders(){

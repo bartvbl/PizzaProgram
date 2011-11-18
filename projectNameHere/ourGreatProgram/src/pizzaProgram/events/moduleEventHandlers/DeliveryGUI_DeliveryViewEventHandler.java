@@ -3,6 +3,8 @@ package pizzaProgram.events.moduleEventHandlers;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -14,6 +16,7 @@ import pizzaProgram.events.Event;
 import pizzaProgram.events.EventType;
 import pizzaProgram.gui.DeliverGUI;
 import pizzaProgram.gui.utils.DeliveryGUIUpdater;
+import pizzaProgram.gui.views.CookView;
 import pizzaProgram.gui.views.DeliveryView;
 import pizzaProgram.utils.ReceiptGenerator;
 
@@ -35,7 +38,11 @@ public class DeliveryGUI_DeliveryViewEventHandler extends ComponentEventHandler 
 			public void valueChanged(ListSelectionEvent e) {
 				handleOrderSelection();
 			}});
-
+		
+		DeliveryView.orderSearchTextField.addFocusListener(new FocusListener(){public void focusLost(FocusEvent arg0) {}
+		public void focusGained(FocusEvent arg0) {
+			handleSearchBoxSelection();}});
+		
 		DeliveryView.orderSearchTextField.addKeyListener(new KeyListener(){
 			public void keyPressed(KeyEvent arg0) {}
 			public void keyReleased(KeyEvent arg0) {
@@ -64,6 +71,11 @@ public class DeliveryGUI_DeliveryViewEventHandler extends ComponentEventHandler 
 		else if (this.getEventNameByComponent((Component) event.getSource()).equals("markOrderBeingDelivered")) {
 			this.markOrderAsBeingDelivered();
 		}
+	}
+	
+	protected void handleSearchBoxSelection() {
+		DeliveryView.orderSearchTextField.setSelectionStart(0);
+		DeliveryView.orderSearchTextField.setSelectionEnd(DeliveryView.orderSearchTextField.getText().length());
 	}
 
 	private void searchOrders(){

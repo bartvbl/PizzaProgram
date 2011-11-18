@@ -170,8 +170,8 @@ public class OrderView extends javax.swing.JPanel {
         dishSelectionList.setName("dishSelectionList"); // NOI18N
         jScrollPane1.setViewportView(dishSelectionList);
 
-        DishSearchTextBox.setText(resourceMap.getString("DishSearchTextBox.text")); // NOI18N
-        DishSearchTextBox.setName("DishSearchTextBox"); // NOI18N
+        dishSearchTextBox.setText(resourceMap.getString("dishSearchTextBox.text")); // NOI18N
+        dishSearchTextBox.setName("dishSearchTextBox"); // NOI18N
 
         extrasSearchTextField.setText(resourceMap.getString("extrasSearchTextField.text")); // NOI18N
         extrasSearchTextField.setName("extrasSearchTextField"); // NOI18N
@@ -297,7 +297,7 @@ public class OrderView extends javax.swing.JPanel {
                         .addComponent(dishSelectionSectionLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                     .addGroup(dishSelectionAreaLayout.createSequentialGroup()
-                        .addComponent(DishSearchTextBox, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE)
+                        .addComponent(dishSearchTextBox, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addGroup(dishSelectionAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(extrasSelectionSectionLabel)
@@ -314,7 +314,7 @@ public class OrderView extends javax.swing.JPanel {
                     .addComponent(dishSelectionSectionLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(dishSelectionAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(DishSearchTextBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dishSearchTextBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(extrasSearchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(dishSelectionAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -440,7 +440,6 @@ public class OrderView extends javax.swing.JPanel {
         add(mainPanel, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public static final javax.swing.JTextField DishSearchTextBox = new javax.swing.JTextField();
     public static final javax.swing.JButton addDishButton = new javax.swing.JButton();
     public static final javax.swing.JButton changeCustomerButton = new javax.swing.JButton();
     public static final javax.swing.JButton confirmOrderButton = new javax.swing.JButton();
@@ -465,6 +464,7 @@ public class OrderView extends javax.swing.JPanel {
     public static final javax.swing.JLabel dishIsSpicyLabel = new javax.swing.JLabel();
     public static final javax.swing.JLabel dishIsVegetarianLabel = new javax.swing.JLabel();
     public static final javax.swing.JLabel dishIsVegetarianText = new javax.swing.JLabel();
+    public static final javax.swing.JTextField dishSearchTextBox = new javax.swing.JTextField();
     public static final javax.swing.JPanel dishSelectionArea = new javax.swing.JPanel();
     public static final javax.swing.JList dishSelectionList = new javax.swing.JList();
     public static final javax.swing.JLabel dishSelectionSectionLabel = new javax.swing.JLabel();
