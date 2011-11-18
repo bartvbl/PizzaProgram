@@ -57,6 +57,10 @@ public class DeliveryMap extends JPanel {
 		return s;
 	}
 
+	public void emergencyResize(int width, int height){
+		drawWidth = width;
+		drawHeight = height;
+	}
 
 	/**
 	 * Loads an image into the mapdisplayarea, the width and height parameter 

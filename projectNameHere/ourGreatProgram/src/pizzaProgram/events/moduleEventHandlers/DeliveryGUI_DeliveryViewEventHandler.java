@@ -122,7 +122,7 @@ public class DeliveryGUI_DeliveryViewEventHandler extends ComponentEventHandler 
 		ReceiptGenerator.generateReceiptAndWindow(order);
 	}
 
-	private void handleOrderSelection(){
+	public void handleOrderSelection(){
 		Order order = this.getCurrentSelectedOrder();
 		if(order == null){
 			return;

@@ -1,5 +1,8 @@
 package pizzaProgram.gui;
 
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.util.ArrayList;
 
 import javax.swing.ListSelectionModel;
@@ -23,6 +26,8 @@ public class DeliverGUI extends GUIModule implements EventHandler {
 	
 	public ArrayList<Order> currentOrderList;
 	public Order currentOrder;
+	
+	private DeliveryGUI_DeliveryViewEventHandler deliveryViewEventHandler;
 
 	public DeliverGUI(ProgramWindow mainWindow, EventDispatcher eventDispatcher) {
 		super(eventDispatcher);
@@ -36,7 +41,7 @@ public class DeliverGUI extends GUIModule implements EventHandler {
 		this.programWindow = mainWindow;
 		hide();
 		this.setupComponents();
-		new DeliveryGUI_DeliveryViewEventHandler(this);
+		deliveryViewEventHandler = new DeliveryGUI_DeliveryViewEventHandler(this);
 		new DeliveryGUI_SystemEventHandler(eventDispatcher, this);
 	}
 	
@@ -52,11 +57,20 @@ public class DeliverGUI extends GUIModule implements EventHandler {
 		tableModel.addColumn("Tilbehør");
 		tableModel.addColumn("Pris for retter");
 		DeliveryView.showReceiptButton.setEnabled(false);
+		
+		
+		DeliveryView.mapImagePanel.addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentResized(ComponentEvent e) {
+				//deliveryViewEventHandler.handleOrderSelection();
+			}
+		});
+		
 	}
 	
 
 	/**
-	 * Her skal koden for ï¿½ vise komponentene ligge
+	 * Her skal koden for å vise komponentene ligge
 	 */
 	@Override
 	public void show() {
@@ -65,7 +79,7 @@ public class DeliverGUI extends GUIModule implements EventHandler {
 	}
 
 	/**
-	 * Her skal koden for ï¿½ skjule komponentene ligge
+	 * Her skal koden for å skjule komponentene ligge
 	 */
 	@Override
 	public void hide() {
