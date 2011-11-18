@@ -33,4 +33,7 @@ public class DatabaseConstants {
 	public static final String ORDERS_STATUS = "Orders.OrdersStatus";
 	public static final String ORDERS_DELIVERY_METHOD = "Orders.DeliveryMethod";
 	public static final String ORDERS_COMMENT = "OrderComments.Comment";
+	
+	public static final String CONFIG_KEY = "Config.ConfigKey";
+	public static final String CONFIG_VALUE = "Config.ConfigValue";
 }
