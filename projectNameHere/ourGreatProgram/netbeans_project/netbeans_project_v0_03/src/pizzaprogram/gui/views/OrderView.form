@@ -286,7 +286,7 @@
                                           <EmptySpace max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
-                                          <Component id="DishSearchTextBox" pref="303" max="32767" attributes="0"/>
+                                          <Component id="dishSearchTextBox" pref="303" max="32767" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
@@ -309,7 +309,7 @@
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="DishSearchTextBox" min="-2" max="-2" attributes="0"/>
+                                      <Component id="dishSearchTextBox" min="-2" max="-2" attributes="0"/>
                                       <Component id="extrasSearchTextField" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
@@ -367,10 +367,10 @@
                             </Component>
                           </SubComponents>
                         </Container>
-                        <Component class="javax.swing.JTextField" name="DishSearchTextBox">
+                        <Component class="javax.swing.JTextField" name="dishSearchTextBox">
                           <Properties>
-                            <Property name="text" type="java.lang.String" resourceKey="DishSearchTextBox.text"/>
-                            <Property name="name" type="java.lang.String" value="DishSearchTextBox" noResource="true"/>
+                            <Property name="text" type="java.lang.String" resourceKey="dishSearchTextBox.text"/>
+                            <Property name="name" type="java.lang.String" value="dishSearchTextBox" noResource="true"/>
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JTextField" name="extrasSearchTextField">
