@@ -25,7 +25,7 @@ public class Customer {
 	/**
 	 * The customer's postal code
 	 */
-	public final int postalCode;
+	public final String postalCode;
 	/**
 	 * The customer's city, derived from his postalCode
 	 */
@@ -51,7 +51,7 @@ public class Customer {
 	 * @param phoneNumber The customer's phone number
 	 * @param comment Any comments about this customer
 	 */
-	public Customer(int customerID, String firstName, String lastName, String address, int postalCode, String city, int phoneNumber, String comment) {
+	public Customer(int customerID, String firstName, String lastName, String address, String postalCode, String city, int phoneNumber, String comment) {
 		this.customerID = customerID;
 		this.firstName = firstName;
 		this.lastName = lastName;

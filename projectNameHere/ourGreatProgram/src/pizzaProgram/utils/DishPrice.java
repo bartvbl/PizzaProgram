@@ -10,8 +10,7 @@ public class DishPrice {
 	}
 	
 	public String getPriceAsString(){
-		BigDecimal copyOfValue = this.totalPrice.setScale(1, BigDecimal.ROUND_HALF_EVEN);
-		this.totalPrice = this.totalPrice.setScale(1, BigDecimal.ROUND_HALF_EVEN);
+		this.totalPrice = this.totalPrice.setScale(2, BigDecimal.ROUND_HALF_EVEN);
 		String valueString = this.totalPrice.toPlainString();
 		if(valueString.indexOf('.') == -1){
 			valueString += ".00";

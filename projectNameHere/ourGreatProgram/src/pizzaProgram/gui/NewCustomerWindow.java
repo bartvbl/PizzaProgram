@@ -108,15 +108,16 @@ public class NewCustomerWindow extends JFrame{
 		finishKnapp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				int postNumber = 0;
+				String postNumber;
 				int phoneNumber = 0;
 				String firstName = DataCleaner.cleanDbData(fyllnavn.getText());
 				String lastName = DataCleaner.cleanDbData(fylletternavn.getText());
 				String address = DataCleaner.cleanDbData(fylladresse.getText());
 				String city = DataCleaner.cleanDbData(fyllpoststed.getText());
+				postNumber = DataCleaner.cleanDbData(fyllpostnr.getText());
 
 				try{
-					postNumber = Integer.parseInt(fyllpostnr.getText());
+					Integer.parseInt(fyllpostnr.getText());
 				}catch(NumberFormatException ex){
 					JOptionPane.showMessageDialog(denne, "Postnummer må være et tall!", "Feil", JOptionPane.ERROR_MESSAGE);
 					return;

@@ -90,7 +90,7 @@ public class DatabaseDataObjectGenerator {
 		String firstName = resultSet.getString(customerTableColumnOffset + 1);
 		String lastName = resultSet.getString(customerTableColumnOffset + 2);
 		String address = resultSet.getString(customerTableColumnOffset + 3);
-		int postalCode = resultSet.getInt(customerTableColumnOffset + 4);
+		String postalCode = resultSet.getString(customerTableColumnOffset + 4);
 		String city = resultSet.getString(customerTableColumnOffset + 5);
 		int phoneNumber = resultSet.getInt(customerTableColumnOffset + 6);
 		String comment = resultSet.getString(customerNotesTableColumnOffset + 1);
@@ -134,7 +134,7 @@ public class DatabaseDataObjectGenerator {
 
 	public static Setting createSetting(ResultSet results, int columnOffset) throws SQLException {
 		String configKey = results.getString(0 + columnOffset);
-		String configValue = results.getString(0 + columnOffset);
+		String configValue = results.getString(1 + columnOffset);
 		Setting setting = new Setting(configKey, configValue);
 		return setting;
 	}

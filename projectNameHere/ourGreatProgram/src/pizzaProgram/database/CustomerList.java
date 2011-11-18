@@ -53,7 +53,7 @@ public class CustomerList {
 			while (results.next()) {
 				Customer tempCustomer = new Customer(results.getInt(1),
 						results.getString(2), results.getString(3),
-						results.getString(4), results.getInt(5),
+						results.getString(4), results.getString(5),
 						results.getString(6), results.getInt(7),
 						customerCommentsMap.get(results.getInt(8)));
 				customerList.add(tempCustomer);

@@ -30,9 +30,11 @@ public class DatabaseReader {
 	{
 		ResultSet results = DatabaseConnection.fetchData("SELECT * FROM Config WHERE ConfigKey='"+key+"';");
 		try {
+			results.next();
 			Setting setting = DatabaseDataObjectGenerator.createSetting(results, 1);
 			return setting;
 		} catch (SQLException e) {
+			e.printStackTrace();
 			DatabaseResultsFeedbackProvider.showSettingFailedMessage();
 		}
 		return null;
@@ -45,6 +47,7 @@ public class DatabaseReader {
 			ArrayList<Setting> settings = DatabaseDataObjectGenerator.generateSettingsList(results);
 			return settings;
 		} catch (SQLException e) {
+			e.printStackTrace();
 			DatabaseResultsFeedbackProvider.showSettingFailedMessage();
 		}
 		return null;
