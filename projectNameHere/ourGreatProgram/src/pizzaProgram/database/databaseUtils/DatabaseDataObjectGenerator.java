@@ -4,8 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import javax.xml.crypto.Data;
-
 import pizzaProgram.core.Constants;
 import pizzaProgram.core.DatabaseConstants;
 import pizzaProgram.dataObjects.Customer;
