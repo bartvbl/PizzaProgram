@@ -9,6 +9,7 @@ import pizzaProgram.dataObjects.Dish;
 import pizzaProgram.dataObjects.Extra;
 import pizzaProgram.dataObjects.Order;
 import pizzaProgram.dataObjects.OrderDish;
+import pizzaProgram.dataObjects.Setting;
 
 public class DatabaseDataObjectGenerator {
 
@@ -40,6 +41,17 @@ public class DatabaseDataObjectGenerator {
 			extrasList.add(currentExtra);
 		}
 		return extrasList;
+	}
+	
+	public static ArrayList<Setting> generateSettingsList(ResultSet results) throws SQLException
+	{
+		ArrayList<Setting> settingsList = new ArrayList<Setting>();
+		Setting currentSetting;
+		while(results.next()){
+			currentSetting = DatabaseDataObjectGenerator.createSetting(results, 1);
+			settingsList.add(currentSetting);
+		}
+		return settingsList;
 	}
 
 	public static ArrayList<Order> generateOrderListFromResultSet(ResultSet result) throws SQLException{
@@ -118,6 +130,13 @@ public class DatabaseDataObjectGenerator {
 		String comment = resultSet.getString(orderCommentsTableColumnOffset + 1);
 		Order order = new Order(orderID, customer, timeRegistered, orderStatus, deliveryMethod, comment);
 		return order;
+	}
+
+	public static Setting createSetting(ResultSet results, int columnOffset) throws SQLException {
+		String configKey = results.getString(0 + columnOffset);
+		String configValue = results.getString(0 + columnOffset);
+		Setting setting = new Setting(configKey, configValue);
+		return setting;
 	}
 
 }

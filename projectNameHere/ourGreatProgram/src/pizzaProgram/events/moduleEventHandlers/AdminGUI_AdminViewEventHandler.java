@@ -20,7 +20,6 @@ import pizzaProgram.events.Event;
 import pizzaProgram.events.EventType;
 import pizzaProgram.gui.AdminGUI;
 import pizzaProgram.gui.views.AdminView;
-import pizzaProgram.gui.views.OrderView;
 
 /**
  * This class hendles events dispatched from the gui-components in AdminWiev

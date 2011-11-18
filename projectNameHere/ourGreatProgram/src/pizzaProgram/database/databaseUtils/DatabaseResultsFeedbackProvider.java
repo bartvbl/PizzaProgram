@@ -6,6 +6,15 @@ public class DatabaseResultsFeedbackProvider {
 	private static final String DEFAULT_MESSAGE_TITLE = "Info";
 	private static final String DEFAULT_ERROR_TITLE = "Error";
 	
+	private static void showErrorMessage(String message)
+	{
+		JOptionPane.showMessageDialog(null, message, DEFAULT_ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
+	}
+	
+	private static void showInformationMessage(String message) {
+		JOptionPane.showMessageDialog(null, message, DEFAULT_MESSAGE_TITLE, JOptionPane.INFORMATION_MESSAGE);
+	}
+	
 	public static void showGetAllCustomersFailedMessage() {
 		showErrorMessage("Failed to retrieve list of customers.");
 	}
@@ -110,17 +119,12 @@ public class DatabaseResultsFeedbackProvider {
 	public static void showSearchExtrasFailedMessage() {
 		showErrorMessage("Failed to search for extras.");
 	}
-	
-	private static void showErrorMessage(String message)
-	{
-		JOptionPane.showMessageDialog(null, message, DEFAULT_ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
-	}
-	
-	private static void showInformationMessage(String message) {
-		JOptionPane.showMessageDialog(null, message, DEFAULT_MESSAGE_TITLE, JOptionPane.INFORMATION_MESSAGE);
+
+	public static void showGetAllSettingsFailedMessage() {
+		showErrorMessage("Failed to fetch all settings.");
 	}
 
-
-
-	
+	public static void showSettingFailedMessage() {
+		showErrorMessage("Failed to retrieve value of setting.");
+	}
 }

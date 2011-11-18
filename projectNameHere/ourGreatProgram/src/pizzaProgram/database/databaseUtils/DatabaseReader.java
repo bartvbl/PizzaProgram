@@ -8,6 +8,7 @@ import pizzaProgram.dataObjects.Customer;
 import pizzaProgram.dataObjects.Dish;
 import pizzaProgram.dataObjects.Extra;
 import pizzaProgram.dataObjects.Order;
+import pizzaProgram.dataObjects.Setting;
 import pizzaProgram.database.DatabaseConnection;
 
 public class DatabaseReader {
@@ -21,6 +22,30 @@ public class DatabaseReader {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			DatabaseResultsFeedbackProvider.showGetAllCustomersFailedMessage();
+		}
+		return null;
+	}
+	
+	public static Setting getSettingByKey(String key)
+	{
+		ResultSet results = DatabaseConnection.fetchData("SELECT * FROM Config WHERE ConfigKey='"+key+"';");
+		try {
+			Setting setting = DatabaseDataObjectGenerator.createSetting(results, 1);
+			return setting;
+		} catch (SQLException e) {
+			DatabaseResultsFeedbackProvider.showSettingFailedMessage();
+		}
+		return null;
+	}
+	
+	public static ArrayList<Setting> getAllSettings()
+	{
+		ResultSet results = DatabaseConnection.fetchData("SELECT * FROM Config;");
+		try {
+			ArrayList<Setting> settings = DatabaseDataObjectGenerator.generateSettingsList(results);
+			return settings;
+		} catch (SQLException e) {
+			DatabaseResultsFeedbackProvider.showSettingFailedMessage();
 		}
 		return null;
 	}
