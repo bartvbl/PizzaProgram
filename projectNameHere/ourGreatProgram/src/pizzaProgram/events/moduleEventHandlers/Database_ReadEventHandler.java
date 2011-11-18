@@ -37,6 +37,8 @@ public class Database_ReadEventHandler implements EventHandler {
 		this.eventDispatcher.addEventListener(this, EventType.DATABASE_UPDATE_ADMINGUI_GUI_SEND_ALL_EXTRAS);
 		this.eventDispatcher.addEventListener(this, EventType.DATABASE_UPDATE_ORDER_GUI_SEARCH_DISHES);
 		this.eventDispatcher.addEventListener(this, EventType.DATABASE_UPDATE_ORDER_GUI_SEARCH_EXTRAS);
+		this.eventDispatcher.addEventListener(this, EventType.DATABASE_UPDATE_ADMIN_GUI_SEARCH_DISHES);
+		this.eventDispatcher.addEventListener(this, EventType.DATABASE_UPDATE_ADMIN_GUI_SEARCH_EXTRAS);
 	}
 
 	@Override
@@ -62,13 +64,17 @@ public class Database_ReadEventHandler implements EventHandler {
 		} else if(event.eventType.equals(EventType.DATABASE_UPDATE_ADMINGUI_GUI_SEND_ALL_EXTRAS)){
 			this.sendListOfAllExtrasToAdminGUI();
 		} else if(event.eventType.equals(EventType.DATABASE_UPDATE_ORDER_GUI_SEARCH_DISHES)){
-			this.searchDishesByKeywords(event);
+			this.searchDishesByKeywords(event, EventType.ORDER_GUI_UPDATE_DISH_LIST);
 		} else if(event.eventType.equals(EventType.DATABASE_UPDATE_ORDER_GUI_SEARCH_EXTRAS)){
-			this.searchExtrasByKeywords(event);
+			this.searchExtrasByKeywords(event, EventType.ORDER_GUI_UPDATE_EXTRAS_LIST);
+		} else if(event.eventType.equals(EventType.DATABASE_UPDATE_ADMIN_GUI_SEARCH_DISHES)){
+			this.searchDishesByKeywords(event, EventType.ADMIN_GUI_UPDATE_DISH_LIST);
+		} else if(event.eventType.equals(EventType.DATABASE_UPDATE_ADMIN_GUI_SEARCH_EXTRAS)){
+			this.searchExtrasByKeywords(event, EventType.ADMIN_GUI_UPDATE_EXTRA_LIST);
 		}
 	}
 
-	private void searchDishesByKeywords(Event<?> event) {
+	private void searchDishesByKeywords(Event<?> event, String sendBackEventOfEventType) {
 		if(!(event.getEventParameterObject() instanceof String)){
 			DatabaseResultsFeedbackProvider.showSearchDishesFailedMessage();
 			return;
@@ -77,11 +83,11 @@ public class Database_ReadEventHandler implements EventHandler {
 		searchQuery = DataCleaner.cleanDbData(searchQuery);
 		ArrayList<Dish> dishList = DatabaseSearcher.searchDishByString(searchQuery);
 		if(dishList != null){
-			this.eventDispatcher.dispatchEvent(new Event<ArrayList<Dish>>(EventType.ORDER_GUI_UPDATE_DISH_LIST, dishList));
+			this.eventDispatcher.dispatchEvent(new Event<ArrayList<Dish>>(sendBackEventOfEventType, dishList));
 		}
 	}
 
-	private void searchExtrasByKeywords(Event<?> event) {
+	private void searchExtrasByKeywords(Event<?> event, String sendBackEventOfEventType) {
 		if(!(event.getEventParameterObject() instanceof String)){
 			DatabaseResultsFeedbackProvider.showSearchExtrasFailedMessage();
 			return;
@@ -90,7 +96,7 @@ public class Database_ReadEventHandler implements EventHandler {
 		searchQuery = DataCleaner.cleanDbData(searchQuery);
 		ArrayList<Extra> extrasList = DatabaseSearcher.searchExtraByString(searchQuery);
 		if(extrasList != null){
-			this.eventDispatcher.dispatchEvent(new Event<ArrayList<Extra>>(EventType.ORDER_GUI_UPDATE_EXTRAS_LIST, extrasList));
+			this.eventDispatcher.dispatchEvent(new Event<ArrayList<Extra>>(sendBackEventOfEventType, extrasList));
 		}
 	}
 

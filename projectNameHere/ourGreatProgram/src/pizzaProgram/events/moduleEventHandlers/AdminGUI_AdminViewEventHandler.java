@@ -2,6 +2,10 @@ package pizzaProgram.events.moduleEventHandlers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.DefaultListSelectionModel;
 import javax.swing.JOptionPane;
@@ -16,6 +20,7 @@ import pizzaProgram.events.Event;
 import pizzaProgram.events.EventType;
 import pizzaProgram.gui.AdminGUI;
 import pizzaProgram.gui.views.AdminView;
+import pizzaProgram.gui.views.OrderView;
 
 /**
  * This class hendles events dispatched from the gui-components in AdminWiev
@@ -64,8 +69,25 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 				handleNewExtraButtonClick();
 			}
 		});
-	}
+		
+		AdminView.searchDishTextBox.addKeyListener(new KeyListener(){public void keyPressed(KeyEvent e) {}public void keyTyped(KeyEvent e) {}
+		public void keyReleased(KeyEvent e) {
+			handleDishSearchTyping(); }});
+		
+		AdminView.searchExtraTextBox.addKeyListener(new KeyListener(){public void keyPressed(KeyEvent e) {}public void keyTyped(KeyEvent e) {}
+		public void keyReleased(KeyEvent e) {
+			handleExtraSearchTyping(); }});
+		
+		AdminView.searchDishTextBox.addFocusListener(new FocusListener(){public void focusLost(FocusEvent arg0) {}
+		public void focusGained(FocusEvent arg0) {
+			handleDishSearchBoxSelection();}});
+		
+		AdminView.searchExtraTextBox.addFocusListener(new FocusListener(){public void focusLost(FocusEvent arg0) {}
+		public void focusGained(FocusEvent arg0) {
+			handleExtraSearchBoxSelection();}});
 	
+	}
+
 	/**
 	 * The method called when a user selects an extra from the extra-list
 	 * @param e
@@ -88,6 +110,47 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 		AdminView.editExtraExtraIsActiveComboBox.selectWithKeyChar(selectchar);
 	}
 	
+
+	protected void handleDishSearchBoxSelection() {
+		AdminView.searchDishTextBox.setSelectionStart(0);
+		AdminView.searchDishTextBox.setSelectionEnd(AdminView.searchDishTextBox.getText().length());
+	}
+	
+	protected void handleExtraSearchBoxSelection() {
+		AdminView.searchExtraTextBox.setSelectionStart(0);
+		AdminView.searchExtraTextBox.setSelectionEnd(AdminView.searchExtraTextBox.getText().length());
+	}
+	
+	protected void handleDishSearchTyping()
+	{
+		String query = AdminView.searchDishTextBox.getText();
+		if(query.length() == 0)
+		{
+			showAllDishes();
+		} else {
+			searchDishes(query);
+		}
+	}
+
+	protected void handleExtraSearchTyping()
+	{
+		String query = AdminView.searchExtraTextBox.getText();
+		if(query.length() == 0)
+		{
+			this.showAllExtras();
+		} else {
+			this.searchExtras(query);
+		}
+	}
+	
+	private void searchExtras(String query) {
+		this.dispatchEvent(new Event<String>(EventType.DATABASE_UPDATE_ADMIN_GUI_SEARCH_EXTRAS, query));
+	}
+	
+	private void searchDishes(String query) {
+		this.dispatchEvent(new Event<String>(EventType.DATABASE_UPDATE_ADMIN_GUI_SEARCH_DISHES, query));
+	}
+
 	private void handleExtraConfirmButtonClick() {
 		boolean active = AdminView.editExtraExtraIsActiveComboBox.getSelectedItem().equals(Constants.GUI_TRUE) ? true :false;
 		String name = DataCleaner.cleanDbData(AdminView.editExtraExtraNameTextBox.getText());
