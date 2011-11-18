@@ -4,7 +4,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.xml.crypto.Data;
+
 import pizzaProgram.core.Constants;
+import pizzaProgram.core.DatabaseConstants;
 import pizzaProgram.dataObjects.Customer;
 import pizzaProgram.dataObjects.Dish;
 import pizzaProgram.dataObjects.Extra;
@@ -97,48 +100,48 @@ public class DatabaseDataObjectGenerator {
 	}
 
 	static Customer createCustomer(ResultSet resultSet, int customerTableColumnOffset, int customerNotesTableColumnOffset) throws SQLException{
-		int customerID = resultSet.getInt(customerTableColumnOffset + 0);
-		String firstName = resultSet.getString(customerTableColumnOffset + 1);
-		String lastName = resultSet.getString(customerTableColumnOffset + 2);
-		String address = resultSet.getString(customerTableColumnOffset + 3);
-		String postalCode = resultSet.getString(customerTableColumnOffset + 4);
-		String city = resultSet.getString(customerTableColumnOffset + 5);
-		int phoneNumber = resultSet.getInt(customerTableColumnOffset + 6);
-		String comment = resultSet.getString(customerNotesTableColumnOffset + 1);
+		int customerID = resultSet.getInt(resultSet.findColumn(DatabaseConstants.CUSTOMER_ID));
+		String firstName = resultSet.getString(resultSet.findColumn(DatabaseConstants.FIRST_NAME));
+		String lastName = resultSet.getString(resultSet.findColumn(DatabaseConstants.LAST_NAME));
+		String address = resultSet.getString(resultSet.findColumn(DatabaseConstants.ADDRESS));
+		String postalCode = resultSet.getString(resultSet.findColumn(DatabaseConstants.POSTAL_CODE));
+		String city = resultSet.getString(resultSet.findColumn(DatabaseConstants.CITY));
+		int phoneNumber = resultSet.getInt(resultSet.findColumn(DatabaseConstants.PHONE_NUMBER));
+		String comment = resultSet.getString(resultSet.findColumn(DatabaseConstants.CUSTOMER_NOTE));
 		Customer customer = new Customer(customerID, firstName, lastName, address, postalCode, city, phoneNumber, comment);
 		return customer;
 	}
 
 	static Dish createDish(ResultSet resultSet, int columnOffset) throws SQLException{
-		int dishID = resultSet.getInt(columnOffset + 0);
-		int price = resultSet.getInt(columnOffset + 1);
-		String name = resultSet.getString(columnOffset + 2);
-		boolean containsGluten = resultSet.getBoolean(columnOffset + 3);
-		boolean containsNuts = resultSet.getBoolean(columnOffset + 4);
-		boolean containsDairy = resultSet.getBoolean(columnOffset + 5);
-		boolean isVegetarian = resultSet.getBoolean(columnOffset + 6);
-		boolean isSpicy = resultSet.getBoolean(columnOffset + 7);
-		String description = resultSet.getString(columnOffset + 8);
-		boolean isActive = resultSet.getBoolean(columnOffset + 9);
+		int dishID = resultSet.getInt(resultSet.findColumn(DatabaseConstants.DISH_ID));
+		int price = resultSet.getInt(resultSet.findColumn(DatabaseConstants.DISH_PRICE));
+		String name = resultSet.getString(resultSet.findColumn(DatabaseConstants.DISH_NAME));
+		boolean containsGluten = resultSet.getBoolean(resultSet.findColumn(DatabaseConstants.CONTAINS_GLUTEN));
+		boolean containsNuts = resultSet.getBoolean(resultSet.findColumn(DatabaseConstants.CONTAINS_NUTS));
+		boolean containsDairy = resultSet.getBoolean(resultSet.findColumn(DatabaseConstants.CONTAINS_DAIRY));
+		boolean isVegetarian = resultSet.getBoolean(resultSet.findColumn(DatabaseConstants.IS_VEGETARIAN));
+		boolean isSpicy = resultSet.getBoolean(resultSet.findColumn(DatabaseConstants.IS_SPICY));
+		String description = resultSet.getString(resultSet.findColumn(DatabaseConstants.DISH_DESCRIPTION));
+		boolean isActive = resultSet.getBoolean(resultSet.findColumn(DatabaseConstants.DISH_IS_ACTIVE));
 		Dish dish = new Dish(dishID, price, name, containsGluten, containsNuts, containsDairy, isVegetarian, isSpicy, description, isActive);
 		return dish;
 	}
 
 	static Extra createExtra(ResultSet resultSet, int columnOffset) throws SQLException{
-		int extrasID = resultSet.getInt(columnOffset + 0);
-		String name = resultSet.getString(columnOffset + 1);
-		String price = resultSet.getString(columnOffset + 2);
-		boolean isActive = resultSet.getBoolean(columnOffset + 3);
+		int extrasID = resultSet.getInt(resultSet.findColumn(DatabaseConstants.EXTRAS_ID));
+		String name = resultSet.getString(resultSet.findColumn(DatabaseConstants.EXTRAS_NAME));
+		String price = resultSet.getString(resultSet.findColumn(DatabaseConstants.EXTRAS_PRICE));
+		boolean isActive = resultSet.getBoolean(resultSet.findColumn(DatabaseConstants.EXTRAS_IS_ACTIVE));
 		Extra extra = new Extra(extrasID, name, price, isActive);
 		return extra;
 	}
 
 	static Order createOrder(ResultSet resultSet, Customer customer, int orderTableColumnOffset, int orderCommentsTableColumnOffset) throws SQLException{
-		int orderID = resultSet.getInt(orderTableColumnOffset + 1);
-		String timeRegistered = resultSet.getString(orderTableColumnOffset + 3);
-		String orderStatus = resultSet.getString(orderTableColumnOffset + 4);
-		String deliveryMethod = resultSet.getString(orderTableColumnOffset + 5);
-		String comment = resultSet.getString(orderCommentsTableColumnOffset + 1);
+		int orderID = resultSet.getInt(resultSet.findColumn(DatabaseConstants.ORDERS_ID));
+		String timeRegistered = resultSet.getString(resultSet.findColumn(DatabaseConstants.ORDERS_TIME_REGISTERED));
+		String orderStatus = resultSet.getString(resultSet.findColumn(DatabaseConstants.ORDERS_STATUS));
+		String deliveryMethod = resultSet.getString(resultSet.findColumn(DatabaseConstants.ORDERS_DELIVERY_METHOD));
+		String comment = resultSet.getString(resultSet.findColumn(DatabaseConstants.ORDERS_COMMENT));
 		Order order = new Order(orderID, customer, timeRegistered, orderStatus, deliveryMethod, comment);
 		return order;
 	}
