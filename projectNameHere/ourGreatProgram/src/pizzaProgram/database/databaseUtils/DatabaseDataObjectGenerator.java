@@ -4,8 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import javax.xml.crypto.Data;
-
 import pizzaProgram.core.Constants;
 import pizzaProgram.core.DatabaseConstants;
 import pizzaProgram.dataObjects.Customer;
@@ -147,8 +145,8 @@ public class DatabaseDataObjectGenerator {
 	}
 
 	public static Setting createSetting(ResultSet results, int columnOffset) throws SQLException {
-		String configKey = results.getString(0 + columnOffset);
-		String configValue = results.getString(1 + columnOffset);
+		String configKey = results.getString(results.findColumn(DatabaseConstants.CONFIG_KEY));
+		String configValue = results.getString(results.findColumn(DatabaseConstants.CONFIG_VALUE));
 		Setting setting = new Setting(configKey, configValue);
 		return setting;
 	}
