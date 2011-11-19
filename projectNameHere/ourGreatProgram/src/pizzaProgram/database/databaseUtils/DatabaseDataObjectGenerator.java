@@ -114,11 +114,11 @@ public class DatabaseDataObjectGenerator {
 		int dishID = resultSet.getInt(resultSet.findColumn(DatabaseConstants.DISH_ID));
 		int price = resultSet.getInt(resultSet.findColumn(DatabaseConstants.DISH_PRICE));
 		String name = resultSet.getString(resultSet.findColumn(DatabaseConstants.DISH_NAME));
-		boolean containsGluten = resultSet.getBoolean(resultSet.findColumn(DatabaseConstants.CONTAINS_GLUTEN));
-		boolean containsNuts = resultSet.getBoolean(resultSet.findColumn(DatabaseConstants.CONTAINS_NUTS));
-		boolean containsDairy = resultSet.getBoolean(resultSet.findColumn(DatabaseConstants.CONTAINS_DAIRY));
-		boolean isVegetarian = resultSet.getBoolean(resultSet.findColumn(DatabaseConstants.IS_VEGETARIAN));
-		boolean isSpicy = resultSet.getBoolean(resultSet.findColumn(DatabaseConstants.IS_SPICY));
+		boolean containsGluten = resultSet.getBoolean(resultSet.findColumn(DatabaseConstants.DISH_CONTAINS_GLUTEN));
+		boolean containsNuts = resultSet.getBoolean(resultSet.findColumn(DatabaseConstants.DISH_CONTAINS_NUTS));
+		boolean containsDairy = resultSet.getBoolean(resultSet.findColumn(DatabaseConstants.DISH_CONTAINS_DAIRY));
+		boolean isVegetarian = resultSet.getBoolean(resultSet.findColumn(DatabaseConstants.DISH_IS_VEGETARIAN));
+		boolean isSpicy = resultSet.getBoolean(resultSet.findColumn(DatabaseConstants.DISH_IS_SPICY));
 		String description = resultSet.getString(resultSet.findColumn(DatabaseConstants.DISH_DESCRIPTION));
 		boolean isActive = resultSet.getBoolean(resultSet.findColumn(DatabaseConstants.DISH_IS_ACTIVE));
 		Dish dish = new Dish(dishID, price, name, containsGluten, containsNuts, containsDairy, isVegetarian, isSpicy, description, isActive);
