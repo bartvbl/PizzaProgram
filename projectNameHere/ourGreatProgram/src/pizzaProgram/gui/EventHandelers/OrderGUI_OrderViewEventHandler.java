@@ -19,7 +19,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
-import pizzaProgram.core.Constants;
+import pizzaProgram.core.GUIConstants;
 import pizzaProgram.dataObjects.Customer;
 import pizzaProgram.dataObjects.Dish;
 import pizzaProgram.dataObjects.Extra;
@@ -284,7 +284,7 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler
 		this.temporaryOrderData.setOrderComments(OrderView.orderCommentsTextArea.getText());
 
 		String selectedDeliveryMethod = (String) OrderView.deliveryMethodComboBox.getSelectedItem();
-		String deliveryMethod = selectedDeliveryMethod.equals(Constants.GUI_PICKUP) ? Order.PICKUP_AT_RESTAURANT: Order.DELIVER_AT_HOME;
+		String deliveryMethod = selectedDeliveryMethod.equals(GUIConstants.GUI_PICKUP) ? Order.PICKUP_AT_RESTAURANT: Order.DELIVER_AT_HOME;
 		this.temporaryOrderData.setDeliveryMethod(deliveryMethod);
 
 		UnaddedOrder orderToConfirm = this.temporaryOrderData.convertToOrderObjectAndReset();
@@ -391,7 +391,7 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler
 	}
 
 	private String convertBooleanToYesOrNoString(boolean b) {
-		return b ? Constants.GUI_TRUE : Constants.GUI_FALSE;
+		return b ? GUIConstants.GUI_TRUE : GUIConstants.GUI_FALSE;
 	}
 
 	private void setCustomerSelectionAreaEnabled(boolean enabled) {

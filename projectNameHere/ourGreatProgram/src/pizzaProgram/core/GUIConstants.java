@@ -2,16 +2,16 @@ package pizzaProgram.core;
 
 import pizzaProgram.dataObjects.Order;
 
-public class Constants {
-
+public class GUIConstants {
+	/**
+	 * Class containing constants used in various areas of the GUI.
+	 */
 	public static final int RECIPT_WIDTH = 160;
 	public static final int RECIPT_ROW_HEIGHT = 20;
 
-	// gui representation of true/false
 	public static final String GUI_TRUE = "Ja";
 	public static final String GUI_FALSE = "Nei";
 
-	// norsk delivery metjod
 	public static final String GUI_DELIVER = "Lever hjem";
 	public static final String GUI_PICKUP = "Hent selv";
 

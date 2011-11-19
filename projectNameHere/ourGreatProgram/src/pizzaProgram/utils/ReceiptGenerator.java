@@ -1,6 +1,6 @@
 package pizzaProgram.utils;
 
-import pizzaProgram.core.Constants;
+import pizzaProgram.core.GUIConstants;
 import pizzaProgram.dataObjects.Extra;
 import pizzaProgram.dataObjects.Order;
 import pizzaProgram.dataObjects.OrderDish;
@@ -18,7 +18,7 @@ public class ReceiptGenerator {
 		String receiptString = "";
 
 		receiptString += "<html>";
-		receiptString += "<table width=\"" + Constants.RECIPT_WIDTH
+		receiptString += "<table width=\"" + GUIConstants.RECIPT_WIDTH
 				+ "\" border=\"0\">";
 		receiptString += "<tr><td align=\"center\"colspan=\"2\">====="
 				+ PriceCalculators.getRestaurantName() + "=====</td></tr>";

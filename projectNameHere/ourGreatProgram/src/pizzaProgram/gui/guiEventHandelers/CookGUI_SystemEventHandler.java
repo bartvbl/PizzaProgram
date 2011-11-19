@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import javax.swing.table.DefaultTableModel;
 
-import pizzaProgram.core.Constants;
+import pizzaProgram.core.GUIConstants;
 import pizzaProgram.dataObjects.Order;
 import pizzaProgram.events.Event;
 import pizzaProgram.events.EventDispatcher;
@@ -43,7 +43,7 @@ public class CookGUI_SystemEventHandler implements EventHandler {
 			DefaultTableModel tableModel = (DefaultTableModel)CookView.orderDetailsTable.getModel();
 			tableModel.setRowCount(0);
 			for(Order order : orderList){
-				tableModel.addRow(new Object[]{order.orderID, Constants.translateOrderStatus(order.status), order.timeRegistered});
+				tableModel.addRow(new Object[]{order.orderID, GUIConstants.translateOrderStatus(order.status), order.timeRegistered});
 			}
 		}else{
 			System.err.println("ERROR: got a list that was not a list of Order instances when trying to update the order list in the cook GUI.");

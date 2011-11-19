@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import pizzaProgram.core.Constants;
+import pizzaProgram.core.GUIConstants;
 import pizzaProgram.dataObjects.Dish;
 import pizzaProgram.dataObjects.Extra;
 import pizzaProgram.database.databaseUtils.DataCleaner;
@@ -106,7 +106,7 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 		AdminView.editExtraExtraNameTextBox.setEnabled(false);
 		AdminView.editExtraExtraPriceTextArea.setText(""+selectedExtra.priceFuncPart + selectedExtra.priceValPart);
 		
-		char selectchar = selectedExtra.isActive ? Constants.GUI_TRUE.charAt(0) : Constants.GUI_FALSE.charAt(0);
+		char selectchar = selectedExtra.isActive ? GUIConstants.GUI_TRUE.charAt(0) : GUIConstants.GUI_FALSE.charAt(0);
 		AdminView.editExtraExtraIsActiveComboBox.selectWithKeyChar(selectchar);
 	}
 	
@@ -152,7 +152,7 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 	}
 
 	private void handleExtraConfirmButtonClick() {
-		boolean active = AdminView.editExtraExtraIsActiveComboBox.getSelectedItem().equals(Constants.GUI_TRUE) ? true :false;
+		boolean active = AdminView.editExtraExtraIsActiveComboBox.getSelectedItem().equals(GUIConstants.GUI_TRUE) ? true :false;
 		String name = DataCleaner.cleanDbData(AdminView.editExtraExtraNameTextBox.getText());
 		String price = DataCleaner.cleanDbData(AdminView.editExtraExtraPriceTextArea.getText()).replaceAll(" ", "");
 		
@@ -186,12 +186,12 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 		showAllExtras();
 	}
 	private void handleDishConfirmButtonClick() {
-		boolean diary = AdminView.editDishContainsDairyComboBox.getSelectedItem().equals(Constants.GUI_TRUE) ? true : false;
-		boolean nuts = AdminView.editDIshContainsNutsComboBox.getSelectedItem().equals(Constants.GUI_TRUE) ? true : false;
-		boolean gluten = AdminView.editDIshContainsGlutenComboBox.getSelectedItem().equals(Constants.GUI_TRUE) ? true : false;
-		boolean spicy = AdminView.editDishIsPsicyComboBox.getSelectedItem().equals(Constants.GUI_TRUE) ? true : false;
-		boolean active = AdminView.editDishIsDishActiveComboBox.getSelectedItem().equals(Constants.GUI_TRUE) ? true : false;
-		boolean vegan = AdminView.editDishIsVegetarianComboBox.getSelectedItem().equals(Constants.GUI_TRUE) ? true : false;
+		boolean diary = AdminView.editDishContainsDairyComboBox.getSelectedItem().equals(GUIConstants.GUI_TRUE) ? true : false;
+		boolean nuts = AdminView.editDIshContainsNutsComboBox.getSelectedItem().equals(GUIConstants.GUI_TRUE) ? true : false;
+		boolean gluten = AdminView.editDIshContainsGlutenComboBox.getSelectedItem().equals(GUIConstants.GUI_TRUE) ? true : false;
+		boolean spicy = AdminView.editDishIsPsicyComboBox.getSelectedItem().equals(GUIConstants.GUI_TRUE) ? true : false;
+		boolean active = AdminView.editDishIsDishActiveComboBox.getSelectedItem().equals(GUIConstants.GUI_TRUE) ? true : false;
+		boolean vegan = AdminView.editDishIsVegetarianComboBox.getSelectedItem().equals(GUIConstants.GUI_TRUE) ? true : false;
 		
 		String name = DataCleaner.cleanDbData(AdminView.editDishNameTextBox.getText());
 		String description = DataCleaner.cleanDbData(AdminView.editDishDescriptionTextArea.getText());
@@ -236,7 +236,7 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 		AdminView.editExtraExtraNameTextBox.setEnabled(true);
 		AdminView.editExtraExtraPriceTextArea.setText("+50");
 		
-		AdminView.editExtraExtraIsActiveComboBox.selectWithKeyChar(Constants.GUI_TRUE.charAt(0));
+		AdminView.editExtraExtraIsActiveComboBox.selectWithKeyChar(GUIConstants.GUI_TRUE.charAt(0));
 	}
 	
 	private void handleNewDishButtonClick() {
@@ -248,8 +248,8 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 		AdminView.editDishDescriptionTextArea.setText("Ost - Jarlsberg\nSkinke\nTomatsaus");
 		AdminView.editDishDishPriceTextArea.setText("150");
 		
-		char trueChar = Constants.GUI_TRUE.charAt(0);
-		char falseChar = Constants.GUI_FALSE.charAt(0);
+		char trueChar = GUIConstants.GUI_TRUE.charAt(0);
+		char falseChar = GUIConstants.GUI_FALSE.charAt(0);
 		
 		AdminView.editDishContainsDairyComboBox.selectWithKeyChar(trueChar);
 		AdminView.editDIshContainsGlutenComboBox.selectWithKeyChar(trueChar);
@@ -281,8 +281,8 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 		AdminView.editDishDishPriceTextArea.setText(""+selectedDish.price);
 		
 		//her resetter vi alle valgboksene til sin defaultverdi
-		char trueChar = Constants.GUI_TRUE.charAt(0);
-		char falseChar = Constants.GUI_FALSE.charAt(0);
+		char trueChar = GUIConstants.GUI_TRUE.charAt(0);
+		char falseChar = GUIConstants.GUI_FALSE.charAt(0);
 		
 		char selectDiaryYN = selectedDish.containsDairy ? trueChar: falseChar;
 		AdminView.editDishContainsDairyComboBox.selectWithKeyChar(selectDiaryYN);

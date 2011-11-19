@@ -7,7 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import pizzaProgram.core.Constants;
+import pizzaProgram.core.GUIConstants;
 import pizzaProgram.utils.PrintUtilities;
 
 @SuppressWarnings("serial")
@@ -29,7 +29,7 @@ public class ReceiptWindow extends JFrame{
 		setTitle("Kvittering");
 
 		html = new JLabel(kvittering, JLabel.LEFT);
-		html.setBounds(0, 5, Constants.RECIPT_WIDTH, rows * Constants.RECIPT_ROW_HEIGHT);
+		html.setBounds(0, 5, GUIConstants.RECIPT_WIDTH, rows * GUIConstants.RECIPT_ROW_HEIGHT);
 		html.setVerticalAlignment(JLabel.TOP);
 		html.setHorizontalTextPosition(JLabel.LEFT);
 		html.setVerticalTextPosition(JLabel.TOP);

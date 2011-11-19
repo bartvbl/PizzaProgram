@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
-import pizzaProgram.core.Constants;
+import pizzaProgram.core.GUIConstants;
 import pizzaProgram.dataObjects.Dish;
 import pizzaProgram.dataObjects.Extra;
 import pizzaProgram.events.Event;
@@ -48,18 +48,18 @@ public class AdminGUI extends GUIModule implements EventHandler{
 		AdminView.allActiveDishesTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
 		//DROPDOWNS
-		AdminView.editDishContainsDairyComboBox.addItem(Constants.GUI_TRUE);
-		AdminView.editDishContainsDairyComboBox.addItem(Constants.GUI_FALSE);
-		AdminView.editDIshContainsGlutenComboBox.addItem(Constants.GUI_TRUE);
-		AdminView.editDIshContainsGlutenComboBox.addItem(Constants.GUI_FALSE);
-		AdminView.editDIshContainsNutsComboBox.addItem(Constants.GUI_TRUE);
-		AdminView.editDIshContainsNutsComboBox.addItem(Constants.GUI_FALSE);
-		AdminView.editDishIsDishActiveComboBox.addItem(Constants.GUI_TRUE);
-		AdminView.editDishIsDishActiveComboBox.addItem(Constants.GUI_FALSE);
-		AdminView.editDishIsPsicyComboBox.addItem(Constants.GUI_TRUE);
-		AdminView.editDishIsPsicyComboBox.addItem(Constants.GUI_FALSE);
-		AdminView.editDishIsVegetarianComboBox.addItem(Constants.GUI_TRUE);
-		AdminView.editDishIsVegetarianComboBox.addItem(Constants.GUI_FALSE);
+		AdminView.editDishContainsDairyComboBox.addItem(GUIConstants.GUI_TRUE);
+		AdminView.editDishContainsDairyComboBox.addItem(GUIConstants.GUI_FALSE);
+		AdminView.editDIshContainsGlutenComboBox.addItem(GUIConstants.GUI_TRUE);
+		AdminView.editDIshContainsGlutenComboBox.addItem(GUIConstants.GUI_FALSE);
+		AdminView.editDIshContainsNutsComboBox.addItem(GUIConstants.GUI_TRUE);
+		AdminView.editDIshContainsNutsComboBox.addItem(GUIConstants.GUI_FALSE);
+		AdminView.editDishIsDishActiveComboBox.addItem(GUIConstants.GUI_TRUE);
+		AdminView.editDishIsDishActiveComboBox.addItem(GUIConstants.GUI_FALSE);
+		AdminView.editDishIsPsicyComboBox.addItem(GUIConstants.GUI_TRUE);
+		AdminView.editDishIsPsicyComboBox.addItem(GUIConstants.GUI_FALSE);
+		AdminView.editDishIsVegetarianComboBox.addItem(GUIConstants.GUI_TRUE);
+		AdminView.editDishIsVegetarianComboBox.addItem(GUIConstants.GUI_FALSE);
 		
 		DefaultTableModel extraTableModel = (DefaultTableModel) AdminView.allRegisteredExtrasTable.getModel();
 		extraTableModel.addColumn("Navn");
@@ -67,8 +67,8 @@ public class AdminGUI extends GUIModule implements EventHandler{
 		extraTableModel.addColumn("I sortiment");
 		AdminView.allRegisteredExtrasTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
-		AdminView.editExtraExtraIsActiveComboBox.addItem(Constants.GUI_TRUE);
-		AdminView.editExtraExtraIsActiveComboBox.addItem(Constants.GUI_FALSE);
+		AdminView.editExtraExtraIsActiveComboBox.addItem(GUIConstants.GUI_TRUE);
+		AdminView.editExtraExtraIsActiveComboBox.addItem(GUIConstants.GUI_FALSE);
 
 	}
 

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import javax.swing.table.DefaultTableModel;
 
-import pizzaProgram.core.Constants;
+import pizzaProgram.core.GUIConstants;
 import pizzaProgram.dataObjects.Order;
 import pizzaProgram.database.databaseUtils.DatabaseResultsFeedbackProvider;
 import pizzaProgram.events.Event;
@@ -42,7 +42,7 @@ public class DeliveryGUI_SystemEventHandler implements EventHandler{
 			DefaultTableModel tableModel = (DefaultTableModel)DeliveryView.activeOrdersTable.getModel();
 			tableModel.setRowCount(0);
 			for(Order order : orderList){
-				tableModel.addRow(new Object[]{order.orderID, Constants.translateOrderStatus(order.status), order.timeRegistered, Constants.translateDeliveryMethod(order.deliveryMethod)});
+				tableModel.addRow(new Object[]{order.orderID, GUIConstants.translateOrderStatus(order.status), order.timeRegistered, GUIConstants.translateDeliveryMethod(order.deliveryMethod)});
 			}
 		}else{
 			DatabaseResultsFeedbackProvider.showGetAllUndeliveredOrdersFailedMessage();
