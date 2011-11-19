@@ -5,7 +5,6 @@ import java.text.DecimalFormat;
 import javax.swing.JOptionPane;
 
 import pizzaProgram.core.DatabaseConstants;
-import pizzaProgram.core.PizzaProgram;
 import pizzaProgram.dataObjects.Dish;
 import pizzaProgram.dataObjects.Extra;
 import pizzaProgram.dataObjects.Order;
@@ -198,23 +197,49 @@ public class PriceCalculators {
 		return totalPrice / 100 + "," + formatter.format(totalPrice % 100);
 	}
 
+	/**
+	 * Generates a string displaying the change in price if you add the given
+	 * Extra to the given Dish.
+	 * 
+	 * @param d
+	 *            - the {@link pizzaProgram.dataObjects.Dish dish} the info in
+	 *            the string is to be in relation to.
+	 * @param e
+	 *            - the {@link pizzaProgram.dataObjects.Extra extra} the info in
+	 *            the string is to be in relation to.
+	 * @return a string in the form of "+0,00" or "-0,00" depending on wether or
+	 *         not it is a positive or negative price change.
+	 */
 	public static String getPriceForExtraOnDish(Dish d, Extra e) {
 		if (e.priceFuncPart != '*') {
 			return e.priceFuncPart + "" + e.priceValPart / 100 + ","
 					+ formatter.format(e.priceValPart % 100);
 		}
-		int returnVal = (int) (d.price * ((e.priceValPart-100) / 100.0));
+		int returnVal = (int) (d.price * ((e.priceValPart - 100) / 100.0));
 		char func = returnVal >= 0 ? '+' : '-';
 		returnVal = Math.abs(returnVal);
 		return func + "" + returnVal / 100 + ","
 				+ formatter.format(returnVal % 100);
 	}
 
+	/**
+	 * Generates a string on the form "+0,00", "-0,00" or "*0,00" containing the
+	 * price modification adding the given extra will have on a dish.
+	 * 
+	 * @param e
+	 *            - the {@link pizzaProgram.dataObjects.Extra extra} to get the
+	 *            price modification from.
+	 * @return the priceString as specified above.
+	 */
 	public static String getPriceForExtra(Extra e) {
 		return e.priceFuncPart + "" + e.priceValPart / 100 + ","
 				+ formatter.format(e.priceValPart % 100);
 	}
 
+	/**
+	 * Method that sets the static fields of the class based on a fetch from the
+	 * Config table of the database.
+	 */
 	public static void getConstantsFromDataBase() {
 		deliverMoms = Integer
 				.parseInt(DatabaseReader
@@ -230,18 +255,6 @@ public class PriceCalculators {
 						.getSettingByKey(DatabaseConstants.SETTING_KEY_DELIVERY_PRICE).value);
 		restaurantName = DatabaseReader
 				.getSettingByKey(DatabaseConstants.SETTING_KEY_RESTAURANT_NAME).value;
-	}
-
-	public static int getDeliverMoms() {
-		if (deliverMoms == -1) {
-			JOptionPane
-					.showMessageDialog(
-							null,
-							"Momsverdi ikke hentet ut korrekt fra databasen - sjekk tilkoblingen til databasen og prøv igjen!",
-							"En alvorlig feil har oppstått!",
-							JOptionPane.ERROR_MESSAGE, null);
-		}
-		return deliverMoms;
 	}
 
 	public static String getRestaurantName() {
