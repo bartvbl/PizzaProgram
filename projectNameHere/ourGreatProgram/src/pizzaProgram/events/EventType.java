@@ -5,8 +5,6 @@ package pizzaProgram.events;
  * dispatching events should use constants from this class to represent event
  * types.
  * 
- * @author Bart
- * 
  */
 public class EventType {
 	public static final String DATABASE_SEARCH_CUSTOMER_INFO_BY_NAME = "databaseSearchCustomerInfoByName";
@@ -43,11 +41,6 @@ public class EventType {
 	 */
 	public final static String ADD_ORDER_REQUESTED = "addOrderRequested";
 	public static final String ORDER_GUI_UPDATE_CUSTOMER_LIST = "orderGuiUpdateCustomerList";
-	/**
-	 * The database classes notifies the rest of the program that the lists have
-	 * just been updated
-	 */
-	public final static String DATABASE_LISTS_UPDATED = "databaseListsUpdated";
 
 	public static final String DATABASE_UPDATE_ORDER_GUI_SEND_ALL_CUSTOMERS = "databaseUpdateOrderGUISendAllCustomers";
 
@@ -101,6 +94,7 @@ public class EventType {
 	public static final String ADMIN_GUI_UPDATE_EXTRA_LIST = "adminGUIUpdateExtraList";
 	
 	public static final String ADMIN_GUI_REQUESTED = "adminGUIRequested";
+	
 
 	public static final String DATABASE_UPDATE_ADMINGUI_GUI_SEND_ALL_DISHES = "dupdatesendalldishes";
 	
@@ -113,5 +107,7 @@ public class EventType {
 	public static final String DATABASE_UPDATE_ADMIN_GUI_SEARCH_DISHES = "databaseUpdateAdminGUISearchDishes";
 
 	public static final String DATABASE_UPDATE_ADMIN_GUI_SEARCH_EXTRAS = "databaseUpdateAdminGUISearchExtras";
-
+	
+	
+	
 }
