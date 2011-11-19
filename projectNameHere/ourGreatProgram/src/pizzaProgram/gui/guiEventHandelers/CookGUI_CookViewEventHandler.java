@@ -1,4 +1,4 @@
-package pizzaProgram.events.moduleEventHandlers;
+package pizzaProgram.gui.guiEventHandelers;
 
 import java.awt.Component;
 import java.awt.event.ActionEvent;
@@ -19,9 +19,9 @@ import pizzaProgram.dataObjects.Order;
 import pizzaProgram.dataObjects.OrderDish;
 import pizzaProgram.events.Event;
 import pizzaProgram.events.EventType;
+import pizzaProgram.events.moduleEventHandlers.ComponentEventHandler;
 import pizzaProgram.gui.CookGUI;
 import pizzaProgram.gui.views.CookView;
-import pizzaProgram.gui.views.OrderView;
 
 public class CookGUI_CookViewEventHandler extends ComponentEventHandler implements ActionListener {
 	
@@ -51,14 +51,11 @@ public class CookGUI_CookViewEventHandler extends ComponentEventHandler implemen
 		CookView.markOrderCompletedButton.addActionListener(this);
 		this.registerEventType(CookView.markOrderCompletedButton, "markOrderCompleted");
 		
-//		CookView.searchOrderButton.addActionListener(this);
-//		this.registerEventType(CookView.searchOrderButton, "searchOrders");
-		
 		CookView.orderSearchTextPane.addKeyListener(new KeyListener(){
 			public void keyPressed(KeyEvent arg0) {}
 			public void keyTyped(KeyEvent arg0) {}
 			public void keyReleased(KeyEvent arg0) {
-				if(CookView.orderSearchTextPane.getText().equals("")) {
+				if(CookView.orderSearchTextPane.getText().trim().isEmpty()) {
 					showAllOrders();
 				} else {
 					searchOrdersBySearchBoxQuery();
@@ -100,22 +97,22 @@ public class CookGUI_CookViewEventHandler extends ComponentEventHandler implemen
 	private void updateCurrentOrder(String beingCooked) {
 		int selectedIndex = CookView.orderDetailsTable.getSelectionModel().getMinSelectionIndex();
 		showAllOrders();
-		if(selectedIndex == -1)
-		{
+		if(selectedIndex == -1){
 			return;
 		}
 		CookView.orderDetailsTable.getSelectionModel().setLeadSelectionIndex(selectedIndex);
 		Order order = this.cookGUI.currentOrderList.get(selectedIndex);
 		this.cookGUI.currentSelectedOrder = order;
 		this.showOrder(order);
-		if(CookView.orderSearchTextPane.getText().equals(""))
-		{
-			this.searchOrdersBySearchBoxQuery();
+		if(CookView.orderSearchTextPane.getText().isEmpty()){
+			showAllOrders();
+		}else{
+			searchOrdersBySearchBoxQuery();
 		}
 	}
 	
 	private void searchOrdersBySearchBoxQuery() {
-		this.dispatchEvent(new Event<String>(EventType.DATABASE_UPDATE_COOK_GUI_SEARCH_ORDERS_BY_KEYWORDS, CookView.orderSearchTextPane.getText()));
+		this.dispatchEvent(new Event<String>(EventType.DATABASE_UPDATE_COOK_GUI_SEARCH_ORDERS_BY_KEYWORDS, CookView.orderSearchTextPane.getText().trim()));
 	}
 	
 	private void resetUI(){
@@ -130,8 +127,7 @@ public class CookGUI_CookViewEventHandler extends ComponentEventHandler implemen
 	
 	private void handleOrderSelection(ListSelectionEvent e) {
 		int selectedIndex = ((DefaultListSelectionModel)e.getSource()).getMinSelectionIndex();
-		if(selectedIndex == -1)
-		{
+		if(selectedIndex == -1){
 			return;
 		}
 		Order order = this.cookGUI.currentOrderList.get(selectedIndex);

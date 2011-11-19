@@ -1,15 +1,20 @@
 package pizzaProgram.gui.views;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import pizzaProgram.core.Constants;
+import pizzaProgram.utils.PrintUtilities;
 
 @SuppressWarnings("serial")
 public class ReceiptWindow extends JFrame{
 
 	private JLabel html;
-
+	private JButton printButton;
 	/**
 	 * This class is a window, the window displays a receipt(o0r whatever string it is given as input)
 	 * The rows parameter is how many rows of text the recipt contains, it is used for calculating height, but 
@@ -18,20 +23,35 @@ public class ReceiptWindow extends JFrame{
 	 * @param rows
 	 */
 	public ReceiptWindow(String kvittering, int rows) {
-		this.setLayout(null);
-		this.setLocation(100, 100);
-		this.setResizable(false);
-		this.setTitle("Kvittering");
-		
+		setLayout(null);
+		setLocationRelativeTo(null);
+		setResizable(false);
+		setTitle("Kvittering");
+
 		html = new JLabel(kvittering, JLabel.LEFT);
 		html.setBounds(0, 5, Constants.RECIPT_WIDTH, rows * Constants.RECIPT_ROW_HEIGHT);
 		html.setVerticalAlignment(JLabel.TOP);
 		html.setHorizontalTextPosition(JLabel.LEFT);
 		html.setVerticalTextPosition(JLabel.TOP);
+
+		printButton = new JButton("Skriv ut");
+		printButton.setBounds(0, html.getY()+html.getHeight() +5, 80, 22);
+		printButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				skrivUt();
+			}
+		});
 		
-		this.add(html);
-		this.setSize(html.getWidth() + 10, html.getHeight() + 40);//40 is the height of the framedecoration 10 is the width
-		this.setVisible(true);
+		add(html);
+		add(printButton);
+		setSize(html.getWidth() + 10, printButton.getY() + printButton.getHeight() + 40);//40 is the height of the framedecoration 10 is the width
+		setVisible(true);
+	}
+	
+	
+	private void skrivUt() {
+		PrintUtilities printer = new PrintUtilities(html);
+		printer.print();
 	}
 
 }//END

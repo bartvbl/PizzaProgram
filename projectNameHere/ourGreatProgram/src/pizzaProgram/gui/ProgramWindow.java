@@ -14,6 +14,8 @@ import org.jdesktop.application.SingleFrameApplication;
 import pizzaProgram.events.Event;
 import pizzaProgram.events.EventDispatcher;
 import pizzaProgram.events.EventHandler;
+import pizzaProgram.gui.guiEventHandelers.MenuBarEventHandler;
+import pizzaProgram.gui.views.ProgramWindowFrameView;
 
 /**
  * The ProgramWindow class creates the application's main window, with several

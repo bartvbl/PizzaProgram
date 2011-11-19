@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package pizzaProgram.events.moduleEventHandlers;
+package pizzaProgram.gui.guiEventHandelers;
 
 import java.awt.Component;
 import java.awt.event.ActionEvent;
@@ -28,6 +28,7 @@ import pizzaProgram.dataObjects.UnaddedOrder;
 import pizzaProgram.database.databaseUtils.DatabaseResultsFeedbackProvider;
 import pizzaProgram.events.Event;
 import pizzaProgram.events.EventType;
+import pizzaProgram.events.moduleEventHandlers.ComponentEventHandler;
 import pizzaProgram.gui.NewCustomerWindow;
 import pizzaProgram.gui.OrderGUI;
 import pizzaProgram.gui.views.OrderView;

@@ -1,4 +1,4 @@
-package pizzaProgram.events.moduleEventHandlers;
+package pizzaProgram.gui.guiEventHandelers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,6 +18,7 @@ import pizzaProgram.dataObjects.Extra;
 import pizzaProgram.database.databaseUtils.DataCleaner;
 import pizzaProgram.events.Event;
 import pizzaProgram.events.EventType;
+import pizzaProgram.events.moduleEventHandlers.ComponentEventHandler;
 import pizzaProgram.gui.AdminGUI;
 import pizzaProgram.gui.views.AdminView;
 
@@ -300,6 +301,12 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 
 		char selectActiveYN = selectedDish.isActive ? trueChar: falseChar;
 		AdminView.editDishIsDishActiveComboBox.selectWithKeyChar(selectActiveYN);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }//END

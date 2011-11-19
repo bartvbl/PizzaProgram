@@ -1,8 +1,4 @@
-/*
- * DesktopApplication1View.java
- */
-
-package pizzaProgram.gui;
+package pizzaProgram.gui.views;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -14,7 +10,6 @@ import org.jdesktop.application.FrameView;
 import org.jdesktop.application.SingleFrameApplication;
 
 import pizzaProgram.core.PizzaProgram;
-import pizzaProgram.gui.views.DesktopApplication1AboutBox;
 
 /**
  * The application's main frame.
@@ -23,9 +18,7 @@ public class ProgramWindowFrameView extends FrameView {
 
     public ProgramWindowFrameView(SingleFrameApplication app) {
         super(app);
-
         initComponents();
-
     }
     
     @Action

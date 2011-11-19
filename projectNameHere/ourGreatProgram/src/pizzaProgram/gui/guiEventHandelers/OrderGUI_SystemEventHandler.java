@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package pizzaProgram.events.moduleEventHandlers;
+package pizzaProgram.gui.guiEventHandelers;
 
 import java.util.ArrayList;
 

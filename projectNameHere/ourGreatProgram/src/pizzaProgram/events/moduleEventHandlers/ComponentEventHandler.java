@@ -4,14 +4,12 @@ import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Hashtable;
+
 import pizzaProgram.events.Event;
 import pizzaProgram.modules.Module;
 
-/**
- *
- * @author Bart
- */
-public class ComponentEventHandler implements ActionListener {
+
+public abstract class ComponentEventHandler implements ActionListener {
 	private Hashtable<Component, String> eventTypeTable;
 	private Module eventDispatchingModule;
 
@@ -32,5 +30,5 @@ public class ComponentEventHandler implements ActionListener {
 		this.eventDispatchingModule.dispatchEvent(event);
 	}
 
-	public void actionPerformed(ActionEvent e) {}
+	public abstract void actionPerformed(ActionEvent e);
 }

@@ -13,8 +13,8 @@ import pizzaProgram.events.Event;
 import pizzaProgram.events.EventDispatcher;
 import pizzaProgram.events.EventHandler;
 import pizzaProgram.events.EventType;
-import pizzaProgram.events.moduleEventHandlers.DeliveryGUI_DeliveryViewEventHandler;
-import pizzaProgram.events.moduleEventHandlers.DeliveryGUI_SystemEventHandler;
+import pizzaProgram.gui.guiEventHandelers.DeliveryGUI_DeliveryViewEventHandler;
+import pizzaProgram.gui.guiEventHandelers.DeliveryGUI_SystemEventHandler;
 import pizzaProgram.gui.views.DeliveryView;
 import pizzaProgram.modules.GUIModule;
 

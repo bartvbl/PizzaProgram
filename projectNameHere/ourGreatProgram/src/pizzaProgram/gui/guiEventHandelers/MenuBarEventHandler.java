@@ -2,10 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package pizzaProgram.gui;
+package pizzaProgram.gui.guiEventHandelers;
 
 
-import pizzaProgram.gui.ProgramWindowFrameView;
+import pizzaProgram.gui.views.ProgramWindowFrameView;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Hashtable;

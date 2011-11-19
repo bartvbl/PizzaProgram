@@ -1,4 +1,4 @@
-package pizzaProgram.events.moduleEventHandlers;
+package pizzaProgram.gui.guiEventHandelers;
 
 import java.awt.Component;
 import java.awt.event.ActionEvent;
@@ -15,6 +15,7 @@ import pizzaProgram.core.Constants;
 import pizzaProgram.dataObjects.Order;
 import pizzaProgram.events.Event;
 import pizzaProgram.events.EventType;
+import pizzaProgram.events.moduleEventHandlers.ComponentEventHandler;
 import pizzaProgram.gui.DeliverGUI;
 import pizzaProgram.gui.utils.DeliveryGUIUpdater;
 import pizzaProgram.gui.views.CookView;

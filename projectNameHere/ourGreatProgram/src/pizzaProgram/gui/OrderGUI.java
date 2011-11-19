@@ -14,8 +14,8 @@ import pizzaProgram.events.Event;
 import pizzaProgram.events.EventDispatcher;
 import pizzaProgram.events.EventHandler;
 import pizzaProgram.events.EventType;
-import pizzaProgram.events.moduleEventHandlers.OrderGUI_OrderViewEventHandler;
-import pizzaProgram.events.moduleEventHandlers.OrderGUI_SystemEventHandler;
+import pizzaProgram.gui.guiEventHandelers.OrderGUI_OrderViewEventHandler;
+import pizzaProgram.gui.guiEventHandelers.OrderGUI_SystemEventHandler;
 import pizzaProgram.gui.views.OrderView;
 import pizzaProgram.modules.GUIModule;
 
