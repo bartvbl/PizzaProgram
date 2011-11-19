@@ -5,6 +5,10 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+/**
+ * Class for reading the URL, password and username of the database from a
+ * locally stored configuration file.
+ */
 public class DatabaseCredentials {
 
 	private static final String URL_TYPE = "URL";
@@ -15,6 +19,18 @@ public class DatabaseCredentials {
 	private String username = "";
 	private String password = "";
 
+	/**
+	 * The method reads the entire contents of the file, and looks for the URL,
+	 * username and password among its contents. Lines in a properly formatted
+	 * configuration file starts with either #, if the line is a comment, or the
+	 * key-value pairs of the configuration value, eg "PASSWORD: mypassword".
+	 * Once found the method, using the helper methods of the class, store these
+	 * values in the private fields of the method.
+	 * 
+	 * @param src
+	 *            The filepath to the configurationfile (can be either a
+	 *            relative path or an absolute path)
+	 */
 	public void loadFromFile(String src) {
 		try {
 			BufferedReader fileReader = new BufferedReader(new FileReader(src));
@@ -24,39 +40,65 @@ public class DatabaseCredentials {
 			}
 		} catch (FileNotFoundException e) {
 			System.out
-					.println("Unable to find the configurationfile for the database."
-							+ "Please make sure ../config/databaseinfo.cfg exists: "
+					.println("Unable to find the configuration file for the database."
+							+ "Please make sure "
+							+ src
+							+ " exists: "
 							+ e.getMessage());
 			e.printStackTrace();
 		} catch (IOException e) {
-			System.out.println("Unable to read the configfile: "
+			System.out.println("Unable to read the configuration file: "
 					+ e.getMessage());
 			e.printStackTrace();
 		}
 
 	}
 
-	public String getURL() {
+	String getURL() {
 		return this.url;
 	}
 
-	public String getUsername() {
+	String getUsername() {
 		return this.username;
 	}
 
-	public String getPassword() {
+	String getPassword() {
 		return this.password;
 	}
 
+	/**
+	 * Method that evaluates wether the provided line from the configuration
+	 * file is empty or a comment. If it is not, it splits the line into it's
+	 * key-value pairs as a string array, and sends them to the
+	 * setValueStringByType method for further processing.
+	 * 
+	 * @param line
+	 *            The line to be processed.
+	 */
 	private void readLine(String line) {
 		if (!(line == null || this.lineIsComment(line))) {
-			String[] typeAndValueStringsArray = this
-					.extractTypeAndContentStrings(line);
-			this.setValueStringByType(typeAndValueStringsArray[0],
+			String[] typeAndValueStringsArray = line.split(":", 2);
+			if (typeAndValueStringsArray.length != 2) {
+				System.err
+						.println("There is an error in the configuration file in one of the uncommented lines.");
+				return;
+			}
+			typeAndValueStringsArray[0] = typeAndValueStringsArray[0].trim();
+			typeAndValueStringsArray[1] = typeAndValueStringsArray[1].trim();
+			setValueStringByType(typeAndValueStringsArray[0],
 					typeAndValueStringsArray[1]);
 		}
 	}
 
+	/**
+	 * Method that evaluates which type of field to be updated with the provided
+	 * contents. It then sets the relevant field to its correct value.
+	 * 
+	 * @param type
+	 *            The type of the field that is to be modified.
+	 * @param contents
+	 *            The data that is to be added to the field.
+	 */
 	private void setValueStringByType(String type, String contents) {
 		if (type.equals(URL_TYPE)) {
 			url += contents;
@@ -67,18 +109,13 @@ public class DatabaseCredentials {
 		}
 	}
 
-	private String[] extractTypeAndContentStrings(String line) {
-		String[] typeAndValueStringsArray = line.split(":", 2);
-		if (typeAndValueStringsArray.length == 2) {
-			typeAndValueStringsArray[1] = typeAndValueStringsArray[1].trim();
-			return typeAndValueStringsArray;
-		} else {
-			System.out
-					.println("There is an error in the configuration file in one of the uncommented lines.");
-			return new String[] { "none", "none" };
-		}
-	}
-
+	/**
+	 * Method that evaluates wether or not the given line is a comment.
+	 * 
+	 * @param line
+	 *            The line that is to be evaluated.
+	 * @return True if the line is a comment, false in all other cases.
+	 */
 	private boolean lineIsComment(String line) {
 		return (line.charAt(0) == '#');
 	}
