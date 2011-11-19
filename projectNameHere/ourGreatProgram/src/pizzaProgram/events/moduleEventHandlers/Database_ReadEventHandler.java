@@ -126,15 +126,13 @@ public class Database_ReadEventHandler implements EventHandler {
 		String searchQuery = (String)event.getEventParameterObject();
 		searchQuery = DataCleaner.cleanDbData(searchQuery);
 		ArrayList<Order> orderList = DatabaseSearcher.getOrdersByKeywords(searchQuery, new String[]{Order.BEING_COOKED, Order.REGISTERED});
-		if(orderList != null)
-		{
+		if(orderList != null){
 			this.eventDispatcher.dispatchEvent(new Event<ArrayList<Order>>(EventType.COOK_GUI_UPDATE_ORDER_LIST, orderList));
 		}
 	}
 
 	private void sendListOfAllUncookedOrders(Event<?> event) {
 		ArrayList<Order> orderList = DatabaseReader.getAllUncookedOrders();
-		//System.out.println(orderList);
 		this.eventDispatcher.dispatchEvent(new Event<ArrayList<Order>>(EventType.COOK_GUI_UPDATE_ORDER_LIST, orderList));
 	}
 
