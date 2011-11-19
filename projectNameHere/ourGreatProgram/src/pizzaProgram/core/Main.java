@@ -15,60 +15,58 @@ import pizzaProgram.gui.ProgramWindow;
 import pizzaProgram.utils.PriceCalculators;
 
 /**
- * The Main class acts as the root of the system. Its main task is to hold references and initialize various parts/modules
+ * The Main class acts as the root of the system. Its main task is to hold
+ * references and initialize various parts/modules
+ * 
  * @author Bart
- *
+ * 
  */
 public class Main implements EventHandler {
-	//
 	/**
-	 * A reference to the main event dispatcher, which represents the communication backbone of the program
+	 * A reference to the main event dispatcher, which is the communication
+	 * backbone of the program
 	 */
 	public EventDispatcher eventDispatcher;
 
 	/**
-	 * A reference to the class that managed the program's main window
+	 * A reference to the class that manages the main window of the program
 	 */
 	private ProgramWindow programWindow;
-
 
 	private DatabaseModule databaseModule;
 
 	/**
-	 * creates every part of the program, and sets it up correctly
+	 * Initializes every part of the program, and sets the parts up correctly
 	 */
-	public void initialize(SingleFrameApplication mainApplication){
+	public void initialize(SingleFrameApplication mainApplication) {
 		this.eventDispatcher = new EventDispatcher();
 		this.connectToDatabase();
 		PriceCalculators.getConstantsFromDataBase();
-		this.initializeLists();
 		this.createMainWindow(mainApplication);
 		this.createGUIModules();
-		this.eventDispatcher.addEventListener(this, EventType.PROGRAM_EXIT_REQUESTED);
+		this.eventDispatcher.addEventListener(this,
+				EventType.PROGRAM_EXIT_REQUESTED);
 
-		this.eventDispatcher.dispatchEvent(new Event<Object>(EventType.ORDER_GUI_REQUESTED));
+		this.eventDispatcher.dispatchEvent(new Event<Object>(
+				EventType.ORDER_GUI_REQUESTED));
 	}
 
-	private void initializeLists() {
-		//new OrderList(eventDispatcher);
-		//CustomerList.updateCustomers();
-		//DishList.updateDishes();
+	private void createMainWindow(SingleFrameApplication mainApplication) {
+		this.programWindow = new ProgramWindow(this.eventDispatcher,
+				mainApplication);
 	}
 
-	private void createMainWindow(SingleFrameApplication mainApplication){
-		this.programWindow = new ProgramWindow(this.eventDispatcher, mainApplication);
-	}
-
-	private void connectToDatabase(){
+	private void connectToDatabase() {
 		this.databaseModule = new DatabaseModule(this.eventDispatcher);
 		this.databaseModule.connect();
 	}
 
 	/**
-	 * This function instantiates all the GUI modules of the program. 
-	 * After they are operational, they will dispatch events to the event dispatcher when the user interacts with the program
+	 * This function instantiates all the GUI modules of the program. After they
+	 * are operational, they will dispatch events to the event dispatcher when
+	 * the user interacts with the program
 	 */
-	private void createGUIModules(){
+	private void createGUIModules() {
 		new AdminGUI(this.programWindow, this.eventDispatcher);
 		new DeliverGUI(this.programWindow, this.eventDispatcher);
 		new OrderGUI(this.programWindow, this.eventDispatcher);
@@ -76,7 +74,7 @@ public class Main implements EventHandler {
 	}
 
 	public void handleEvent(Event<?> event) {
-		if(event.eventType.equals(EventType.PROGRAM_EXIT_REQUESTED)){
+		if (event.eventType.equals(EventType.PROGRAM_EXIT_REQUESTED)) {
 			this.databaseModule.disconnect();
 			System.exit(0);
 		}
