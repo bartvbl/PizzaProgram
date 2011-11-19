@@ -8,7 +8,6 @@ public class DatabaseConstants {
 	public static final String POSTAL_CODE = "Customer.PostalCode";
 	public static final String CITY = "Customer.City";
 	public static final String PHONE_NUMBER = "Customer.TelephoneNumber";
-	public static final String NOTE_ID = "Customer.CommentID";
 	public static final String IDENTIFIER = "Customer.Identifier";
 	public static final String CUSTOMER_NOTE = "CustomerNotes.Note";
 	
