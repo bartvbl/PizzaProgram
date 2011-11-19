@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package pizzaProgram.gui.EventHandelers;
+package pizzaProgram.gui.guiEventHandlers;
 
 import java.util.ArrayList;
 
@@ -17,7 +17,6 @@ import pizzaProgram.events.EventHandler;
 import pizzaProgram.events.EventType;
 import pizzaProgram.gui.OrderGUI;
 import pizzaProgram.gui.views.OrderView;
-import pizzaProgram.utils.PriceCalculators;
 
 /**
  *
@@ -58,11 +57,7 @@ public class OrderGUI_SystemEventHandler implements EventHandler {
 		model.clear();
 		System.out.println("updating extras list");
 		for (Extra extra : extrasList) {
-			if(orderGUI.currentSelectedDish != null){
-				model.addElement(extra.name + " ( " + PriceCalculators.getPriceForExtraOnDish(orderGUI.currentSelectedDish, extra) + ")");
-			}else{
-				model.addElement(extra.name + " ( " + PriceCalculators.getPriceForExtra(extra) + ")");
-			}
+			model.addElement(extra.name + " ( " + extra.priceFuncPart + " " + extra.priceValPart + ")");
 		}
 	}
 
@@ -80,7 +75,7 @@ public class OrderGUI_SystemEventHandler implements EventHandler {
 		model.clear();
 
 		for (Dish dish : dishList) {
-			model.addElement(dish.name + " (kr. " + PriceCalculators.getPriceForDish(dish) + ")");
+			model.addElement(dish.name + " (kr. " + dish.price + ")");
 		}
 	}
 

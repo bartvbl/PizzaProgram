@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package pizzaProgram.gui.guiEventHandelers;
+package pizzaProgram.gui.EventHandlers;
 
 import java.awt.Component;
 import java.awt.event.ActionEvent;
@@ -37,8 +37,9 @@ import pizzaProgram.gui.views.OrderView;
  * 
  * @author Bart
  */
-public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler implements ActionListener {
-	
+public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler
+		implements ActionListener {
+
 	private OrderGUI_TemporaryOrderDataStorage temporaryOrderData;
 	private OrderGUI orderGUI;
 	private Customer currentSelecetedCustomer;
@@ -52,37 +53,66 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler implem
 	}
 
 	private void addEventListeners() {
-		
+
 		OrderView.customerList.addListSelectionListener(new ListSelectionListener() {
-			public void valueChanged(ListSelectionEvent e) {handleCustomerSelection(e);}});
-		
+			public void valueChanged(ListSelectionEvent e) {
+				handleCustomerSelection(e);
+			}
+		});
+
 		OrderView.dishSelectionList.addListSelectionListener(new ListSelectionListener() {
-			public void valueChanged(ListSelectionEvent e) {handleDishSelection(e);}});
-		
-		OrderView.searchCustomerTextArea.addKeyListener(new KeyListener(){public void keyPressed(KeyEvent e) {}public void keyTyped(KeyEvent e) {}
+			public void valueChanged(ListSelectionEvent e) {
+				handleDishSelection(e);
+			}
+		});
+
+		OrderView.searchCustomerTextArea.addKeyListener(new KeyListener() {
+			public void keyPressed(KeyEvent e) {}
+			public void keyTyped(KeyEvent e) {}
 			public void keyReleased(KeyEvent e) {
-				handleCustomerSearchTyping(); }});
-		
-		OrderView.dishSearchTextBox.addKeyListener(new KeyListener(){ public void keyPressed(KeyEvent e) {} public void keyTyped(KeyEvent e) {}
+				handleCustomerSearchTyping();
+			}
+		});
+
+		OrderView.dishSearchTextBox.addKeyListener(new KeyListener() {
+			public void keyPressed(KeyEvent e) {}
+			public void keyTyped(KeyEvent e) {}
 			public void keyReleased(KeyEvent e) {
-				handleDishSearchTyping(); }});
-		
-		OrderView.extrasSearchTextField.addKeyListener(new KeyListener(){public void keyPressed(KeyEvent e) {} public void keyTyped(KeyEvent e) {}
+				handleDishSearchTyping();
+			}
+		});
+
+		OrderView.extrasSearchTextField.addKeyListener(new KeyListener() {
+			public void keyPressed(KeyEvent e) {}
+			public void keyTyped(KeyEvent e) {}
 			public void keyReleased(KeyEvent e) {
-				handleExtrasSearchTyping(); }});
-		
-		OrderView.searchCustomerTextArea.addFocusListener(new FocusListener(){public void focusLost(FocusEvent arg0) {}
+				handleExtrasSearchTyping();
+			}
+		});
+
+		OrderView.searchCustomerTextArea.addFocusListener(new FocusListener() {
+			public void focusLost(FocusEvent arg0) {}
 			public void focusGained(FocusEvent arg0) {
-				handleCustomerSearchBoxSelection();}});
-		
-		OrderView.dishSearchTextBox.addFocusListener(new FocusListener(){public void focusLost(FocusEvent arg0) {}
-		public void focusGained(FocusEvent arg0) {
-			handleDishSearchBoxSelection();}});
-		
-		OrderView.extrasSearchTextField.addFocusListener(new FocusListener(){public void focusLost(FocusEvent arg0) {}
-		public void focusGained(FocusEvent arg0) {
-			handleExtrasSearchBoxSelection();}});
-		
+				handleCustomerSearchBoxSelection();
+			}
+		});
+
+		OrderView.dishSearchTextBox.addFocusListener(new FocusListener() {
+			public void focusLost(FocusEvent arg0) {}
+			public void focusGained(FocusEvent arg0) {
+				handleDishSearchBoxSelection();
+			}
+		});
+
+		OrderView.extrasSearchTextField.addFocusListener(new FocusListener() {
+			public void focusLost(FocusEvent arg0) {
+			}
+
+			public void focusGained(FocusEvent arg0) {
+				handleExtrasSearchBoxSelection();
+			}
+		});
+
 		OrderView.selectCustomerButton.addActionListener(this);
 		this.registerEventType(OrderView.selectCustomerButton, "selectCustomer");
 
@@ -96,65 +126,82 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler implem
 		this.registerEventType(OrderView.resetOrderButton, "resetOrder");
 
 		OrderView.deleteSelectedOrderDishButton.addActionListener(this);
-		this.registerEventType(OrderView.deleteSelectedOrderDishButton, "deleteSelected");
+		this.registerEventType(OrderView.deleteSelectedOrderDishButton,
+				"deleteSelected");
 
 		OrderView.duplicateSelectedOrderDishButton.addActionListener(this);
-		this.registerEventType(OrderView.duplicateSelectedOrderDishButton, "duplicateSelected");
+		this.registerEventType(OrderView.duplicateSelectedOrderDishButton,
+				"duplicateSelected");
 
 		OrderView.newCustomerButton.addActionListener(this);
 		this.registerEventType(OrderView.newCustomerButton, "newCustomer");
-		
+
 		OrderView.changeCustomerButton.addActionListener(this);
 		this.registerEventType(OrderView.changeCustomerButton, "editCustomer");
 	}
 
 	public void actionPerformed(ActionEvent event) {
-		if (this.getEventNameByComponent((Component) event.getSource()).equals("selectCustomer")) {
+		if (this.getEventNameByComponent((Component) event.getSource()).equals(
+				"selectCustomer")) {
 			this.selectCustomer(event);
-		} else if (this.getEventNameByComponent((Component) event.getSource()).equals("addDish")) {
+		} else if (this.getEventNameByComponent((Component) event.getSource())
+				.equals("addDish")) {
 			this.addDish(event);
-		} else if (this.getEventNameByComponent((Component) event.getSource()).equals("confirmOrder")) {
+		} else if (this.getEventNameByComponent((Component) event.getSource())
+				.equals("confirmOrder")) {
 			this.confirmOrder(event);
-		} else if (this.getEventNameByComponent((Component) event.getSource()).equals("resetOrder")) {
+		} else if (this.getEventNameByComponent((Component) event.getSource())
+				.equals("resetOrder")) {
 			this.resetOrder(event);
-		} else if (this.getEventNameByComponent((Component) event.getSource()).equals("deleteSelected")) {
+		} else if (this.getEventNameByComponent((Component) event.getSource())
+				.equals("deleteSelected")) {
 			this.deleteSelectedDishesFromOrder(event);
-		} else if (this.getEventNameByComponent((Component) event.getSource()).equals("duplicateSelected")) {
+		} else if (this.getEventNameByComponent((Component) event.getSource())
+				.equals("duplicateSelected")) {
 			this.duplicateOrderDishes(event);
-		} else if (this.getEventNameByComponent((Component) event.getSource()).equals("newCustomer")) {
-			new NewCustomerWindow(orderGUI, NewCustomerWindow.NEW_CUSTOMER, null);
-		} else if (this.getEventNameByComponent((Component) event.getSource()).equals("searchCustomers")) {
+		} else if (this.getEventNameByComponent((Component) event.getSource())
+				.equals("newCustomer")) {
+			new NewCustomerWindow(orderGUI, NewCustomerWindow.NEW_CUSTOMER,
+					null);
+		} else if (this.getEventNameByComponent((Component) event.getSource())
+				.equals("searchCustomers")) {
 			this.searchCustomers();
-		} else if (this.getEventNameByComponent((Component) event.getSource()).equals("editCustomer")) {
+		} else if (this.getEventNameByComponent((Component) event.getSource())
+				.equals("editCustomer")) {
 			this.handleEditCustomer();
 		}
 	}
-	
+
 	private void handleCustomerSearchBoxSelection() {
 		OrderView.searchCustomerTextArea.setSelectionStart(0);
-		OrderView.searchCustomerTextArea.setSelectionEnd(OrderView.searchCustomerTextArea.getText().length());
+		OrderView.searchCustomerTextArea
+				.setSelectionEnd(OrderView.searchCustomerTextArea.getText()
+						.length());
 	}
-	
+
 	private void handleDishSearchBoxSelection() {
 		OrderView.dishSearchTextBox.setSelectionStart(0);
-		OrderView.dishSearchTextBox.setSelectionEnd(OrderView.dishSearchTextBox.getText().length());
+		OrderView.dishSearchTextBox.setSelectionEnd(OrderView.dishSearchTextBox
+				.getText().length());
 	}
-	
+
 	private void handleExtrasSearchBoxSelection() {
 		OrderView.extrasSearchTextField.setSelectionStart(0);
-		OrderView.extrasSearchTextField.setSelectionEnd(OrderView.extrasSearchTextField.getText().length());
+		OrderView.extrasSearchTextField
+				.setSelectionEnd(OrderView.extrasSearchTextField.getText()
+						.length());
 	}
 
 	protected void handleCustomerSearchTyping() {
-		if(OrderView.searchCustomerTextArea.getText().equals("")){
+		if (OrderView.searchCustomerTextArea.getText().equals("")) {
 			showAllCustomers();
-		} else{
+		} else {
 			searchCustomers();
 		}
 	}
-	
+
 	protected void handleExtrasSearchTyping() {
-		if(OrderView.extrasSearchTextField.getText().equals("")){
+		if (OrderView.extrasSearchTextField.getText().equals("")) {
 			showAllExtras();
 		} else {
 			searchExtras(OrderView.extrasSearchTextField.getText());
@@ -162,13 +209,13 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler implem
 	}
 
 	protected void handleDishSearchTyping() {
-		if(OrderView.dishSearchTextBox.getText().equals("")){
+		if (OrderView.dishSearchTextBox.getText().equals("")) {
 			showAllDishes();
-		} else{
+		} else {
 			searchDishes(OrderView.dishSearchTextBox.getText());
 		}
 	}
-	
+
 	private void searchDishes(String query) {
 		this.dispatchEvent(new Event<String>(EventType.DATABASE_UPDATE_ORDER_GUI_SEARCH_DISHES, query));
 	}
@@ -176,7 +223,7 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler implem
 	private void showAllDishes() {
 		this.dispatchEvent(new Event<Object>(EventType.DATABASE_UPDATE_ORDER_GUI_DISH_LIST));
 	}
-	
+
 	private void searchExtras(String query) {
 		this.dispatchEvent(new Event<String>(EventType.DATABASE_UPDATE_ORDER_GUI_SEARCH_EXTRAS, query));
 	}
@@ -185,25 +232,25 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler implem
 		this.dispatchEvent(new Event<Object>(EventType.DATABASE_UPDATE_ORDER_GUI_EXTRAS_LIST));
 	}
 
-	private void handleEditCustomer()
-	{
-		if(currentSelecetedCustomer == null){
+	private void handleEditCustomer() {
+		if (currentSelecetedCustomer == null) {
 			DatabaseResultsFeedbackProvider.showEditCustomerFailedNoCustomerSelectedMessage();
 			return;
 		}
-		new NewCustomerWindow(orderGUI, NewCustomerWindow.UPDATE_CUSTOMER, currentSelecetedCustomer);
+		new NewCustomerWindow(orderGUI, NewCustomerWindow.UPDATE_CUSTOMER,
+				currentSelecetedCustomer);
 	}
-	
-	private void showAllCustomers(){
-		this.dispatchEvent(new Event<Object>(EventType.DATABASE_UPDATE_ORDER_GUI_SEND_ALL_CUSTOMERS));
+
+	private void showAllCustomers() {
+		this.dispatchEvent(new Event<Object>(
+				EventType.DATABASE_UPDATE_ORDER_GUI_SEND_ALL_CUSTOMERS));
 	}
 
 	private void searchCustomers() {
 		String searchQuery = OrderView.searchCustomerTextArea.getText();
-		if(!searchQuery.equals("")){
-			this.dispatchEvent(new Event<String>(EventType.DATABASE_UPDATE_ORDER_GUI_SEARCH_CUSTOMERS_BY_KEYWORDS, searchQuery));
-		} 
-		else {
+		if (!searchQuery.equals("")) {
+			this.dispatchEvent(new Event<String>(EventType.DATABASE_UPDATE_ORDER_GUI_SEARCH_CUSTOMERS_BY_KEYWORDS,searchQuery));
+		} else {
 			this.dispatchEvent(new Event<Object>(EventType.DATABASE_UPDATE_ORDER_GUI_SEND_ALL_CUSTOMERS));
 		}
 	}
@@ -211,16 +258,17 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler implem
 	private void duplicateOrderDishes(ActionEvent event) {
 		int[] selectedIndices = OrderView.orderContentsTable.getSelectedRows();
 		DefaultTableModel tableModel = (DefaultTableModel) OrderView.orderContentsTable.getModel();
-		for(int index : selectedIndices){
+		for (int index : selectedIndices) {
 			this.temporaryOrderData.duplicateDishInOrder(index);
-			tableModel.addRow(new Object[]{	tableModel.getValueAt(index, 0), tableModel.getValueAt(index, 1)});
+			tableModel.addRow(new Object[] { tableModel.getValueAt(index, 0),tableModel.getValueAt(index, 1) });
 		}
 	}
 
 	private void deleteSelectedDishesFromOrder(ActionEvent event) {
 		int[] selectedIndices = OrderView.orderContentsTable.getSelectedRows();
-		DefaultTableModel tableModel = (DefaultTableModel) OrderView.orderContentsTable.getModel();
-		for(int i = selectedIndices.length - 1; i >= 0; i--){
+		DefaultTableModel tableModel = (DefaultTableModel) OrderView.orderContentsTable
+				.getModel();
+		for (int i = selectedIndices.length - 1; i >= 0; i--) {
 			this.temporaryOrderData.removeDishFromOrder(i);
 			tableModel.removeRow(i);
 		}
@@ -234,26 +282,26 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler implem
 
 	private void confirmOrder(ActionEvent event) {
 		this.temporaryOrderData.setOrderComments(OrderView.orderCommentsTextArea.getText());
-		
-		String selectedDeliveryMethod = (String)OrderView.deliveryMethodComboBox.getSelectedItem();
-		String deliveryMethod = selectedDeliveryMethod.equals(GUIConstants.GUI_PICKUP) ? Order.PICKUP_AT_RESTAURANT :  Order.DELIVER_AT_HOME;
+
+		String selectedDeliveryMethod = (String) OrderView.deliveryMethodComboBox.getSelectedItem();
+		String deliveryMethod = selectedDeliveryMethod.equals(GUIConstants.GUI_PICKUP) ? Order.PICKUP_AT_RESTAURANT: Order.DELIVER_AT_HOME;
 		this.temporaryOrderData.setDeliveryMethod(deliveryMethod);
-		
+
 		UnaddedOrder orderToConfirm = this.temporaryOrderData.convertToOrderObjectAndReset();
-		if(orderToConfirm.orderedDishes.isEmpty()){
-			JOptionPane.showMessageDialog(null, "Orderen må innholde en eller flere retter!", "Feil", JOptionPane.ERROR_MESSAGE);
+		if (orderToConfirm.orderedDishes.isEmpty()) {
+			JOptionPane.showMessageDialog(null,"Orderen må innholde en eller flere retter!", "Feil",JOptionPane.ERROR_MESSAGE);
 			return;
 		}
-		
+
 		this.dispatchEvent(new Event<UnaddedOrder>(EventType.DATABASE_ADD_NEW_ORDER, orderToConfirm));
 		this.resetUI();
 	}
 
 	private void resetUI() {
-		DefaultTableModel model = (DefaultTableModel)OrderView.orderContentsTable.getModel();
+		DefaultTableModel model = (DefaultTableModel) OrderView.orderContentsTable.getModel();
 		model.setNumRows(0);
-		((DefaultListModel)OrderView.dishSelectionList.getModel()).clear();
-		((DefaultListModel)OrderView.extrasSelectionList.getModel()).clear();
+		((DefaultListModel) OrderView.dishSelectionList.getModel()).clear();
+		((DefaultListModel) OrderView.extrasSelectionList.getModel()).clear();
 		this.setCustomerSelectionAreaEnabled(true);
 		this.setOrderEditingAreaEnabled(false);
 		OrderView.orderCommentsTextArea.setText("");
@@ -266,19 +314,23 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler implem
 	}
 
 	private void addDish(ActionEvent event) {
-		int[] selectedIndices = OrderView.dishSelectionList.getSelectedIndices();
-		if(selectedIndices.length == 0){
-			DatabaseResultsFeedbackProvider.showAddExtraWithoutDishFailedMessage();
+		int[] selectedIndices = OrderView.dishSelectionList
+				.getSelectedIndices();
+		if (selectedIndices.length == 0) {
+			DatabaseResultsFeedbackProvider
+					.showAddExtraWithoutDishFailedMessage();
 			return;
 		}
-		Dish selectedDish = this.orderGUI.currentDishList.get(selectedIndices[0]);
-		int[] selectedExtrasIndices = OrderView.extrasSelectionList.getSelectedIndices();
+		Dish selectedDish = this.orderGUI.currentDishList
+				.get(selectedIndices[0]);
+		int[] selectedExtrasIndices = OrderView.extrasSelectionList
+				.getSelectedIndices();
 		Extra[] selectedExtras = new Extra[selectedExtrasIndices.length];
 		int counter = 0;
 		String stringForInTable = "";
 		Extra currentExtra;
-		for(int index : selectedExtrasIndices){
-			if(counter != 0){
+		for (int index : selectedExtrasIndices) {
+			if (counter != 0) {
 				stringForInTable += ", ";
 			}
 			currentExtra = this.orderGUI.currentExtrasList.get(index);
@@ -288,10 +340,7 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler implem
 		}
 		this.temporaryOrderData.addDish(selectedDish, selectedExtras);
 		DefaultTableModel model = (DefaultTableModel) OrderView.orderContentsTable.getModel();
-		model.addRow(new Object[]{selectedDish.name, stringForInTable});
-		//TODO: find out what everyone thinks about keeping the selection after adding a dish to the order
-		//OrderView.extrasSelectionList.clearSelection();
-		//OrderView.dishSelectionList.clearSelection();
+		model.addRow(new Object[] { selectedDish.name, stringForInTable });
 	}
 
 	private void selectCustomer(ActionEvent event) {
@@ -302,16 +351,17 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler implem
 	}
 
 	private void handleCustomerSelection(ListSelectionEvent e) {
-		if (e.getFirstIndex() == -1) {
+		int indexFromOtherSource = ((JList) e.getSource()).getSelectedIndex();
+		if (e.getFirstIndex() < 0 || indexFromOtherSource < 0) {
 			currentSelecetedCustomer = null;
 			return;
 		}
-		Customer customer = this.orderGUI.currentCustomerList.get(((JList)e.getSource()).getSelectedIndex());
+		Customer customer = this.orderGUI.currentCustomerList.get(indexFromOtherSource);
 		currentSelecetedCustomer = customer;
-		
+
 		this.temporaryOrderData.setCustomer(customer);
-		OrderView.customerInformationTextArea.setText(customer.firstName
-				+ " " + customer.lastName + "\n" + customer.address + "\n"
+		OrderView.customerInformationTextArea.setText(customer.firstName + " "
+				+ customer.lastName + "\n" + customer.address + "\n"
 				+ customer.postalCode + " " + customer.city + "\n"
 				+ customer.phoneNumber);
 	}
@@ -320,12 +370,15 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler implem
 		if (e.getFirstIndex() == -1) {
 			return;
 		}
-		JList list = (JList)e.getSource();
+		JList list = (JList) e.getSource();
 		int index = list.getSelectedIndex();
-		if(index != -1){
+		if (index != -1) {
 			Dish dish = this.orderGUI.currentDishList.get(index);
 			this.setDishDetails(dish);
+			orderGUI.currentSelectedDish = dish;
+			showAllExtras();
 		}
+		
 	}
 
 	private void setDishDetails(Dish dish) {
@@ -337,7 +390,7 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler implem
 		OrderView.dishisSpicyText.setText(this.convertBooleanToYesOrNoString(dish.isSpicy));
 	}
 
-	private String convertBooleanToYesOrNoString(boolean b){
+	private String convertBooleanToYesOrNoString(boolean b) {
 		return b ? GUIConstants.GUI_TRUE : GUIConstants.GUI_FALSE;
 	}
 
@@ -349,9 +402,8 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler implem
 		OrderView.changeCustomerButton.setEnabled(enabled);
 		OrderView.deleteCustomerButton.setEnabled(enabled);
 	}
-	
-	private void setOrderEditingAreaEnabled(boolean enabled)
-	{
+
+	private void setOrderEditingAreaEnabled(boolean enabled) {
 		OrderView.dishSearchTextBox.setEnabled(enabled);
 		OrderView.extrasSearchTextField.setEnabled(enabled);
 		OrderView.addDishButton.setEnabled(enabled);
@@ -367,4 +419,4 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler implem
 		OrderView.orderContentsTable.setEnabled(enabled);
 	}
 
-}//END
+}// END

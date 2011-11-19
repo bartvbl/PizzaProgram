@@ -12,8 +12,8 @@ import pizzaProgram.events.Event;
 import pizzaProgram.events.EventDispatcher;
 import pizzaProgram.events.EventHandler;
 import pizzaProgram.events.EventType;
-import pizzaProgram.gui.EventHandelers.AdminGUI_AdminViewEventHandler;
-import pizzaProgram.gui.EventHandelers.AdminGUI_SystemEventHandler;
+import pizzaProgram.gui.EventHandlers.AdminGUI_AdminViewEventHandler;
+import pizzaProgram.gui.EventHandlers.AdminGUI_SystemEventHandler;
 import pizzaProgram.gui.views.AdminView;
 import pizzaProgram.modules.GUIModule;
 

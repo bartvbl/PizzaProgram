@@ -1,4 +1,4 @@
-package pizzaProgram.gui.guiEventHandelers;
+package pizzaProgram.gui.EventHandlers;
 
 import java.util.ArrayList;
 

@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package pizzaProgram.gui.EventHandelers;
+package pizzaProgram.gui.EventHandlers;
 
 
 import pizzaProgram.gui.views.ProgramWindowFrameView;
