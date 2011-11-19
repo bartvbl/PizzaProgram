@@ -74,19 +74,16 @@ public class DeliveryGUIUpdater {
 		DeliveryView.orderAddressTextArea.setText(customerAddress);
 	}
 	
-	private void enableMarkButtons(Order order)
-	{
+	private void enableMarkButtons(Order order){
 		DeliveryView.showReceiptButton.setEnabled(true);
-		if(order.status.equals(Order.HAS_BEEN_COOKED) && order.deliveryMethod.equals(Order.DELIVER_AT_HOME))
-		{
+		
+		if(order.status.equals(Order.HAS_BEEN_COOKED) && order.deliveryMethod.equals(Order.DELIVER_AT_HOME)){
 			DeliveryView.markOrderBeingDeliveredButton.setEnabled(true);
 			DeliveryView.markOrderDeliveredButton.setEnabled(false);
-		} else if(order.status.equals(Order.HAS_BEEN_COOKED) && order.deliveryMethod.equals(Order.PICKUP_AT_RESTAURANT))
-		{
+		} else if(order.status.equals(Order.HAS_BEEN_COOKED) && order.deliveryMethod.equals(Order.PICKUP_AT_RESTAURANT)){
 			DeliveryView.markOrderBeingDeliveredButton.setEnabled(false);
 			DeliveryView.markOrderDeliveredButton.setEnabled(true);
-		} else if(order.status.equals(Order.BEING_DELIVERED) && order.deliveryMethod.equals(Order.DELIVER_AT_HOME))
-		{
+		} else if(order.status.equals(Order.BEING_DELIVERED) && order.deliveryMethod.equals(Order.DELIVER_AT_HOME)){
 			DeliveryView.markOrderBeingDeliveredButton.setEnabled(false);
 			DeliveryView.markOrderDeliveredButton.setEnabled(true);
 		} else {
@@ -98,10 +95,8 @@ public class DeliveryGUIUpdater {
 	private String generateExtrasString(ArrayList<Extra> extras) {
 		String output = "";
 		int counter = 0;
-		for(Extra extra : extras)
-		{
-			if(counter != 0)
-			{
+		for(Extra extra : extras){
+			if(counter != 0){
 				output += ", ";
 			}
 			counter++;

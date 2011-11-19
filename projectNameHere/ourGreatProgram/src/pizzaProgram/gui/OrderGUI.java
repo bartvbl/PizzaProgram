@@ -14,8 +14,8 @@ import pizzaProgram.events.Event;
 import pizzaProgram.events.EventDispatcher;
 import pizzaProgram.events.EventHandler;
 import pizzaProgram.events.EventType;
-import pizzaProgram.gui.guiEventHandelers.OrderGUI_OrderViewEventHandler;
-import pizzaProgram.gui.guiEventHandelers.OrderGUI_SystemEventHandler;
+import pizzaProgram.gui.EventHandelers.OrderGUI_OrderViewEventHandler;
+import pizzaProgram.gui.EventHandelers.OrderGUI_SystemEventHandler;
 import pizzaProgram.gui.views.OrderView;
 import pizzaProgram.modules.GUIModule;
 
@@ -27,6 +27,8 @@ public class OrderGUI extends GUIModule implements EventHandler {
 	public ArrayList<Customer> currentCustomerList;
 	public ArrayList<Dish> currentDishList;
 	public ArrayList<Extra> currentExtrasList;
+	
+	public Dish currentSelectedDish;
 
 	public OrderGUI(ProgramWindow mainWindow, EventDispatcher eventDispatcher) {
 		super(eventDispatcher);

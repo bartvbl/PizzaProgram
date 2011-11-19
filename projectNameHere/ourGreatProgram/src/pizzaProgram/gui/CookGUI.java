@@ -11,8 +11,8 @@ import pizzaProgram.events.Event;
 import pizzaProgram.events.EventDispatcher;
 import pizzaProgram.events.EventHandler;
 import pizzaProgram.events.EventType;
-import pizzaProgram.gui.guiEventHandelers.CookGUI_CookViewEventHandler;
-import pizzaProgram.gui.guiEventHandelers.CookGUI_SystemEventHandler;
+import pizzaProgram.gui.EventHandelers.CookGUI_CookViewEventHandler;
+import pizzaProgram.gui.EventHandelers.CookGUI_SystemEventHandler;
 import pizzaProgram.gui.views.CookView;
 import pizzaProgram.modules.GUIModule;
 
