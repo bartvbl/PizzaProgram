@@ -8,18 +8,17 @@ public class DatabaseConstants {
 	public static final String POSTAL_CODE = "Customer.PostalCode";
 	public static final String CITY = "Customer.City";
 	public static final String PHONE_NUMBER = "Customer.TelephoneNumber";
-	public static final String NOTE_ID = "Customer.CommentID";
 	public static final String IDENTIFIER = "Customer.Identifier";
 	public static final String CUSTOMER_NOTE = "CustomerNotes.Note";
 	
 	public static final String DISH_ID = "Dishes.DishID";
 	public static final String DISH_PRICE = "Dishes.Price";
 	public static final String DISH_NAME = "Dishes.Name";
-	public static final String CONTAINS_GLUTEN = "Dishes.ContainsGluten";
-	public static final String CONTAINS_NUTS = "Dishes.ContainsNuts";
-	public static final String CONTAINS_DAIRY = "Dishes.ContainsDairy";
-	public static final String IS_VEGETARIAN = "Dishes.IsVegetarian";
-	public static final String IS_SPICY = "Dishes.IsSpicy";
+	public static final String DISH_CONTAINS_GLUTEN = "Dishes.ContainsGluten";
+	public static final String DISH_CONTAINS_NUTS = "Dishes.ContainsNuts";
+	public static final String DISH_CONTAINS_DAIRY = "Dishes.ContainsDairy";
+	public static final String DISH_IS_VEGETARIAN = "Dishes.IsVegetarian";
+	public static final String DISH_IS_SPICY = "Dishes.IsSpicy";
 	public static final String DISH_DESCRIPTION = "Dishes.Description";
 	public static final String DISH_IS_ACTIVE = "Dishes.isActive";
 	
@@ -36,4 +35,6 @@ public class DatabaseConstants {
 	
 	public static final String CONFIG_KEY = "Config.ConfigKey";
 	public static final String CONFIG_VALUE = "Config.ConfigValue";
+	
+	public static final String ORDERS_CONTENTS_ID = "OrdersContents.OrdersContentsID";
 }
