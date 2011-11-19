@@ -60,14 +60,14 @@ public class ProgramWindow implements EventHandler {
 		this.frameView = new ProgramWindowFrameView(mainApplication);
 		this.jframe = this.frameView.getFrame();
 		this.jframe.addWindowListener(new WindowListener() {
-			public void windowOpened(WindowEvent e) {}
+			public void windowOpened(WindowEvent e) {
+				jframe.setExtendedState(JFrame.MAXIMIZED_BOTH);
+			}
 			public void windowDeiconified(WindowEvent e) {}
 			public void windowDeactivated(WindowEvent e) {}
 			public void windowClosing(WindowEvent e) {}
 			public void windowClosed(WindowEvent e) {}
-			public void windowActivated(WindowEvent e) {
-				jframe.setExtendedState(JFrame.MAXIMIZED_BOTH);
-			}
+			public void windowActivated(WindowEvent e) {}
 			public void windowIconified(WindowEvent e) {}
 		});
 		
