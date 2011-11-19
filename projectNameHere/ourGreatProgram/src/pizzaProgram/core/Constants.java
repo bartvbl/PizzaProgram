@@ -1,86 +1,147 @@
 package pizzaProgram.core;
 
+import javax.swing.JOptionPane;
+
 import pizzaProgram.dataObjects.Order;
+import pizzaProgram.database.databaseUtils.DatabaseReader;
 
-public class Constants{
+public class Constants {
 
+	private static double deliverMoms = -1;
+	private static double pickupMoms = -1;
 
-	public static final double DELIVER_MOMS = 0.25;
-	public static final double PICKUP_MOMS = 0.14;
+	private static int freeDeliveryThreshold = -1;
+	private static int deliveryCost = -1;
 
-	public static final int FREE_DELIVERY_TRESHOLD = 300;
-	public static final int DELIVERY_COST = 50;
-
-	public static final String RESTAURANT_NAME = "Papa Di Pizza";
+	private static String restaurantName = "";
 
 	public static final int RECIPT_WIDTH = 160;
 	public static final int RECIPT_ROW_HEIGHT = 20;
 
-	//gui representation of true/false
+	// gui representation of true/false
 	public static final String GUI_TRUE = "Ja";
 	public static final String GUI_FALSE = "Nei";
 
-	//norsk delivery metjod
+	// norsk delivery metjod
 	public static final String GUI_DELIVER = "Lever hjem";
 	public static final String GUI_PICKUP = "Hent selv";
-	
-	public static final String SETTING_KEY_FREE_DELIVERY_LIMIT = "freeDeliveryLimit";
-	public static final String SETTING_KEY_RESTAURANT_NAME = "restaurantName";
-	public static final String SETTING_KEY_DELIVERY_PRICE = "deliveryPrice";
-	public static final String SETTING_KEY_DELIVERY_AT_HOME_TAX = "deliveryAtHomeTax";
-	public static final String SETTING_KEY_PICKUP_AT_RESTAURANT_TAX = "pickupAtRestaurantTax";
-	
-	public static final int CUSTOMERS_TABLE_NUM_COLUMNS= 9;
-	public static final int CUSTOMER_NOTES_TABLE_NUM_COLUMNS = 2;
-	public static final int DISHES_TABLE_NUM_COLUMNS = 10;
-	public static final int EXTRAS_TABLE_NUM_COLUMNS = 4;
-	public static final int ORDER_COMMENTS_TABLE_NUM_COLUMNS = 2;
-	public static final int ORDERS_TABLE_NUM_COLUMNS = 6;
-	public static final int ORDER_CONTENTS_TABLE_NUM_COLUMNS = 3;
 
 	/**
 	 * The guiword for registered status
 	 */
 	public static final String GUI_REGISTERED = "Registrert";
-	
+
 	/**
 	 * The guiword for cooking status
 	 */
 	public static final String GUI_COOKING = "Tilberedes";
-	
+
 	/**
 	 * The guiword for cooking status
 	 */
 	public static final String GUI_FINCOOKING = "Klar for levering";
-	
+
 	/**
 	 * The guiword for being cooked status
 	 */
 	public static final String GUI_DELIVERING = "Underveis";
 	public static final String SEARCH_FIELD_DEFAULT = "";
-	
-	public static String translateDeliveryMethod(String s){
-		if(s.equals(Order.DELIVER_AT_HOME)){
+
+	public static String translateDeliveryMethod(String s) {
+		if (s.equals(Order.DELIVER_AT_HOME)) {
 			return GUI_DELIVER;
-		}
-		else{
+		} else {
 			return GUI_PICKUP;
 		}
 	}
-	
-	public static String translateOrderStatus(String s){
-		if(s.equals(Order.REGISTERED)){
+
+	public static String translateOrderStatus(String s) {
+		if (s.equals(Order.REGISTERED)) {
 			return GUI_REGISTERED;
-		}
-		else if(s.equals(Order.BEING_COOKED)){
+		} else if (s.equals(Order.BEING_COOKED)) {
 			return GUI_COOKING;
-		}
-		else if(s.equals(Order.HAS_BEEN_COOKED)){
+		} else if (s.equals(Order.HAS_BEEN_COOKED)) {
 			return GUI_FINCOOKING;
-		}
-		else{
+		} else {
 			return GUI_DELIVERING;
 		}
-		
+
+	}
+
+	public static void getConstantsFromDataBase() {
+		deliverMoms = Double
+				.parseDouble(DatabaseReader
+						.getSettingByKey(DatabaseConstants.SETTING_KEY_DELIVERY_AT_HOME_TAX).value);
+		pickupMoms = Double
+				.parseDouble(DatabaseReader
+						.getSettingByKey(DatabaseConstants.SETTING_KEY_PICKUP_AT_RESTAURANT_TAX).value);
+		freeDeliveryThreshold = Integer
+				.parseInt(DatabaseReader
+						.getSettingByKey(DatabaseConstants.SETTING_KEY_FREE_DELIVERY_LIMIT).value);
+		deliveryCost = Integer
+				.parseInt(DatabaseReader
+						.getSettingByKey(DatabaseConstants.SETTING_KEY_DELIVERY_PRICE).value);
+		restaurantName = DatabaseReader
+				.getSettingByKey(DatabaseConstants.SETTING_KEY_RESTAURANT_NAME).value;
+	}
+
+	public static double getDeliverMoms() {
+		if (deliverMoms == -1) {
+			JOptionPane
+					.showMessageDialog(
+							null,
+							"Momsverdi ikke hentet ut korrekt fra databasen - sjekk tilkoblingen til databasen og prøv igjen!",
+							"En alvorlig feil har oppstått!",
+							JOptionPane.ERROR_MESSAGE, null);
+		}
+		return deliverMoms;
+	}
+
+	public static double getPickupMoms() {
+		if (pickupMoms == -1) {
+			JOptionPane
+					.showMessageDialog(
+							null,
+							"Momsverdi ikke hentet ut korrekt fra databasen - sjekk tilkoblingen til databasen og prøv igjen!",
+							"En alvorlig feil har oppstått!",
+							JOptionPane.ERROR_MESSAGE, null);
+		}
+		return pickupMoms;
+	}
+
+	public static int getFreeDeliveryThreshold() {
+		if (freeDeliveryThreshold == -1) {
+			JOptionPane
+					.showMessageDialog(
+							null,
+							"Grenseverdi for gratis frakt ikke hentet ut korrekt fra databasen - sjekk tilkoblingen til databasen og prøv igjen!",
+							"En alvorlig feil har oppstått!",
+							JOptionPane.ERROR_MESSAGE, null);
+		}
+		return freeDeliveryThreshold;
+	}
+
+	public static int getDeliveryCost() {
+		if (deliveryCost == -1) {
+			JOptionPane
+					.showMessageDialog(
+							null,
+							"Utkjøringspris ikke hentet ut korrekt fra databasen - sjekk tilkoblingen til databasen og prøv igjen!",
+							"En alvorlig feil har oppstått!",
+							JOptionPane.ERROR_MESSAGE, null);
+		}
+		return deliveryCost;
+	}
+
+	public static String getRestaurantName() {
+		if (restaurantName.equals("")) {
+			JOptionPane
+			.showMessageDialog(
+					null,
+					"Restaurantnavn ikke hentet ut korrekt fra databasen - sjekk tilkoblingen til databasen og prøv igjen!",
+					"En alvorlig feil har oppstått!",
+					JOptionPane.ERROR_MESSAGE, null);
+		}
+		return restaurantName;
 	}
 }

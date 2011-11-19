@@ -22,7 +22,7 @@ public class ReceiptGenerator {
 
 		receiptString += "<html>";
 		receiptString += "<table width=\"" + Constants.RECIPT_WIDTH + "\" border=\"0\">";
-		receiptString += "<tr><td align=\"center\"colspan=\"2\">=====" + Constants.RESTAURANT_NAME + "=====</td></tr>";
+		receiptString += "<tr><td align=\"center\"colspan=\"2\">=====" + Constants.getRestaurantName() + "=====</td></tr>";
 		for (OrderDish d : order.orderedDishes) {
 			receiptString += createHeaderRow(d.dish.name, formatPrice(d.dish.price));
 			totalpris += d.dish.price;
@@ -36,8 +36,8 @@ public class ReceiptGenerator {
 
 		receiptString += createRow("", "");
 		receiptString += createRow("Alle retter", formatPrice(totalpris));
-		receiptString += createRow("Herav MVA", formatPrice(totalpris*  (order.deliveryMethod == Order.DELIVER_AT_HOME ? Constants.DELIVER_MOMS : Constants.PICKUP_MOMS) ));
-		int leveringskostnad = (((int)totalpris > Constants.FREE_DELIVERY_TRESHOLD) ? 0 : Constants.DELIVERY_COST);
+		receiptString += createRow("Herav MVA", formatPrice(totalpris*  (order.deliveryMethod == Order.DELIVER_AT_HOME ? Constants.getDeliverMoms() : Constants.getPickupMoms()) ));
+		int leveringskostnad = (((int)totalpris > Constants.getFreeDeliveryThreshold()) ? 0 : Constants.getDeliveryCost());
 		receiptString += createRow("Levering", formatPrice(leveringskostnad));
 		receiptString += createHeaderRow("Totalt", formatPrice(totalpris + leveringskostnad));
 		receiptString += "</table>";

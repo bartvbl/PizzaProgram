@@ -37,4 +37,10 @@ public class DatabaseConstants {
 	public static final String CONFIG_VALUE = "Config.ConfigValue";
 	
 	public static final String ORDERS_CONTENTS_ID = "OrdersContents.OrdersContentsID";
+	
+	public static final String SETTING_KEY_FREE_DELIVERY_LIMIT = "freeDeliveryLimit";
+	public static final String SETTING_KEY_RESTAURANT_NAME = "restaurantName";
+	public static final String SETTING_KEY_DELIVERY_PRICE = "deliveryPrice";
+	public static final String SETTING_KEY_DELIVERY_AT_HOME_TAX = "deliveryAtHomeTax";
+	public static final String SETTING_KEY_PICKUP_AT_RESTAURANT_TAX = "pickupAtRestaurantTax";
 }

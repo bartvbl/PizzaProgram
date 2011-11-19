@@ -39,6 +39,7 @@ public class Main implements EventHandler {
 	public void initialize(SingleFrameApplication mainApplication){
 		this.eventDispatcher = new EventDispatcher();
 		this.connectToDatabase();
+		Constants.getConstantsFromDataBase();
 		this.initializeLists();
 		this.createMainWindow(mainApplication);
 		this.createGUIModules();
