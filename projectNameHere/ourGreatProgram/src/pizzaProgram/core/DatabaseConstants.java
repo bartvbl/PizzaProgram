@@ -35,4 +35,6 @@ public class DatabaseConstants {
 	
 	public static final String CONFIG_KEY = "Config.ConfigKey";
 	public static final String CONFIG_VALUE = "Config.ConfigValue";
+	
+	public static final String ORDERS_CONTENTS_ID = "OrdersContents.OrdersContentsID";
 }
