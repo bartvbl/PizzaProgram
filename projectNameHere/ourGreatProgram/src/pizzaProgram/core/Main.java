@@ -12,6 +12,7 @@ import pizzaProgram.gui.CookGUI;
 import pizzaProgram.gui.DeliverGUI;
 import pizzaProgram.gui.OrderGUI;
 import pizzaProgram.gui.ProgramWindow;
+import pizzaProgram.utils.PriceCalculators;
 
 /**
  * The Main class acts as the root of the system. Its main task is to hold references and initialize various parts/modules
@@ -39,7 +40,7 @@ public class Main implements EventHandler {
 	public void initialize(SingleFrameApplication mainApplication){
 		this.eventDispatcher = new EventDispatcher();
 		this.connectToDatabase();
-		Constants.getConstantsFromDataBase();
+		PriceCalculators.getConstantsFromDataBase();
 		this.initializeLists();
 		this.createMainWindow(mainApplication);
 		this.createGUIModules();

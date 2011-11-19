@@ -21,7 +21,7 @@ public class ReceiptGenerator {
 		receiptString += "<table width=\"" + Constants.RECIPT_WIDTH
 				+ "\" border=\"0\">";
 		receiptString += "<tr><td align=\"center\"colspan=\"2\">====="
-				+ Constants.getRestaurantName() + "=====</td></tr>";
+				+ PriceCalculators.getRestaurantName() + "=====</td></tr>";
 		for (OrderDish d : order.orderedDishes) {
 			receiptString += createHeaderRow(d.dish.name,
 					PriceCalculators.getPriceForDish(d.dish));
