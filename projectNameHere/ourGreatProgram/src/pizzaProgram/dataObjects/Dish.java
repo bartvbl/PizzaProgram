@@ -18,6 +18,32 @@ public class Dish {
 	public final String description;
 	public final boolean isActive;
 
+	/**
+	 * The constructor requires all fields to be defined. It takes in all the
+	 * field's values, and stores them as read-only variables.
+	 * 
+	 * @param dishID
+	 *            The databases's internal ID for this Dish.
+	 * @param price
+	 *            The price of this Dish in norwegian øre (1/100 NOK)
+	 * @param name
+	 *            The name of this Dish
+	 * @param containsGluten
+	 *            Wether or not this Dish contains Gluten
+	 * @param containsNuts
+	 *            Wether or not this Dish contains Nuts
+	 * @param containsDiary
+	 *            Wether or not this Dish contains Dairy products
+	 * @param isVegetarian
+	 *            Wether or not this Dish is Vegetarian in nature
+	 * @param isSpicy
+	 *            Wether or not this Dish is Spicy
+	 * @param description
+	 *            A description of the Dish, for example its ingredients.
+	 * @param isActive
+	 *            Wether or not this Dish is on the restaurants current menu.
+	 */
+
 	public Dish(int dishID, int price, String name, boolean containsGluten,
 			boolean containsNuts, boolean containsDiary, boolean isVegetarian,
 			boolean isSpicy, String description, boolean isActive) {
@@ -32,5 +58,4 @@ public class Dish {
 		this.description = description;
 		this.isActive = isActive;
 	}
-
 }
