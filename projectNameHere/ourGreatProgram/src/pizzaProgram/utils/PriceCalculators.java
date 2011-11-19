@@ -5,27 +5,52 @@ import java.text.DecimalFormat;
 import javax.swing.JOptionPane;
 
 import pizzaProgram.core.DatabaseConstants;
+import pizzaProgram.core.PizzaProgram;
 import pizzaProgram.dataObjects.Dish;
 import pizzaProgram.dataObjects.Extra;
 import pizzaProgram.dataObjects.Order;
 import pizzaProgram.dataObjects.OrderDish;
 import pizzaProgram.database.databaseUtils.DatabaseReader;
 
+/**
+ * Class for generating properly formatted strings of the various prices in the
+ * system.
+ */
 public class PriceCalculators {
 	private static DecimalFormat formatter = new DecimalFormat("00");
-	
+
 	private static int deliverMoms = -1;
 	private static int pickupMoms = -1;
 
 	private static int freeDeliveryThreshold = -1;
 	private static int deliveryCost = -1;
-	
+
 	private static String restaurantName = "";
 
+	/**
+	 * Generates a priceString on the form "0,00" based on the price of the
+	 * dish, without VAT added (IE a price in norwegian øre of 12345 would
+	 * return a string which contains "123,45".
+	 * 
+	 * @param d
+	 *            - the {@link pizzaProgram.dataObjects.Dish dish} to get the
+	 *            priceString for.
+	 * @return The priceString as specified above.
+	 */
 	public static String getPriceForDish(Dish d) {
 		return d.price / 100 + "," + formatter.format(d.price % 100);
 	}
 
+	/**
+	 * Generates a priceString on the form "0,00" based on the sum of the items
+	 * in the order, with VAT and delivery cost added (IE a price in norwegian
+	 * øre of 12345 would return a string which contains "123,45".
+	 * 
+	 * @param o
+	 *            - the {@link pizzaProgram.dataObjects.Order order} to get the
+	 *            priceString for.
+	 * @return The priceString as specified above.
+	 */
 	public static String getPriceForOrderWithVATAndDelivery(Order o) {
 		int totalPrice = getPriceForOrder(o);
 		if (o.deliveryMethod.equals(Order.DELIVER_AT_HOME)) {
@@ -39,11 +64,31 @@ public class PriceCalculators {
 		return totalPrice / 100 + "," + formatter.format(totalPrice % 100);
 	}
 
+	/**
+	 * Generates a priceString on the form "0,00" based on the sum of the items
+	 * in the order, without VAT and delivery cost added (IE a price in
+	 * norwegian øre of 12345 would return a string which contains "123,45".
+	 * 
+	 * @param o
+	 *            - the {@link pizzaProgram.dataObjects.Order order} to get the
+	 *            priceString for.
+	 * @return The priceString as specified above.
+	 */
 	public static String getPriceForOrderWithoutVAT(Order o) {
 		int price = getPriceForOrder(o);
 		return price / 100 + "," + formatter.format(price % 100);
 	}
 
+	/**
+	 * Generates a priceString on the form "0,00" based on the sum of the items
+	 * in the order, with VAT, but without delivery cost added (IE a price in
+	 * norwegian øre of 12345 would return a string which contains "123,45".
+	 * 
+	 * @param o
+	 *            - the {@link pizzaProgram.dataObjects.Order order} to get the
+	 *            priceString for.
+	 * @return The priceString as specified above.
+	 */
 	public static String getPriceForOrderWithVAT(Order o) {
 		int totalPrice = getPriceForOrder(o);
 		if (o.deliveryMethod.equals(Order.DELIVER_AT_HOME)) {
@@ -54,6 +99,16 @@ public class PriceCalculators {
 		return totalPrice / 100 + "," + formatter.format(totalPrice % 100);
 	}
 
+	/**
+	 * Generates a priceString on the form "0,00" containing the delivery cost
+	 * of the provided order (IE a price in norwegian øre of 12345 would return
+	 * a string which contains "123,45".
+	 * 
+	 * @param o
+	 *            - the {@link pizzaProgram.dataObjects.Order order} to get the
+	 *            delivery cost for.
+	 * @return The priceString as specified above.
+	 */
 	public static String getDeliveryCost(Order o) {
 		int totalPrice = getPriceForOrder(o);
 		totalPrice += totalPrice * (deliverMoms / 100.0);
@@ -65,6 +120,16 @@ public class PriceCalculators {
 		return "0,00";
 	}
 
+	/**
+	 * Generates a priceString on the form "0,00" containing the VAT for the
+	 * provided order (IE a price in norwegian øre of 12345 would return a
+	 * string which contains "123,45".
+	 * 
+	 * @param o
+	 *            - the {@link pizzaProgram.dataObjects.Order order} to get the
+	 *            VAT for.
+	 * @return The priceString as specified above.
+	 */
 	public static String getVATForOrder(Order o) {
 		int totalPrice = getPriceForOrder(o);
 		if (o.deliveryMethod.equals(Order.DELIVER_AT_HOME)) {
@@ -76,6 +141,16 @@ public class PriceCalculators {
 
 	}
 
+	/**
+	 * Generates the value of the order, in norwegian øre (1/100 NOK), based on
+	 * the sum of the ordered dishes and extras in the order. Does not include
+	 * VAT or delivery cost.
+	 * 
+	 * @param o
+	 *            - the {@link pizzaProgram.dataObjects.Order order} to get the
+	 *            value for.
+	 * @return The value of the order in norwegian øre as an int.
+	 */
 	private static int getPriceForOrder(Order o) {
 		int totalPrice = 0;
 		for (OrderDish od : o.orderedDishes) {
@@ -84,6 +159,16 @@ public class PriceCalculators {
 		return totalPrice;
 	}
 
+	/**
+	 * Generates the value of the ordered dish, in norwegian øre (1/100 NOK),
+	 * based on the sum of the ordered dish and its extras. Does not include
+	 * VAT.
+	 * 
+	 * @param od
+	 *            - the {@link pizzaProgram.dataObjects.OrderDish ordered dish}
+	 *            to get the value for.
+	 * @return The value of the ordered dish in norwegian øre as an int.
+	 */
 	private static int getValueForOrderDish(OrderDish od) {
 		int totalPrice = od.dish.price;
 		for (Extra e : od.getExtras()) {
@@ -98,6 +183,16 @@ public class PriceCalculators {
 		return totalPrice;
 	}
 
+	/**
+	 * Generates a priceString on the form "0,00" containing the VAT for the
+	 * provided ordered dish (IE a price in norwegian øre of 12345 would return
+	 * a string which contains "123,45".
+	 * 
+	 * @param od
+	 *            - the {@link pizzaProgram.dataObjects.OrderDish ordered dish}
+	 *            to get the priceString for.
+	 * @return The priceString as specified above.
+	 */
 	public static String getPriceForOrderDish(OrderDish od) {
 		int totalPrice = getValueForOrderDish(od);
 		return totalPrice / 100 + "," + formatter.format(totalPrice % 100);
@@ -105,18 +200,21 @@ public class PriceCalculators {
 
 	public static String getPriceForExtraOnDish(Dish d, Extra e) {
 		if (e.priceFuncPart != '*') {
-			return e.priceValPart / 100 + ","
+			return e.priceFuncPart + "" + e.priceValPart / 100 + ","
 					+ formatter.format(e.priceValPart % 100);
 		}
 		int returnVal = (int) (d.price * ((100 - e.priceValPart) / 100.0));
-		return returnVal / 100 + "," + formatter.format(returnVal % 100);
+		char func = returnVal >= 0 ? '+' : '-';
+		returnVal = Math.abs(returnVal);
+		return func + "" + returnVal / 100 + ","
+				+ formatter.format(returnVal % 100);
 	}
 
 	public static String getPriceForExtra(Extra e) {
-		return e.priceFuncPart + e.priceValPart / 100 + ","
+		return e.priceFuncPart + "" + e.priceValPart / 100 + ","
 				+ formatter.format(e.priceValPart % 100);
 	}
-	
+
 	public static void getConstantsFromDataBase() {
 		deliverMoms = Integer
 				.parseInt(DatabaseReader

@@ -1,6 +1,8 @@
 package pizzaProgram.dataObjects;
 
-
+/**
+ * DERP
+ */
 public class Dish {
 
 	public final int dishID;
@@ -14,10 +16,10 @@ public class Dish {
 	public final String description;
 	public final boolean isActive;
 
-	//TODO: add a list of all extras the dish can have to the dish object
-	public Dish(int dishID, int price, String name, boolean containsGluten, boolean containsNuts,
-			boolean containsDiary, boolean isVegetarian, boolean isSpicy,
-			String description, boolean isActive) {
+	// TODO: add a list of all extras the dish can have to the dish object
+	public Dish(int dishID, int price, String name, boolean containsGluten,
+			boolean containsNuts, boolean containsDiary, boolean isVegetarian,
+			boolean isSpicy, String description, boolean isActive) {
 		this.dishID = dishID;
 		this.price = price;
 		this.name = name;
@@ -29,9 +31,11 @@ public class Dish {
 		this.description = description;
 		this.isActive = isActive;
 	}
-	
-	public String toString(){
-		return dishID + " " + price + " " + name + " " + containsGluten + " " + containsNuts + " " + containsDairy + " " + isVegetarian + " " + isSpicy + " " + description;
+
+	public String toString() {
+		return dishID + " " + price + " " + name + " " + containsGluten + " "
+				+ containsNuts + " " + containsDairy + " " + isVegetarian + " "
+				+ isSpicy + " " + description;
 	}
 
 }// END
