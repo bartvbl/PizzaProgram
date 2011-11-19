@@ -203,7 +203,7 @@ public class PriceCalculators {
 			return e.priceFuncPart + "" + e.priceValPart / 100 + ","
 					+ formatter.format(e.priceValPart % 100);
 		}
-		int returnVal = (int) (d.price * ((100 - e.priceValPart) / 100.0));
+		int returnVal = (int) (d.price * ((e.priceValPart-100) / 100.0));
 		char func = returnVal >= 0 ? '+' : '-';
 		returnVal = Math.abs(returnVal);
 		return func + "" + returnVal / 100 + ","
