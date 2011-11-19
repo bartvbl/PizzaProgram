@@ -3,8 +3,8 @@ package pizzaProgram.database.databaseUtils;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
-import pizzaProgram.core.Constants;
 import pizzaProgram.core.DatabaseConstants;
 import pizzaProgram.dataObjects.Customer;
 import pizzaProgram.dataObjects.Dish;
@@ -111,10 +111,26 @@ public class DatabaseDataObjectGenerator {
 		return settingsList;
 	}
 
+	/**
+	 * Method to populate an {@link java.util.ArrayList ArrayList} with
+	 * {@link pizzaProgram.dataObjects.Order orders} based on the provided
+	 * {@link java.sql.ResultSet ResultSet}
+	 * 
+	 * @param result
+	 *            - a {@link java.sql.ResultSet ResultSet} containing data from
+	 *            the Customer, Dishes, Extras, OrdersContents and Orders table
+	 *            of the database
+	 * @return The populated {@link java.util.ArrayList ArrayList} of
+	 *         {@link pizzaProgram.dataObjects.Order orders}
+	 * @throws SQLException
+	 */
 	public static ArrayList<Order> generateOrderListFromResultSet(
 			ResultSet result) throws SQLException {
 		System.out.println("generating order list");
 		ArrayList<Order> orderList = new ArrayList<Order>();
+		HashMap<Integer, Dish> dishMap = new HashMap<Integer, Dish>();
+		HashMap<Integer, Customer> customerMap = new HashMap<Integer, Customer>();
+		HashMap<Integer, Extra> extraMap = new HashMap<Integer, Extra>();
 		Order currentOrder = null;
 		OrderDish currentOrderDish = null;
 		Customer currentCustomer = null;
@@ -126,8 +142,14 @@ public class DatabaseDataObjectGenerator {
 			if (result.getInt(result.findColumn(DatabaseConstants.ORDERS_ID)) != currentOrderID) {
 				currentOrderID = result.getInt(result
 						.findColumn(DatabaseConstants.ORDERS_ID));
-				currentCustomer = DatabaseDataObjectGenerator
-						.createCustomer(result);
+				if (!customerMap.containsKey(result.getInt(result
+						.findColumn(DatabaseConstants.CUSTOMER_ID)))) {
+					customerMap.put(result.getInt(result
+							.findColumn(DatabaseConstants.CUSTOMER_ID)),
+							DatabaseDataObjectGenerator.createCustomer(result));
+				}
+				currentCustomer = customerMap.get(result.getInt(result
+						.findColumn(DatabaseConstants.CUSTOMER_ID)));
 				currentOrder = DatabaseDataObjectGenerator.createOrder(result,
 						currentCustomer);
 				orderList.add(currentOrder);
@@ -137,12 +159,26 @@ public class DatabaseDataObjectGenerator {
 							.findColumn(DatabaseConstants.ORDERS_CONTENTS_ID)) != currentOrderContentID) {
 				currentOrderContentID = result.getInt(result
 						.findColumn(DatabaseConstants.ORDERS_CONTENTS_ID));
-				currentDish = DatabaseDataObjectGenerator.createDish(result);
+				if (!dishMap.containsKey(result.getInt(result
+						.findColumn(DatabaseConstants.DISH_ID)))) {
+					dishMap.put(result.getInt(result
+							.findColumn(DatabaseConstants.DISH_ID)),
+							DatabaseDataObjectGenerator.createDish(result));
+				}
+				currentDish = dishMap.get(result.getInt(result
+						.findColumn(DatabaseConstants.DISH_ID)));
 				currentOrderDish = new OrderDish(currentOrder.orderID,
 						currentDish);
 				currentOrder.addOrderDish(currentOrderDish);
 			}
-			currentExtra = DatabaseDataObjectGenerator.createExtra(result);
+			if (!extraMap.containsKey(result.getInt(result
+					.findColumn(DatabaseConstants.EXTRAS_ID)))) {
+				extraMap.put(result.getInt(result
+						.findColumn(DatabaseConstants.EXTRAS_ID)),
+						DatabaseDataObjectGenerator.createExtra(result));
+			}
+			currentExtra = extraMap.get(result.getInt(result
+					.findColumn(DatabaseConstants.EXTRAS_ID)));
 			if (currentOrderDish != null) {
 				currentOrderDish.addExtra(currentExtra);
 			}
