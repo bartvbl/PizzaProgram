@@ -7,8 +7,8 @@ import pizzaProgram.database.databaseUtils.DatabaseReader;
 
 public class Constants {
 
-	private static double deliverMoms = -1;
-	private static double pickupMoms = -1;
+	private static int deliverMoms = -1;
+	private static int pickupMoms = -1;
 
 	private static int freeDeliveryThreshold = -1;
 	private static int deliveryCost = -1;
@@ -69,11 +69,11 @@ public class Constants {
 	}
 
 	public static void getConstantsFromDataBase() {
-		deliverMoms = Double
-				.parseDouble(DatabaseReader
+		deliverMoms = Integer
+				.parseInt(DatabaseReader
 						.getSettingByKey(DatabaseConstants.SETTING_KEY_DELIVERY_AT_HOME_TAX).value);
-		pickupMoms = Double
-				.parseDouble(DatabaseReader
+		pickupMoms = Integer
+				.parseInt(DatabaseReader
 						.getSettingByKey(DatabaseConstants.SETTING_KEY_PICKUP_AT_RESTAURANT_TAX).value);
 		freeDeliveryThreshold = Integer
 				.parseInt(DatabaseReader
@@ -85,7 +85,7 @@ public class Constants {
 				.getSettingByKey(DatabaseConstants.SETTING_KEY_RESTAURANT_NAME).value;
 	}
 
-	public static double getDeliverMoms() {
+	public static int getDeliverMoms() {
 		if (deliverMoms == -1) {
 			JOptionPane
 					.showMessageDialog(
@@ -97,7 +97,7 @@ public class Constants {
 		return deliverMoms;
 	}
 
-	public static double getPickupMoms() {
+	public static int getPickupMoms() {
 		if (pickupMoms == -1) {
 			JOptionPane
 					.showMessageDialog(
@@ -136,11 +136,11 @@ public class Constants {
 	public static String getRestaurantName() {
 		if (restaurantName.equals("")) {
 			JOptionPane
-			.showMessageDialog(
-					null,
-					"Restaurantnavn ikke hentet ut korrekt fra databasen - sjekk tilkoblingen til databasen og prøv igjen!",
-					"En alvorlig feil har oppstått!",
-					JOptionPane.ERROR_MESSAGE, null);
+					.showMessageDialog(
+							null,
+							"Restaurantnavn ikke hentet ut korrekt fra databasen - sjekk tilkoblingen til databasen og prøv igjen!",
+							"En alvorlig feil har oppstått!",
+							JOptionPane.ERROR_MESSAGE, null);
 		}
 		return restaurantName;
 	}

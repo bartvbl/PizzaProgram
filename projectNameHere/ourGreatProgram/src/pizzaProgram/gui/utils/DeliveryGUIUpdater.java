@@ -11,18 +11,19 @@ import pizzaProgram.dataObjects.Order;
 import pizzaProgram.dataObjects.OrderDish;
 import pizzaProgram.gui.DeliveryMap;
 import pizzaProgram.gui.views.DeliveryView;
-import pizzaProgram.utils.DishPrice;
-import pizzaProgram.utils.DishPriceCalculator;
-import pizzaProgram.utils.OrderPrice;
-import pizzaProgram.utils.OrderPriceCalculator;
+//import pizzaProgram.utils.DishPrice;
+//import pizzaProgram.utils.DishPriceCalculator;
+//import pizzaProgram.utils.OrderPrice;
+//import pizzaProgram.utils.OrderPriceCalculator;
+import pizzaProgram.utils.PriceCalculators;
 
 public class DeliveryGUIUpdater {
-	private OrderPriceCalculator orderPriceCalculator;
+//	private OrderPriceCalculator orderPriceCalculator;
 	
 	public void showOrder(Order order){
-		this.orderPriceCalculator = new OrderPriceCalculator();
+//		this.orderPriceCalculator = new OrderPriceCalculator();
 		this.fillDishTable(order);
-		this.fillOrderPriceLabels();
+		this.fillOrderPriceLabels(order);
 		this.showComments(order);
 		this.enableMarkButtons(order);
 		this.showMapImage(order);
@@ -43,23 +44,23 @@ public class DeliveryGUIUpdater {
 	}
 
 	private void fillDishTable(Order order) {
-		this.orderPriceCalculator.reset();
+//		this.orderPriceCalculator.reset();
 		DefaultTableModel tableModel = (DefaultTableModel)DeliveryView.orderContentsTable.getModel();
 		tableModel.setRowCount(0);
 		ArrayList<OrderDish> dishList = order.getOrderedDishes();
-		DishPrice currentDishPrice;
+//		DishPrice currentDishPrice;
 		for(OrderDish dish : dishList){
-			currentDishPrice = DishPriceCalculator.getPrice(dish);
-			this.orderPriceCalculator.addDishToTotalPrice(currentDishPrice);
-			tableModel.addRow(new Object[]{dish.dish.name, this.generateExtrasString(dish.getExtras()), currentDishPrice.getPriceAsString()});
+//			currentDishPrice = DishPriceCalculator.getPrice(dish);
+//			this.orderPriceCalculator.addDishToTotalPrice(currentDishPrice);
+			tableModel.addRow(new Object[]{dish.dish.name, this.generateExtrasString(dish.getExtras()), PriceCalculators.getPriceForOrderDish(dish)});
 		}
 	}
 
-	private void fillOrderPriceLabels() {
-		OrderPrice orderPrice = this.orderPriceCalculator.getTotalOrderPrice();
-		DeliveryView.orderCostDeliveryCost.setText(orderPrice.getDeliveryCostString());
-		DeliveryView.orderCostOrderPrice.setText(orderPrice.getOrderPriceString());
-		DeliveryView.orderCostTotalCost.setText(orderPrice.getTotalOverallOrderCostString());
+	private void fillOrderPriceLabels(Order o) {
+//		OrderPrice orderPrice = this.orderPriceCalculator.getTotalOrderPrice();
+		DeliveryView.orderCostDeliveryCost.setText(PriceCalculators.getDeliveryCost(o));
+		DeliveryView.orderCostOrderPrice.setText(PriceCalculators.getPriceForOrderWithVAT(o));
+		DeliveryView.orderCostTotalCost.setText(PriceCalculators.getPriceForOrderWithVATAndDelivery(o));
 	}
 
 	private void showComments(Order order) {

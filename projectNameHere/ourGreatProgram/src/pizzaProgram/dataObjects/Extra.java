@@ -3,7 +3,7 @@ package pizzaProgram.dataObjects;
 public class Extra {
 
 	public final int id;
-	public final double priceValPart;
+	public final int priceValPart;
 	public final char priceFuncPart;
 	public final String name;
 	public final boolean isActive;
@@ -12,7 +12,7 @@ public class Extra {
 		this.id = id;
 		this.name = name;
 		this.priceFuncPart = priceFunc.charAt(0);
-		this.priceValPart = Double.parseDouble(priceFunc.substring(1));
+		this.priceValPart = Integer.parseInt(priceFunc.substring(1));
 		this.isActive = isActive;
 	}
 	
