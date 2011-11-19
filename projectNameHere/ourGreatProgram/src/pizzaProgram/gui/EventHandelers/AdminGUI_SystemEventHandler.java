@@ -13,6 +13,7 @@ import pizzaProgram.events.EventHandler;
 import pizzaProgram.events.EventType;
 import pizzaProgram.gui.AdminGUI;
 import pizzaProgram.gui.views.AdminView;
+import pizzaProgram.utils.PriceCalculators;
 
 public class AdminGUI_SystemEventHandler implements EventHandler {
 	private EventDispatcher eventDispatcher;
@@ -53,7 +54,7 @@ public class AdminGUI_SystemEventHandler implements EventHandler {
 		DefaultTableModel tableModel = (DefaultTableModel)AdminView.allRegisteredExtrasTable.getModel();
 		tableModel.setRowCount(0);
 		for(Extra e : extraList){
-			tableModel.addRow(new Object[]{e.name, e.priceFuncPart + "" + e.priceValPart, e.isActive ? Constants.GUI_TRUE : Constants.GUI_FALSE});
+			tableModel.addRow(new Object[]{e.name, PriceCalculators.getPriceForExtra(e), e.isActive ? Constants.GUI_TRUE : Constants.GUI_FALSE});
 		}
 	}
 	
@@ -68,7 +69,7 @@ public class AdminGUI_SystemEventHandler implements EventHandler {
 		DefaultTableModel tableModel = (DefaultTableModel)AdminView.allActiveDishesTable.getModel();
 		tableModel.setRowCount(0);
 		for(Dish d : dishList){
-			tableModel.addRow(new Object[]{d.name, d.price + " kr", d.isActive ? Constants.GUI_TRUE : Constants.GUI_FALSE});
+			tableModel.addRow(new Object[]{d.name, PriceCalculators.getPriceForDish(d) + " kr", d.isActive ? Constants.GUI_TRUE : Constants.GUI_FALSE});
 		}
 	}
 	

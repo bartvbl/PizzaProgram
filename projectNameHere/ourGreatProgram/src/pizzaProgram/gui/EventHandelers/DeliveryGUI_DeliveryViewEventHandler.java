@@ -11,14 +11,12 @@ import java.awt.event.KeyListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import pizzaProgram.core.Constants;
 import pizzaProgram.dataObjects.Order;
 import pizzaProgram.events.Event;
 import pizzaProgram.events.EventType;
 import pizzaProgram.events.moduleEventHandlers.ComponentEventHandler;
 import pizzaProgram.gui.DeliverGUI;
 import pizzaProgram.gui.utils.DeliveryGUIUpdater;
-import pizzaProgram.gui.views.CookView;
 import pizzaProgram.gui.views.DeliveryView;
 import pizzaProgram.utils.ReceiptGenerator;
 

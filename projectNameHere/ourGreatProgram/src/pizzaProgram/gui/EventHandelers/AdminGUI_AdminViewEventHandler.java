@@ -21,6 +21,7 @@ import pizzaProgram.events.EventType;
 import pizzaProgram.events.moduleEventHandlers.ComponentEventHandler;
 import pizzaProgram.gui.AdminGUI;
 import pizzaProgram.gui.views.AdminView;
+import pizzaProgram.utils.PriceCalculators;
 
 /**
  * This class hendles events dispatched from the gui-components in AdminWiev
@@ -104,7 +105,7 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 		//tekstbokser
 		AdminView.editExtraExtraNameTextBox.setText(selectedExtra.name);
 		AdminView.editExtraExtraNameTextBox.setEnabled(false);
-		AdminView.editExtraExtraPriceTextArea.setText(""+selectedExtra.priceFuncPart + selectedExtra.priceValPart);
+		AdminView.editExtraExtraPriceTextArea.setText(PriceCalculators.getPriceForExtra(selectedExtra));
 		
 		char selectchar = selectedExtra.isActive ? Constants.GUI_TRUE.charAt(0) : Constants.GUI_FALSE.charAt(0);
 		AdminView.editExtraExtraIsActiveComboBox.selectWithKeyChar(selectchar);
@@ -121,22 +122,18 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 		AdminView.searchExtraTextBox.setSelectionEnd(AdminView.searchExtraTextBox.getText().length());
 	}
 	
-	protected void handleDishSearchTyping()
-	{
+	protected void handleDishSearchTyping(){
 		String query = AdminView.searchDishTextBox.getText();
-		if(query.length() == 0)
-		{
+		if(query.length() == 0){
 			showAllDishes();
 		} else {
 			searchDishes(query);
 		}
 	}
 
-	protected void handleExtraSearchTyping()
-	{
+	protected void handleExtraSearchTyping(){
 		String query = AdminView.searchExtraTextBox.getText();
-		if(query.length() == 0)
-		{
+		if(query.length() == 0){
 			this.showAllExtras();
 		} else {
 			this.searchExtras(query);
@@ -278,7 +275,7 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 		AdminView.editDishNameTextBox.setText(selectedDish.name);
 		AdminView.editDishNameTextBox.setEnabled(false);
 		AdminView.editDishDescriptionTextArea.setText(selectedDish.description);
-		AdminView.editDishDishPriceTextArea.setText(""+selectedDish.price);
+		AdminView.editDishDishPriceTextArea.setText(PriceCalculators.getPriceForDish(selectedDish));
 		
 		//her resetter vi alle valgboksene til sin defaultverdi
 		char trueChar = Constants.GUI_TRUE.charAt(0);
@@ -308,5 +305,5 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 		// TODO Auto-generated method stub
 		
 	}
-	
+
 }//END
