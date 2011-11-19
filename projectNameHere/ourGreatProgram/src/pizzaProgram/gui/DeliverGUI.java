@@ -2,7 +2,6 @@ package pizzaProgram.gui;
 
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
 import java.util.ArrayList;
 
 import javax.swing.ListSelectionModel;
@@ -20,14 +19,11 @@ import pizzaProgram.modules.GUIModule;
 
 public class DeliverGUI extends GUIModule implements EventHandler {
 
-
 	private DeliveryView deliverView;
 	private ProgramWindow programWindow;
-	
+
 	public ArrayList<Order> currentOrderList;
 	public Order currentOrder;
-	
-	private DeliveryGUI_DeliveryViewEventHandler deliveryViewEventHandler;
 
 	public DeliverGUI(ProgramWindow mainWindow, EventDispatcher eventDispatcher) {
 		super(eventDispatcher);
@@ -41,33 +37,26 @@ public class DeliverGUI extends GUIModule implements EventHandler {
 		this.programWindow = mainWindow;
 		hide();
 		this.setupComponents();
-		deliveryViewEventHandler = new DeliveryGUI_DeliveryViewEventHandler(this);
+		new DeliveryGUI_DeliveryViewEventHandler(this);
 		new DeliveryGUI_SystemEventHandler(eventDispatcher, this);
 	}
-	
-	private void setupComponents(){
-		DefaultTableModel tableModel = (DefaultTableModel)DeliveryView.activeOrdersTable.getModel();
+
+	private void setupComponents() {
+		DefaultTableModel tableModel = (DefaultTableModel) DeliveryView.activeOrdersTable
+				.getModel();
 		tableModel.addColumn("ID");
 		tableModel.addColumn("Status");
 		tableModel.addColumn("Tid mottatt");
 		tableModel.addColumn("Leveringsmetode");
-		DeliveryView.activeOrdersTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		tableModel = (DefaultTableModel)DeliveryView.orderContentsTable.getModel();
+		DeliveryView.activeOrdersTable
+				.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tableModel = (DefaultTableModel) DeliveryView.orderContentsTable
+				.getModel();
 		tableModel.addColumn("Rett");
 		tableModel.addColumn("Tilbehør");
 		tableModel.addColumn("Pris for retter");
 		DeliveryView.showReceiptButton.setEnabled(false);
-		
-		
-		DeliveryView.mapImagePanel.addComponentListener(new ComponentAdapter() {
-			@Override
-			public void componentResized(ComponentEvent e) {
-				//deliveryViewEventHandler.handleOrderSelection();
-			}
-		});
-		
 	}
-	
 
 	/**
 	 * Her skal koden for å vise komponentene ligge
@@ -75,7 +64,8 @@ public class DeliverGUI extends GUIModule implements EventHandler {
 	@Override
 	public void show() {
 		this.programWindow.showPanel(this.deliverView);
-		this.dispatchEvent(new Event<Object>(EventType.DATABASE_UPDATE_DELIVERY_GUI_SEND_ALL_ORDERS));
+		this.dispatchEvent(new Event<Object>(
+				EventType.DATABASE_UPDATE_DELIVERY_GUI_SEND_ALL_ORDERS));
 	}
 
 	/**
