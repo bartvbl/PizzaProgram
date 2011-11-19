@@ -351,11 +351,12 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler
 	}
 
 	private void handleCustomerSelection(ListSelectionEvent e) {
-		if (e.getFirstIndex() == -1) {
+		int indexFromOtherSource = ((JList) e.getSource()).getSelectedIndex();
+		if (e.getFirstIndex() < 0 || indexFromOtherSource < 0) {
 			currentSelecetedCustomer = null;
 			return;
 		}
-		Customer customer = this.orderGUI.currentCustomerList.get(((JList) e.getSource()).getSelectedIndex());
+		Customer customer = this.orderGUI.currentCustomerList.get(indexFromOtherSource);
 		currentSelecetedCustomer = customer;
 
 		this.temporaryOrderData.setCustomer(customer);
