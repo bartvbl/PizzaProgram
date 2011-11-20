@@ -106,7 +106,7 @@ public class DatabaseWriter {
 
 	/**
 	 * Updates a customer with the values of the Customer object, specified by the customer ID of the input object
-	 * @param customer
+	 * @param customer The Customer instance representing the customer to be updated in the database
 	 */
 	public static void updateCustomerById(Customer customer) {
 		int commentID;
@@ -127,6 +127,10 @@ public class DatabaseWriter {
 		}
 	}
 
+	/**
+	 * Inserts a new dish into the database
+	 * @param dish The Dish to be created
+	 */
 	public static void writeNewDish(Dish dish) {
 		try {
 			DatabaseConnection
@@ -143,6 +147,10 @@ public class DatabaseWriter {
 		}
 	}
 
+	/**
+	 * Updates the dish in the database, specified by the ID of the dish object, and whose updated values are represented by the fields in the dish object.
+	 * @param dish The dish to be updated
+	 */
 	public static void updateDishByDishID(Dish dish) {
 		try {
 			DatabaseConnection.executeWriteQuery("UPDATE Dishes SET Price="
@@ -158,6 +166,10 @@ public class DatabaseWriter {
 		}
 	}
 
+	/**
+	 * Updates the extra in the database specified by the Extra object's ID
+	 * @param extra the extra to update in the database
+	 */
 	public static void updateExtraByExtraID(Extra extra) {
 		try {
 			String price = extra.priceFuncPart
@@ -171,6 +183,10 @@ public class DatabaseWriter {
 		}
 	}
 
+	/**
+	 * Inserts a new extra into the database, whose values correspond to the fields in the inserted Extra instance
+	 * @param extra the extra to be created
+	 */
 	public static void writeNewExtra(Extra extra) {
 		String priceString = extra.priceFuncPart
 				+ Double.toString(extra.priceValPart);
@@ -186,6 +202,10 @@ public class DatabaseWriter {
 		}
 	}
 
+	/**
+	 * Updates the config value in the database specified by the Setting instance's key, and sets it to the Setting instance's value.
+	 * @param setting The setting to be updated
+	 */
 	public static void updateConfigValue(Setting setting) {
 		try {
 			DatabaseConnection
@@ -199,6 +219,12 @@ public class DatabaseWriter {
 		}
 	}
 
+	/**
+	 * A general function that updates the order status of an order. It will only update the order if and only if the current order status matches the currentStatus parameter, and will then set it to the newStatus status. It meanwhile locks all the tables in the database to make sure that the order is not updated while the process is still going on.
+	 * @param order The order to be updated
+	 * @param currentStatus The order status that the order should currently have
+	 * @param newStatus The order status that the order should be updated to
+	 */
 	private static void updateOrderStatusIfStatusMatchesCurrentStatus(
 			Order order, String currentStatus, String newStatus) {
 		try {
@@ -220,6 +246,12 @@ public class DatabaseWriter {
 		}
 	}
 
+	/**
+	 * Returns a String representing the current status of an order, specified by the order's order ID
+	 * @param orderID the ID of the order that should be retrieved
+	 * @return A String representing an enum value of the status of the order
+	 * @throws SQLException Any error raised while retrieving data from the database
+	 */
 	private static String getCurrentStatusOfOrder(int orderID)
 			throws SQLException {
 		String query = "SELECT OrdersStatus FROM Orders AS OrdersRead WHERE OrdersID="
@@ -230,21 +262,40 @@ public class DatabaseWriter {
 		return currentStatus;
 	}
 
+	/**
+	 * Updates the status of the order specified by the order ID to a new status specified by the new status string parameter
+	 * @param status The new status of the of the order
+	 * @param orderID the order to be updated
+	 * @throws SQLException Any error raised while retrieving the data from the database
+	 */
 	private static void updateOrderStatus(String status, int orderID)
 			throws SQLException {
 		DatabaseConnection.executeWriteQuery("UPDATE Orders SET OrdersStatus='"
 				+ status + "' WHERE OrdersID=" + orderID + ";");
 	}
 
+	/**
+	 * Locks the Orders table for READ and WRITE, so that the order status can be safely updated without any concurrency conflicts
+	 * @throws SQLException Any error raised while locking the tables
+	 */
 	private static void lockTablesForUpdatingOrderStatus() throws SQLException {
 		DatabaseConnection
 				.executeWriteQuery("LOCK TABLES Orders WRITE, Orders AS OrdersRead READ;");
 	}
 
+	/**
+	 * Unlocks the locked tables for the order status updating process
+	 */
 	private static void unlockTables() {
 		DatabaseConnection.insertIntoDB("UNLOCK TABLES;");
 	}
 
+	/**
+	 * Writes all the dishes that the order contains to the database
+	 * @param order The unadded order containing the dishes to be added
+	 * @param orderID The ID of the new order created in the database
+	 * @throws SQLException Any error raised in the process of adding dishes to the database
+	 */
 	private static void addDishesToOrder(UnaddedOrder order, int orderID)
 			throws SQLException {
 		for (OrderDish dish : order.orderedDishes) {
@@ -252,6 +303,12 @@ public class DatabaseWriter {
 		}
 	}
 
+	/**
+	 * Inserts a link in the database between the new order being added and the specified dish
+	 * @param dish The dish to be linked to the specified order in the database
+	 * @param orderID The order ID to be linked to the specified fish
+	 * @throws SQLException Any error raised while inserting data into the database
+	 */
 	private static void addDishToOrder(OrderDish dish, int orderID)
 			throws SQLException {
 		int orderContentsID = DatabaseConnection
@@ -265,11 +322,22 @@ public class DatabaseWriter {
 		}
 	}
 
+	/**
+	 * Adds an extra to the current order
+	 * @param orderContentsID The order contents ID of the new order
+	 * @param extra the extra to be linked to the current new order
+	 */
 	private static void addExtraToOrder(int orderContentsID, Extra extra) {
 		DatabaseConnection.insertIntoDB("INSERT INTO DishExtrasChosen VALUES ("
 				+ orderContentsID + ", " + extra.id + ")");
 	}
 
+	/**
+	 * Inserts a comment about the new order into the database
+	 * @param comment the comment to be insterted
+	 * @return The ID representing the comment in the database
+	 * @throws SQLException Any error raised while inserting the comment into the database
+	 */
 	private static int createOrderComment(String comment) throws SQLException {
 		int commentID = DatabaseConnection
 				.insertIntoDBAndReturnID("INSERT INTO OrderComments VALUES (NULL, '"
@@ -277,6 +345,13 @@ public class DatabaseWriter {
 		return commentID;
 	}
 
+	/**
+	 * Creates a new order in the orders table in the database
+	 * @param order the unadded order that should be inserted into the database
+	 * @param commentID the ID of a comment about the order
+	 * @return the ID of the created order
+	 * @throws SQLException Any error raised while adding the new order.
+	 */
 	private static int createNewOrder(UnaddedOrder order, int commentID)
 			throws SQLException {
 		int orderID = DatabaseConnection
@@ -287,6 +362,12 @@ public class DatabaseWriter {
 		return orderID;
 	}
 
+	/**
+	 * Inserts a customer note into the database, and returns the ocmment's database ID
+	 * @param comment The comment to be inserted into the database
+	 * @return the ID of the created customer note
+	 * @throws SQLException any error raised while adding the note into the database
+	 */
 	private static int createCustomerNote(String comment) throws SQLException {
 		int commentID = DatabaseConnection
 				.insertIntoDBAndReturnID("INSERT INTO OrderComments VALUES (NULL, '"
@@ -294,6 +375,11 @@ public class DatabaseWriter {
 		return commentID;
 	}
 
+	/**
+	 * Generates a string representing the customer in the database
+	 * @param customer The customer that the identifier should be generated for
+	 * @return A string representing the inserted customer
+	 */
 	public static String createCustomerIdentifier(Customer customer) {
 		return customer.firstName.toLowerCase()
 				+ customer.lastName.toLowerCase() + customer.phoneNumber;
