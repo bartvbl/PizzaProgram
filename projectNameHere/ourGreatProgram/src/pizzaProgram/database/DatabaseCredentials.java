@@ -11,12 +11,29 @@ import java.io.IOException;
  */
 public class DatabaseCredentials {
 
+	/**
+	 * The String from the config file denoting that the value coming after the colon is the database's URL
+	 */
 	private static final String URL_TYPE = "URL";
+	/**
+	 * The String in the config file denoting that the value following the colon is the database's username
+	 */
 	private static final String USERNAME_TYPE = "USERNAME";
+	/**
+	 * The String found in the config file denoting that the value following the semicolon is the database user's password.
+	 */
 	private static final String PASSWORD_TYPE = "PASSWORD";
-
+	/**
+	 * A String representing the database URL. It always starts by 'jdbc:', as required by the database driver used.
+	 */
 	private String url = "jdbc:";
+	/**
+	 * A String holding the database's username
+	 */
 	private String username = "";
+	/**
+	 * A String holding the database user's password.
+	 */
 	private String password = "";
 
 	/**
@@ -54,14 +71,26 @@ public class DatabaseCredentials {
 
 	}
 
+	/**
+	 * Returns the URL of the database the way it was read from the config file
+	 * @return The URL to the database
+	 */
 	String getURL() {
 		return this.url;
 	}
 
+	/**
+	 * Returns the username of the database user as it was read from the database credentials config file
+	 * @return The database user's username
+	 */
 	String getUsername() {
 		return this.username;
 	}
 
+	/**
+	 * Returns the database user's password as it was read from the database credentials config file
+	 * @return The dataabse user's password
+	 */
 	String getPassword() {
 		return this.password;
 	}
