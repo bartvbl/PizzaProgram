@@ -49,6 +49,7 @@ public class OrderGUI extends GUIModule implements EventHandler {
 		OrderView.deliveryMethodComboBox.removeAllItems();
 		OrderView.deliveryMethodComboBox.addItem(GUIConstants.GUI_PICKUP);
 		OrderView.deliveryMethodComboBox.addItem(GUIConstants.GUI_DELIVER);
+		OrderView.deliveryMethodComboBox.selectWithKeyChar(GUIConstants.GUI_DELIVER.charAt(0));
 		OrderView.extrasSelectionList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		OrderView.dishSelectionList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		OrderView.customerList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
