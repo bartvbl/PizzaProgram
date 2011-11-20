@@ -20,8 +20,8 @@ public class ReceiptGenerator {
 		receiptString += "<html>";
 		receiptString += "<table width=\"" + GUIConstants.RECIPT_WIDTH
 				+ "\" border=\"0\">";
-		receiptString += "<tr><td align=\"center\"colspan=\"2\">====="
-				+ PriceCalculators.getRestaurantName() + "=====</td></tr>";
+		receiptString += "<tr><td align=\"center\"colspan=\"2\">-"
+				+ PriceCalculators.getRestaurantName() + "-</td></tr>";
 		for (OrderDish d : order.orderedDishes) {
 			receiptString += createHeaderRow(d.dish.name,
 					PriceCalculators.getPriceForDish(d.dish));

@@ -160,7 +160,7 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 		
 		Setting priceSetting = new Setting(DatabaseConstants.SETTING_KEY_DELIVERY_PRICE, ""+orePrice);
 		
-		if(nameText.length() < 3 || nameText.length() > 10){
+		if(nameText.length() < 3 || nameText.length() > 18){
 			GUIConstants.errorMessage("Navnet på restauranten kan ikke være mindre enn 3 bokstaver lant eller mer enn 10 bokstaver langt");
 			return;
 		}
