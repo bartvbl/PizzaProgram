@@ -287,12 +287,13 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler
 		String deliveryMethod = selectedDeliveryMethod.equals(GUIConstants.GUI_PICKUP) ? Order.PICKUP_AT_RESTAURANT: Order.DELIVER_AT_HOME;
 		this.temporaryOrderData.setDeliveryMethod(deliveryMethod);
 
-		UnaddedOrder orderToConfirm = this.temporaryOrderData.convertToOrderObjectAndReset();
-		if (orderToConfirm.orderedDishes.isEmpty()) {
-			JOptionPane.showMessageDialog(null,"Orderen må innholde en eller flere retter!", "Feil",JOptionPane.ERROR_MESSAGE);
+		if(temporaryOrderData.getNumberOfDishes() < 1) {
+			GUIConstants.errorMessage("Orderen må innholde en eller flere retter!");
 			return;
 		}
-
+		
+		UnaddedOrder orderToConfirm = this.temporaryOrderData.convertToOrderObjectAndReset();
+		
 		this.dispatchEvent(new Event<UnaddedOrder>(EventType.DATABASE_ADD_NEW_ORDER, orderToConfirm));
 		this.resetUI();
 	}

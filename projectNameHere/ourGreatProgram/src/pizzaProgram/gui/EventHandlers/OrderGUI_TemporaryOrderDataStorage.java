@@ -57,6 +57,9 @@ public class OrderGUI_TemporaryOrderDataStorage {
 		this.dishList.add(orderDish);
 	}
 	
+	public int getNumberOfDishes(){
+		return dishList.size();
+	}
 	public void removeDishFromOrder(int indexInTable){
 		this.dishList.remove(indexInTable);
 	}
