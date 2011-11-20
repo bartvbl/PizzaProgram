@@ -56,10 +56,9 @@ public class OrderGUI_SystemEventHandler implements EventHandler {
 
 		DefaultListModel model = (DefaultListModel)OrderView.extrasSelectionList.getModel();
 		model.clear();
-		System.out.println("updating extras list");
 		for (Extra extra : extrasList) {
 			if(orderGUI.currentSelectedDish != null){
-				model.addElement(extra.name + " ( " + PriceCalculators.getPriceForExtraOnDish(orderGUI.currentSelectedDish, extra) + ")");
+				model.addElement(extra.name + " (Levert hjem: " + PriceCalculators.getPriceForExtraOnDishDeliver(orderGUI.currentSelectedDish, extra) + "     Hent selv:  " +  PriceCalculators.getPriceForExtraOnDishPickup(orderGUI.currentSelectedDish, extra) + ")");
 			}else{
 				model.addElement(extra.name + " ( " + PriceCalculators.getPriceForExtra(extra) + ")");
 			}
@@ -80,7 +79,7 @@ public class OrderGUI_SystemEventHandler implements EventHandler {
 		model.clear();
 
 		for (Dish dish : dishList) {
-			model.addElement(dish.name + " (kr. " + PriceCalculators.getPriceForDish(dish) + ")");
+			model.addElement(dish.name + " (Levert hjem: " + PriceCalculators.getPriceForDishDeliver(dish) + "     Hent selv:  " + PriceCalculators.getPriceForDishPickup(dish) + ")");
 		}
 	}
 

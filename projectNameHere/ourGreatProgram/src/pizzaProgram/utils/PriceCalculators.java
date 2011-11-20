@@ -39,6 +39,16 @@ public class PriceCalculators {
 	public static String getPriceForDish(Dish d) {
 		return d.price / 100 + "," + formatter.format(d.price % 100);
 	}
+	
+	public static String getPriceForDishPickup(Dish d) {
+		int price = d.price + (int) (d.price * (pickupMoms/100.0)); 
+		return price / 100 + "," + formatter.format(price % 100);
+	}
+	
+	public static String getPriceForDishDeliver(Dish d) {
+		int price = d.price + (int) (d.price * (deliverMoms/100.0)); 
+		return price / 100 + "," + formatter.format(price % 100);
+	}
 
 	/**
 	 * Generates a priceString on the form "0,00" based on the sum of the items
@@ -219,17 +229,41 @@ public class PriceCalculators {
 	 * @return a string in the form of "+0,00" or "-0,00" depending on wether or
 	 *         not it is a positive or negative price change.
 	 */
-	public static String getPriceForExtraOnDish(Dish d, Extra e) {
-		if (e.priceFuncPart != '*') {
-			return e.priceFuncPart + "" + e.priceValPart / 100 + ","
-					+ formatter.format(e.priceValPart % 100);
+	private static int getPriceForExtraOnDish(Dish d, Extra e) {
+		if (e.priceFuncPart == '+') {
+			return e.priceValPart;
 		}
-		int returnVal = (int) (d.price * ((e.priceValPart - 100) / 100.0));
-		char func = returnVal >= 0 ? '+' : '-';
-		returnVal = Math.abs(returnVal);
-		return func + "" + returnVal / 100 + ","
-				+ formatter.format(returnVal % 100);
+		else if (e.priceFuncPart == '-') {
+			return -e.priceValPart;
+		}
+		else {
+		return (int) (d.price * ((e.priceValPart - 100) / 100.0));
+		}
+//		char func = returnVal >= 0 ? '+' : '-';
+//		returnVal = Math.abs(returnVal);
+//		return func + "" + returnVal / 100 + ","
+//				+ formatter.format(returnVal % 100);
 	}
+	public static String getPriceForExtraOnDishPickup(Dish d, Extra e) {
+		int price = getPriceForExtraOnDish(d, e);
+		price += (int) (price*(pickupMoms / 100.0)); 
+		char func = price >= 0 ? '+' : '-';
+		price = Math.abs(price);
+		return func + "" + price / 100 + ","
+				+ formatter.format(price % 100);
+		
+	}
+	
+	public static String getPriceForExtraOnDishDeliver(Dish d, Extra e) {
+		int price = getPriceForExtraOnDish(d, e);
+		price += (int) (price*(deliverMoms / 100.0)); 
+		char func = price >= 0 ? '+' : '-';
+		price = Math.abs(price);
+		return func + "" + price / 100 + ","
+				+ formatter.format(price % 100);
+		
+	}
+
 
 	/**
 	 * Generates a string on the form "+0,00", "-0,00" or "*0,00" containing the

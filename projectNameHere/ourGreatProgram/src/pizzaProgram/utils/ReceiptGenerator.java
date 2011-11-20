@@ -23,25 +23,23 @@ public class ReceiptGenerator {
 		receiptString += "<tr><td align=\"center\"colspan=\"2\">-"
 				+ PriceCalculators.getRestaurantName() + "-</td></tr>";
 		for (OrderDish d : order.orderedDishes) {
-			receiptString += createHeaderRow(d.dish.name,
-					PriceCalculators.getPriceForDish(d.dish));
+			
+			String dishprice = order.deliveryMethod.equals(Order.DELIVER_AT_HOME) ? PriceCalculators.getPriceForDishDeliver(d.dish) : PriceCalculators.getPriceForDishPickup(d.dish);
+			receiptString += createHeaderRow(d.dish.name, dishprice);
+			
 			rows++;
 			for (Extra e : d.getExtras()) {
-				receiptString += createRow("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + e.name,
-						PriceCalculators.getPriceForExtraOnDish(d.dish, e));
+				String extraprice = order.deliveryMethod.equals(Order.DELIVER_AT_HOME) ? PriceCalculators.getPriceForExtraOnDishDeliver(d.dish, e) : PriceCalculators.getPriceForExtraOnDishPickup(d.dish, e);
+				receiptString += createRow("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + e.name, extraprice);
 				rows++;
 			}
 		}
 
 		receiptString += createRow("", "");
-		receiptString += createRow("Alle retter",
-				PriceCalculators.getPriceForOrderWithoutVAT(order));
-		receiptString += createRow("MVA",
-				PriceCalculators.getVATForOrder(order));
-		receiptString += createRow("Levering",
-				PriceCalculators.getDeliveryCostForOrder(order));
-		receiptString += createHeaderRow("Totalt",
-				PriceCalculators.getPriceForOrderWithVATAndDelivery(order));
+		receiptString += createRow("Alle retter", PriceCalculators.getPriceForOrderWithVAT(order));
+		receiptString += createRow("Herav MVA", PriceCalculators.getVATForOrder(order));
+		receiptString += createRow("Levering",PriceCalculators.getDeliveryCostForOrder(order));
+		receiptString += createHeaderRow("Totalt",PriceCalculators.getPriceForOrderWithVATAndDelivery(order));
 		receiptString += "</table>";
 		receiptString += "</html>";
 
