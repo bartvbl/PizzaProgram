@@ -39,7 +39,7 @@ public class ReceiptGenerator {
 		receiptString += createRow("MVA",
 				PriceCalculators.getVATForOrder(order));
 		receiptString += createRow("Levering",
-				PriceCalculators.getDeliveryCost(order));
+				PriceCalculators.getDeliveryCostForOrder(order));
 		receiptString += createHeaderRow("Totalt",
 				PriceCalculators.getPriceForOrderWithVATAndDelivery(order));
 		receiptString += "</table>";

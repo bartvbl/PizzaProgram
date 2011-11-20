@@ -58,7 +58,7 @@ public class DeliveryGUIUpdater {
 
 	private void fillOrderPriceLabels(Order o) {
 //		OrderPrice orderPrice = this.orderPriceCalculator.getTotalOrderPrice();
-		DeliveryView.orderCostDeliveryCost.setText(PriceCalculators.getDeliveryCost(o));
+		DeliveryView.orderCostDeliveryCost.setText(PriceCalculators.getDeliveryCostForOrder(o));
 		DeliveryView.orderCostOrderPrice.setText(PriceCalculators.getPriceForOrderWithVAT(o));
 		DeliveryView.orderCostTotalCost.setText(PriceCalculators.getPriceForOrderWithVATAndDelivery(o));
 	}

@@ -16,6 +16,7 @@ import pizzaProgram.gui.EventHandlers.AdminGUI_AdminViewEventHandler;
 import pizzaProgram.gui.EventHandlers.AdminGUI_SystemEventHandler;
 import pizzaProgram.gui.views.AdminView;
 import pizzaProgram.modules.GUIModule;
+import pizzaProgram.utils.PriceCalculators;
 
 public class AdminGUI extends GUIModule implements EventHandler{
 	private ProgramWindow programWindow;
@@ -78,7 +79,11 @@ public class AdminGUI extends GUIModule implements EventHandler{
 		
 		AdminView.editExtraExtraIsActiveComboBox.addItem(GUIConstants.GUI_TRUE);
 		AdminView.editExtraExtraIsActiveComboBox.addItem(GUIConstants.GUI_FALSE);
-
+		
+		
+		AdminView.settingsDeliveryPriceTextBox.setText(PriceCalculators.getDeliveryCost());
+		AdminView.settingsEditNameOfRestaurantTextBox.setText(PriceCalculators.getRestaurantName());
+		AdminView.settingsEditMinimumPriceFreeDeliveryTextBox.setText(PriceCalculators.getFreeDeliveryTreshold());
 	}
 	
 	/**
