@@ -217,8 +217,6 @@ public class PriceCalculators {
 	}
 
 	/**
-	 * Generates a string displaying the change in price if you add the given
-	 * Extra to the given Dish.
 	 * 
 	 * @param d
 	 *            - the {@link pizzaProgram.dataObjects.Dish dish} the info in
@@ -226,8 +224,8 @@ public class PriceCalculators {
 	 * @param e
 	 *            - the {@link pizzaProgram.dataObjects.Extra extra} the info in
 	 *            the string is to be in relation to.
-	 * @return a string in the form of "+0,00" or "-0,00" depending on wether or
-	 *         not it is a positive or negative price change.
+	 * @return 	returns an integer øre-price of an extra on a spesific order
+	 * 			Extra to the given Dish. used to calculate the price with different taxes
 	 */
 	private static int getPriceForExtraOnDish(Dish d, Extra e) {
 		if (e.priceFuncPart == '+') {
@@ -239,11 +237,21 @@ public class PriceCalculators {
 		else {
 		return (int) (d.price * ((e.priceValPart - 100) / 100.0));
 		}
-//		char func = returnVal >= 0 ? '+' : '-';
-//		returnVal = Math.abs(returnVal);
-//		return func + "" + returnVal / 100 + ","
-//				+ formatter.format(returnVal % 100);
 	}
+	
+	/**
+	 * Generates a string displaying the change in price if you add the given
+	 * Extra to the given Dish with the VAT for picking up the order at the restaurant added.
+	 * 
+	 * @param d
+	 *            - the {@link pizzaProgram.dataObjects.Dish dish} the info in
+	 *            the string is to be in relation to.
+	 * @param e
+	 *            - the {@link pizzaProgram.dataObjects.Extra extra} the info in
+	 *            the string is to be in relation to.
+	 * @return a string in the form of "+0,00" or "-0,00" depending on wether or
+	 *         not it is a positive or negative price change.
+	 */
 	public static String getPriceForExtraOnDishPickup(Dish d, Extra e) {
 		int price = getPriceForExtraOnDish(d, e);
 		price += (int) (price*(pickupMoms / 100.0)); 
@@ -254,6 +262,19 @@ public class PriceCalculators {
 		
 	}
 	
+	/**
+	 * Generates a string displaying the change in price if you add the given
+	 * Extra to the given Dish with the VAT for deliveries added.
+	 * 
+	 * @param d
+	 *            - the {@link pizzaProgram.dataObjects.Dish dish} the info in
+	 *            the string is to be in relation to.
+	 * @param e
+	 *            - the {@link pizzaProgram.dataObjects.Extra extra} the info in
+	 *            the string is to be in relation to.
+	 * @return a string in the form of "+0,00" or "-0,00" depending on wether or
+	 *         not it is a positive or negative price change.
+	 */
 	public static String getPriceForExtraOnDishDeliver(Dish d, Extra e) {
 		int price = getPriceForExtraOnDish(d, e);
 		price += (int) (price*(deliverMoms / 100.0)); 

@@ -18,10 +18,8 @@ public class ReceiptGenerator {
 		String receiptString = "";
 
 		receiptString += "<html>";
-		receiptString += "<table width=\"" + GUIConstants.RECIPT_WIDTH
-				+ "\" border=\"0\">";
-		receiptString += "<tr><td align=\"center\"colspan=\"2\">-"
-				+ PriceCalculators.getRestaurantName() + "-</td></tr>";
+		receiptString += "<table width=\"" + GUIConstants.RECIPT_WIDTH + "\" border=\"0\">";
+		receiptString += "<tr><td align=\"center\"colspan=\"2\">-" + PriceCalculators.getRestaurantName() + "-</td></tr>";
 		for (OrderDish d : order.orderedDishes) {
 			
 			String dishprice = order.deliveryMethod.equals(Order.DELIVER_AT_HOME) ? PriceCalculators.getPriceForDishDeliver(d.dish) : PriceCalculators.getPriceForDishPickup(d.dish);
