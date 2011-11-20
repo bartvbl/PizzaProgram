@@ -32,7 +32,9 @@ public class Main implements EventHandler {
 	 * A reference to the class that manages the main window of the program
 	 */
 	private ProgramWindow programWindow;
-
+	/**
+	 * A reference to the program's database module, so that it can be used to disconnect from the database when a program shutdown is requested.
+	 */
 	private DatabaseModule databaseModule;
 
 	/**
@@ -50,12 +52,19 @@ public class Main implements EventHandler {
 		this.eventDispatcher.dispatchEvent(new Event<Object>(
 				EventType.ORDER_GUI_REQUESTED));
 	}
-
+	
+	/**
+	 * Creates the program's main window
+	 * @param mainApplication The SingleFrameApplication instance, which the program window requires to start
+	 */
 	private void createMainWindow(SingleFrameApplication mainApplication) {
 		this.programWindow = new ProgramWindow(this.eventDispatcher,
 				mainApplication);
 	}
-
+	
+	/**
+	 * Creates the database module, and then connects to the database. The database module registers the database event handlers.
+	 */
 	private void connectToDatabase() {
 		this.databaseModule = new DatabaseModule(this.eventDispatcher);
 		this.databaseModule.connect();
@@ -72,7 +81,10 @@ public class Main implements EventHandler {
 		new OrderGUI(this.programWindow, this.eventDispatcher);
 		new CookGUI(this.programWindow, this.eventDispatcher);
 	}
-
+	
+	/**
+	 * An event handler for a program exit request
+	 */
 	public void handleEvent(Event<?> event) {
 		if (event.eventType.equals(EventType.PROGRAM_EXIT_REQUESTED)) {
 			this.databaseModule.disconnect();
