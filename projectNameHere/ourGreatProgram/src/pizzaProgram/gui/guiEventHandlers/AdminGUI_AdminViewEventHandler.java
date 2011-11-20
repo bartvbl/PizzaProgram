@@ -157,7 +157,6 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 		}
 		
 		Setting priceSetting = new Setting(DatabaseConstants.SETTING_KEY_DELIVERY_PRICE, ""+orePrice);
-		
 		if(nameText.isEmpty()){
 			//FEIL
 			return;

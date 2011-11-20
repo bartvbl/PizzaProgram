@@ -12,18 +12,32 @@ import pizzaProgram.dataObjects.Setting;
 import pizzaProgram.dataObjects.UnaddedCustomer;
 import pizzaProgram.dataObjects.UnaddedOrder;
 import pizzaProgram.database.DatabaseConnection;
-
+/**
+ * A class that writes or updates the database
+ * @author Bart
+ *
+ */
 public class DatabaseWriter {
+	/**
+	 * Updates the status of the order entered from "registered" to "being cooked", if and only if the status of the order is still "registered". 
+	 * @param order The Order instance representing the order that should be updated (by order ID)
+	 */
 	public static void markOrderAsInProgress(Order order) {
 		updateOrderStatusIfStatusMatchesCurrentStatus(order, Order.REGISTERED,
 				Order.BEING_COOKED);
 	}
-
+	/**
+	 * Updates the status of the order entered from "being cooked" to "has been cooked", if and only if the status of the order is still "being cooked". 
+	 * @param order The Order instance representing the order that should be updated (by order ID)
+	 */
 	public static void markOrderAsFinishedCooking(Order order) {
 		updateOrderStatusIfStatusMatchesCurrentStatus(order,
 				Order.BEING_COOKED, Order.HAS_BEEN_COOKED);
 	}
-
+	/**
+	 * Updates the status of the order entered from "has been cooked" to "being delivered", if and only if the status of the order is still "has been cooked" and the order's delivery method is "deliver at home". 
+	 * @param order The Order instance representing the order that should be updated (by order ID)
+	 */
 	public static void markOrderAsBeingDelivered(Order order) {
 		if (order.deliveryMethod.equals(Order.DELIVER_AT_HOME)) {
 			updateOrderStatusIfStatusMatchesCurrentStatus(order,
@@ -33,7 +47,10 @@ public class DatabaseWriter {
 					.showUpdateOrderStatusFailedInvalidDeliveryMethodMessage();
 		}
 	}
-
+	/**
+	 * Updates the status of the order entered from "being delivered" to "delivered", if the delivery method is "deliver at home", or from "has been cooked" to "delivered" when the delivery method is "pickup at restaurant. In both cases it will verify first that the order status is still valid before applying the update. 
+	 * @param order The Order instance representing the order that should be updated (by order ID)
+	 */
 	public static void markOrderAsDelivered(Order order) {
 		if (order.deliveryMethod.equals(Order.DELIVER_AT_HOME)) {
 			updateOrderStatusIfStatusMatchesCurrentStatus(order,
@@ -44,6 +61,10 @@ public class DatabaseWriter {
 		}
 	}
 
+	/**
+	 * Writes a new order to the database, specified by the parameter
+	 * @param order The order to be created.
+	 */
 	public static void writeNewOrder(UnaddedOrder order) {
 		try {
 			int commentID = -1;
@@ -60,6 +81,10 @@ public class DatabaseWriter {
 		}
 	}
 
+	/**
+	 * Adds a new customer to the database, specified by the parameter
+	 * @param customer The new customer to be added to the database
+	 */
 	public static void writeNewCustomer(UnaddedCustomer customer) {
 		int commentID;
 		try {
@@ -79,6 +104,10 @@ public class DatabaseWriter {
 		}
 	}
 
+	/**
+	 * Updates a customer with the values of the Customer object, specified by the customer ID of the input object
+	 * @param customer
+	 */
 	public static void updateCustomerById(Customer customer) {
 		int commentID;
 		try {
