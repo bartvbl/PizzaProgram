@@ -132,8 +132,7 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 		
 		
 		
-		Config.
-		
+	
 	}
 	
 
