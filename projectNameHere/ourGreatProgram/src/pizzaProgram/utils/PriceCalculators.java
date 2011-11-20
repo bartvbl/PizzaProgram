@@ -120,10 +120,12 @@ public class PriceCalculators {
 	}
 
 	public static String getDeliveryCost() {
-		return deliveryCost / 100 + ","+ formatter.format(deliveryCost % 100);
+		return deliveryCost / 100 + "," + formatter.format(deliveryCost % 100);
 	}
-	public static String getFreeDeliveryTreshold(){
-		return freeDeliveryThreshold / 100 + ","+ formatter.format(freeDeliveryThreshold % 100);
+
+	public static String getFreeDeliveryTreshold() {
+		return freeDeliveryThreshold / 100 + ","
+				+ formatter.format(freeDeliveryThreshold % 100);
 	}
 
 	/**
@@ -179,7 +181,7 @@ public class PriceCalculators {
 		int totalPrice = od.dish.price;
 		for (Extra e : od.getExtras()) {
 			if (e.priceFuncPart == '*') {
-				totalPrice += od.dish.price * ((100 - e.priceValPart) / 100.0);
+				totalPrice += od.dish.price * ((e.priceValPart - 100) / 100.0);
 			} else if (e.priceFuncPart == '-') {
 				totalPrice -= e.priceValPart;
 			} else {
@@ -226,7 +228,7 @@ public class PriceCalculators {
 		char func = returnVal >= 0 ? '+' : '-';
 		returnVal = Math.abs(returnVal);
 		return func + "" + returnVal / 100 + ","
-		+ formatter.format(returnVal % 100);
+				+ formatter.format(returnVal % 100);
 	}
 
 	/**
@@ -267,11 +269,11 @@ public class PriceCalculators {
 	public static String getRestaurantName() {
 		if (restaurantName.equals("")) {
 			JOptionPane
-			.showMessageDialog(
-					null,
-					"Restaurantnavn ikke hentet ut korrekt fra databasen - sjekk tilkoblingen til databasen og prøv igjen!",
-					"En alvorlig feil har oppstått!",
-					JOptionPane.ERROR_MESSAGE, null);
+					.showMessageDialog(
+							null,
+							"Restaurantnavn ikke hentet ut korrekt fra databasen - sjekk tilkoblingen til databasen og prøv igjen!",
+							"En alvorlig feil har oppstått!",
+							JOptionPane.ERROR_MESSAGE, null);
 		}
 		return restaurantName;
 	}
