@@ -11,8 +11,16 @@ import pizzaProgram.dataObjects.Order;
 import pizzaProgram.dataObjects.Setting;
 import pizzaProgram.database.DatabaseConnection;
 
+/**
+ * A class that performs all read queries to the database
+ * @author Bart
+ *
+ */
 public class DatabaseReader {
-	
+	/**
+	 * Retrieves a list of all customers from the database
+	 * @return An arrayList containing Customer instances, ech representing a row in the database
+	 */
 	public static ArrayList<Customer> getAllCustomers(){
 		ResultSet results = DatabaseConnection.fetchData("SELECT * FROM Customer LEFT JOIN CustomerNotes ON ( Customer.commentID = CustomerNotes.NoteID );");
 		ArrayList<Customer> customerList = new ArrayList<Customer>();
@@ -25,7 +33,11 @@ public class DatabaseReader {
 		}
 		return null;
 	}
-	
+	/**
+	 * Retrieves the setting from the database given by the key entered
+	 * @param key The key representing the desired setting
+	 * @return A Setting data object, representing the setting associated with the entered key
+	 */
 	public static Setting getSettingByKey(String key)
 	{
 		ResultSet results = DatabaseConnection.fetchData("SELECT * FROM Config WHERE ConfigKey='"+key+"';");
@@ -39,7 +51,10 @@ public class DatabaseReader {
 		}
 		return null;
 	}
-	
+	/**
+	 * Returns a list of all settings in the database
+	 * @return An ARrayList containing Setting instances, each representing a setting in the database
+	 */
 	public static ArrayList<Setting> getAllSettings()
 	{
 		ResultSet results = DatabaseConnection.fetchData("SELECT * FROM Config;");
@@ -52,7 +67,10 @@ public class DatabaseReader {
 		}
 		return null;
 	}
-	
+	/**
+	 * Returns a list of all the dishes that are currently in the assortiment of the restaurant
+	 * @return An ArrayList containing Dish instances, each representing an active dish.
+	 */
 	public static ArrayList<Dish> getAllActiveDishes() {
 		ResultSet results = DatabaseConnection.fetchData("SELECT * FROM Dishes WHERE (isactive=1);");
 		ArrayList<Dish> dishList = new ArrayList<Dish>();
@@ -64,7 +82,10 @@ public class DatabaseReader {
 		}
 		return dishList;
 	}
-	
+	/**
+	 * Retrieves a list of all dishes from the database, no matter if they are active or not
+	 * @return An ArrayList containing DIsh instances, where every Dish object is a DIsh in the Dishes table in the database
+	 */
 	public static ArrayList<Dish> getAllDishes() {
 		ResultSet results = DatabaseConnection.fetchData("SELECT * FROM Dishes;");
 		ArrayList<Dish> dishList = new ArrayList<Dish>();
@@ -77,6 +98,10 @@ public class DatabaseReader {
 		return dishList;
 	}
 	
+	/**
+	 * Retrieves a list of all extras that are currently in the restaurant's assortiment.
+	 * @return An ArrayList of Extra instances, where every Extra instance is an active Extra.
+	 */
 	public static ArrayList<Extra> getAllActiveExtras() {
 		ResultSet results = DatabaseConnection.fetchData("SELECT * FROM Extras WHERE (isactive=1);");
 		ArrayList<Extra> dishList = new ArrayList<Extra>();
@@ -89,6 +114,10 @@ public class DatabaseReader {
 		return dishList;
 	}
 	
+	/**
+	 * Retrieves a list of all Extras in the database. It does not distinguish whether extras are in the restaurant's assortiment or not
+	 * @return An ArrayList containing Extra instances, where each Extra instance represents an Extra in the database
+	 */
 	public static ArrayList<Extra> getAllExtras() {
 		ResultSet results = DatabaseConnection.fetchData("SELECT * FROM Extras;");
 		ArrayList<Extra> dishList = new ArrayList<Extra>();
@@ -100,7 +129,10 @@ public class DatabaseReader {
 		}
 		return dishList;
 	}
-	
+	/**
+	 * Retrieves a list of all orders that have either been registered or are being cooked from the database
+	 * @return An ArrayList containing Order instances, where every Order instance is an order that has been registered, or is being cooked.
+	 */
 	public static ArrayList<Order> getAllUncookedOrders() {
 		ResultSet result = DatabaseConnection.fetchData(getOrderSelectionQuery("Orders.OrdersStatus = '"+Order.REGISTERED+"' OR Orders.OrdersStatus = '"+Order.BEING_COOKED+"'", ""));
 		ArrayList<Order> orderList = new ArrayList<Order>();
@@ -112,7 +144,12 @@ public class DatabaseReader {
 		}
 		return orderList;
 	}
-	
+	/**
+	 * Generates a query to select orders from the database, with a given where clause, and possible extra parameters.
+	 * @param whereClause A string representing the where clause of the query. Usage: replace <String> by the where clause in: "WHERE (<String>)".
+	 * @param extraOptions Any extra options to be placed at the end of the query. These chould be things like "LIMIT 20", or "ORDER BY Orders.OrderID", etc.
+	 * @return A String representing a query that can be sent to the database to read and ocnstruct orders
+	 */
 	public static String getOrderSelectionQuery(String whereClause, String extraOptions){
 		String query = "SELECT Customer.* , CustomerNotes.* , Dishes.* , Extras.* , OrderComments.* , Orders.*, OrdersContents.* FROM Orders " +
 		"LEFT JOIN OrderComments ON ( Orders.CommentID = OrderComments.CommentID ) " +
@@ -126,6 +163,10 @@ public class DatabaseReader {
 		return query;
 	}
 	
+	/**
+	 * Returns a list of all orders that have been cooked, or are being delivered.
+	 * @return An ArrayList containing Order instances, where each of the Order instances either has been cooked, or is being delivered.
+	 */
 	public static ArrayList<Order> getAllUndeliveredOrders() {
 		ResultSet result = DatabaseConnection.fetchData(getOrderSelectionQuery("Orders.OrdersStatus = '"+Order.HAS_BEEN_COOKED+"' OR Orders.OrdersStatus = '"+Order.BEING_DELIVERED+"'", ""));
 		ArrayList<Order> orderList = new ArrayList<Order>();
