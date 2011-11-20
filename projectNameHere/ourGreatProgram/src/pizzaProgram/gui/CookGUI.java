@@ -17,13 +17,28 @@ import pizzaProgram.gui.views.CookView;
 import pizzaProgram.modules.GUIModule;
 
 public class CookGUI extends GUIModule implements EventHandler{
-
+	/**
+	 * A reference to the cookView JPanel
+	 */
 	private JPanel cookView;
+	/**
+	 * A reference to the program's main window
+	 */
 	private ProgramWindow programWindow;
-
+	/**
+	 * A list of the currently displayed order list, as reference when updating the GUI
+	 */
 	public ArrayList<Order> currentOrderList;
+	/**
+	 * The order that is currently selected by the user
+	 */
 	public Order currentSelectedOrder;
 
+	/**
+	 * The constructor, creates the cookView Jpanel, creates event handlers and registers the JPanel at the program's main window
+	 * @param mainWindow
+	 * @param eventDispatcher
+	 */
 	public CookGUI(ProgramWindow mainWindow, EventDispatcher eventDispatcher) {
 		super(eventDispatcher);
 		eventDispatcher.addEventListener(this, EventType.COOK_GUI_REQUESTED);
@@ -38,6 +53,9 @@ public class CookGUI extends GUIModule implements EventHandler{
 		this.setupComponents();
 	}
 
+	/**
+	 * Performs tasks to initialize several components present in the cook GUI
+	 */
 	private void setupComponents() {
 		DefaultTableModel tableModel = (DefaultTableModel) CookView.orderDetailsTable.getModel();
 		tableModel.addColumn("ID");
@@ -50,7 +68,9 @@ public class CookGUI extends GUIModule implements EventHandler{
 		CookView.currentOrderTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	}
 
-
+	/**
+	 * Handles the event when the cook view is changed
+	 */
 	@Override
 	public void handleEvent(Event<?> event){
 		if(event.eventType.equals(EventType.COOK_GUI_REQUESTED)){
@@ -59,10 +79,17 @@ public class CookGUI extends GUIModule implements EventHandler{
 		}
 	}
 
+	/**
+	 * Shows the CookGUI
+	 */
 	@Override
 	public void show() {
 		this.programWindow.showPanel(this.cookView);
 	}
+	
+	/**
+	 * Hides the Cook GUI
+	 */
 	@Override
 	public void hide() {
 		this.programWindow.hidePanel(this.cookView);

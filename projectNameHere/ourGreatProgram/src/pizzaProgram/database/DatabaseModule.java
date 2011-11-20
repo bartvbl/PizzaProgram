@@ -16,11 +16,6 @@ import pizzaProgram.events.moduleEventHandlers.Database_SystemEventHandler;
  */
 public class DatabaseModule extends Module {
 	/**
-	 * A reference to the main database event handler class.
-	 */
-	private Database_SystemEventHandler eventHandler;
-
-	/**
 	 * The constructor of the database module initializes all the event handlers.
 	 * @param eventDispatcher
 	 */
@@ -28,15 +23,13 @@ public class DatabaseModule extends Module {
 		super(eventDispatcher);
 
 		new DatabaseConnection();
-		this.eventHandler = new Database_SystemEventHandler(this, eventDispatcher);
+		new Database_SystemEventHandler(this, eventDispatcher);
 	}
 
 	/**
-	 * Implementation of a function required by the Module class. Forwards all incoming events to the main database event handler.
+	 * Implementation of a function required by the Module class. Does not do anything
 	 */
-	public void handleEvent(Event<?> event){
-		this.eventHandler.handleEvent(event);
-	}
+	public void handleEvent(Event<?> event){}
 
 	/**
 	 * Creates a connection to the database

@@ -4,54 +4,22 @@
  */
 package pizzaProgram.events.moduleEventHandlers;
 
-import pizzaProgram.database.DatabaseConnection;
-import pizzaProgram.events.Event;
 import pizzaProgram.events.EventDispatcher;
-import pizzaProgram.events.EventHandler;
-import pizzaProgram.events.EventType;
 import pizzaProgram.database.DatabaseModule;
 
 /**
- *
+ * A class that manages the database event handler classes
  * @author Bart
  */
-public class Database_SystemEventHandler implements EventHandler{
-	private DatabaseModule systemEventDispatcher;
-	private EventDispatcher eventDispatcher;
+public class Database_SystemEventHandler{
 
-
+	/**
+	 * The constructor creates new instances of the database read and write event handlers
+	 * @param databaseModule
+	 * @param eventDispatcher
+	 */
 	public Database_SystemEventHandler(DatabaseModule databaseModule, EventDispatcher eventDispatcher){
-		this.systemEventDispatcher = databaseModule;
-		this.eventDispatcher = eventDispatcher;
-		this.addEventListeners();
-
 		new Database_ReadEventHandler(eventDispatcher);
 		new Database_WriteEventHandler(databaseModule, eventDispatcher);
-	}
-
-	private void addEventListeners()
-	{
-		this.eventDispatcher.addEventListener(this.systemEventDispatcher, EventType.DATABASE_SEARCH_CUSTOMER_INFO_BY_NAME);
-		System.out.println("listener added");
-	}
-
-	public void handleEvent(Event<?> event) {
-		if (!DatabaseConnection.isConnected(DatabaseConnection.DEFAULT_TIMEOUT)) {
-			System.err.println("No active database connection: please try again!");
-		}
-
-		if(event.eventType.equals(EventType.DATABASE_SEARCH_CUSTOMER_INFO_BY_NAME))
-		{
-			this.handleCustomerSearchRequest(event);
-		}
-	}
-
-	private void handleCustomerSearchRequest(Event<?> event)
-	{
-		System.out.println("searching for customer data");
-		if((event.getEventParameterObject() instanceof String))
-		{
-
-		}
 	}
 }
