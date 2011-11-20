@@ -1,7 +1,11 @@
 package pizzaProgram.database.databaseUtils;
 
 import javax.swing.JOptionPane;
-
+/**
+ * A class that can display error and information messages to provide feedback to the user in a number of situations
+ * @author Bart
+ *
+ */
 public class DatabaseResultsFeedbackProvider {
 	/**
 	 * The default window header of an info message
@@ -12,14 +16,17 @@ public class DatabaseResultsFeedbackProvider {
 	 */
 	private static final String DEFAULT_ERROR_TITLE = "Error";
 	/**
-	 * Shows an error message 
-	 * @param message
+	 * Shows an error message with the default error header, and the message entered as a parameter
+	 * @param message The message of the error message
 	 */
 	private static void showErrorMessage(String message)
 	{
 		JOptionPane.showMessageDialog(null, message, DEFAULT_ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
 	}
-	
+	/**
+	 * Shows an information message with the default message title
+	 * @param message The message to be displayed
+	 */
 	private static void showInformationMessage(String message) {
 		JOptionPane.showMessageDialog(null, message, DEFAULT_MESSAGE_TITLE, JOptionPane.INFORMATION_MESSAGE);
 	}
