@@ -188,12 +188,11 @@ public class DatabaseWriter {
 	 * @param extra the extra to be created
 	 */
 	public static void writeNewExtra(Extra extra) {
-		String priceString = extra.priceFuncPart
-				+ Double.toString(extra.priceValPart);
+		String price = extra.priceFuncPart + "" + extra.priceValPart;
 		try {
 			DatabaseConnection
 					.executeWriteQuery("INSERT INTO Extras VALUES (NULL, '"
-							+ extra.name + "', '" + priceString + "', "
+							+ extra.name + "', '" + price + "', "
 							+ extra.isActive + ");");
 			DatabaseResultsFeedbackProvider.showAddNewExtraSucceededMessage();
 		} catch (SQLException e) {

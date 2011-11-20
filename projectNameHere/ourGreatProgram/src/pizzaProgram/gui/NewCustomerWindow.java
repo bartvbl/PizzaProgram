@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import pizzaProgram.core.GUIConstants;
 import pizzaProgram.dataObjects.Customer;
 import pizzaProgram.dataObjects.UnaddedCustomer;
 import pizzaProgram.database.databaseUtils.DataCleaner;
@@ -119,31 +120,31 @@ public class NewCustomerWindow extends JFrame{
 				try{
 					Integer.parseInt(fyllpostnr.getText());
 				}catch(NumberFormatException ex){
-					JOptionPane.showMessageDialog(denne, "Postnummer må være et tall!", "Feil", JOptionPane.ERROR_MESSAGE);
+					GUIConstants.errorMessage("Postnummer må være et tall!");
 					return;
 				}
 
 				try{
 					phoneNumber = Integer.parseInt(fylltlf.getText());
 				}catch(NumberFormatException ex){
-					JOptionPane.showMessageDialog(denne, "Telefonnummer må være et tall!", "Feil", JOptionPane.ERROR_MESSAGE);
+					GUIConstants.errorMessage("Telefonnummer må være et tall!");
 					return;
 				}
 
 				if(!type.equals(NewCustomerWindow.UPDATE_CUSTOMER) && firstName.isEmpty()){
-					JOptionPane.showMessageDialog(denne, "Fornavn kan ikke være tomt!", "Feil", JOptionPane.ERROR_MESSAGE);
+					GUIConstants.errorMessage("Fornavn kan ikke være tomt!");
 					return;
 				}
 				if(!type.equals(NewCustomerWindow.UPDATE_CUSTOMER) && lastName.isEmpty()){
-					JOptionPane.showMessageDialog(denne, "Etternavn kan ikke være tomt!", "Feil", JOptionPane.ERROR_MESSAGE);
+					GUIConstants.errorMessage("Etternavn kan ikke være tomt!");
 					return;
 				}
 				if(address.isEmpty()){
-					JOptionPane.showMessageDialog(denne, "Adressen kan ikke være tomt!", "Feil", JOptionPane.ERROR_MESSAGE);
+					GUIConstants.errorMessage("Adressen kan ikke være tomt!");
 					return;
 				}
 				if(city.isEmpty()){
-					JOptionPane.showMessageDialog(denne, "By kan ikke være tomt!", "Feil", JOptionPane.ERROR_MESSAGE);
+					GUIConstants.errorMessage("By kan ikke være tomt!");
 					return;
 				}
 	

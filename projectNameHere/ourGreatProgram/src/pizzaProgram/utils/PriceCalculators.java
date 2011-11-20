@@ -267,14 +267,6 @@ public class PriceCalculators {
 	}
 
 	public static String getRestaurantName() {
-		if (restaurantName.equals("")) {
-			JOptionPane
-					.showMessageDialog(
-							null,
-							"Restaurantnavn ikke hentet ut korrekt fra databasen - sjekk tilkoblingen til databasen og prøv igjen!",
-							"En alvorlig feil har oppstått!",
-							JOptionPane.ERROR_MESSAGE, null);
-		}
 		return restaurantName;
 	}
 
