@@ -40,7 +40,6 @@ public class MenuBarEventHandler implements ActionListener {
 		}
 		String eventType = this.getEventNameByMenuItem((JMenuItem)actionEvent.getSource());
 		this.eventDispatcher.dispatchEvent(new Event<Object>(eventType));
-		System.out.println("HHHHHHHHEvent received: " + actionEvent.getActionCommand());
 
 	}
 	private String getEventNameByMenuItem(JMenuItem menuItem){

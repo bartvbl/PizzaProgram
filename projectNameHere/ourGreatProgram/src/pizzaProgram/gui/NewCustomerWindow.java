@@ -120,31 +120,31 @@ public class NewCustomerWindow extends JFrame{
 				try{
 					Integer.parseInt(fyllpostnr.getText());
 				}catch(NumberFormatException ex){
-					GUIConstants.errorMessage("Postnummer må være et tall!");
+					GUIConstants.showErrorMessage("Postnummer må være et tall!");
 					return;
 				}
 
 				try{
 					phoneNumber = Integer.parseInt(fylltlf.getText());
 				}catch(NumberFormatException ex){
-					GUIConstants.errorMessage("Telefonnummer må være et tall!");
+					GUIConstants.showErrorMessage("Telefonnummer må være et tall!");
 					return;
 				}
 
 				if(!type.equals(NewCustomerWindow.UPDATE_CUSTOMER) && firstName.isEmpty()){
-					GUIConstants.errorMessage("Fornavn kan ikke være tomt!");
+					GUIConstants.showErrorMessage("Fornavn kan ikke være tomt!");
 					return;
 				}
 				if(!type.equals(NewCustomerWindow.UPDATE_CUSTOMER) && lastName.isEmpty()){
-					GUIConstants.errorMessage("Etternavn kan ikke være tomt!");
+					GUIConstants.showErrorMessage("Etternavn kan ikke være tomt!");
 					return;
 				}
 				if(address.isEmpty()){
-					GUIConstants.errorMessage("Adressen kan ikke være tomt!");
+					GUIConstants.showErrorMessage("Adressen kan ikke være tomt!");
 					return;
 				}
 				if(city.isEmpty()){
-					GUIConstants.errorMessage("By kan ikke være tomt!");
+					GUIConstants.showErrorMessage("By kan ikke være tomt!");
 					return;
 				}
 	

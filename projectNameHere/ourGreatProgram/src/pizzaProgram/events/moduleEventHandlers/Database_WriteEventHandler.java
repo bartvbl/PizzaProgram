@@ -1,5 +1,6 @@
 package pizzaProgram.events.moduleEventHandlers;
 
+import pizzaProgram.core.GUIConstants;
 import pizzaProgram.dataObjects.Customer;
 import pizzaProgram.dataObjects.Dish;
 import pizzaProgram.dataObjects.Extra;
@@ -8,7 +9,6 @@ import pizzaProgram.dataObjects.Setting;
 import pizzaProgram.dataObjects.UnaddedCustomer;
 import pizzaProgram.dataObjects.UnaddedOrder;
 import pizzaProgram.database.DatabaseModule;
-import pizzaProgram.database.databaseUtils.DatabaseResultsFeedbackProvider;
 import pizzaProgram.database.databaseUtils.DatabaseWriter;
 import pizzaProgram.events.Event;
 import pizzaProgram.events.EventDispatcher;
@@ -104,7 +104,7 @@ public class Database_WriteEventHandler implements EventHandler {
 	 */
 	private void deleteCustomer(Event<?> event) {
 		if(!(event.getEventParameterObject() instanceof Customer)){
-			DatabaseResultsFeedbackProvider.showDeleteCustomerFailedMessage();
+			GUIConstants.showErrorMessage("Kunne ikke slette kunde fra databasen!");
 			return;
 		}
 		DatabaseWriter.deleteCustomer((Customer)event.getEventParameterObject());
@@ -116,7 +116,7 @@ public class Database_WriteEventHandler implements EventHandler {
 	 */
 	private void updateExtra(Event<?> event) {
 		if(!(event.getEventParameterObject() instanceof Extra)){
-			DatabaseResultsFeedbackProvider.showUpdateExtraFailedMessage();
+			GUIConstants.showErrorMessage("Kunne ikke endre tilbehør!");
 			return;
 		}
 		DatabaseWriter.updateExtraByExtraID((Extra)event.getEventParameterObject());
@@ -128,7 +128,7 @@ public class Database_WriteEventHandler implements EventHandler {
 	 */
 	private void updateDish(Event<?> event) {
 		if(!(event.getEventParameterObject() instanceof Dish)){
-			DatabaseResultsFeedbackProvider.showUpdateDishFailedMessage();
+			GUIConstants.showErrorMessage("Kunne ikke endre rett!");
 			return;
 		}
 		DatabaseWriter.updateDishByDishID((Dish)event.getEventParameterObject());
@@ -140,7 +140,7 @@ public class Database_WriteEventHandler implements EventHandler {
 	 */
 	private void updateConfigValue(Event<?> event) {
 		if(!(event.getEventParameterObject() instanceof Setting)){
-			DatabaseResultsFeedbackProvider.showUpdateConfigValueFailedMessage();
+			GUIConstants.showErrorMessage("Kunne ikke endre data!");
 			return;
 		}
 		DatabaseWriter.updateConfigValue((Setting)event.getEventParameterObject());
@@ -152,7 +152,7 @@ public class Database_WriteEventHandler implements EventHandler {
 	 */
 	private void addNewExtra(Event<?> event) {
 		if(!(event.getEventParameterObject() instanceof Extra)){
-			DatabaseResultsFeedbackProvider.showAddNewExtraFailedMessage();
+			GUIConstants.showErrorMessage("Kunne ikke legge til tilbehør!");
 			return;
 		}
 		DatabaseWriter.writeNewExtra((Extra)event.getEventParameterObject());
@@ -164,7 +164,7 @@ public class Database_WriteEventHandler implements EventHandler {
 	 */
 	private void addNewDish(Event<?> event) {
 		if(!(event.getEventParameterObject() instanceof Dish)){
-			DatabaseResultsFeedbackProvider.showAddNewExtraFailedMessage();
+			GUIConstants.showErrorMessage("Kunne ikke legge til rett!");
 			return;
 		}
 		DatabaseWriter.writeNewDish((Dish)event.getEventParameterObject());
@@ -176,7 +176,7 @@ public class Database_WriteEventHandler implements EventHandler {
 	 */
 	private void markOrderFinishedCooking(Event<?> event) {
 		if(!(event.getEventParameterObject() instanceof Order)){
-			DatabaseResultsFeedbackProvider.showUpdateOrderStatusFailedMessage();
+			GUIConstants.showErrorMessage("Kunne ikke endre status på ordre!");
 			return;
 		}
 		DatabaseWriter.markOrderAsFinishedCooking((Order)event.getEventParameterObject());
@@ -188,7 +188,7 @@ public class Database_WriteEventHandler implements EventHandler {
 	 */
 	private void markOrderAsBeingDelivered(Event<?> event) {
 		if(!(event.getEventParameterObject() instanceof Order)){
-			DatabaseResultsFeedbackProvider.showUpdateOrderStatusFailedMessage();
+			GUIConstants.showErrorMessage("Kunne ikke endre status på ordre!");
 			return;
 		}
 		DatabaseWriter.markOrderAsBeingDelivered((Order)event.getEventParameterObject());
@@ -200,7 +200,7 @@ public class Database_WriteEventHandler implements EventHandler {
 	 */
 	private void markOrderAsDelivered(Event<?> event) {
 		if(!(event.getEventParameterObject() instanceof Order)){
-			DatabaseResultsFeedbackProvider.showUpdateOrderStatusFailedMessage();
+			GUIConstants.showErrorMessage("Kunne ikke endre status på ordre!");
 			return;
 		}
 		DatabaseWriter.markOrderAsDelivered((Order)event.getEventParameterObject());
@@ -212,7 +212,7 @@ public class Database_WriteEventHandler implements EventHandler {
 	 */
 	private void markOrderInProgress(Event<?> event) {
 		if(!(event.getEventParameterObject() instanceof Order)){
-			DatabaseResultsFeedbackProvider.showUpdateOrderStatusFailedMessage();
+			GUIConstants.showErrorMessage("Kunne ikke endre status på ordre!");
 			return;
 		}
 		DatabaseWriter.markOrderAsInProgress((Order)event.getEventParameterObject());
@@ -224,7 +224,7 @@ public class Database_WriteEventHandler implements EventHandler {
 	 */
 	private void addNewCustomer(Event<?> event) {
 		if(!(event.getEventParameterObject() instanceof UnaddedCustomer)){
-			DatabaseResultsFeedbackProvider.showAddNewCustomerFailedMessage();
+			GUIConstants.showErrorMessage("Kunne ikke legge til kunde!");
 			return;
 		}
 		DatabaseWriter.writeNewCustomer((UnaddedCustomer)event.getEventParameterObject());
@@ -237,7 +237,7 @@ public class Database_WriteEventHandler implements EventHandler {
 	 */
 	private void updateCustomer(Event<?> event) {
 		if(!(event.getEventParameterObject() instanceof Customer)){
-			DatabaseResultsFeedbackProvider.showUpdateCustomerFailedMessage();
+			GUIConstants.showErrorMessage("Kunne ikke endre kunde!");
 			return;
 		}
 		DatabaseWriter.updateCustomerById((Customer)event.getEventParameterObject());
@@ -250,7 +250,7 @@ public class Database_WriteEventHandler implements EventHandler {
 	 */
 	private void addNewOrder(Event<?> event) {
 		if(!(event.getEventParameterObject() instanceof UnaddedOrder)){
-			DatabaseResultsFeedbackProvider.showAddNewOrderFailedMessage();
+			GUIConstants.showErrorMessage("Kunne ikke legge til ordre!");
 			return;
 		}
 		DatabaseWriter.writeNewOrder((UnaddedOrder)event.getEventParameterObject());

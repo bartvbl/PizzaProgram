@@ -87,8 +87,11 @@ public class GUIConstants {
 
 	}
 	
-	public static void errorMessage(String message){
+	public static void showErrorMessage(String message){
 		JOptionPane.showMessageDialog(null, message, "Feil", JOptionPane.ERROR_MESSAGE);
+	}
+	public static void showConfirmMessage(String message){
+		JOptionPane.showMessageDialog(null, message, "Informasjon", JOptionPane.INFORMATION_MESSAGE);
 	}
 	
 }

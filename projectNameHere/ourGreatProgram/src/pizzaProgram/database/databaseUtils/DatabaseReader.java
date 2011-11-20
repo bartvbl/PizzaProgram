@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import pizzaProgram.core.GUIConstants;
 import pizzaProgram.dataObjects.Customer;
 import pizzaProgram.dataObjects.Dish;
 import pizzaProgram.dataObjects.Extra;
@@ -29,7 +30,7 @@ public class DatabaseReader {
 			return customerList;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			DatabaseResultsFeedbackProvider.showGetAllCustomersFailedMessage();
+			GUIConstants.showErrorMessage("Kunne ikke hente kunder fra databasen!");
 		}
 		return null;
 	}
@@ -38,8 +39,7 @@ public class DatabaseReader {
 	 * @param key The key representing the desired setting
 	 * @return A Setting data object, representing the setting associated with the entered key
 	 */
-	public static Setting getSettingByKey(String key)
-	{
+	public static Setting getSettingByKey(String key){
 		ResultSet results = DatabaseConnection.fetchData("SELECT * FROM Config WHERE ConfigKey='"+key+"';");
 		try {
 			results.next();
@@ -47,7 +47,7 @@ public class DatabaseReader {
 			return setting;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			DatabaseResultsFeedbackProvider.showSettingFailedMessage();
+			GUIConstants.showErrorMessage("Kunne ikke hente data fra databasen!");
 		}
 		return null;
 	}
@@ -55,15 +55,14 @@ public class DatabaseReader {
 	 * Returns a list of all settings in the database
 	 * @return An ARrayList containing Setting instances, each representing a setting in the database
 	 */
-	public static ArrayList<Setting> getAllSettings()
-	{
+	public static ArrayList<Setting> getAllSettings(){
 		ResultSet results = DatabaseConnection.fetchData("SELECT * FROM Config;");
 		try {
 			ArrayList<Setting> settings = DatabaseDataObjectGenerator.generateSettingsList(results);
 			return settings;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			DatabaseResultsFeedbackProvider.showSettingFailedMessage();
+			GUIConstants.showErrorMessage("Kunne ikke hente data fra databasen!");
 		}
 		return null;
 	}
@@ -78,7 +77,7 @@ public class DatabaseReader {
 			dishList = DatabaseDataObjectGenerator.generateDishList(results);
 		} catch (SQLException e) {
 			e.printStackTrace();
-			DatabaseResultsFeedbackProvider.showGetAllDishesFailedMessage();
+			GUIConstants.showErrorMessage("Kunne ikke hente retter fra databasen!");
 		}
 		return dishList;
 	}
@@ -93,7 +92,7 @@ public class DatabaseReader {
 			dishList = DatabaseDataObjectGenerator.generateDishList(results);
 		} catch (SQLException e) {
 			e.printStackTrace();
-			DatabaseResultsFeedbackProvider.showGetAllDishesFailedMessage();
+			GUIConstants.showErrorMessage("Kunne ikke hente retter fra databasen!");
 		}
 		return dishList;
 	}
@@ -109,7 +108,7 @@ public class DatabaseReader {
 			dishList = DatabaseDataObjectGenerator.generateExtrasList(results);
 		} catch (SQLException e) {
 			e.printStackTrace();
-			DatabaseResultsFeedbackProvider.showGetAllExtrasFailedMessage();
+			GUIConstants.showErrorMessage("Kunne ikke hente tilbehør fra databasen!");
 		}
 		return dishList;
 	}
@@ -125,7 +124,7 @@ public class DatabaseReader {
 			dishList = DatabaseDataObjectGenerator.generateExtrasList(results);
 		} catch (SQLException e) {
 			e.printStackTrace();
-			DatabaseResultsFeedbackProvider.showGetAllExtrasFailedMessage();
+			GUIConstants.showErrorMessage("Kunne ikke hente tilbehør fra databasen!");
 		}
 		return dishList;
 	}
@@ -140,7 +139,7 @@ public class DatabaseReader {
 			orderList = DatabaseDataObjectGenerator.generateOrderListFromResultSet(result);
 		} catch (SQLException e) {
 			e.printStackTrace();
-			DatabaseResultsFeedbackProvider.showGetAllUncookedOrdersFailedMessage();
+			GUIConstants.showErrorMessage("Kunne ikke hente ordre fra databasen!");
 		}
 		return orderList;
 	}
@@ -174,7 +173,7 @@ public class DatabaseReader {
 			orderList = DatabaseDataObjectGenerator.generateOrderListFromResultSet(result);
 		} catch (SQLException e) {
 			e.printStackTrace();
-			DatabaseResultsFeedbackProvider.showGetAllUndeliveredOrdersFailedMessage();
+			GUIConstants.showErrorMessage("Kunne ikke hente ordre fra databasen!");
 		}
 		return orderList;
 	}

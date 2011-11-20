@@ -24,7 +24,6 @@ import pizzaProgram.dataObjects.Dish;
 import pizzaProgram.dataObjects.Extra;
 import pizzaProgram.dataObjects.Order;
 import pizzaProgram.dataObjects.UnaddedOrder;
-import pizzaProgram.database.databaseUtils.DatabaseResultsFeedbackProvider;
 import pizzaProgram.events.Event;
 import pizzaProgram.events.EventType;
 import pizzaProgram.events.moduleEventHandlers.ComponentEventHandler;
@@ -129,12 +128,10 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler
 		this.registerEventType(OrderView.resetOrderButton, "resetOrder");
 
 		OrderView.deleteSelectedOrderDishButton.addActionListener(this);
-		this.registerEventType(OrderView.deleteSelectedOrderDishButton,
-				"deleteSelected");
+		this.registerEventType(OrderView.deleteSelectedOrderDishButton,"deleteSelected");
 
 		OrderView.duplicateSelectedOrderDishButton.addActionListener(this);
-		this.registerEventType(OrderView.duplicateSelectedOrderDishButton,
-				"duplicateSelected");
+		this.registerEventType(OrderView.duplicateSelectedOrderDishButton,"duplicateSelected");
 
 		OrderView.newCustomerButton.addActionListener(this);
 		this.registerEventType(OrderView.newCustomerButton, "newCustomer");
@@ -144,40 +141,30 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler
 	}
 
 	public void actionPerformed(ActionEvent event) {
-		if (this.getEventNameByComponent((Component) event.getSource()).equals(
-				"selectCustomer")) {
+		if (this.getEventNameByComponent((Component) event.getSource()).equals("selectCustomer")) {
 			this.selectCustomer(event);
-		} else if (this.getEventNameByComponent((Component) event.getSource())
-				.equals("addDish")) {
+		} else if (this.getEventNameByComponent((Component) event.getSource()).equals("addDish")) {
 			this.addDish(event);
-		} else if (this.getEventNameByComponent((Component) event.getSource())
-				.equals("confirmOrder")) {
+		} else if (this.getEventNameByComponent((Component) event.getSource()).equals("confirmOrder")) {
 			this.confirmOrder(event);
-		} else if (this.getEventNameByComponent((Component) event.getSource())
-				.equals("resetOrder")) {
+		} else if (this.getEventNameByComponent((Component) event.getSource()).equals("resetOrder")) {
 			this.resetOrder(event);
-		} else if (this.getEventNameByComponent((Component) event.getSource())
-				.equals("deleteSelected")) {
+		} else if (this.getEventNameByComponent((Component) event.getSource()).equals("deleteSelected")) {
 			this.deleteSelectedDishesFromOrder(event);
-		} else if (this.getEventNameByComponent((Component) event.getSource())
-				.equals("duplicateSelected")) {
+		} else if (this.getEventNameByComponent((Component) event.getSource()).equals("duplicateSelected")) {
 			this.duplicateOrderDishes(event);
-		} else if (this.getEventNameByComponent((Component) event.getSource())
-				.equals("newCustomer")) {
-			new NewCustomerWindow(orderGUI, NewCustomerWindow.NEW_CUSTOMER,
-					null);
-		} else if (this.getEventNameByComponent((Component) event.getSource())
-				.equals("searchCustomers")) {
+		} else if (this.getEventNameByComponent((Component) event.getSource()).equals("newCustomer")) {
+			new NewCustomerWindow(orderGUI, NewCustomerWindow.NEW_CUSTOMER,	null);
+		} else if (this.getEventNameByComponent((Component) event.getSource()).equals("searchCustomers")) {
 			this.searchCustomers();
-		} else if (this.getEventNameByComponent((Component) event.getSource())
-				.equals("editCustomer")) {
+		} else if (this.getEventNameByComponent((Component) event.getSource()).equals("editCustomer")) {
 			this.handleEditCustomer();
 		}
 	}
 
 	private void handleDeleteCustomerButton() {
 		if (currentSelecetedCustomer == null) {
-			DatabaseResultsFeedbackProvider.showEditCustomerFailedNoCustomerSelectedMessage();
+			GUIConstants.showErrorMessage("Ingen kunde valgt!");
 			return;
 		}
 		dispatchEvent(new Event<Customer>(EventType.DATABASE_DELETE_CUSTOMER, currentSelecetedCustomer));
@@ -242,7 +229,7 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler
 
 	private void handleEditCustomer() {
 		if (currentSelecetedCustomer == null) {
-			DatabaseResultsFeedbackProvider.showEditCustomerFailedNoCustomerSelectedMessage();
+			GUIConstants.showErrorMessage("Ingen kunde valgt!");
 			return;
 		}
 		new NewCustomerWindow(orderGUI, NewCustomerWindow.UPDATE_CUSTOMER, currentSelecetedCustomer);
@@ -274,8 +261,7 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler
 
 	private void deleteSelectedDishesFromOrder(ActionEvent event) {
 		int[] selectedIndices = OrderView.orderContentsTable.getSelectedRows();
-		DefaultTableModel tableModel = (DefaultTableModel) OrderView.orderContentsTable
-				.getModel();
+		DefaultTableModel tableModel = (DefaultTableModel) OrderView.orderContentsTable.getModel();
 		for (int i = selectedIndices.length - 1; i >= 0; i--) {
 			this.temporaryOrderData.removeDishFromOrder(i);
 			tableModel.removeRow(i);
@@ -296,7 +282,7 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler
 		this.temporaryOrderData.setDeliveryMethod(deliveryMethod);
 
 		if(temporaryOrderData.getNumberOfDishes() < 1) {
-			GUIConstants.errorMessage("Orderen må innholde en eller flere retter!");
+			GUIConstants.showErrorMessage("Orderen må innholde en eller flere retter!");
 			return;
 		}
 		
@@ -323,11 +309,9 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler
 	}
 
 	private void addDish(ActionEvent event) {
-		int[] selectedIndices = OrderView.dishSelectionList
-				.getSelectedIndices();
+		int[] selectedIndices = OrderView.dishSelectionList.getSelectedIndices();
 		if (selectedIndices.length == 0) {
-			DatabaseResultsFeedbackProvider
-					.showAddExtraWithoutDishFailedMessage();
+			GUIConstants.showErrorMessage("Du må velge en rett i tillegg til tilbehør!");
 			return;
 		}
 		Dish selectedDish = this.orderGUI.currentDishList

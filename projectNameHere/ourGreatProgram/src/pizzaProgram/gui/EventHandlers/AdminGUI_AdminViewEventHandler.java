@@ -8,7 +8,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.DefaultListSelectionModel;
-import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -120,7 +119,6 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 	 * resets all the data in the textfields to their databasevalue
 	 */
 	private void handleSettingResetButtonClicked() {
-		System.out.println("settingsreset");
 		AdminView.settingsDeliveryPriceTextBox.setText(PriceCalculators.getDeliveryCost());
 		AdminView.settingsEditNameOfRestaurantTextBox.setText(PriceCalculators.getRestaurantName());
 		AdminView.settingsEditMinimumPriceFreeDeliveryTextBox.setText(PriceCalculators.getFreeDeliveryTreshold());
@@ -138,30 +136,30 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 		
 		String[] splitt =priceText.split(",");
 		if(splitt.length > 2 || splitt.length < 2){
-			GUIConstants.errorMessage("Det må være nøyaktig et komma i prisen!");
+			GUIConstants.showErrorMessage("Det må være nøyaktig et komma i prisen!");
 			return;
 		}
 		try {
 			orePrice = Integer.parseInt(splitt[0]) * 100;
 		} catch (NumberFormatException e) {
-			GUIConstants.errorMessage("Prisen må være et tall!");
+			GUIConstants.showErrorMessage("Prisen må være et tall!");
 			return;
 		}
 		if(splitt[1].length() > 2){
-			GUIConstants.errorMessage("Det kan ikke være mer enn to siffer etter komma!");
+			GUIConstants.showErrorMessage("Det kan ikke være mer enn to siffer etter komma!");
 			return;
 		}
 		try {
 			orePrice +=Integer.parseInt(splitt[1]);
 		} catch (Exception e) {
-			GUIConstants.errorMessage("Prisen må være et tall!");
+			GUIConstants.showErrorMessage("Prisen må være et tall!");
 			return;
 		}
 		
 		Setting priceSetting = new Setting(DatabaseConstants.SETTING_KEY_DELIVERY_PRICE, ""+orePrice);
 		
 		if(nameText.length() < 3 || nameText.length() > 18){
-			GUIConstants.errorMessage("Navnet på restauranten kan ikke være mindre enn 3 bokstaver lant eller mer enn 10 bokstaver langt");
+			GUIConstants.showErrorMessage("Navnet på restauranten kan ikke være mindre enn 3 bokstaver lant eller mer enn 10 bokstaver langt");
 			return;
 		}
 		Setting nameSetting = new Setting(DatabaseConstants.SETTING_KEY_RESTAURANT_NAME, nameText);
@@ -169,32 +167,46 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 		int oreDeliveryTreshold = 0;
 		String[] splittTreshold = delivertTresholdText.split(",");
 		if(splittTreshold.length > 2){
-			GUIConstants.errorMessage("Det må være nøyaktig et komma i grensen for gratis levering!");
+			GUIConstants.showErrorMessage("Det må være nøyaktig et komma i grensen for gratis levering!");
 			return;
 		}
 		try {
 			oreDeliveryTreshold +=Integer.parseInt(splittTreshold[0]) * 100;
 		} catch (Exception e) {
-			GUIConstants.errorMessage("Grensen for gratis levering må være et tall!");
+			GUIConstants.showErrorMessage("Grensen for gratis levering må være et tall!");
 			return;
 		}
 		if(splittTreshold[1].length() > 2){
-			GUIConstants.errorMessage("Det kan ikke være mer enn to siffer etter komma!");
+			GUIConstants.showErrorMessage("Det kan ikke være mer enn to siffer etter komma!");
 			return;
 		}
 		try {
 			oreDeliveryTreshold +=Integer.parseInt(splittTreshold[1]);
 		} catch (Exception e) {
-			GUIConstants.errorMessage("Grensen for gratis levering må være et tall!");
+			GUIConstants.showErrorMessage("Grensen for gratis levering må være et tall!");
 			return;
 		}
 		
 		Setting deliveryTresholdSetting = new Setting(DatabaseConstants.SETTING_KEY_FREE_DELIVERY_LIMIT, ""+oreDeliveryTreshold);
 		
-		Config.updateValueOfSetting(priceSetting);
-		Config.updateValueOfSetting(nameSetting);
-		Config.updateValueOfSetting(deliveryTresholdSetting);
-		
+		boolean somethingChanged = false;
+		if(!priceText.equals(PriceCalculators.getDeliveryCost())){
+			Config.updateValueOfSetting(priceSetting);
+			somethingChanged = true;
+		}
+		if(!nameText.equals(PriceCalculators.getRestaurantName())){
+			Config.updateValueOfSetting(nameSetting);
+			somethingChanged = true;
+		}
+		if(!delivertTresholdText.equals(PriceCalculators.getFreeDeliveryTreshold())){
+			Config.updateValueOfSetting(deliveryTresholdSetting);
+			somethingChanged = true;
+		}
+		if(!somethingChanged){
+			GUIConstants.showConfirmMessage("Ingenting å endre");
+		}else{
+			GUIConstants.showConfirmMessage("Data endret");
+		}
 		PriceCalculators.getConstantsFromDataBase();
 		handleSettingResetButtonClicked();
 	}
@@ -268,12 +280,12 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 		String priceVal = price.substring(1);
 		
 		if(name.isEmpty()){
-			GUIConstants.errorMessage("Feltet med navn kan ikke være tomt!");
+			GUIConstants.showErrorMessage("Feltet med navn kan ikke være tomt!");
 			return;
 		}
 		
 		if(!(priceFunc == '+' || priceFunc == '*' || priceFunc == '-')){
-			GUIConstants.errorMessage("Første tegn i prisen skal være +(pluss) -(minus) eller *(gange)\n" +
+			GUIConstants.showErrorMessage("Første tegn i prisen skal være +(pluss) -(minus) eller *(gange)\n" +
 					"Dette anngir om prisen på ekstraen er pristillegg, prisfradrag, eller en multiplikasjon");
 			return;
 		}
@@ -282,23 +294,23 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 		String[] splitt = priceVal.split(",");
 		int orepris = 0;
 		if(splitt.length > 2 || splitt.length < 2){
-			GUIConstants.errorMessage("Det må være nøyaktig et komma i prisen!");
+			GUIConstants.showErrorMessage("Det må være nøyaktig et komma i prisen!");
 			return;
 		}
 		try {
 			orepris = Integer.parseInt(splitt[0]) * 100;
 		} catch (NumberFormatException e) {
-			GUIConstants.errorMessage("Prisen må være et tall!");
+			GUIConstants.showErrorMessage("Prisen må være et tall!");
 			return;
 		}
 		if(splitt[1].length() > 2){
-			GUIConstants.errorMessage("Det kan ikke være mer enn to siffer etter komma!");
+			GUIConstants.showErrorMessage("Det kan ikke være mer enn to siffer etter komma!");
 			return;
 		}
 		try {
 			orepris +=Integer.parseInt(splitt[1]);
 		} catch (Exception e) {
-			GUIConstants.errorMessage("Prisen må være et tall!");
+			GUIConstants.showErrorMessage("Prisen må være et tall!");
 			return;
 		}
 		if(adminGUI.currentSelectedExtra == null){
@@ -326,35 +338,35 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 		int orePrice = 0;
 		
 		if(description.isEmpty()){
-			JOptionPane.showMessageDialog(null, "Feltet med innhold i retten kan ikke være tomt!");
+			GUIConstants.showErrorMessage("Feltet med innhold i retten kan ikke være tomt!");
 			return;
 		}
 		
 		if(name.isEmpty()){
-			GUIConstants.errorMessage("Feltet med navn kan ikke være tomt!");
+			GUIConstants.showErrorMessage("Feltet med navn kan ikke være tomt!");
 			return;
 		}
 		
 		
 		String[] splitt = price.split(",");
 		if(splitt.length > 2 || splitt.length < 2){
-			GUIConstants.errorMessage("Det må være nøyaktig et komma i prisen!");
+			GUIConstants.showErrorMessage("Det må være nøyaktig et komma i prisen!");
 			return;
 		}
 		try {
 			orePrice = Integer.parseInt(splitt[0]) * 100;
 		} catch (NumberFormatException e) {
-			GUIConstants.errorMessage("Prisen må være et tall!");
+			GUIConstants.showErrorMessage("Prisen må være et tall!");
 			return;
 		}
 		if(splitt[1].length() > 2){
-			GUIConstants.errorMessage("Det kan ikke være mer enn to siffer etter komma!");
+			GUIConstants.showErrorMessage("Det kan ikke være mer enn to siffer etter komma!");
 			return;
 		}
 		try {
 			orePrice +=Integer.parseInt(splitt[1]);
 		} catch (Exception e) {
-			GUIConstants.errorMessage("Prisen må være et tall!");
+			GUIConstants.showErrorMessage("Prisen må være et tall!");
 			return;
 		}
 		
