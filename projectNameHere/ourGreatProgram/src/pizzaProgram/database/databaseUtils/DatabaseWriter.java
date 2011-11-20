@@ -3,6 +3,7 @@ package pizzaProgram.database.databaseUtils;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import pizzaProgram.core.DatabaseConstants;
 import pizzaProgram.dataObjects.Customer;
 import pizzaProgram.dataObjects.Dish;
 import pizzaProgram.dataObjects.Extra;
@@ -383,6 +384,14 @@ public class DatabaseWriter {
 	public static String createCustomerIdentifier(Customer customer) {
 		return customer.firstName.toLowerCase()
 				+ customer.lastName.toLowerCase() + customer.phoneNumber;
+	}
+	
+	/**
+	 * Deletes a Customer from the database, defined by the passed Customer instance
+	 * @param customer the customer to be deleted
+	 */
+	public static void deleteCustomer(Customer customer) {
+		DatabaseConnection.insertIntoDB("DELETE FROM Customers WHERE "+DatabaseConstants.CUSTOMER_ID+"="+customer.customerID+" LIMIT 1");
 	}
 
 }// END

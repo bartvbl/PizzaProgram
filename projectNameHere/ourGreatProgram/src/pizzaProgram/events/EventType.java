@@ -107,4 +107,6 @@ public class EventType {
 	public static final String DATABASE_UPDATE_ADMIN_GUI_SEARCH_DISHES = "databaseUpdateAdminGUISearchDishes";
 	
 	public static final String DATABASE_UPDATE_ADMIN_GUI_SEARCH_EXTRAS = "databaseUpdateAdminGUISearchExtras";
+	
+	public static final String DATABASE_DELETE_CUSTOMER = "databaseDeleteCustomer";
 }

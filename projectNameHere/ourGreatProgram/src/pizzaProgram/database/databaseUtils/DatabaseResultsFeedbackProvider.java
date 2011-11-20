@@ -143,4 +143,7 @@ public class DatabaseResultsFeedbackProvider {
 	public static void showSettingFailedMessage() {
 		showErrorMessage("Failed to retrieve value of setting.");
 	}
+	public static void showDeleteCustomerFailedMessage() {
+		showErrorMessage("Failed to delete customer!");
+	}
 }

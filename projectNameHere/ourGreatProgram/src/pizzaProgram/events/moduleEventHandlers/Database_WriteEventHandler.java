@@ -50,6 +50,7 @@ public class Database_WriteEventHandler implements EventHandler {
 		this.eventDispatcher.addEventListener(this, EventType.DATABASE_UPDATE_DISH_BY_DISH_ID);
 		this.eventDispatcher.addEventListener(this, EventType.DATABASE_UPDATE_EXTRA_BY_EXTRA_ID);
 		this.eventDispatcher.addEventListener(this, EventType.DATABASE_UPDATE_CUSTOMER_BY_CUSTOMER_ID);
+		this.eventDispatcher.addEventListener(this, EventType.DATABASE_DELETE_CUSTOMER);
 	}
 	
 	/**
@@ -92,8 +93,23 @@ public class Database_WriteEventHandler implements EventHandler {
 		else if(event.eventType.equals(EventType.DATABASE_UPDATE_CUSTOMER_BY_CUSTOMER_ID)){
 			this.updateCustomer(event);
 		}
+		else if(event.eventType.equals(EventType.DATABASE_DELETE_CUSTOMER)){
+			this.deleteCustomer(event);
+		}
 	}
 
+	/**
+	 * Deletes the customer from the database attached to the event
+	 * @param event The customer to be deleted
+	 */
+	private void deleteCustomer(Event<?> event) {
+		if(!(event.getEventParameterObject() instanceof Customer)){
+			DatabaseResultsFeedbackProvider.showDeleteCustomerFailedMessage();
+			return;
+		}
+		DatabaseWriter.deleteCustomer((Customer)event.getEventParameterObject());
+	}
+	
 	/**
 	 * Update the extra in the database specified by the Extra instance attached to the event
 	 * @param event The event containing an Extra instance
