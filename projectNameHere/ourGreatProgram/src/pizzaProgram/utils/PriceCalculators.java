@@ -2,8 +2,6 @@ package pizzaProgram.utils;
 
 import java.text.DecimalFormat;
 
-import javax.swing.JOptionPane;
-
 import pizzaProgram.core.DatabaseConstants;
 import pizzaProgram.dataObjects.Dish;
 import pizzaProgram.dataObjects.Extra;
