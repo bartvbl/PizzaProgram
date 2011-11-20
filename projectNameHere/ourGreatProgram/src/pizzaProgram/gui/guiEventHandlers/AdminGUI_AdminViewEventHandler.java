@@ -21,6 +21,7 @@ import pizzaProgram.events.EventType;
 import pizzaProgram.events.moduleEventHandlers.ComponentEventHandler;
 import pizzaProgram.gui.AdminGUI;
 import pizzaProgram.gui.views.AdminView;
+import pizzaProgram.utils.PriceCalculators;
 
 /**
  * This class hendles events dispatched from the gui-components in AdminWiev
@@ -71,22 +72,70 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 		});
 		
 		AdminView.searchDishTextBox.addKeyListener(new KeyListener(){public void keyPressed(KeyEvent e) {}public void keyTyped(KeyEvent e) {}
-		public void keyReleased(KeyEvent e) {
-			handleDishSearchTyping(); }});
+			public void keyReleased(KeyEvent e) {
+				handleDishSearchTyping(); 
+			}
+		});
 		
 		AdminView.searchExtraTextBox.addKeyListener(new KeyListener(){public void keyPressed(KeyEvent e) {}public void keyTyped(KeyEvent e) {}
-		public void keyReleased(KeyEvent e) {
-			handleExtraSearchTyping(); }});
+			public void keyReleased(KeyEvent e) {
+				handleExtraSearchTyping(); 
+			}
+		});
 		
 		AdminView.searchDishTextBox.addFocusListener(new FocusListener(){public void focusLost(FocusEvent arg0) {}
-		public void focusGained(FocusEvent arg0) {
-			handleDishSearchBoxSelection();}});
+			public void focusGained(FocusEvent arg0) {
+				handleDishSearchBoxSelection();
+			}
+		});
 		
-		AdminView.searchExtraTextBox.addFocusListener(new FocusListener(){public void focusLost(FocusEvent arg0) {}
-		public void focusGained(FocusEvent arg0) {
-			handleExtraSearchBoxSelection();}});
+		AdminView.searchExtraTextBox.addFocusListener(new FocusListener(){
+			public void focusLost(FocusEvent arg0) {}
+			public void focusGained(FocusEvent arg0) {
+				handleExtraSearchBoxSelection();
+			}
+			
+		});
+		
+		AdminView.settingsApplyChangesButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				handleSettingConfirmedButtonClicked();
+			}
+		});
+		
+		AdminView.settingsResetSettingsButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				handleSettingResetButtonClicked();
+			}
+		});
+		
 	
 	}
+	/**
+	 * called when the user clics reset in the settings-window
+	 * resets all the data in the textfields to their databasevalue
+	 */
+	private void handleSettingResetButtonClicked() {
+		AdminView.settingsDeliveryPriceTextBox.setText(PriceCalculators.getDeliveryCost());
+		AdminView.settingsEditNameOfRestaurantTextBox.setText(PriceCalculators.getRestaurantName());
+		AdminView.settingsEditMinimumPriceFreeDeliveryTextBox.setText(PriceCalculators.getFreeDeliveryTreshold());
+	}
+	
+	/**
+	 * called when the user clicks confirm when editing settings
+	 */
+	private void handleSettingConfirmedButtonClicked() {
+		String priceText = AdminView.settingsDeliveryPriceTextBox.getText();
+		String nameText = AdminView.settingsEditNameOfRestaurantTextBox.getText();
+		String delivertTresholdText = AdminView.settingsEditMinimumPriceFreeDeliveryTextBox.getText();
+		
+		
+		
+		
+		Config.
+		
+	}
+	
 
 	/**
 	 * The method called when a user selects an extra from the extra-list

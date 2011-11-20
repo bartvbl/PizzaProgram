@@ -48,7 +48,7 @@ public class DateFormatter {
 	
 	
 	private static String formatDate(String date) {
-		if(dateIsYesterday(date)){
+		if(dateIsNotToday(date)){
 			return formatDateOnlyString(date) + " ";
 		} else {
 			return "";
@@ -65,8 +65,12 @@ public class DateFormatter {
 	    return dateParts[2] + "-" + dateParts[1];
 	}
 
-	
-	private static boolean dateIsYesterday(String date){
+	/**
+	 * determines if a date is today or not
+	 * @param date
+	 * @return if the date is today or not
+	 */
+	private static boolean dateIsNotToday(String date){
 		int[] dateParts = convertDateStringToComponentValues(date);
 		int[] todayDateParts = getCurrentDate();
 		if(((dateParts[0] <= todayDateParts[0]) && (dateParts[1] == todayDateParts[1]) && (dateParts[2] < todayDateParts[2])) 
@@ -79,6 +83,9 @@ public class DateFormatter {
 		}
 	}
 	
+	/**
+	 * @return the current date
+	 */
 	private static int[] getCurrentDate(){
 		Calendar cal = Calendar.getInstance();
 	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -87,6 +94,11 @@ public class DateFormatter {
 	    return currentDateParts;
 	}
 	
+	/**
+	 * Converts the date to an array containing years, months and days
+	 * @param currentDate
+	 * @return
+	 */
 	private static int[] convertDateStringToComponentValues(String currentDate){
 		String[] dateParts = currentDate.split("-");
 		int years = Integer.parseInt(dateParts[0]);

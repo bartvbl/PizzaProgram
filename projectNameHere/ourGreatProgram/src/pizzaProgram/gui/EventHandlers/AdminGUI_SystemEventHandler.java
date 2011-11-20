@@ -19,18 +19,29 @@ public class AdminGUI_SystemEventHandler implements EventHandler {
 	private EventDispatcher eventDispatcher;
 	private AdminGUI adminGUI;
 	
+	/**
+	 * this class recives events from the database and other places and updates the admingui accordingly
+	 * @param eventDispatcher
+	 * @param adminGUI
+	 */
 	public AdminGUI_SystemEventHandler(EventDispatcher eventDispatcher, AdminGUI adminGUI){
 		this.eventDispatcher = eventDispatcher;
 		this.adminGUI = adminGUI;
 		this.addEventListeners();
 	}
 
+	/**
+	 * add events listeners, chooses wich events to listen for
+	 */
 	private void addEventListeners() {
 		this.eventDispatcher.addEventListener(this, EventType.ADMIN_GUI_UPDATE_DISH_LIST);
 		this.eventDispatcher.addEventListener(this, EventType.ADMIN_GUI_UPDATE_EXTRA_LIST);
 		this.eventDispatcher.addEventListener(this, EventType.ADMIN_GUI_REQUESTED);
 	}
 
+	/**
+	 * handles the incoming events, calls the apropriate method for changing the gui
+	 */
 	@Override
 	public void handleEvent(Event<?> event) {
 		if(event.eventType.equals(EventType.ADMIN_GUI_UPDATE_DISH_LIST)){
@@ -43,6 +54,11 @@ public class AdminGUI_SystemEventHandler implements EventHandler {
 			this.adminGUI.show();
 		}
 	}
+	
+	/**
+	 * this method updates the list of extras in the adminview
+	 * @param event
+	 */
 	private void updateExtraList(Event<?> event) {
 		if(!(event.getEventParameterObject() instanceof ArrayList<?>)){
 			System.err.println("ERROR: got a list that was not a list of Order instances when trying to update the order list in the cook GUI.");
@@ -57,7 +73,10 @@ public class AdminGUI_SystemEventHandler implements EventHandler {
 			tableModel.addRow(new Object[]{e.name, PriceCalculators.getPriceForExtra(e), e.isActive ? GUIConstants.GUI_TRUE : GUIConstants.GUI_FALSE});
 		}
 	}
-	
+	/**
+	 * this mentod updates the list of dishes in the adminview
+	 * @param event
+	 */
 	private void updateDishList(Event<?> event) {
 		if(!(event.getEventParameterObject() instanceof ArrayList<?>)){
 			System.err.println("ERROR: got a list that was not a list of Order instances when trying to update the order list in the cook GUI.");
