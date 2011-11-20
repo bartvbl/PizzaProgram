@@ -1,5 +1,7 @@
 package pizzaProgram.core;
 
+import javax.swing.JOptionPane;
+
 import pizzaProgram.dataObjects.Order;
 /**
  * Class containing constants used in various areas of the GUI.
@@ -84,4 +86,9 @@ public class GUIConstants {
 		}
 
 	}
+	
+	public static void errorMessage(String message){
+		JOptionPane.showMessageDialog(null, message, "Feil", JOptionPane.ERROR_MESSAGE);
+	}
+	
 }

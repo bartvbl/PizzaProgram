@@ -173,8 +173,7 @@ public class DatabaseWriter {
 	 */
 	public static void updateExtraByExtraID(Extra extra) {
 		try {
-			String price = extra.priceFuncPart
-					+ Double.toString(extra.priceValPart);
+			String price = extra.priceFuncPart + "" + extra.priceValPart;
 			DatabaseConnection.executeWriteQuery("UPDATE Extras SET Name='"
 					+ extra.name + "', Price='" + price + "', IsActive="
 					+ extra.isActive + " WHERE ExtrasID=" + extra.id + ";");

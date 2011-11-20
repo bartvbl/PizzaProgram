@@ -137,31 +137,31 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 		int orePrice = 0;
 		
 		String[] splitt =priceText.split(",");
-		if(splitt.length > 2){
-			//FEIL
+		if(splitt.length > 2 || splitt.length < 2){
+			GUIConstants.errorMessage("Det må være nøyaktig et komma i prisen!");
 			return;
 		}
 		try {
 			orePrice = Integer.parseInt(splitt[0]) * 100;
 		} catch (NumberFormatException e) {
-			//FEIL
+			GUIConstants.errorMessage("Prisen må være et tall!");
 			return;
 		}
 		if(splitt[1].length() > 2){
-			//FEIL
+			GUIConstants.errorMessage("Det kan ikke være mer enn to siffer etter komma!");
 			return;
 		}
 		try {
 			orePrice +=Integer.parseInt(splitt[1]);
 		} catch (Exception e) {
-			//FEIL
+			GUIConstants.errorMessage("Prisen må være et tall!");
 			return;
 		}
 		
 		Setting priceSetting = new Setting(DatabaseConstants.SETTING_KEY_DELIVERY_PRICE, ""+orePrice);
 		
-		if(nameText.isEmpty()){
-			//FEIL
+		if(nameText.length() < 3 || nameText.length() > 10){
+			GUIConstants.errorMessage("Navnet på restauranten kan ikke være mindre enn 3 bokstaver lant eller mer enn 10 bokstaver langt");
 			return;
 		}
 		Setting nameSetting = new Setting(DatabaseConstants.SETTING_KEY_RESTAURANT_NAME, nameText);
@@ -169,23 +169,23 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 		int oreDeliveryTreshold = 0;
 		String[] splittTreshold = delivertTresholdText.split(",");
 		if(splittTreshold.length > 2){
-			//FEIL
+			GUIConstants.errorMessage("Det må være nøyaktig et komma i grensen for gratis levering!");
 			return;
 		}
 		try {
 			oreDeliveryTreshold +=Integer.parseInt(splittTreshold[0]) * 100;
 		} catch (Exception e) {
-			//FEIL
+			GUIConstants.errorMessage("Grensen for gratis levering må være et tall!");
 			return;
 		}
 		if(splittTreshold[1].length() > 2){
-			//FEIL
+			GUIConstants.errorMessage("Det kan ikke være mer enn to siffer etter komma!");
 			return;
 		}
 		try {
 			oreDeliveryTreshold +=Integer.parseInt(splittTreshold[1]);
 		} catch (Exception e) {
-			//FEIL
+			GUIConstants.errorMessage("Grensen for gratis levering må være et tall!");
 			return;
 		}
 		
@@ -216,7 +216,7 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 		//tekstbokser
 		AdminView.editExtraExtraNameTextBox.setText(selectedExtra.name);
 		AdminView.editExtraExtraNameTextBox.setEnabled(false);
-		AdminView.editExtraExtraPriceTextArea.setText(""+selectedExtra.priceFuncPart + selectedExtra.priceValPart);
+		AdminView.editExtraExtraPriceTextArea.setText(PriceCalculators.getPriceForExtra(selectedExtra));
 		
 		char selectchar = selectedExtra.isActive ? GUIConstants.GUI_TRUE.charAt(0) : GUIConstants.GUI_FALSE.charAt(0);
 		AdminView.editExtraExtraIsActiveComboBox.selectWithKeyChar(selectchar);
@@ -233,22 +233,18 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 		AdminView.searchExtraTextBox.setSelectionEnd(AdminView.searchExtraTextBox.getText().length());
 	}
 	
-	protected void handleDishSearchTyping()
-	{
+	protected void handleDishSearchTyping(){
 		String query = AdminView.searchDishTextBox.getText();
-		if(query.length() == 0)
-		{
+		if(query.length() == 0){
 			showAllDishes();
 		} else {
 			searchDishes(query);
 		}
 	}
 
-	protected void handleExtraSearchTyping()
-	{
+	protected void handleExtraSearchTyping(){
 		String query = AdminView.searchExtraTextBox.getText();
-		if(query.length() == 0)
-		{
+		if(query.length() == 0){
 			this.showAllExtras();
 		} else {
 			this.searchExtras(query);
@@ -266,32 +262,51 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 	private void handleExtraConfirmButtonClick() {
 		boolean active = AdminView.editExtraExtraIsActiveComboBox.getSelectedItem().equals(GUIConstants.GUI_TRUE) ? true :false;
 		String name = DataCleaner.cleanDbData(AdminView.editExtraExtraNameTextBox.getText());
-		String price = DataCleaner.cleanDbData(AdminView.editExtraExtraPriceTextArea.getText()).replaceAll(" ", "");
+		String price = AdminView.editExtraExtraPriceTextArea.getText().replaceAll(" ", "");
+		
+		char priceFunc = price.charAt(0);
+		String priceVal = price.substring(1);
 		
 		if(name.isEmpty()){
-			JOptionPane.showMessageDialog(null, "Feltet med navn kan ikke være tomt!");
+			GUIConstants.errorMessage("Feltet med navn kan ikke være tomt!");
 			return;
 		}
 		
-		if(!(price.charAt(0) == '+' || price.charAt(0) == '*' || price.charAt(0) == '-')){
-			JOptionPane.showMessageDialog(null, "Første tegn i prisen skal være +(pluss) -(minus) eller *(gange)\n" +
+		if(!(priceFunc == '+' || priceFunc == '*' || priceFunc == '-')){
+			GUIConstants.errorMessage("Første tegn i prisen skal være +(pluss) -(minus) eller *(gange)\n" +
 					"Dette anngir om prisen på ekstraen er pristillegg, prisfradrag, eller en multiplikasjon");
 			return;
 		}
 		
-		try {
-			Double.parseDouble(price.substring(1));
-		} catch (NumberFormatException e) {
-			JOptionPane.showMessageDialog(null, "Tegnene etter +/-/* i prisen må være et tall!");
+		
+		String[] splitt = priceVal.split(",");
+		int orepris = 0;
+		if(splitt.length > 2 || splitt.length < 2){
+			GUIConstants.errorMessage("Det må være nøyaktig et komma i prisen!");
 			return;
 		}
-		
+		try {
+			orepris = Integer.parseInt(splitt[0]) * 100;
+		} catch (NumberFormatException e) {
+			GUIConstants.errorMessage("Prisen må være et tall!");
+			return;
+		}
+		if(splitt[1].length() > 2){
+			GUIConstants.errorMessage("Det kan ikke være mer enn to siffer etter komma!");
+			return;
+		}
+		try {
+			orepris +=Integer.parseInt(splitt[1]);
+		} catch (Exception e) {
+			GUIConstants.errorMessage("Prisen må være et tall!");
+			return;
+		}
 		if(adminGUI.currentSelectedExtra == null){
-			Extra e = new Extra(-1, name, price, active);
+			Extra e = new Extra(-1, name, priceFunc + "" + orepris, active);
 			this.dispatchEvent(new Event<Extra>(EventType.DATABASE_ADD_NEW_EXTRA, e));
 		}
 		else{
-			Extra e = new Extra(adminGUI.currentSelectedExtra.id, name, price, active);
+			Extra e = new Extra(adminGUI.currentSelectedExtra.id, name,  priceFunc + "" + orepris, active);
 			this.dispatchEvent(new Event<Extra>(EventType.DATABASE_UPDATE_EXTRA_BY_EXTRA_ID, e));
 		}
 		//oppdaterer
@@ -307,7 +322,8 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 		
 		String name = DataCleaner.cleanDbData(AdminView.editDishNameTextBox.getText());
 		String description = DataCleaner.cleanDbData(AdminView.editDishDescriptionTextArea.getText());
-		int price = 0;
+		String price = AdminView.editDishDishPriceTextArea.getText().trim();
+		int orePrice = 0;
 		
 		if(description.isEmpty()){
 			JOptionPane.showMessageDialog(null, "Feltet med innhold i retten kan ikke være tomt!");
@@ -315,23 +331,39 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 		}
 		
 		if(name.isEmpty()){
-			JOptionPane.showMessageDialog(null, "Feltet med navn kan ikke være tomt!");
+			GUIConstants.errorMessage("Feltet med navn kan ikke være tomt!");
 			return;
 		}
 		
+		
+		String[] splitt = price.split(",");
+		if(splitt.length > 2 || splitt.length < 2){
+			GUIConstants.errorMessage("Det må være nøyaktig et komma i prisen!");
+			return;
+		}
 		try {
-			price = Integer.parseInt(AdminView.editDishDishPriceTextArea.getText().trim());
+			orePrice = Integer.parseInt(splitt[0]) * 100;
 		} catch (NumberFormatException e) {
-			JOptionPane.showMessageDialog(null, "Feltet med pris må være et tall!");
+			GUIConstants.errorMessage("Prisen må være et tall!");
+			return;
+		}
+		if(splitt[1].length() > 2){
+			GUIConstants.errorMessage("Det kan ikke være mer enn to siffer etter komma!");
+			return;
+		}
+		try {
+			orePrice +=Integer.parseInt(splitt[1]);
+		} catch (Exception e) {
+			GUIConstants.errorMessage("Prisen må være et tall!");
 			return;
 		}
 		
 		if(adminGUI.currentSelectedDish == null){
-			Dish d = new Dish(-1, price, name, gluten, nuts, diary, vegan, spicy, description, active);
+			Dish d = new Dish(-1, orePrice, name, gluten, nuts, diary, vegan, spicy, description, active);
 			this.dispatchEvent(new Event<Dish>(EventType.DATABASE_ADD_NEW_DISH, d));
 		}
 		else{
-			Dish d = new Dish(adminGUI.currentSelectedDish.dishID, price, name, gluten, nuts, diary, vegan, spicy, description, active);
+			Dish d = new Dish(adminGUI.currentSelectedDish.dishID, orePrice, name, gluten, nuts, diary, vegan, spicy, description, active);
 			this.dispatchEvent(new Event<Dish>(EventType.DATABASE_UPDATE_DISH_BY_DISH_ID, d));
 		}
 		
@@ -346,7 +378,7 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 		//tekstbokser
 		AdminView.editExtraExtraNameTextBox.setText("Navn på tilbehør");
 		AdminView.editExtraExtraNameTextBox.setEnabled(true);
-		AdminView.editExtraExtraPriceTextArea.setText("+50");
+		AdminView.editExtraExtraPriceTextArea.setText("+49,90");
 		
 		AdminView.editExtraExtraIsActiveComboBox.selectWithKeyChar(GUIConstants.GUI_TRUE.charAt(0));
 	}
@@ -358,7 +390,7 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 		AdminView.editDishNameTextBox.setText("Eksempelpizza");
 		AdminView.editDishNameTextBox.setEnabled(true);
 		AdminView.editDishDescriptionTextArea.setText("Ost - Jarlsberg\nSkinke\nTomatsaus");
-		AdminView.editDishDishPriceTextArea.setText("150");
+		AdminView.editDishDishPriceTextArea.setText("169,70");
 		
 		char trueChar = GUIConstants.GUI_TRUE.charAt(0);
 		char falseChar = GUIConstants.GUI_FALSE.charAt(0);
@@ -390,7 +422,7 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 		AdminView.editDishNameTextBox.setText(selectedDish.name);
 		AdminView.editDishNameTextBox.setEnabled(false);
 		AdminView.editDishDescriptionTextArea.setText(selectedDish.description);
-		AdminView.editDishDishPriceTextArea.setText(""+selectedDish.price);
+		AdminView.editDishDishPriceTextArea.setText(""+PriceCalculators.getPriceForDish(selectedDish));
 		
 		//her resetter vi alle valgboksene til sin defaultverdi
 		char trueChar = GUIConstants.GUI_TRUE.charAt(0);
