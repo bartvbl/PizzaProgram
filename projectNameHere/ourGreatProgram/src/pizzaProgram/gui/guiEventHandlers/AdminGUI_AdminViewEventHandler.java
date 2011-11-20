@@ -12,9 +12,12 @@ import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import pizzaProgram.config.Config;
+import pizzaProgram.core.DatabaseConstants;
 import pizzaProgram.core.GUIConstants;
 import pizzaProgram.dataObjects.Dish;
 import pizzaProgram.dataObjects.Extra;
+import pizzaProgram.dataObjects.Setting;
 import pizzaProgram.database.databaseUtils.DataCleaner;
 import pizzaProgram.events.Event;
 import pizzaProgram.events.EventType;
@@ -126,14 +129,70 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 	 */
 	private void handleSettingConfirmedButtonClicked() {
 		String priceText = AdminView.settingsDeliveryPriceTextBox.getText();
-		String nameText = AdminView.settingsEditNameOfRestaurantTextBox.getText();
+		String nameText = DataCleaner.cleanDbData(AdminView.settingsEditNameOfRestaurantTextBox.getText());
 		String delivertTresholdText = AdminView.settingsEditMinimumPriceFreeDeliveryTextBox.getText();
 		
+		int orePrice = 0;
 		
+		String[] splitt =priceText.split(",");
+		if(splitt.length > 2){
+			//FEIL
+			return;
+		}
+		try {
+			orePrice +=Integer.parseInt(splitt[0]) * 100;
+		} catch (Exception e) {
+			//FEIL
+			return;
+		}
+		if(splitt[1].length() > 2){
+			//FEIL
+			return;
+		}
+		try {
+			orePrice +=Integer.parseInt(splitt[1]);
+		} catch (Exception e) {
+			//FEIL
+			return;
+		}
 		
+		Setting priceSetting = new Setting(DatabaseConstants.SETTING_KEY_DELIVERY_PRICE, ""+orePrice);
 		
-		Config.
+		if(nameText.isEmpty()){
+			//FEIL
+			return;
+		}
+		Setting nameSetting = new Setting(DatabaseConstants.SETTING_KEY_RESTAURANT_NAME, nameText);
 		
+		int oreDeliveryTreshold = 0;
+		String[] splittTreshold = delivertTresholdText.split(",");
+		if(splittTreshold.length > 2){
+			//FEIL
+			return;
+		}
+		try {
+			orePrice +=Integer.parseInt(splittTreshold[0]) * 100;
+		} catch (Exception e) {
+			//FEIL
+			return;
+		}
+		if(splittTreshold[1].length() > 2){
+			//FEIL
+			return;
+		}
+		try {
+			orePrice +=Integer.parseInt(splittTreshold[1]);
+		} catch (Exception e) {
+			//FEIL
+			return;
+		}
+		Setting deliveryTresholdSetting = new Setting(DatabaseConstants.SETTING_KEY_FREE_DELIVERY_LIMIT, ""+oreDeliveryTreshold);
+		
+		Config.updateValueOfSetting(priceSetting);
+		Config.updateValueOfSetting(nameSetting);
+		Config.updateValueOfSetting(deliveryTresholdSetting);
+		
+		PriceCalculators.getConstantsFromDataBase();
 	}
 	
 
