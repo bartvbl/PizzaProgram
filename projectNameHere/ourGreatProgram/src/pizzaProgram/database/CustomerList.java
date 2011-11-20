@@ -1,3 +1,5 @@
+//TODO: delete this class?
+
 //package pizzaProgram.database;
 //
 //import java.sql.ResultSet;

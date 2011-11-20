@@ -22,8 +22,14 @@ import pizzaProgram.events.EventHandler;
  * @author Håvard Eidheim, Henning M. Wold
  * 
  */
-public class DatabaseConnection implements EventHandler {
+public class DatabaseConnection {
+	/**
+	 * The default timeout period for database transactions, in case the connection is lost for any reason
+	 */
 	public static final int DEFAULT_TIMEOUT = 3000;
+	/**
+	 * The file path to the database credentials config file
+	 */
 	public static final String DATABASE_CREDENTIALS_CONFIG_FILE_PATH = "config/databaseinfo.cfg";
 	/**
 	 * The maximum amount of allowed characters in a short VARCHAR column in the
@@ -35,7 +41,10 @@ public class DatabaseConnection implements EventHandler {
 	 * database
 	 */
 	static final int VARCHAR_MAX_LENGTH_LONG = 100;
-
+	
+	/**
+	 * A field that holds the connection to the database
+	 */
 	private static Connection connection;
 
 	/**
@@ -147,10 +156,22 @@ public class DatabaseConnection implements EventHandler {
 		}
 	}
 	
+	/**
+	 * Executes a write query like insertIntoDb(), but instead throws any errors such that they can be handled by any class that uses the function
+	 * @param query The query to be executed by the database
+	 * @return returns true if the query execution was a success, and false otherwise
+	 * @throws SQLException Throws an SQLException if an error is raised during tge execution of the query.
+	 */
 	public static boolean executeWriteQuery(String query) throws SQLException {
 			return connection.createStatement().execute(query);
 	}
 	
+	/**
+	 * Executes a write query in the database, and returns the row ID of the element inserted
+	 * @param query The query to be executed in the database
+	 * @return The ID of the last row inserted by the query
+	 * @throws SQLException Throws an exception if an error is raised during the process
+	 */
 	public static int insertIntoDBAndReturnID(String query) throws SQLException
 	{
 		PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
@@ -164,11 +185,5 @@ public class DatabaseConnection implements EventHandler {
 		generatedKey.next();
 		id = generatedKey.getInt(1);
 		return id;
-	}
-
-	@Override
-	public void handleEvent(Event<?> event) {
-		// TODO Auto-generated method stub
-		
 	}
 }

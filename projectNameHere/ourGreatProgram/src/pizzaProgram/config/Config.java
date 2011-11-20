@@ -23,17 +23,31 @@ public class Config {
 		return setting.value;
 	}
 	
+	/**
+	 * Retrieves the setting represented by the key from the database, and returns the setting's value
+	 * @param keyName The key name of the setting
+	 * @return The resultant value that this setting currently has
+	 */
 	public static Setting getSettingByKey(String keyName)
 	{
 		return fetchSetting(keyName);
 	}
 	
+	/**
+	 * Retrieves a list of all settings from the database
+	 * @return An ArrayList containing all settings found in the database's Config table
+	 */
 	public static ArrayList<Setting> fetchAllSettings()
 	{
 		ArrayList<Setting> settings = DatabaseReader.getAllSettings();
 		return settings;
 	}
 	
+	/**
+	 * Retrieves the setting from the database represented by the inserted key
+	 * @param key The setting's key, representing the setting that should be retrieved
+	 * @return A Setting instance representing the setting found in the database
+	 */
 	private static Setting fetchSetting(String key)
 	{
 		Setting setting = DatabaseReader.getSettingByKey(key);
