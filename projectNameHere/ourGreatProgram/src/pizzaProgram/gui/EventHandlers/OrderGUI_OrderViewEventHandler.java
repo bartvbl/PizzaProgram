@@ -53,6 +53,12 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler
 
 	private void addEventListeners() {
 
+		OrderView.deleteCustomerButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				handleDeleteCustomerButton();
+			}
+		});
+		
 		OrderView.customerList.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
 				handleCustomerSelection(e);
@@ -104,9 +110,7 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler
 		});
 
 		OrderView.extrasSearchTextField.addFocusListener(new FocusListener() {
-			public void focusLost(FocusEvent arg0) {
-			}
-
+			public void focusLost(FocusEvent arg0) {}
 			public void focusGained(FocusEvent arg0) {
 				handleExtrasSearchBoxSelection();
 			}
@@ -171,24 +175,29 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler
 		}
 	}
 
+	private void handleDeleteCustomerButton() {
+		if (currentSelecetedCustomer == null) {
+			DatabaseResultsFeedbackProvider.showEditCustomerFailedNoCustomerSelectedMessage();
+			return;
+		}
+		dispatchEvent(new Event<Customer>(EventType.DATABASE_DELETE_CUSTOMER, currentSelecetedCustomer));
+		showAllCustomers();
+		OrderView.customerInformationTextArea.setText("");
+	}
+	
 	private void handleCustomerSearchBoxSelection() {
 		OrderView.searchCustomerTextArea.setSelectionStart(0);
-		OrderView.searchCustomerTextArea
-				.setSelectionEnd(OrderView.searchCustomerTextArea.getText()
-						.length());
+		OrderView.searchCustomerTextArea.setSelectionEnd(OrderView.searchCustomerTextArea.getText().length());
 	}
 
 	private void handleDishSearchBoxSelection() {
 		OrderView.dishSearchTextBox.setSelectionStart(0);
-		OrderView.dishSearchTextBox.setSelectionEnd(OrderView.dishSearchTextBox
-				.getText().length());
+		OrderView.dishSearchTextBox.setSelectionEnd(OrderView.dishSearchTextBox.getText().length());
 	}
 
 	private void handleExtrasSearchBoxSelection() {
 		OrderView.extrasSearchTextField.setSelectionStart(0);
-		OrderView.extrasSearchTextField
-				.setSelectionEnd(OrderView.extrasSearchTextField.getText()
-						.length());
+		OrderView.extrasSearchTextField.setSelectionEnd(OrderView.extrasSearchTextField.getText().length());
 	}
 
 	protected void handleCustomerSearchTyping() {
@@ -236,13 +245,13 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler
 			DatabaseResultsFeedbackProvider.showEditCustomerFailedNoCustomerSelectedMessage();
 			return;
 		}
-		new NewCustomerWindow(orderGUI, NewCustomerWindow.UPDATE_CUSTOMER,
-				currentSelecetedCustomer);
+		new NewCustomerWindow(orderGUI, NewCustomerWindow.UPDATE_CUSTOMER, currentSelecetedCustomer);
+		showAllCustomers();
+		OrderView.customerInformationTextArea.setText("");
 	}
 
 	private void showAllCustomers() {
-		this.dispatchEvent(new Event<Object>(
-				EventType.DATABASE_UPDATE_ORDER_GUI_SEND_ALL_CUSTOMERS));
+		this.dispatchEvent(new Event<Object>(EventType.DATABASE_UPDATE_ORDER_GUI_SEND_ALL_CUSTOMERS));
 	}
 
 	private void searchCustomers() {

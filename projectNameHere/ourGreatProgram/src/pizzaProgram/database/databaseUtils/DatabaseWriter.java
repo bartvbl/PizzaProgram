@@ -389,7 +389,7 @@ public class DatabaseWriter {
 	 * @param customer the customer to be deleted
 	 */
 	public static void deleteCustomer(Customer customer) {
-		DatabaseConnection.insertIntoDB("DELETE FROM Customers WHERE "+DatabaseConstants.CUSTOMER_ID+"="+customer.customerID+" LIMIT 1");
+		DatabaseConnection.insertIntoDB("DELETE FROM Customer WHERE "+DatabaseConstants.CUSTOMER_ID+"="+customer.customerID+" LIMIT 1");
 	}
 
 }// END
