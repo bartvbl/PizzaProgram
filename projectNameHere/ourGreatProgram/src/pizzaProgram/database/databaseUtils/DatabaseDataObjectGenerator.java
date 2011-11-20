@@ -214,6 +214,12 @@ public class DatabaseDataObjectGenerator {
 		return customer;
 	}
 
+	/**
+	 * Creates a Dish data object from a given resultSet
+	 * @param resultSet The ResultSet, containing all columns from the Dishes table, from which the Dish object should be created
+	 * @return The resulting DIsh instance from the current row in the ResultSet
+	 * @throws SQLException Any error raised while reading the data from the ResultSet
+	 */
 	private static Dish createDish(ResultSet resultSet) throws SQLException {
 		int dishID = resultSet.getInt(resultSet
 				.findColumn(DatabaseConstants.DISH_ID));
@@ -240,6 +246,12 @@ public class DatabaseDataObjectGenerator {
 		return dish;
 	}
 
+	/**
+	 * Creates an Extra object from a given ResultSet
+	 * @param resultSet A ResultSet instance containing the Extras table
+	 * @return An Extra instance containing the Extra that was at the current row of the database
+	 * @throws SQLException Any error raised while reading the data from the ResultSet
+	 */
 	private static Extra createExtra(ResultSet resultSet) throws SQLException {
 		int extrasID = resultSet.getInt(resultSet
 				.findColumn(DatabaseConstants.EXTRAS_ID));
@@ -252,7 +264,14 @@ public class DatabaseDataObjectGenerator {
 		Extra extra = new Extra(extrasID, name, price, isActive);
 		return extra;
 	}
-
+	
+	/**
+	 * Creates an Order data object from a given ResultSet and Customer instance
+	 * @param resultSet The resultSet to get the data from. The ResultSet must contain a join of the Orders and OrdersComments tables.
+	 * @param customer The customer that has ordered the order in the resultSet.
+	 * @return An instance of Order, containing the data at the current row of the resultSet
+	 * @throws SQLException Any error raised while reading the data from the resultSet
+	 */
 	private static Order createOrder(ResultSet resultSet, Customer customer)
 			throws SQLException {
 		int orderID = resultSet.getInt(resultSet

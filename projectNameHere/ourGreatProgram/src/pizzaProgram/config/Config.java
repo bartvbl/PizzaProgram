@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import pizzaProgram.dataObjects.Setting;
 import pizzaProgram.database.databaseUtils.DatabaseReader;
+import pizzaProgram.database.databaseUtils.DatabaseWriter;
 
 /**
  * The Config class is a utility class that retrieves config values from the database
@@ -52,5 +53,14 @@ public class Config {
 	{
 		Setting setting = DatabaseReader.getSettingByKey(key);
 		return setting;
+	}
+	
+	/**
+	 * Updates the setting in the database that has a key of the parameter's key, and updates the database's value to the parameter's Setting instance's value.
+	 * @param setting The Setting instance, whose key is used to determine the setting to update, and the value is the new value that has to be written to the database
+	 */
+	public static void updateValueOfSetting(Setting setting)
+	{
+		DatabaseWriter.updateConfigValue(setting);
 	}
 }

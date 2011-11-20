@@ -3,9 +3,18 @@ package pizzaProgram.database.databaseUtils;
 import javax.swing.JOptionPane;
 
 public class DatabaseResultsFeedbackProvider {
+	/**
+	 * The default window header of an info message
+	 */
 	private static final String DEFAULT_MESSAGE_TITLE = "Info";
+	/**
+	 * The default window header of an error message
+	 */
 	private static final String DEFAULT_ERROR_TITLE = "Error";
-	
+	/**
+	 * Shows an error message 
+	 * @param message
+	 */
 	private static void showErrorMessage(String message)
 	{
 		JOptionPane.showMessageDialog(null, message, DEFAULT_ERROR_TITLE, JOptionPane.ERROR_MESSAGE);
