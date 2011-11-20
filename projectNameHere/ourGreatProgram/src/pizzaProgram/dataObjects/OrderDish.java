@@ -1,23 +1,40 @@
 package pizzaProgram.dataObjects;
 
 import java.util.ArrayList;
-
+/**
+ * Represents a dish from the database that is a part of an order
+ * @author Bart
+ *
+ */
 public class OrderDish {
 	public final int orderID;
 	public final Dish dish;
 	private final ArrayList<Extra> extras;
 
+	/**
+	 * Creates a new OrderDish
+	 * @param orderID The Id of the order this dish is linked to
+	 * @param dish The dish that is a part of the specified order
+	 */
 	public OrderDish(int orderID, Dish dish) {
 		this.orderID = orderID;
 		this.dish = dish;
 		extras = new ArrayList<Extra>();
 	}
 
+	/**
+	 * Returns a list of all extras that arev a part of this order dish
+	 * @return A new ArrayList that contains instances of Extra, representing Extras in this order dish
+	 */
 	@SuppressWarnings("unchecked")
 	public ArrayList<Extra> getExtras() {
 		return (ArrayList<Extra>)extras.clone();
 	}
 
+	/**
+	 * Adds an extra to this order dish
+	 * @param extra The extra to be added
+	 */
 	public void addExtra(Extra extra) {
 		if (extra != null) {
 			extras.add(extra);

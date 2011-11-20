@@ -1,5 +1,9 @@
 package pizzaProgram.dataObjects;
-
+/**
+ * A data object that holds information about a customer in the database
+ * @author Bart
+ *
+ */
 public class Customer {
 	
 	public final int customerID;

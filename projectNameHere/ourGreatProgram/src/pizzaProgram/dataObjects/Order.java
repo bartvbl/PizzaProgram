@@ -3,7 +3,11 @@ package pizzaProgram.dataObjects;
 import java.util.ArrayList;
 
 import pizzaProgram.utils.DateFormatter;
-
+/**
+ * Represents an order from the database
+ * @author Bart
+ *
+ */
 public class Order {
 
 	public final int orderID;
@@ -56,49 +60,6 @@ public class Order {
 		this.comment = comment;
 		orderedDishes = new ArrayList<OrderDish>();
 	}
-
-	/**
-	 * @return - the customer of this order
-	 */
-	public Customer getCustomer() {
-		return customer;
-	}
-
-	/**
-	 * @return - the ID of this order
-	 */
-	public int getID() {
-		return orderID;
-	}
-
-	/**
-	 * @return - the dishes contained in this order
-	 */
-	public String getTimeRegistered() {
-		return timeRegistered;
-	}
-
-	/**
-	 * @return - the status of this order
-	 */
-	public String getStatus() {
-		return status;
-	}
-
-	/**
-	 * @return - the delivery method of this order
-	 */
-	public String getDeliveryMethod() {
-		return deliveryMethod;
-	}
-
-	/**
-	 * @return - the comment of this order
-	 */
-	public String getComment() {
-		return comment;
-	}
-
 	/**
 	 * @return - the list of dishes ordered in this order
 	 */
