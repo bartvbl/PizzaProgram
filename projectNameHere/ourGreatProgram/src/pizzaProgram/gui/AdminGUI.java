@@ -41,10 +41,12 @@ public class AdminGUI extends GUIModule implements EventHandler{
 		programWindow.addJPanel(this.adminView);
 		eventDispatcher.addEventListener(this, EventType.OPEN_SETTINGS_WINDOW_REQUESTED);
 
-		new AdminGUI_AdminViewEventHandler(this);
-		new AdminGUI_SystemEventHandler(eventDispatcher, this);
+		
 		this.setupComponents();
 		this.hide();
+		
+		AdminGUI_AdminViewEventHandler ade = new AdminGUI_AdminViewEventHandler(this);
+		AdminGUI_SystemEventHandler ads = new AdminGUI_SystemEventHandler(eventDispatcher, this);
 	}
 
 	/**
