@@ -424,7 +424,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="extrasMainSplitPane" alignment="0" max="32767" attributes="0"/>
+                  <Component id="extrasMainSplitPane" alignment="0" pref="844" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -480,7 +480,7 @@
                                       </Group>
                                   </Group>
                               </Group>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace pref="28" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -697,22 +697,25 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="editSettingsNameOfRestaurantLabel" min="-2" max="-2" attributes="0"/>
-                              <Group type="102" alignment="1" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="-2" pref="91" max="-2" attributes="0"/>
+                                  <Component id="editSettingsDeliveryPriceLabel" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="editSettingsDeliveryPriceLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="editSettingsNameOfRestaurantLabel" alignment="1" min="-2" max="-2" attributes="0"/>
                                       <Component id="editSettingsMinimumOrderPriceLabel" alignment="1" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
                               </Group>
                           </Group>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="settingsApplyChangesButton" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
                                   <Component id="settingsResetSettingsButton" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="settingsApplyChangesButton" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="settingsDeliveryPriceTextBox" max="32767" attributes="1"/>
@@ -734,8 +737,8 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="editSettingsMinimumOrderPriceLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="settingsEditMinimumPriceFreeDeliveryTextBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="editSettingsMinimumOrderPriceLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -744,8 +747,8 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="settingsApplyChangesButton" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="settingsResetSettingsButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="settingsApplyChangesButton" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="421" max="32767" attributes="0"/>
                       </Group>
