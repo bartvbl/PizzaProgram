@@ -58,7 +58,7 @@ public class OrderGUI_SystemEventHandler implements EventHandler {
 
 	/**
 	 * Shows the list of Extra instances attached to the event in the Order GUI
-	 * @param event
+	 * @param event The Event instance 
 	 */
 	private void updateExtrasList(Event<?> event) {
 		if(!(event.getEventParameterObject() instanceof ArrayList<?>)){
