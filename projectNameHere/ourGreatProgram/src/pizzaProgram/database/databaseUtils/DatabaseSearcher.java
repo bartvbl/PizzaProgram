@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import pizzaProgram.core.DatabaseConstants;
 import pizzaProgram.core.GUIConstants;
 import pizzaProgram.dataObjects.Customer;
 import pizzaProgram.dataObjects.Dish;
@@ -32,18 +33,15 @@ public class DatabaseSearcher {
 	 *         search query
 	 */
 	public static ArrayList<Customer> searchCustomerByString(String searchQuery) {
-		String query = DatabaseSearcher
-				.generateCustomerSearchQuery(searchQuery);
+		String query = DatabaseSearcher.generateCustomerSearchQuery(searchQuery);
 		ResultSet results = DatabaseConnection.fetchData(query);
 		ArrayList<Customer> customerList = new ArrayList<Customer>();
 		try {
-			customerList = DatabaseDataObjectGenerator
-					.generateCustomerList(results);
+			customerList = DatabaseDataObjectGenerator.generateCustomerList(results);
 			return customerList;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			GUIConstants
-					.showErrorMessage("Kunne ikke hente kunder fra databasen!");
+			GUIConstants.showErrorMessage("Kunne ikke hente kunder fra databasen!");
 		}
 		return null;
 	}
@@ -67,8 +65,7 @@ public class DatabaseSearcher {
 			return dishList;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			GUIConstants
-					.showErrorMessage("Kunne ikke hente retter fra databasen!");
+			GUIConstants.showErrorMessage("Kunne ikke hente retter fra databasen!");
 		}
 		return null;
 	}
@@ -87,13 +84,11 @@ public class DatabaseSearcher {
 		ResultSet results = DatabaseConnection.fetchData(query);
 		ArrayList<Extra> extrasList = new ArrayList<Extra>();
 		try {
-			extrasList = DatabaseDataObjectGenerator
-					.generateExtrasList(results);
+			extrasList = DatabaseDataObjectGenerator.generateExtrasList(results);
 			return extrasList;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			GUIConstants
-					.showErrorMessage("Kunne ikke hente tilbehør fra databasen!");
+			GUIConstants.showErrorMessage("Kunne ikke hente tilbehør fra databasen!");
 		}
 		return null;
 	}
@@ -109,22 +104,18 @@ public class DatabaseSearcher {
 	 *            The required order status('s) that the orders should have.
 	 * @return An ArrayList of Order instances that match the keywords entered
 	 */
-	public static ArrayList<Order> getOrdersByKeywords(String keywordString,
-			String[] orderStatusStringList) {
-		String whereClause = DatabaseSearcher.generateOrderSearchWhereClause(
-				keywordString, orderStatusStringList);
-		String query = DatabaseReader.getOrderSelectionQuery(whereClause,
-				"LIMIT 30");
+	public static ArrayList<Order> getOrdersByKeywords(String keywordString, String[] orderStatusStringList) {
+		String whereClause = DatabaseSearcher.generateOrderSearchWhereClause(keywordString,
+				orderStatusStringList);
+		String query = DatabaseReader.getOrderSelectionQuery(whereClause, "LIMIT 30");
 		ResultSet results = DatabaseConnection.fetchData(query);
 		ArrayList<Order> orderList = new ArrayList<Order>();
 		try {
-			orderList = DatabaseDataObjectGenerator
-					.generateOrderListFromResultSet(results);
+			orderList = DatabaseDataObjectGenerator.generateOrderListFromResultSet(results);
 			return orderList;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			GUIConstants
-					.showErrorMessage("Kunne ikke hente ordre fra databasen!");
+			GUIConstants.showErrorMessage("Kunne ikke hente ordre fra databasen!");
 		}
 		return null;
 	}
@@ -145,9 +136,9 @@ public class DatabaseSearcher {
 			if (counter != 0) {
 				query += "OR";
 			}
-			query += "(Customer.FirstName LIKE '%" + keyword + "%') OR ";
-			query += "(Customer.LastName LIKE '%" + keyword + "%') OR ";
-			query += "(Customer.TelephoneNumber LIKE '%" + keyword + "%')";
+			query += "(" + DatabaseConstants.CUSTOMER_FIRST_NAME + " LIKE '%" + keyword + "%') OR ";
+			query += "(" + DatabaseConstants.CUSTOMER_LAST_NAME + " LIKE '%" + keyword + "%') OR ";
+			query += "(" + DatabaseConstants.CUSTOMER_PHONE_NUMBER + " LIKE '%" + keyword + "%')";
 			counter++;
 		}
 		query += ") LIMIT 30;";
@@ -164,16 +155,16 @@ public class DatabaseSearcher {
 	 *         keywords
 	 */
 	private static String generateDishSearchQuery(String searchQuery) {
-		String query = "SELECT * FROM Dishes WHERE (";
+		String query = "SELECT * FROM " + DatabaseConstants.DISH_TABLE_NAME + " WHERE (";
 		String[] keywords = searchQuery.split(" ");
 		int counter = 0;
 		for (String keyword : keywords) {
 			if (counter != 0) {
 				query += "OR";
 			}
-			query += "(Dishes.Price LIKE '%" + keyword + "%') OR ";
-			query += "(Dishes.Name LIKE '%" + keyword + "%') OR ";
-			query += "(Dishes.Description LIKE '%" + keyword + "%')";
+			query += "(" + DatabaseConstants.DISH_PRICE + " LIKE '%" + keyword + "%') OR ";
+			query += "(" + DatabaseConstants.DISH_NAME + " LIKE '%" + keyword + "%') OR ";
+			query += "(" + DatabaseConstants.DISH_DESCRIPTION + " LIKE '%" + keyword + "%')";
 			counter++;
 		}
 		query += ") LIMIT 30;";
@@ -217,8 +208,7 @@ public class DatabaseSearcher {
 	 * @return A String the contains a search query that can be used to search
 	 *         for orders
 	 */
-	private static String generateOrderSearchWhereClause(String keywordString,
-			String[] orderStatus) {
+	private static String generateOrderSearchWhereClause(String keywordString, String[] orderStatus) {
 		String[] keywords = keywordString.split(" ");
 		String whereClause = "(";
 		int counter = 0;
@@ -238,8 +228,7 @@ public class DatabaseSearcher {
 				whereClause += "OR ";
 			}
 			whereClause += "(Orders.OrdersStatus LIKE '%" + keyword + "%') OR ";
-			whereClause += "(Orders.DeliveryMethod LIKE '%" + keyword
-					+ "%') OR ";
+			whereClause += "(Orders.DeliveryMethod LIKE '%" + keyword + "%') OR ";
 			whereClause += "(Orders.OrdersID LIKE '%" + keyword + "%') ";
 			counter++;
 		}
