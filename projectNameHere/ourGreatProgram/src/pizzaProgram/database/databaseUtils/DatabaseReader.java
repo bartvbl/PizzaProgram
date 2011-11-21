@@ -11,6 +11,7 @@ import pizzaProgram.dataObjects.Dish;
 import pizzaProgram.dataObjects.Extra;
 import pizzaProgram.dataObjects.Order;
 import pizzaProgram.dataObjects.Setting;
+import pizzaProgram.dataObjects.UnaddedOrder;
 import pizzaProgram.database.DatabaseConnection;
 
 /**
@@ -161,6 +162,30 @@ public class DatabaseReader {
 			GUIConstants.showErrorMessage("Kunne ikke hente tilbehør fra databasen!");
 		}
 		return dishList;
+	}
+
+	/**
+	 * Method to check wether or not the customer the provided order is being
+	 * issued to already has an uncooked order
+	 * 
+	 * @return The orderID of the existing order if such an order exists, -1 if
+	 *         not.
+	 */
+	public static int customerHasUncookedOrder(UnaddedOrder order) {
+		ResultSet result = DatabaseConnection.fetchData(getOrderSelectionQuery(
+				DatabaseConstants.ORDERS_STATUS + " = '" + Order.REGISTERED + "' AND "
+						+ DatabaseConstants.ORDERS_TO_CUSTOMER_ID + " = " + order.customer.customerID, ""));
+		try {
+			if (!result.next()) {
+				return -1;
+			} else {
+				return result.getInt(result.findColumn(DatabaseConstants.ORDERS_ID));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			GUIConstants.showErrorMessage("Kunne ikke hente ordre fra databasen!");
+			return -1;
+		}
 	}
 
 	/**

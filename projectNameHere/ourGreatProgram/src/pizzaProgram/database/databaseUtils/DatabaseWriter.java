@@ -409,15 +409,14 @@ public class DatabaseWriter {
 	 *             Any error raised while adding the new order.
 	 */
 	private static int createNewOrder(UnaddedOrder order, int commentID) throws SQLException {
-		System.out.println(order);
-		int orderID = DatabaseConnection.insertIntoDBAndReturnID("INSERT INTO Orders VALUES (NULL, "
-				+ order.customer.customerID 
-				+ ", NOW(), '" 
-				+ Order.REGISTERED 
-				+ "', '" 
-				+ order.deliveryMethod
-				+ "', " 
-				+ commentID + ");");
+		int orderID = DatabaseReader.customerHasUncookedOrder(order);
+		System.out.println(orderID);
+		if (orderID>0) {
+			return orderID;
+		}
+		orderID = DatabaseConnection.insertIntoDBAndReturnID("INSERT INTO Orders VALUES (NULL, "
+				+ order.customer.customerID + ", NOW(), '" + Order.REGISTERED + "', '" + order.deliveryMethod
+				+ "', " + commentID + ");");
 		return orderID;
 	}
 

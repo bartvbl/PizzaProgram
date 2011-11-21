@@ -125,6 +125,7 @@ public class DatabaseDataObjectGenerator {
 		HashMap<Integer, Dish> dishMap = new HashMap<Integer, Dish>();
 		HashMap<Integer, Customer> customerMap = new HashMap<Integer, Customer>();
 		HashMap<Integer, Extra> extraMap = new HashMap<Integer, Extra>();
+		HashMap<Integer, Order> orderMap = new HashMap<Integer, Order>();
 		Order currentOrder = null;
 		OrderDish currentOrderDish = null;
 		Customer currentCustomer = null;
@@ -133,7 +134,7 @@ public class DatabaseDataObjectGenerator {
 		int currentOrderID = -1;
 		int currentOrderContentID = -1;
 		while (result.next()) {
-			if (result.getInt(result.findColumn(DatabaseConstants.ORDERS_ID)) != currentOrderID) {
+			if (!orderMap.containsKey(result.getInt(result.findColumn(DatabaseConstants.ORDERS_ID)))) {
 				currentOrderID = result.getInt(result.findColumn(DatabaseConstants.ORDERS_ID));
 				if (!customerMap.containsKey(result.getInt(result.findColumn(DatabaseConstants.CUSTOMER_ID)))) {
 					customerMap.put(result.getInt(result.findColumn(DatabaseConstants.CUSTOMER_ID)),
@@ -143,6 +144,7 @@ public class DatabaseDataObjectGenerator {
 						.findColumn(DatabaseConstants.CUSTOMER_ID)));
 				currentOrder = DatabaseDataObjectGenerator.createOrder(result, currentCustomer);
 				orderList.add(currentOrder);
+				orderMap.put(currentOrderID, currentOrder);
 			}
 			if (currentOrder != null
 					&& result.getInt(result.findColumn(DatabaseConstants.ORDERS_CONTENTS_ID)) != currentOrderContentID) {
