@@ -26,7 +26,7 @@ public class PriceCalculators {
 
 	/**
 	 * Generates a priceString on the form "0,00" based on the price of the
-	 * dish, without VAT added (IE a price in norwegian øre of 12345 would
+	 * dish, without VAT added (i.e. a price in norwegian øre of 12345 would
 	 * return a string which contains "123,45".
 	 * 
 	 * @param d
