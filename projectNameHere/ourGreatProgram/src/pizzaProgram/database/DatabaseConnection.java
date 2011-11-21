@@ -7,10 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-
-import pizzaProgram.events.Event;
-import pizzaProgram.events.EventHandler;
-
 /**
  * Class that handles the connection to the database. The URL username and
  * password to the database is stored in the config/databaseinfo.cfg file.

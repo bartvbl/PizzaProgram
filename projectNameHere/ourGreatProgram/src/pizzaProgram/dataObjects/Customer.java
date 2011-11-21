@@ -23,7 +23,6 @@ public class Customer {
 	 * @param postalCode The customer's postal code
 	 * @param city The customer's city
 	 * @param phoneNumber The customer's phone number
-	 * @param comment Any comments about this customer
 	 */
 	public Customer(int customerID, String firstName, String lastName, String address, String postalCode, String city, int phoneNumber) {
 		this.customerID = customerID;

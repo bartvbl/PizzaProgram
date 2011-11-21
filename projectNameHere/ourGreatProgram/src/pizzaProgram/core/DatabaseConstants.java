@@ -12,7 +12,6 @@ public class DatabaseConstants {
 	public static final String CITY = "Customer.City";
 	public static final String PHONE_NUMBER = "Customer.TelephoneNumber";
 	public static final String IDENTIFIER = "Customer.Identifier";
-	public static final String CUSTOMER_NOTE = "CustomerNotes.Note";
 
 	public static final String DISH_ID = "Dishes.DishID";
 	public static final String DISH_PRICE = "Dishes.Price";

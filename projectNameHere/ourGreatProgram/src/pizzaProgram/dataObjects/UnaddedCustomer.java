@@ -13,7 +13,6 @@ public class UnaddedCustomer extends Customer {
 	 * @param postalCode The customer's postal code
 	 * @param city The customer's city of residence
 	 * @param phoneNumber The customer's phone number
-	 * @param comment Any comments regarding this customer
 	 */
 	public UnaddedCustomer(String firstName, String lastName,
 			String address, String postalCode, String city, int phoneNumber) {
