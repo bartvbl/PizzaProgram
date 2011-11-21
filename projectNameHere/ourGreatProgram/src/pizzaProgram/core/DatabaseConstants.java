@@ -5,7 +5,7 @@ package pizzaProgram.core;
  */
 public class DatabaseConstants {
 	/*
-	 * Constants pertaining to the Customer Table of the Database
+	 * Constants pertaining to the Customer Table of the database
 	 */
 	public static final String CUSTOMER_TABLE_NAME = "Customer";
 	public static final String CUSTOMER_ID = CUSTOMER_TABLE_NAME + ".CustomerID";
@@ -18,7 +18,7 @@ public class DatabaseConstants {
 	public static final String CUSTOMER_IDENTIFIER = CUSTOMER_TABLE_NAME + ".Identifier";
 	public static final String CUSTOMER_ALL_COLS = CUSTOMER_TABLE_NAME + ".*";
 	/*
-	 * Constants pertaining to the Dishes Table of the Database
+	 * Constants pertaining to the Dishes Table of the database
 	 */
 	public static final String DISH_TABLE_NAME = "Dishes"; 
 	public static final String DISH_ID = DISH_TABLE_NAME + ".DishID";
@@ -32,11 +32,14 @@ public class DatabaseConstants {
 	public static final String DISH_DESCRIPTION = DISH_TABLE_NAME + ".Description";
 	public static final String DISH_IS_ACTIVE = DISH_TABLE_NAME + ".isActive";
 	public static final String DISHES_ALL_COLS = DISH_TABLE_NAME + ".*";
-
-	public static final String EXTRAS_ID = "Extras.ExtrasID";
-	public static final String EXTRAS_NAME = "Extras.Name";
-	public static final String EXTRAS_PRICE = "Extras.Price";
-	public static final String EXTRAS_IS_ACTIVE = "Extras.isActive";
+	/*
+	 * Constants pertaining to the Extras Table of the database
+	 */
+	public static final String EXTRAS_TABLE_NAME = "Extras";
+	public static final String EXTRAS_ID = EXTRAS_TABLE_NAME + ".ExtrasID";
+	public static final String EXTRAS_NAME = EXTRAS_TABLE_NAME + ".Name";
+	public static final String EXTRAS_PRICE = EXTRAS_TABLE_NAME + ".Price";
+	public static final String EXTRAS_IS_ACTIVE = EXTRAS_TABLE_NAME + ".isActive";
 
 	public static final String ORDERS_ID = "Orders.OrdersID";
 	public static final String ORDERS_TIME_REGISTERED = "Orders.TimeRegistered";

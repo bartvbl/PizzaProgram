@@ -27,7 +27,8 @@ public class DatabaseReader {
 	 *         row in the database
 	 */
 	public static ArrayList<Customer> getAllCustomers() {
-		ResultSet results = DatabaseConnection.fetchData("SELECT * FROM " + DatabaseConstants.CUSTOMER_TABLE_NAME+ ";");
+		ResultSet results = DatabaseConnection.fetchData("SELECT * FROM "
+				+ DatabaseConstants.CUSTOMER_TABLE_NAME + ";");
 		ArrayList<Customer> customerList = new ArrayList<Customer>();
 		try {
 			customerList = DatabaseDataObjectGenerator.generateCustomerList(results);
@@ -87,7 +88,8 @@ public class DatabaseReader {
 	 *         active dish.
 	 */
 	public static ArrayList<Dish> getAllActiveDishes() {
-		ResultSet results = DatabaseConnection.fetchData("SELECT * FROM " + DatabaseConstants.DISH_TABLE_NAME + " WHERE (" + DatabaseConstants.DISH_IS_ACTIVE+ "=1);");
+		ResultSet results = DatabaseConnection.fetchData("SELECT * FROM " + DatabaseConstants.DISH_TABLE_NAME
+				+ " WHERE (" + DatabaseConstants.DISH_IS_ACTIVE + "=1);");
 		ArrayList<Dish> dishList = new ArrayList<Dish>();
 		try {
 			dishList = DatabaseDataObjectGenerator.generateDishList(results);
@@ -106,7 +108,8 @@ public class DatabaseReader {
 	 *         is a Dish in the Dishes table in the database
 	 */
 	public static ArrayList<Dish> getAllDishes() {
-		ResultSet results = DatabaseConnection.fetchData("SELECT * FROM " + DatabaseConstants.DISH_TABLE_NAME + ";");
+		ResultSet results = DatabaseConnection.fetchData("SELECT * FROM " + DatabaseConstants.DISH_TABLE_NAME
+				+ ";");
 		ArrayList<Dish> dishList = new ArrayList<Dish>();
 		try {
 			dishList = DatabaseDataObjectGenerator.generateDishList(results);
@@ -175,6 +178,24 @@ public class DatabaseReader {
 		}
 		return orderList;
 	}
+	/**
+	 * Retrieves a list of all orders that have been delivered from the database
+	 * 
+	 * @return An ArrayList containing Order instances, where every Order
+	 *         instance is an order that has been delivered.
+	 */
+	public static ArrayList<Order> getAllDeliveredOrders() {
+		ResultSet result = DatabaseConnection.fetchData(getOrderSelectionQuery("Orders.OrdersStatus = '"
+				+ Order.DELIVERED + "'", ""));
+		ArrayList<Order> orderList = new ArrayList<Order>();
+		try {
+			orderList = DatabaseDataObjectGenerator.generateOrderListFromResultSet(result);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			GUIConstants.showErrorMessage("Kunne ikke hente ordre fra databasen!");
+		}
+		return orderList;
+	}
 
 	/**
 	 * Generates a query to select orders from the database, with a given where
@@ -191,14 +212,18 @@ public class DatabaseReader {
 	 *         read and ocnstruct orders
 	 */
 	public static String getOrderSelectionQuery(String whereClause, String extraOptions) {
-		String query = "SELECT " + DatabaseConstants.CUSTOMER_ALL_COLS + " , " + DatabaseConstants.DISHES_ALL_COLS + " , Extras.* , OrderComments.* , Orders.*, OrdersContents.* FROM Orders "
+		String query = "SELECT "
+				+ DatabaseConstants.CUSTOMER_ALL_COLS
+				+ " , "
+				+ DatabaseConstants.DISHES_ALL_COLS
+				+ " , Extras.* , OrderComments.* , Orders.*, OrdersContents.* FROM Orders "
 				+ "LEFT JOIN OrderComments ON ( Orders.CommentID = OrderComments.CommentID ) "
 				+ "INNER JOIN OrdersContents ON ( Orders.OrdersID = OrdersContents.OrdersID ) "
 				+ "INNER JOIN DishExtrasChosen ON ( OrdersContents.OrdersContentsID = DishExtrasChosen.OrdersContentsID ) "
 				+ "LEFT JOIN Customer ON ( Orders.CustomerID = " + DatabaseConstants.CUSTOMER_ID + " ) "
-				+ "LEFT JOIN " + DatabaseConstants.DISH_TABLE_NAME + " ON ( OrdersContents.DishID = " + DatabaseConstants.DISH_ID + " ) "
-				+ "LEFT JOIN Extras ON ( Extras.ExtrasID = DishExtrasChosen.DishExtraID ) "
-				+ "WHERE ("
+				+ "LEFT JOIN " + DatabaseConstants.DISH_TABLE_NAME + " ON ( OrdersContents.DishID = "
+				+ DatabaseConstants.DISH_ID + " ) "
+				+ "LEFT JOIN Extras ON ( Extras.ExtrasID = DishExtrasChosen.DishExtraID ) " + "WHERE ("
 				+ whereClause + ") " + extraOptions + " ;";
 		return query;
 	}
