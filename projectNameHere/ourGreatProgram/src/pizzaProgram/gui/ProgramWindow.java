@@ -31,18 +31,14 @@ public class ProgramWindow implements EventHandler {
 	 * A constant holding the name as it will appear inside the window
 	 */
 	public static final String MAIN_WINDOW_NAME = "Pizza Manager";
-
-	private ProgramWindowFrameView frameView;
 	private CardLayout cardLayoutManager;
 	private JPanel mainJPanel;
 
 	private JFrame jframe;
 
 	/**
-	 * The constructor of the program takes in the event dispatcher, and creates
-	 * t
-	 * 
-	 * @param eventDispatcher
+	 * Creates the program's main window and initializes it.
+	 * @param eventDispatcher The system's main event dispatcher
 	 */
 	public ProgramWindow(EventDispatcher eventDispatcher, SingleFrameApplication mainApplication) {
 		this.eventDispatcher = eventDispatcher;
@@ -57,8 +53,8 @@ public class ProgramWindow implements EventHandler {
 		} catch (UnsupportedLookAndFeelException e) {
 			e.printStackTrace();
 		}
-		this.frameView = new ProgramWindowFrameView(mainApplication);
-		this.jframe = this.frameView.getFrame();
+		ProgramWindowFrameView frameView = new ProgramWindowFrameView(mainApplication);
+		this.jframe = frameView.getFrame();
 		this.jframe.addWindowListener(new WindowListener() {
 			public void windowOpened(WindowEvent e) {
 				jframe.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -72,34 +68,54 @@ public class ProgramWindow implements EventHandler {
 		});
 		
 		this.createFrame();
-		mainApplication.show(this.frameView);
-		new MenuBarEventHandler(this.frameView, this.eventDispatcher);
+		mainApplication.show(frameView);
+		new MenuBarEventHandler(this.eventDispatcher);
 	}
 
+	/**
+	 * initializes the JFrame of the create FrameView
+	 */
 	private void createFrame() {
 		this.cardLayoutManager = new CardLayout();
 		this.mainJPanel = new JPanel(this.cardLayoutManager);
 		this.jframe.add(this.mainJPanel);
 	}
 
+	/**
+	 * Adds a new JPanel to the program's main window.
+	 * @param newPanel The new JPanel to add
+	 */
 	public void addJPanel(JPanel newPanel) {
 		this.mainJPanel.add(newPanel, newPanel.toString());
 	}
 
+	/**
+	 * Implementation of a required method, unused.
+	 */
 	@Override
 	public void handleEvent(Event<?> event) {
 
 	}
 	
+	/**
+	 * Unused function; does nothing. Can be utilized if the implementation of the main program window ever changes
+	 */
 	public void hidePanel(JPanel panel) {
 		this.refreshFrame();
 	}
 
+	/**
+	 * Shows the JPanel inserted in the program's main window. NOTE: the panel must be registered first! Call ProgramWindow.addJPanel() to do so.
+	 * @param panel The JPanel to display
+	 */
 	public void showPanel(JPanel panel) {
 		this.refreshFrame();
 		this.cardLayoutManager.show(this.mainJPanel, panel.toString());																// panel.toString());
 	}
 
+	/**
+	 * Refreshes the main frame, as required by swing
+	 */
 	public void refreshFrame() {
 		this.jframe.validate();
 		this.jframe.repaint();

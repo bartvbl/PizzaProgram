@@ -22,6 +22,10 @@ import pizzaProgram.utils.PriceCalculators;
  *
  */
 public class DeliveryGUIUpdater {
+	/**
+	 * Shows the order passed in the argument in the delivery UI.
+	 * @param order The Order instance to be displayed
+	 */
 	public static void showOrder(Order order){
 		fillDishTable(order);
 		fillOrderPriceLabels(order);
@@ -30,6 +34,10 @@ public class DeliveryGUIUpdater {
 		showMapImage(order);
 	}
 	
+	/**
+	 * Downloads a map image showing the location of the restaurant and the location of the destination of the delivery in the map area of the delivery UI.
+	 * @param order The order to use to display the map
+	 */
 	private static void showMapImage(Order order) {
 		DeliveryMap map = new DeliveryMap();
 		map.loadImage(order.customer, DeliveryView.mapImagePanel.getWidth(), DeliveryView.mapImagePanel.getHeight());
@@ -44,6 +52,10 @@ public class DeliveryGUIUpdater {
 		DeliveryView.mapImagePanel.repaint();
 	}
 
+	/**
+	 * Shows the dishes the order contains in the dish table in the delivery GUI
+	 * @param order The order to be displayed
+	 */
 	private static void fillDishTable(Order order) {
 //		this.orderPriceCalculator.reset();
 		DefaultTableModel tableModel = (DefaultTableModel)DeliveryView.orderContentsTable.getModel();
@@ -57,13 +69,21 @@ public class DeliveryGUIUpdater {
 		}
 	}
 
-	private static void fillOrderPriceLabels(Order o) {
+	/**
+	 * Calculates the various prices related to the order, and displays them in the delivery GUI
+	 * @param order The order to be displayed
+	 */
+	private static void fillOrderPriceLabels(Order order) {
 //		OrderPrice orderPrice = this.orderPriceCalculator.getTotalOrderPrice();
-		DeliveryView.orderCostDeliveryCost.setText(PriceCalculators.getDeliveryCostForOrder(o));
-		DeliveryView.orderCostOrderPrice.setText(PriceCalculators.getPriceForOrderWithVAT(o));
-		DeliveryView.orderCostTotalCost.setText(PriceCalculators.getPriceForOrderWithVATAndDelivery(o));
+		DeliveryView.orderCostDeliveryCost.setText(PriceCalculators.getDeliveryCostForOrder(order));
+		DeliveryView.orderCostOrderPrice.setText(PriceCalculators.getPriceForOrderWithVAT(order));
+		DeliveryView.orderCostTotalCost.setText(PriceCalculators.getPriceForOrderWithVATAndDelivery(order));
 	}
 
+	/**
+	 * Shows the order comments and customer details in the delivery GUI
+	 * @param order The order to be displayed
+	 */
 	private static void showComments(Order order) {
 		DeliveryView.orderCommentsTextArea.setText(order.comment);
 		String customerAddress = new String();
@@ -75,6 +95,10 @@ public class DeliveryGUIUpdater {
 		DeliveryView.orderAddressTextArea.setText(customerAddress);
 	}
 	
+	/**
+	 * Enables the "mark order as being delivered" and "mark order as delivered" buttons, depending on the order's state and delivery mthod.
+	 * @param order The order to vbe displayed
+	 */
 	private static void enableMarkButtons(Order order){
 		DeliveryView.showReceiptButton.setEnabled(true);
 		
@@ -93,6 +117,11 @@ public class DeliveryGUIUpdater {
 		}
 	}
 
+	/**
+	 * Generates a string for displaying in the order details table.
+	 * @param extras The array of dishes to generate the string from
+	 * @return The resulting string representing the list of extras.
+	 */
 	private static String generateExtrasString(ArrayList<Extra> extras) {
 		String output = "";
 		int counter = 0;

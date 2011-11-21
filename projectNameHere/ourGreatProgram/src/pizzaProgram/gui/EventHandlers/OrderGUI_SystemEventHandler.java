@@ -80,6 +80,10 @@ public class OrderGUI_SystemEventHandler implements EventHandler {
 		}
 	}
 
+	/**
+	 * Updates the dish list in the Order GUI, according to the ArrayList of Dish instances sent with the event
+	 * @param event The event containing an ArrayList with Dish instances
+	 */
 	private void updateDishList(Event<?> event) {
 		if(!(event.getEventParameterObject() instanceof ArrayList<?>)){
 			System.out.println("ERROR: received event containing a wrong data type [order GUI update dish list]");
@@ -98,6 +102,10 @@ public class OrderGUI_SystemEventHandler implements EventHandler {
 		}
 	}
 
+	/**
+	 * Updates the list of customers in the Order UI.
+	 * @param event An Event instance with an ArrayList of Customer objects in it.
+	 */
 	private void updateCustomerList(Event<?> event) {
 		if(!(event.getEventParameterObject() instanceof ArrayList<?>)){
 			System.out.println("ERROR: received event containing a wrong data type [order GUI update customer list]");

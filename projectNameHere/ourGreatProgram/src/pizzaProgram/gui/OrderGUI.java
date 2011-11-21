@@ -39,7 +39,7 @@ public class OrderGUI extends GUIModule implements EventHandler {
 		mainWindow.addJPanel(orderView);
 		this.orderView.addPropertyChangeListener(null);
 		this.programWindow = mainWindow;
-		new OrderGUI_OrderViewEventHandler(this.orderView, this);
+		new OrderGUI_OrderViewEventHandler(this);
 		new OrderGUI_SystemEventHandler(eventDispatcher, this);
 		this.setupComponents();
 		hide();
