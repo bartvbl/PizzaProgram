@@ -7,6 +7,7 @@ import javax.swing.table.DefaultTableModel;
 import pizzaProgram.core.GUIConstants;
 import pizzaProgram.dataObjects.Dish;
 import pizzaProgram.dataObjects.Extra;
+import pizzaProgram.dataObjects.Order;
 import pizzaProgram.events.Event;
 import pizzaProgram.events.EventDispatcher;
 import pizzaProgram.events.EventHandler;
@@ -16,7 +17,13 @@ import pizzaProgram.gui.views.AdminView;
 import pizzaProgram.utils.PriceCalculators;
 
 public class AdminGUI_SystemEventHandler implements EventHandler {
+	/**
+	 * A reference to the system's main event dispatcher
+	 */
 	private EventDispatcher eventDispatcher;
+	/**
+	 * A reference to the admin GUI module
+	 */
 	private AdminGUI adminGUI;
 	
 	/**
@@ -36,6 +43,7 @@ public class AdminGUI_SystemEventHandler implements EventHandler {
 	private void addEventListeners() {
 		this.eventDispatcher.addEventListener(this, EventType.ADMIN_GUI_UPDATE_DISH_LIST);
 		this.eventDispatcher.addEventListener(this, EventType.ADMIN_GUI_UPDATE_EXTRA_LIST);
+		this.eventDispatcher.addEventListener(this, EventType.ADMIN_GUI_UPDATE_ORDER_LIST);
 		this.eventDispatcher.addEventListener(this, EventType.ADMIN_GUI_REQUESTED);
 	}
 
@@ -49,6 +57,9 @@ public class AdminGUI_SystemEventHandler implements EventHandler {
 		}
 		else if(event.eventType.equals(EventType.ADMIN_GUI_UPDATE_EXTRA_LIST)){
 			this.updateExtraList(event);
+		}
+		else if(event.eventType.equals(EventType.ADMIN_GUI_UPDATE_ORDER_LIST)){
+			this.updateOrderList(event);
 		}
 		else if(event.eventType.equals(EventType.ADMIN_GUI_REQUESTED)){
 			this.adminGUI.show();
@@ -91,5 +102,23 @@ public class AdminGUI_SystemEventHandler implements EventHandler {
 			tableModel.addRow(new Object[]{d.name, PriceCalculators.getPriceForDish(d) + " kr", d.isActive ? GUIConstants.GUI_TRUE : GUIConstants.GUI_FALSE});
 		}
 	}
+	/**
+	 * updates the list of order in the orderhistory
+	 * @param event
+	 */
+	private void updateOrderList(Event<?> event) {
+		if(!(event.getEventParameterObject() instanceof ArrayList<?>)){
+			System.err.println("ERROR: got a list that was not a list of Order instances when trying to update the order list in the cook GUI.");
+			return;
+		}
+		@SuppressWarnings("unchecked")
+		ArrayList<Order> orderList = (ArrayList<Order>)event.getEventParameterObject();
+		adminGUI.currentOrderList = orderList;
+		DefaultTableModel tableModel = (DefaultTableModel)AdminView.ordersTable.getModel();
+		for(Order o : orderList){
+			System.out.println("addedorder");
+			tableModel.addRow(new Object[]{o.orderID, o.customer.firstName + " " + o.customer.lastName, GUIConstants.translateDeliveryMethod(o.deliveryMethod)});
+		}
+	}
 	
-}//END
+}

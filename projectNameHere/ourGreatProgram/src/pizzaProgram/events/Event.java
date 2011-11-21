@@ -12,10 +12,6 @@ public class Event<EventParamsDataType>
 	 * The data type of the event parameter
 	 */
 	private final EventParamsDataType eventParameter;
-	/**
-	 * Keeps track whether the event will continue to notify listeners. Propagation can be stopped by calling Event.stopPropagation, and requested by Event.isPropagating.
-	 */
-	private boolean isPropagating = true;
 	
 	/**
 	 * A string that represents the event type. The value of the event type should be used should be from the EventType class, for the sake of system-wide consistency.
@@ -63,22 +59,5 @@ public class Event<EventParamsDataType>
 		} else {
 			return false;
 		}
-	}
-	
-	/**
-	 * Forces the event to stop notifying event handlers about the event.
-	 * USE WITH CAUTION! the order at which event handlers are called can never be garuanteed by the system.
-	 */
-	public void stopPropagation()
-	{
-		this.isPropagating = true;
-	}
-	/**
-	 * Returns whether the event is currently propagating
-	 * @return true if the event is propagating
-	 */
-	public boolean isPropagating()
-	{
-		return this.isPropagating;
 	}
 }

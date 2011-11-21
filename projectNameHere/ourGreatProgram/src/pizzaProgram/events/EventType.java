@@ -94,19 +94,26 @@ public class EventType {
 	
 	public static final String ADMIN_GUI_UPDATE_EXTRA_LIST = "adminGUIUpdateExtraList";
 	
+	public static final String ADMIN_GUI_UPDATE_ORDER_LIST = "adminGUIUpdateOrderList";
+	
 	public static final String ADMIN_GUI_REQUESTED = "adminGUIRequested";
 	
 	public static final String DATABASE_UPDATE_ADMINGUI_GUI_SEND_ALL_DISHES = "dupdatesendalldishes";
 	
 	public static final String DATABASE_UPDATE_ADMINGUI_GUI_SEND_ALL_EXTRAS = "dupatesendallextras";
 	
-	public static final String DATABASE_UPDATE_ORDER_GUI_SEARCH_DISHES = "databaseUpdateOrderGUISearchDishes";
-	
-	public static final String DATABASE_UPDATE_ORDER_GUI_SEARCH_EXTRAS = "databaseUpdateOrderGUISearchExtras";
+	public static final String DATABASE_UPDATE_ADMINGUI_GUI_SEND_ALL_ORDERS = "dupatesendallorders";
 	
 	public static final String DATABASE_UPDATE_ADMIN_GUI_SEARCH_DISHES = "databaseUpdateAdminGUISearchDishes";
 	
 	public static final String DATABASE_UPDATE_ADMIN_GUI_SEARCH_EXTRAS = "databaseUpdateAdminGUISearchExtras";
 	
+	public static final String DATABASE_UPDATE_ORDER_GUI_SEARCH_DISHES = "databaseUpdateOrderGUISearchDishes";
+	
+	public static final String DATABASE_UPDATE_ORDER_GUI_SEARCH_EXTRAS = "databaseUpdateOrderGUISearchExtras";
+	
+	
+	
 	public static final String DATABASE_DELETE_CUSTOMER = "databaseDeleteCustomer";
+	
 }

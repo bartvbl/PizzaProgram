@@ -5,16 +5,25 @@ import pizzaProgram.dataObjects.Extra;
 import pizzaProgram.dataObjects.Order;
 import pizzaProgram.dataObjects.OrderDish;
 import pizzaProgram.gui.views.ReceiptWindow;
-
+/**
+ * Generates a receipt from a given Order instance, and shows it inside a window
+ * @author Bart
+ *
+ */
 public class ReceiptGenerator {
-
+	
+	private static int lastReciptRows = 0;
 	/**
 	 * This method takes an order and creates an html-receipt form its data
 	 * 
 	 * @param order
 	 */
 	public static void generateReceiptAndWindow(Order order) {
-		int rows = 6;
+		new ReceiptWindow(generateReceipt(order), lastReciptRows);
+		lastReciptRows = 0;
+	}
+	public static String generateReceipt(Order order) {
+		lastReciptRows = 6;
 		String receiptString = "";
 
 		receiptString += "<html>";
@@ -25,11 +34,11 @@ public class ReceiptGenerator {
 			String dishprice = order.deliveryMethod.equals(Order.DELIVER_AT_HOME) ? PriceCalculators.getPriceForDishDeliver(d.dish) : PriceCalculators.getPriceForDishPickup(d.dish);
 			receiptString += createHeaderRow(d.dish.name, dishprice);
 			
-			rows++;
+			lastReciptRows++;
 			for (Extra e : d.getExtras()) {
 				String extraprice = order.deliveryMethod.equals(Order.DELIVER_AT_HOME) ? PriceCalculators.getPriceForExtraOnDishDeliver(d.dish, e) : PriceCalculators.getPriceForExtraOnDishPickup(d.dish, e);
 				receiptString += createRow("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + e.name, extraprice);
-				rows++;
+				lastReciptRows++;
 			}
 		}
 
@@ -40,8 +49,7 @@ public class ReceiptGenerator {
 		receiptString += createHeaderRow("Totalt",PriceCalculators.getPriceForOrderWithVATAndDelivery(order));
 		receiptString += "</table>";
 		receiptString += "</html>";
-
-		new ReceiptWindow(receiptString, rows);
+		return receiptString;
 	}
 
 	/**

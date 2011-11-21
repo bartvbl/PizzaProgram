@@ -47,6 +47,7 @@ public class Database_ReadEventHandler implements EventHandler {
 		this.eventDispatcher.addEventListener(this, EventType.DATABASE_UPDATE_DELIVERY_GUI_SEARCH_ORDERS);
 		this.eventDispatcher.addEventListener(this, EventType.DATABASE_UPDATE_ADMINGUI_GUI_SEND_ALL_DISHES);
 		this.eventDispatcher.addEventListener(this, EventType.DATABASE_UPDATE_ADMINGUI_GUI_SEND_ALL_EXTRAS);
+		this.eventDispatcher.addEventListener(this, EventType.DATABASE_UPDATE_ADMINGUI_GUI_SEND_ALL_ORDERS);
 		this.eventDispatcher.addEventListener(this, EventType.DATABASE_UPDATE_ORDER_GUI_SEARCH_DISHES);
 		this.eventDispatcher.addEventListener(this, EventType.DATABASE_UPDATE_ORDER_GUI_SEARCH_EXTRAS);
 		this.eventDispatcher.addEventListener(this, EventType.DATABASE_UPDATE_ADMIN_GUI_SEARCH_DISHES);
@@ -87,9 +88,20 @@ public class Database_ReadEventHandler implements EventHandler {
 			this.searchDishesByKeywords(event, EventType.ADMIN_GUI_UPDATE_DISH_LIST);
 		} else if(event.eventType.equals(EventType.DATABASE_UPDATE_ADMIN_GUI_SEARCH_EXTRAS)){
 			this.searchExtrasByKeywords(event, EventType.ADMIN_GUI_UPDATE_EXTRA_LIST);
+		}else if(event.eventType.equals(EventType.DATABASE_UPDATE_ADMINGUI_GUI_SEND_ALL_ORDERS)){
+			this.sendListOfAllDeliverdOrdersToAdminGUI();
 		}
 	}
 
+	
+	private void sendListOfAllDeliverdOrdersToAdminGUI() {
+		ArrayList<Order> orderList = DatabaseReader.getAllDeliveredOrders();
+		if(orderList != null){
+			this.eventDispatcher.dispatchEvent(new Event<ArrayList<Order>>(EventType.ADMIN_GUI_UPDATE_ORDER_LIST, orderList));
+		}
+	}
+	
+	
 	/**
 	 * Handles the event when the GUI requests to search for dishes matching a keyword String
 	 * @param event The event containing a keyword String

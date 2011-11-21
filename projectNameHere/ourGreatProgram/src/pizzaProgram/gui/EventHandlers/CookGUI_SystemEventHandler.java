@@ -12,22 +12,43 @@ import pizzaProgram.events.EventHandler;
 import pizzaProgram.events.EventType;
 import pizzaProgram.gui.CookGUI;
 import pizzaProgram.gui.views.CookView;
-
+/**
+ * Handles all events from the system directed at the cook GUI
+ * @author Bart
+ *
+ */
 public class CookGUI_SystemEventHandler implements EventHandler {
+	/**
+	 * A reference to the system's main event dispatcher
+	 */
 	private EventDispatcher eventDispatcher;
+	/**
+	 * A reference to the cook GUI module
+	 */
 	private CookGUI cookGUI;
 	
+	/**
+	 * Registers all the event listeners at the main event dispatcher that this class handles
+	 * @param eventDispatcher A reference to the system's main event dispatcher
+	 * @param cookGUI A reference to the main cook GUI module
+	 */
 	public CookGUI_SystemEventHandler(EventDispatcher eventDispatcher, CookGUI cookGUI){
 		this.eventDispatcher = eventDispatcher;
 		this.cookGUI = cookGUI;
 		this.addEventListeners();
 	}
 
+	/**
+	 * Adds all event listeners that this class handles
+	 */
 	private void addEventListeners() {
 		this.eventDispatcher.addEventListener(this, EventType.COOK_GUI_UPDATE_ORDER_LIST);
 		this.eventDispatcher.addEventListener(this, EventType.COOK_GUI_REQUESTED);
 	}
 
+	/**
+	 * Handles incoming events and calls the appropiate event handling functions
+	 */
 	@Override
 	public void handleEvent(Event<?> event) {
 		if(event.eventType.equals(EventType.COOK_GUI_UPDATE_ORDER_LIST)){
@@ -35,6 +56,10 @@ public class CookGUI_SystemEventHandler implements EventHandler {
 		}
 	}
 
+	/**
+	 * Updates the order list based on the list of orders attached to the parameter event
+	 * @param event The Event instance, having an ArrayList of Order objects attached to it
+	 */
 	private void updateOrderList(Event<?> event) {
 		if(event.getEventParameterObject() instanceof ArrayList<?>){
 			@SuppressWarnings("unchecked")
