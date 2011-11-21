@@ -151,10 +151,10 @@ public class NewCustomerWindow extends JFrame{
 				}
 	
 				if(type.equals(UPDATE_CUSTOMER)){
-					Customer customer = new Customer(updateCustomer.customerID, updateCustomer.firstName, updateCustomer.lastName, address, postNumber, city, phoneNumber, "");
+					Customer customer = new Customer(updateCustomer.customerID, updateCustomer.firstName, updateCustomer.lastName, address, postNumber, city, phoneNumber);
 					source.updateCustomer(customer);
 				}else if(type.equals(NEW_CUSTOMER)){
-					UnaddedCustomer customer = new UnaddedCustomer(firstName, lastName, address, postNumber, city, phoneNumber, "");
+					UnaddedCustomer customer = new UnaddedCustomer(firstName, lastName, address, postNumber, city, phoneNumber);
 					source.createNewCustomer(customer);
 				}
 					
