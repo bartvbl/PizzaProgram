@@ -16,6 +16,7 @@ import pizzaProgram.core.DatabaseConstants;
 import pizzaProgram.core.GUIConstants;
 import pizzaProgram.dataObjects.Dish;
 import pizzaProgram.dataObjects.Extra;
+import pizzaProgram.dataObjects.Order;
 import pizzaProgram.dataObjects.Setting;
 import pizzaProgram.database.databaseUtils.DataCleaner;
 import pizzaProgram.events.Event;
@@ -23,6 +24,7 @@ import pizzaProgram.events.EventType;
 import pizzaProgram.gui.AdminGUI;
 import pizzaProgram.gui.views.AdminView;
 import pizzaProgram.utils.PriceCalculators;
+import pizzaProgram.utils.ReceiptGenerator;
 
 /**
  * This class hendles events dispatched from the gui-components in AdminWiev
@@ -42,6 +44,11 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 	 */
 	private void addEventListeners(){
 		
+		AdminView.ordersTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent e) {
+				handleOrderSelection(e);
+			}
+		});
 		
 		AdminView.allActiveDishesTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
@@ -113,6 +120,17 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 		});
 	
 	}
+	
+	/**
+	 * called when the user selects an order in the orderhistory
+	 * @param the listSelectionEvent
+	 */
+	private void handleOrderSelection(ListSelectionEvent e) {
+		int indexOfSelectedOrder = ((DefaultListSelectionModel)e.getSource()).getMinSelectionIndex();
+		Order order = adminGUI.currentOrderList.get(indexOfSelectedOrder);
+		AdminView.orderReceiptLabel.setText(ReceiptGenerator.generateReceipt(order));
+	}
+	
 	/**
 	 * called when the user clics reset in the settings-window
 	 * resets all the data in the textfields to their databasevalue
