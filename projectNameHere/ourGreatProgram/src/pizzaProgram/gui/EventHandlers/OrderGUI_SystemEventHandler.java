@@ -20,12 +20,20 @@ import pizzaProgram.gui.views.OrderView;
 import pizzaProgram.utils.PriceCalculators;
 
 /**
- *
+ * Handles all the events coming from the system directed at the Order GUI.
  * @author Bart
  */
 public class OrderGUI_SystemEventHandler implements EventHandler {
+	/**
+	 * A reference to the order GUI main module class
+	 */
 	private OrderGUI orderGUI;
 
+	/**
+	 * Creates a new instance and registers all event listeners at the main event dispatcher.
+	 * @param eventDispatcher The system's main event dispatcher
+	 * @param orderGUI A reference to the order GUI module
+	 */
 	public OrderGUI_SystemEventHandler(EventDispatcher eventDispatcher, OrderGUI orderGUI){
 		this.orderGUI = orderGUI;
 		eventDispatcher.addEventListener(this, EventType.ORDER_GUI_UPDATE_CUSTOMER_LIST);
@@ -33,6 +41,9 @@ public class OrderGUI_SystemEventHandler implements EventHandler {
 		eventDispatcher.addEventListener(this, EventType.ORDER_GUI_UPDATE_EXTRAS_LIST);
 	}
 
+	/**
+	 * Handles an incoming event, and calls the appropiate internal handling function
+	 */
 	public void handleEvent(Event<?> event){
 		if(event.eventType.equals(EventType.ORDER_GUI_UPDATE_CUSTOMER_LIST)){
 			this.updateCustomerList(event);
@@ -45,6 +56,10 @@ public class OrderGUI_SystemEventHandler implements EventHandler {
 		}
 	}
 
+	/**
+	 * Shows the list of Extra instances attached to the event in the Order GUI
+	 * @param event
+	 */
 	private void updateExtrasList(Event<?> event) {
 		if(!(event.getEventParameterObject() instanceof ArrayList<?>)){
 			System.out.println("ERROR: received event containing a wrong data type [order GUI update extras list]");

@@ -16,20 +16,21 @@ import pizzaProgram.gui.views.DeliveryView;
 //import pizzaProgram.utils.OrderPrice;
 //import pizzaProgram.utils.OrderPriceCalculator;
 import pizzaProgram.utils.PriceCalculators;
-
+/**
+ * A class that populates the Delivery GUI.
+ * @author Bart
+ *
+ */
 public class DeliveryGUIUpdater {
-//	private OrderPriceCalculator orderPriceCalculator;
-	
-	public void showOrder(Order order){
-//		this.orderPriceCalculator = new OrderPriceCalculator();
-		this.fillDishTable(order);
-		this.fillOrderPriceLabels(order);
-		this.showComments(order);
-		this.enableMarkButtons(order);
-		this.showMapImage(order);
+	public static void showOrder(Order order){
+		fillDishTable(order);
+		fillOrderPriceLabels(order);
+		showComments(order);
+		enableMarkButtons(order);
+		showMapImage(order);
 	}
 	
-	private void showMapImage(Order order) {
+	private static void showMapImage(Order order) {
 		DeliveryMap map = new DeliveryMap();
 		map.loadImage(order.customer, DeliveryView.mapImagePanel.getWidth(), DeliveryView.mapImagePanel.getHeight());
 		DeliveryView.mapImagePanel.setLayout(new BorderLayout());
@@ -43,7 +44,7 @@ public class DeliveryGUIUpdater {
 		DeliveryView.mapImagePanel.repaint();
 	}
 
-	private void fillDishTable(Order order) {
+	private static void fillDishTable(Order order) {
 //		this.orderPriceCalculator.reset();
 		DefaultTableModel tableModel = (DefaultTableModel)DeliveryView.orderContentsTable.getModel();
 		tableModel.setRowCount(0);
@@ -52,18 +53,18 @@ public class DeliveryGUIUpdater {
 		for(OrderDish dish : dishList){
 //			currentDishPrice = DishPriceCalculator.getPrice(dish);
 //			this.orderPriceCalculator.addDishToTotalPrice(currentDishPrice);
-			tableModel.addRow(new Object[]{dish.dish.name, this.generateExtrasString(dish.getExtras()), PriceCalculators.getPriceForOrderDish(dish)});
+			tableModel.addRow(new Object[]{dish.dish.name, generateExtrasString(dish.getExtras()), PriceCalculators.getPriceForOrderDish(dish)});
 		}
 	}
 
-	private void fillOrderPriceLabels(Order o) {
+	private static void fillOrderPriceLabels(Order o) {
 //		OrderPrice orderPrice = this.orderPriceCalculator.getTotalOrderPrice();
 		DeliveryView.orderCostDeliveryCost.setText(PriceCalculators.getDeliveryCostForOrder(o));
 		DeliveryView.orderCostOrderPrice.setText(PriceCalculators.getPriceForOrderWithVAT(o));
 		DeliveryView.orderCostTotalCost.setText(PriceCalculators.getPriceForOrderWithVATAndDelivery(o));
 	}
 
-	private void showComments(Order order) {
+	private static void showComments(Order order) {
 		DeliveryView.orderCommentsTextArea.setText(order.comment);
 		String customerAddress = new String();
 		Customer customer = order.customer;
@@ -74,7 +75,7 @@ public class DeliveryGUIUpdater {
 		DeliveryView.orderAddressTextArea.setText(customerAddress);
 	}
 	
-	private void enableMarkButtons(Order order){
+	private static void enableMarkButtons(Order order){
 		DeliveryView.showReceiptButton.setEnabled(true);
 		
 		if(order.status.equals(Order.HAS_BEEN_COOKED) && order.deliveryMethod.equals(Order.DELIVER_AT_HOME)){
@@ -92,7 +93,7 @@ public class DeliveryGUIUpdater {
 		}
 	}
 
-	private String generateExtrasString(ArrayList<Extra> extras) {
+	private static String generateExtrasString(ArrayList<Extra> extras) {
 		String output = "";
 		int counter = 0;
 		for(Extra extra : extras){

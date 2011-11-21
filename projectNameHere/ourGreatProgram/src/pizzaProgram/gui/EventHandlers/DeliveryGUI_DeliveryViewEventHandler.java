@@ -22,14 +22,12 @@ import pizzaProgram.utils.ReceiptGenerator;
 public class DeliveryGUI_DeliveryViewEventHandler extends ComponentEventHandler implements ActionListener  {
 
 	private DeliverGUI deliveryGUI;
-	private DeliveryGUIUpdater guiUpdater;
 
 	public DeliveryGUI_DeliveryViewEventHandler(DeliverGUI deliveryGUI) {
 		super(deliveryGUI);
 		this.deliveryGUI = deliveryGUI;
 		this.resetUI();
 		this.addEventListeners();
-		this.guiUpdater = new DeliveryGUIUpdater();
 	}
 
 	private void addEventListeners() {
@@ -104,7 +102,7 @@ public class DeliveryGUI_DeliveryViewEventHandler extends ComponentEventHandler 
 		DeliveryView.activeOrdersTable.getSelectionModel().setLeadSelectionIndex(selectedIndex);
 		Order order = this.deliveryGUI.currentOrderList.get(selectedIndex);
 		this.deliveryGUI.currentOrder = order;
-		this.guiUpdater.showOrder(order);
+		DeliveryGUIUpdater.showOrder(order);
 	}
 
 	private void markOrderAsDelivered(){
@@ -126,7 +124,7 @@ public class DeliveryGUI_DeliveryViewEventHandler extends ComponentEventHandler 
 		if(order == null){
 			return;
 		}
-		this.guiUpdater.showOrder(order);
+		DeliveryGUIUpdater.showOrder(order);
 		this.deliveryGUI.currentOrder = order;
 	}
 

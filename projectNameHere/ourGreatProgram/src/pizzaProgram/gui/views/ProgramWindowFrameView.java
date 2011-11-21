@@ -12,10 +12,14 @@ import org.jdesktop.application.SingleFrameApplication;
 import pizzaProgram.core.PizzaProgram;
 
 /**
- * The application's main frame.
+ * The application's main frame view.
  */
 public class ProgramWindowFrameView extends FrameView {
 
+	/**
+	 * Creates the program's main window, and populates it with a menu bar.
+	 * @param app
+	 */
     public ProgramWindowFrameView(SingleFrameApplication app) {
         super(app);
         initComponents();
