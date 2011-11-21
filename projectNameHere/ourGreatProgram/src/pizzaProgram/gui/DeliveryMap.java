@@ -1,7 +1,6 @@
 package pizzaProgram.gui;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -13,6 +12,10 @@ import javax.swing.JPanel;
 
 import pizzaProgram.dataObjects.Customer;
 
+/**
+ * this class is a jpanel that can display a map with a customers adress
+ * to display the map, call the loadImage(Customer) - method
+ */
 @SuppressWarnings("serial")
 public class DeliveryMap extends JPanel {
 
@@ -22,19 +25,26 @@ public class DeliveryMap extends JPanel {
 	
 	private final int googleMaxWidthAndHeight = 640;
 	
+	/**
+	 * does nothing exept from setting the backgroundcolor
+	 */
 	public DeliveryMap() {
 		setBackground(Color.white);
-		setPreferredSize(new Dimension());
 	}
 
+	/**
+	 * paints the current map on this component
+	 */
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
 		g.drawImage(kart, 0, 0, drawWidth, drawHeight, null);
 	}
 
+	/**
+	 * this is the adress of the restaurant
+	 */
 	private String address() {
-		//hjemmeadressen til restauranten
 		String adr = "sem sælandsvei 2,trondheim,no";
 		return adr;
 	}
@@ -56,12 +66,7 @@ public class DeliveryMap extends JPanel {
 		s = s.replace("å", "%C3%A5");
 		return s;
 	}
-
-	public void emergencyResize(int width, int height){
-		drawWidth = width;
-		drawHeight = height;
-	}
-
+	
 	/**
 	 * Loads an image into the mapdisplayarea, the width and height parameter 
 	 * specifies how much space is awailable for the map

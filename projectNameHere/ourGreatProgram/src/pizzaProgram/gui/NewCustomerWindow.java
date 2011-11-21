@@ -10,12 +10,12 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
 import pizzaProgram.core.GUIConstants;
 import pizzaProgram.dataObjects.Customer;
 import pizzaProgram.dataObjects.UnaddedCustomer;
 import pizzaProgram.database.databaseUtils.DataCleaner;
+
 
 @SuppressWarnings("serial")
 public class NewCustomerWindow extends JFrame{
@@ -26,7 +26,6 @@ public class NewCustomerWindow extends JFrame{
 	private TextField fyllpostnr;
 	private TextField fyllpoststed;
 	private TextField fylltlf;
-	private JFrame denne;
 
 	public static final String NEW_CUSTOMER = "new";
 	public static final String UPDATE_CUSTOMER = "update";
@@ -41,7 +40,7 @@ public class NewCustomerWindow extends JFrame{
 		this.updateCustomer = c;
 		this.setLayout(new GridBagLayout());
 		this.setMinimumSize(new Dimension(220, 200));
-		this.setLocation(100, 100);
+		this.setLocationRelativeTo(null);
 		this.setResizable(false);
 
 		Label fornavn = new Label("Fornavn:");
@@ -118,9 +117,12 @@ public class NewCustomerWindow extends JFrame{
 				postNumber = DataCleaner.cleanDbData(fyllpostnr.getText());
 
 				try{
+					if(fyllpostnr.getText().length() != 4){
+						throw new NumberFormatException();
+					}
 					Integer.parseInt(fyllpostnr.getText());
 				}catch(NumberFormatException ex){
-					GUIConstants.showErrorMessage("Postnummer må være et tall!");
+					GUIConstants.showErrorMessage("Postnummer må være et tall med fire siffer!");
 					return;
 				}
 
@@ -140,7 +142,7 @@ public class NewCustomerWindow extends JFrame{
 					return;
 				}
 				if(address.isEmpty()){
-					GUIConstants.showErrorMessage("Adressen kan ikke være tomt!");
+					GUIConstants.showErrorMessage("Adressen kan ikke være tom!");
 					return;
 				}
 				if(city.isEmpty()){
