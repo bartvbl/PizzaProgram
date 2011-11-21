@@ -347,6 +347,11 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler
 	 * Confirms the current order and sends it to the database. It resets the UI afterwards. Handles a user click on the "Confirm order" button.
 	 */
 	private void confirmOrder() {
+		int indexFromOtherSource = OrderView.customerList.getSelectedIndex();
+		Customer customer = this.orderGUI.currentCustomerList.get(indexFromOtherSource);
+		currentSelecetedCustomer = customer;
+		
+		this.temporaryOrderData.setCustomer(customer);
 		this.temporaryOrderData.setOrderComments(OrderView.orderCommentsTextArea.getText());
 
 		String selectedDeliveryMethod = (String) OrderView.deliveryMethodComboBox.getSelectedItem();
