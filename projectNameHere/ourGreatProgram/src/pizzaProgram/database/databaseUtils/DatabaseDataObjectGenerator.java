@@ -187,12 +187,17 @@ public class DatabaseDataObjectGenerator {
 	}
 
 	/**
-	 * Creates a Customer from the ResultSet inserted, given that the ResultSet contains a join of the Customers and CustomerNotes tables.
-	 * @param resultSet The ResultSet containing columns from the Customer and CustomerNotes tables
+	 * Creates a Customer from the ResultSet inserted, given that the ResultSet
+	 * contains a row from the Customers table.
+	 * 
+	 * @param resultSet
+	 *            The ResultSet containing columns from the Customer table
 	 * @return a Customer data object
-	 * @throws SQLException any error raised while reading data from the database
+	 * @throws SQLException
+	 *             any error raised while reading data from the database
 	 */
-	private static Customer createCustomer(ResultSet resultSet) throws SQLException {
+	private static Customer createCustomer(ResultSet resultSet)
+			throws SQLException {
 		int customerID = resultSet.getInt(resultSet
 				.findColumn(DatabaseConstants.CUSTOMER_ID));
 		String firstName = resultSet.getString(resultSet
@@ -214,9 +219,13 @@ public class DatabaseDataObjectGenerator {
 
 	/**
 	 * Creates a Dish data object from a given resultSet
-	 * @param resultSet The ResultSet, containing all columns from the Dishes table, from which the Dish object should be created
+	 * 
+	 * @param resultSet
+	 *            The ResultSet, containing all columns from the Dishes table,
+	 *            from which the Dish object should be created
 	 * @return The resulting DIsh instance from the current row in the ResultSet
-	 * @throws SQLException Any error raised while reading the data from the ResultSet
+	 * @throws SQLException
+	 *             Any error raised while reading the data from the ResultSet
 	 */
 	private static Dish createDish(ResultSet resultSet) throws SQLException {
 		int dishID = resultSet.getInt(resultSet
@@ -246,9 +255,13 @@ public class DatabaseDataObjectGenerator {
 
 	/**
 	 * Creates an Extra object from a given ResultSet
-	 * @param resultSet A ResultSet instance containing the Extras table
-	 * @return An Extra instance containing the Extra that was at the current row of the database
-	 * @throws SQLException Any error raised while reading the data from the ResultSet
+	 * 
+	 * @param resultSet
+	 *            A ResultSet instance containing the Extras table
+	 * @return An Extra instance containing the Extra that was at the current
+	 *         row of the database
+	 * @throws SQLException
+	 *             Any error raised while reading the data from the ResultSet
 	 */
 	private static Extra createExtra(ResultSet resultSet) throws SQLException {
 		int extrasID = resultSet.getInt(resultSet
@@ -262,13 +275,19 @@ public class DatabaseDataObjectGenerator {
 		Extra extra = new Extra(extrasID, name, price, isActive);
 		return extra;
 	}
-	
+
 	/**
 	 * Creates an Order data object from a given ResultSet and Customer instance
-	 * @param resultSet The resultSet to get the data from. The ResultSet must contain a join of the Orders and OrdersComments tables.
-	 * @param customer The customer that has ordered the order in the resultSet.
-	 * @return An instance of Order, containing the data at the current row of the resultSet
-	 * @throws SQLException Any error raised while reading the data from the resultSet
+	 * 
+	 * @param resultSet
+	 *            The resultSet to get the data from. The ResultSet must contain
+	 *            a join of the Orders and OrdersComments tables.
+	 * @param customer
+	 *            The customer that has ordered the order in the resultSet.
+	 * @return An instance of Order, containing the data at the current row of
+	 *         the resultSet
+	 * @throws SQLException
+	 *             Any error raised while reading the data from the resultSet
 	 */
 	private static Order createOrder(ResultSet resultSet, Customer customer)
 			throws SQLException {
@@ -289,9 +308,15 @@ public class DatabaseDataObjectGenerator {
 
 	/**
 	 * Creates a Setting instance from the entered ResultSet.
-	 * @param results The resultSet that should be converted, which must contain all columns of the Config table
-	 * @return A Setting instance representing the setting of the current row of the ResultSet
-	 * @throws SQLException throws an exception if an error is raised while reading the data
+	 * 
+	 * @param results
+	 *            The resultSet that should be converted, which must contain all
+	 *            columns of the Config table
+	 * @return A Setting instance representing the setting of the current row of
+	 *         the ResultSet
+	 * @throws SQLException
+	 *             throws an exception if an error is raised while reading the
+	 *             data
 	 */
 	public static Setting createSetting(ResultSet results) throws SQLException {
 		String configKey = results.getString(results
