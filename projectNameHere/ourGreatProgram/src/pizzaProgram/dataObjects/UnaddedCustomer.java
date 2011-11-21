@@ -16,9 +16,8 @@ public class UnaddedCustomer extends Customer {
 	 * @param comment Any comments regarding this customer
 	 */
 	public UnaddedCustomer(String firstName, String lastName,
-			String address, String postalCode, String city, int phoneNumber,
-			String comment) {
-		super(-1, firstName, lastName, address, postalCode, city, phoneNumber, comment);
+			String address, String postalCode, String city, int phoneNumber) {
+		super(-1, firstName, lastName, address, postalCode, city, phoneNumber);
 	}
 
 }

@@ -23,7 +23,7 @@ public class DatabaseReader {
 	 * @return An arrayList containing Customer instances, ech representing a row in the database
 	 */
 	public static ArrayList<Customer> getAllCustomers(){
-		ResultSet results = DatabaseConnection.fetchData("SELECT * FROM Customer LEFT JOIN CustomerNotes ON ( Customer.commentID = CustomerNotes.NoteID );");
+		ResultSet results = DatabaseConnection.fetchData("SELECT * FROM Customer;");
 		ArrayList<Customer> customerList = new ArrayList<Customer>();
 		try {
 			customerList = DatabaseDataObjectGenerator.generateCustomerList(results);

@@ -207,10 +207,8 @@ public class DatabaseDataObjectGenerator {
 				.findColumn(DatabaseConstants.CITY));
 		int phoneNumber = resultSet.getInt(resultSet
 				.findColumn(DatabaseConstants.PHONE_NUMBER));
-		String comment = resultSet.getString(resultSet
-				.findColumn(DatabaseConstants.CUSTOMER_NOTE));
 		Customer customer = new Customer(customerID, firstName, lastName,
-				address, postalCode, city, phoneNumber, comment);
+				address, postalCode, city, phoneNumber);
 		return customer;
 	}
 

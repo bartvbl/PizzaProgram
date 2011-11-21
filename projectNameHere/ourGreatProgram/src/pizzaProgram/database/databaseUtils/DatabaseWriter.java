@@ -14,57 +14,91 @@ import pizzaProgram.dataObjects.Setting;
 import pizzaProgram.dataObjects.UnaddedCustomer;
 import pizzaProgram.dataObjects.UnaddedOrder;
 import pizzaProgram.database.DatabaseConnection;
+
 /**
  * A class that writes or updates the database
+ * 
  * @author Bart
- *
+ * 
  */
 public class DatabaseWriter {
 	/**
-	 * Updates the status of the order entered from "registered" to "being cooked", if and only if the status of the order is still "registered". 
-	 * @param order The Order instance representing the order that should be updated (by order ID)
+	 * Updates the status of the order entered from "registered" to
+	 * "being cooked", if and only if the status of the order is still
+	 * "registered".
+	 * 
+	 * @param order
+	 *            The Order instance representing the order that should be
+	 *            updated (by order ID)
 	 */
 	public static void markOrderAsInProgress(Order order) {
-		updateOrderStatusIfStatusMatchesCurrentStatus(order, Order.REGISTERED,Order.BEING_COOKED);
+		updateOrderStatusIfStatusMatchesCurrentStatus(order, Order.REGISTERED,
+				Order.BEING_COOKED);
 	}
+
 	/**
-	 * Updates the status of the order entered from "being cooked" to "has been cooked", if and only if the status of the order is still "being cooked". 
-	 * @param order The Order instance representing the order that should be updated (by order ID)
+	 * Updates the status of the order entered from "being cooked" to
+	 * "has been cooked", if and only if the status of the order is still
+	 * "being cooked".
+	 * 
+	 * @param order
+	 *            The Order instance representing the order that should be
+	 *            updated (by order ID)
 	 */
 	public static void markOrderAsFinishedCooking(Order order) {
-		updateOrderStatusIfStatusMatchesCurrentStatus(order,Order.BEING_COOKED, Order.HAS_BEEN_COOKED);
+		updateOrderStatusIfStatusMatchesCurrentStatus(order,
+				Order.BEING_COOKED, Order.HAS_BEEN_COOKED);
 	}
+
 	/**
-	 * Updates the status of the order entered from "has been cooked" to "being delivered", if and only if the status of the order is still "has been cooked" and the order's delivery method is "deliver at home". 
-	 * @param order The Order instance representing the order that should be updated (by order ID)
+	 * Updates the status of the order entered from "has been cooked" to
+	 * "being delivered", if and only if the status of the order is still
+	 * "has been cooked" and the order's delivery method is "deliver at home".
+	 * 
+	 * @param order
+	 *            The Order instance representing the order that should be
+	 *            updated (by order ID)
 	 */
 	public static void markOrderAsBeingDelivered(Order order) {
 		if (order.deliveryMethod.equals(Order.DELIVER_AT_HOME)) {
-			updateOrderStatusIfStatusMatchesCurrentStatus(order,Order.HAS_BEEN_COOKED, Order.BEING_DELIVERED);
+			updateOrderStatusIfStatusMatchesCurrentStatus(order,
+					Order.HAS_BEEN_COOKED, Order.BEING_DELIVERED);
 		} else {
 			GUIConstants.showErrorMessage("Orderen har en ugyldig status!");
 		}
 	}
+
 	/**
-	 * Updates the status of the order entered from "being delivered" to "delivered", if the delivery method is "deliver at home", or from "has been cooked" to "delivered" when the delivery method is "pickup at restaurant. In both cases it will verify first that the order status is still valid before applying the update. 
-	 * @param order The Order instance representing the order that should be updated (by order ID)
+	 * Updates the status of the order entered from "being delivered" to
+	 * "delivered", if the delivery method is "deliver at home", or from
+	 * "has been cooked" to "delivered" when the delivery method is "pickup at
+	 * restaurant. In both cases it will verify first that the order status is
+	 * still valid before applying the update.
+	 * 
+	 * @param order
+	 *            The Order instance representing the order that should be
+	 *            updated (by order ID)
 	 */
 	public static void markOrderAsDelivered(Order order) {
 		if (order.deliveryMethod.equals(Order.DELIVER_AT_HOME)) {
-			updateOrderStatusIfStatusMatchesCurrentStatus(order,Order.BEING_DELIVERED, Order.DELIVERED);
+			updateOrderStatusIfStatusMatchesCurrentStatus(order,
+					Order.BEING_DELIVERED, Order.DELIVERED);
 		} else if (order.deliveryMethod.equals(Order.PICKUP_AT_RESTAURANT)) {
-			updateOrderStatusIfStatusMatchesCurrentStatus(order,Order.HAS_BEEN_COOKED, Order.DELIVERED);
+			updateOrderStatusIfStatusMatchesCurrentStatus(order,
+					Order.HAS_BEEN_COOKED, Order.DELIVERED);
 		}
 	}
 
 	/**
 	 * Writes a new order to the database, specified by the parameter
-	 * @param order The order to be created.
+	 * 
+	 * @param order
+	 *            The order to be created.
 	 */
 	public static void writeNewOrder(UnaddedOrder order) {
 		try {
 			int commentID = -1;
-			if (order.comment != "") {
+			if (order.comment != null && !order.comment.equals("")) {
 				commentID = createOrderComment(order.comment);
 			}
 			int orderID = createNewOrder(order, commentID);
@@ -80,19 +114,19 @@ public class DatabaseWriter {
 
 	/**
 	 * Adds a new customer to the database, specified by the parameter
-	 * @param customer The new customer to be added to the database
+	 * 
+	 * @param customer
+	 *            The new customer to be added to the database
 	 */
 	public static void writeNewCustomer(UnaddedCustomer customer) {
-		int commentID;
 		try {
-			commentID = createCustomerNote(customer.comment);
-			DatabaseConnection.executeWriteQuery("INSERT INTO Customer VALUES (NULL, '"
+			DatabaseConnection
+					.executeWriteQuery("INSERT INTO Customer VALUES (NULL, '"
 							+ customer.firstName + "', '" + customer.lastName
 							+ "', '" + customer.address + "', "
 							+ customer.postalCode + ", '" + customer.city
-							+ "', " + customer.phoneNumber + ", " + commentID
-							+ ", '" + createCustomerIdentifier(customer)
-							+ "');");
+							+ "', " + customer.phoneNumber + ", '"
+							+ createCustomerIdentifier(customer) + "');");
 			GUIConstants.showConfirmMessage("Kunde lagt til");
 		} catch (SQLException e) {
 			GUIConstants.showErrorMessage("Kunne ikke legge til kunde!");
@@ -101,19 +135,22 @@ public class DatabaseWriter {
 	}
 
 	/**
-	 * Updates a customer with the values of the Customer object, specified by the customer ID of the input object
-	 * @param customer The Customer instance representing the customer to be updated in the database
+	 * Updates a customer with the values of the Customer object, specified by
+	 * the customer ID of the input object
+	 * 
+	 * @param customer
+	 *            The Customer instance representing the customer to be updated
+	 *            in the database
 	 */
 	public static void updateCustomerById(Customer customer) {
-		int commentID;
 		try {
-			commentID = createCustomerNote(customer.comment);
-			DatabaseConnection.executeWriteQuery("REPLACE INTO Customer VALUES ("
+			DatabaseConnection
+					.executeWriteQuery("REPLACE INTO Customer VALUES ("
 							+ customer.customerID + ", '" + customer.firstName
 							+ "', '" + customer.lastName + "', '"
 							+ customer.address + "', " + customer.postalCode
 							+ ", '" + customer.city + "', "
-							+ customer.phoneNumber + ", " + commentID + ", '"
+							+ customer.phoneNumber + ", '"
 							+ createCustomerIdentifier(customer) + "');");
 			GUIConstants.showConfirmMessage("Kundedata endret");
 		} catch (SQLException e) {
@@ -124,16 +161,19 @@ public class DatabaseWriter {
 
 	/**
 	 * Inserts a new dish into the database
-	 * @param dish The Dish to be created
+	 * 
+	 * @param dish
+	 *            The Dish to be created
 	 */
 	public static void writeNewDish(Dish dish) {
 		try {
-			DatabaseConnection.executeWriteQuery("INSERT INTO Dishes VALUES (NULL, "
+			DatabaseConnection
+					.executeWriteQuery("INSERT INTO Dishes VALUES (NULL, "
 							+ dish.price + ", '" + dish.name + "', "
-							+ dish.containsGluten + ", " + dish.containsNuts + ", "
-							+ dish.containsDairy + ", " + dish.isSpicy + ", "
-							+ dish.isVegetarian + ", '" + dish.description + "', "
-							+ dish.isActive + ");");
+							+ dish.containsGluten + ", " + dish.containsNuts
+							+ ", " + dish.containsDairy + ", " + dish.isSpicy
+							+ ", " + dish.isVegetarian + ", '"
+							+ dish.description + "', " + dish.isActive + ");");
 			GUIConstants.showConfirmMessage("Rett lagt til");
 		} catch (SQLException e) {
 			GUIConstants.showErrorMessage("Kunne ikke legge til rett!");
@@ -142,16 +182,21 @@ public class DatabaseWriter {
 	}
 
 	/**
-	 * Updates the dish in the database, specified by the ID of the dish object, and whose updated values are represented by the fields in the dish object.
-	 * @param dish The dish to be updated
+	 * Updates the dish in the database, specified by the ID of the dish object,
+	 * and whose updated values are represented by the fields in the dish
+	 * object.
+	 * 
+	 * @param dish
+	 *            The dish to be updated
 	 */
 	public static void updateDishByDishID(Dish dish) {
 		try {
 			DatabaseConnection.executeWriteQuery("UPDATE Dishes SET Price="
 					+ dish.price + ", Name='" + dish.name
-					+ "', ContainsGluten=" + dish.containsGluten + ", ContainsNuts="
-					+ dish.containsNuts + ", ContainsDairy=" + dish.containsDairy
-					+ ", IsSpicy=" + dish.isSpicy + ", IsVegetarian=" + dish.isVegetarian
+					+ "', ContainsGluten=" + dish.containsGluten
+					+ ", ContainsNuts=" + dish.containsNuts
+					+ ", ContainsDairy=" + dish.containsDairy + ", IsSpicy="
+					+ dish.isSpicy + ", IsVegetarian=" + dish.isVegetarian
 					+ ", Description='" + dish.description + "', IsActive="
 					+ dish.isActive + " WHERE DishID=" + dish.dishID + ";");
 			GUIConstants.showConfirmMessage("Rett endret");
@@ -163,7 +208,9 @@ public class DatabaseWriter {
 
 	/**
 	 * Updates the extra in the database specified by the Extra object's ID
-	 * @param extra the extra to update in the database
+	 * 
+	 * @param extra
+	 *            the extra to update in the database
 	 */
 	public static void updateExtraByExtraID(Extra extra) {
 		try {
@@ -179,8 +226,11 @@ public class DatabaseWriter {
 	}
 
 	/**
-	 * Inserts a new extra into the database, whose values correspond to the fields in the inserted Extra instance
-	 * @param extra the extra to be created
+	 * Inserts a new extra into the database, whose values correspond to the
+	 * fields in the inserted Extra instance
+	 * 
+	 * @param extra
+	 *            the extra to be created
 	 */
 	public static void writeNewExtra(Extra extra) {
 		String price = extra.priceFuncPart + "" + extra.priceValPart;
@@ -197,8 +247,11 @@ public class DatabaseWriter {
 	}
 
 	/**
-	 * Updates the config value in the database specified by the Setting instance's key, and sets it to the Setting instance's value.
-	 * @param setting The setting to be updated
+	 * Updates the config value in the database specified by the Setting
+	 * instance's key, and sets it to the Setting instance's value.
+	 * 
+	 * @param setting
+	 *            The setting to be updated
 	 */
 	public static void updateConfigValue(Setting setting) {
 		try {
@@ -213,10 +266,18 @@ public class DatabaseWriter {
 	}
 
 	/**
-	 * A general function that updates the order status of an order. It will only update the order if and only if the current order status matches the currentStatus parameter, and will then set it to the newStatus status. It meanwhile locks all the tables in the database to make sure that the order is not updated while the process is still going on.
-	 * @param order The order to be updated
-	 * @param currentStatus The order status that the order should currently have
-	 * @param newStatus The order status that the order should be updated to
+	 * A general function that updates the order status of an order. It will
+	 * only update the order if and only if the current order status matches the
+	 * currentStatus parameter, and will then set it to the newStatus status. It
+	 * meanwhile locks all the tables in the database to make sure that the
+	 * order is not updated while the process is still going on.
+	 * 
+	 * @param order
+	 *            The order to be updated
+	 * @param currentStatus
+	 *            The order status that the order should currently have
+	 * @param newStatus
+	 *            The order status that the order should be updated to
 	 */
 	private static void updateOrderStatusIfStatusMatchesCurrentStatus(
 			Order order, String currentStatus, String newStatus) {
@@ -228,7 +289,8 @@ public class DatabaseWriter {
 				unlockTables();
 			} else {
 				unlockTables();
-				GUIConstants.showConfirmMessage("Kunne ikke endre ordrestatus: uforventet ordrestatus");
+				GUIConstants
+						.showConfirmMessage("Kunne ikke endre ordrestatus: uforventet ordrestatus");
 			}
 		} catch (SQLException e) {
 			GUIConstants.showConfirmMessage("Kunne ikke endre ordrestatus");
@@ -239,12 +301,17 @@ public class DatabaseWriter {
 	}
 
 	/**
-	 * Returns a String representing the current status of an order, specified by the order's order ID
-	 * @param orderID the ID of the order that should be retrieved
+	 * Returns a String representing the current status of an order, specified
+	 * by the order's order ID
+	 * 
+	 * @param orderID
+	 *            the ID of the order that should be retrieved
 	 * @return A String representing an enum value of the status of the order
-	 * @throws SQLException Any error raised while retrieving data from the database
+	 * @throws SQLException
+	 *             Any error raised while retrieving data from the database
 	 */
-	private static String getCurrentStatusOfOrder(int orderID) throws SQLException {
+	private static String getCurrentStatusOfOrder(int orderID)
+			throws SQLException {
 		String query = "SELECT OrdersStatus FROM Orders AS OrdersRead WHERE OrdersID="
 				+ orderID + ";";
 		ResultSet results = DatabaseConnection.fetchData(query);
@@ -254,22 +321,32 @@ public class DatabaseWriter {
 	}
 
 	/**
-	 * Updates the status of the order specified by the order ID to a new status specified by the new status string parameter
-	 * @param status The new status of the of the order
-	 * @param orderID the order to be updated
-	 * @throws SQLException Any error raised while retrieving the data from the database
+	 * Updates the status of the order specified by the order ID to a new status
+	 * specified by the new status string parameter
+	 * 
+	 * @param status
+	 *            The new status of the of the order
+	 * @param orderID
+	 *            the order to be updated
+	 * @throws SQLException
+	 *             Any error raised while retrieving the data from the database
 	 */
-	private static void updateOrderStatus(String status, int orderID) throws SQLException {
+	private static void updateOrderStatus(String status, int orderID)
+			throws SQLException {
 		DatabaseConnection.executeWriteQuery("UPDATE Orders SET OrdersStatus='"
 				+ status + "' WHERE OrdersID=" + orderID + ";");
 	}
 
 	/**
-	 * Locks the Orders table for READ and WRITE, so that the order status can be safely updated without any concurrency conflicts
-	 * @throws SQLException Any error raised while locking the tables
+	 * Locks the Orders table for READ and WRITE, so that the order status can
+	 * be safely updated without any concurrency conflicts
+	 * 
+	 * @throws SQLException
+	 *             Any error raised while locking the tables
 	 */
 	private static void lockTablesForUpdatingOrderStatus() throws SQLException {
-		DatabaseConnection.executeWriteQuery("LOCK TABLES Orders WRITE, Orders AS OrdersRead READ;");
+		DatabaseConnection
+				.executeWriteQuery("LOCK TABLES Orders WRITE, Orders AS OrdersRead READ;");
 	}
 
 	/**
@@ -281,9 +358,14 @@ public class DatabaseWriter {
 
 	/**
 	 * Writes all the dishes that the order contains to the database
-	 * @param order The unadded order containing the dishes to be added
-	 * @param orderID The ID of the new order created in the database
-	 * @throws SQLException Any error raised in the process of adding dishes to the database
+	 * 
+	 * @param order
+	 *            The unadded order containing the dishes to be added
+	 * @param orderID
+	 *            The ID of the new order created in the database
+	 * @throws SQLException
+	 *             Any error raised in the process of adding dishes to the
+	 *             database
 	 */
 	private static void addDishesToOrder(UnaddedOrder order, int orderID)
 			throws SQLException {
@@ -293,13 +375,22 @@ public class DatabaseWriter {
 	}
 
 	/**
-	 * Inserts a link in the database between the new order being added and the specified dish
-	 * @param dish The dish to be linked to the specified order in the database
-	 * @param orderID The order ID to be linked to the specified fish
-	 * @throws SQLException Any error raised while inserting data into the database
+	 * Inserts a link in the database between the new order being added and the
+	 * specified dish
+	 * 
+	 * @param dish
+	 *            The dish to be linked to the specified order in the database
+	 * @param orderID
+	 *            The order ID to be linked to the specified fish
+	 * @throws SQLException
+	 *             Any error raised while inserting data into the database
 	 */
-	private static void addDishToOrder(OrderDish dish, int orderID)throws SQLException {
-		int orderContentsID = DatabaseConnection.insertIntoDBAndReturnID("INSERT INTO " +"OrdersContents VALUES (NULL, "+ orderID + ", " + dish.dish.dishID + ");");
+	private static void addDishToOrder(OrderDish dish, int orderID)
+			throws SQLException {
+		int orderContentsID = DatabaseConnection
+				.insertIntoDBAndReturnID("INSERT INTO "
+						+ "OrdersContents VALUES (NULL, " + orderID + ", "
+						+ dish.dish.dishID + ");");
 		if (orderContentsID == -1) {
 			return;
 		}
@@ -310,32 +401,47 @@ public class DatabaseWriter {
 
 	/**
 	 * Adds an extra to the current order
-	 * @param orderContentsID The order contents ID of the new order
-	 * @param extra the extra to be linked to the current new order
+	 * 
+	 * @param orderContentsID
+	 *            The order contents ID of the new order
+	 * @param extra
+	 *            the extra to be linked to the current new order
 	 */
 	private static void addExtraToOrder(int orderContentsID, Extra extra) {
-		DatabaseConnection.insertIntoDB("INSERT INTO DishExtrasChosen VALUES (" + orderContentsID + ", " + extra.id + ")");
+		DatabaseConnection.insertIntoDB("INSERT INTO DishExtrasChosen VALUES ("
+				+ orderContentsID + ", " + extra.id + ")");
 	}
 
 	/**
 	 * Inserts a comment about the new order into the database
-	 * @param comment the comment to be insterted
+	 * 
+	 * @param comment
+	 *            the comment to be insterted
 	 * @return The ID representing the comment in the database
-	 * @throws SQLException Any error raised while inserting the comment into the database
+	 * @throws SQLException
+	 *             Any error raised while inserting the comment into the
+	 *             database
 	 */
 	private static int createOrderComment(String comment) throws SQLException {
-		int commentID = DatabaseConnection.insertIntoDBAndReturnID("INSERT INTO OrderComments VALUES (NULL, '" + comment + "');");
+		int commentID = DatabaseConnection
+				.insertIntoDBAndReturnID("INSERT INTO OrderComments VALUES (NULL, '"
+						+ comment + "');");
 		return commentID;
 	}
 
 	/**
 	 * Creates a new order in the orders table in the database
-	 * @param order the unadded order that should be inserted into the database
-	 * @param commentID the ID of a comment about the order
+	 * 
+	 * @param order
+	 *            the unadded order that should be inserted into the database
+	 * @param commentID
+	 *            the ID of a comment about the order
 	 * @return the ID of the created order
-	 * @throws SQLException Any error raised while adding the new order.
+	 * @throws SQLException
+	 *             Any error raised while adding the new order.
 	 */
-	private static int createNewOrder(UnaddedOrder order, int commentID) throws SQLException {
+	private static int createNewOrder(UnaddedOrder order, int commentID)
+			throws SQLException {
 		int orderID = DatabaseConnection
 				.insertIntoDBAndReturnID("INSERT INTO Orders VALUES (NULL, "
 						+ order.customer.customerID + ", NOW(), '"
@@ -345,30 +451,28 @@ public class DatabaseWriter {
 	}
 
 	/**
-	 * Inserts a customer note into the database, and returns the ocmment's database ID
-	 * @param comment The comment to be inserted into the database
-	 * @return the ID of the created customer note
-	 * @throws SQLException any error raised while adding the note into the database
-	 */
-	private static int createCustomerNote(String comment) throws SQLException {
-		return DatabaseConnection.insertIntoDBAndReturnID("INSERT INTO OrderComments VALUES (NULL, '"+ comment + "');");
-	}
-
-	/**
 	 * Generates a string representing the customer in the database
-	 * @param customer The customer that the identifier should be generated for
+	 * 
+	 * @param customer
+	 *            The customer that the identifier should be generated for
 	 * @return A string representing the inserted customer
 	 */
 	public static String createCustomerIdentifier(Customer customer) {
-		return customer.firstName.toLowerCase()+ customer.lastName.toLowerCase() + customer.phoneNumber;
+		return customer.firstName.toLowerCase()
+				+ customer.lastName.toLowerCase() + customer.phoneNumber;
 	}
-	
+
 	/**
-	 * Deletes a Customer from the database, defined by the passed Customer instance
-	 * @param customer the customer to be deleted
+	 * Deletes a Customer from the database, defined by the passed Customer
+	 * instance
+	 * 
+	 * @param customer
+	 *            the customer to be deleted
 	 */
 	public static void deleteCustomer(Customer customer) {
-		DatabaseConnection.insertIntoDB("DELETE FROM Customer WHERE "+DatabaseConstants.CUSTOMER_ID+"="+customer.customerID+" LIMIT 1");
+		DatabaseConnection.insertIntoDB("DELETE FROM Customer WHERE "
+				+ DatabaseConstants.CUSTOMER_ID + "=" + customer.customerID
+				+ " LIMIT 1");
 	}
 
 }// END

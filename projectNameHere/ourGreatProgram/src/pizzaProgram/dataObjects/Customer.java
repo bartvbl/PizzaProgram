@@ -13,7 +13,6 @@ public class Customer {
 	public final String postalCode;
 	public final String city;
 	public final int phoneNumber;
-	public final String comment = "";
 	
 	/**
 	 * The constructor of Customer requires all fields to be defined. It takes in all the field's values, and stores them as read-only variables.
@@ -26,7 +25,7 @@ public class Customer {
 	 * @param phoneNumber The customer's phone number
 	 * @param comment Any comments about this customer
 	 */
-	public Customer(int customerID, String firstName, String lastName, String address, String postalCode, String city, int phoneNumber, String comment) {
+	public Customer(int customerID, String firstName, String lastName, String address, String postalCode, String city, int phoneNumber) {
 		this.customerID = customerID;
 		this.firstName = firstName;
 		this.lastName = lastName;
