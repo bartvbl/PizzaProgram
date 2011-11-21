@@ -32,8 +32,7 @@ public class DatabaseWriter {
 	 *            updated (by order ID)
 	 */
 	public static void markOrderAsInProgress(Order order) {
-		updateOrderStatusIfStatusMatchesCurrentStatus(order, Order.REGISTERED,
-				Order.BEING_COOKED);
+		updateOrderStatusIfStatusMatchesCurrentStatus(order, Order.REGISTERED, Order.BEING_COOKED);
 	}
 
 	/**
@@ -46,8 +45,7 @@ public class DatabaseWriter {
 	 *            updated (by order ID)
 	 */
 	public static void markOrderAsFinishedCooking(Order order) {
-		updateOrderStatusIfStatusMatchesCurrentStatus(order,
-				Order.BEING_COOKED, Order.HAS_BEEN_COOKED);
+		updateOrderStatusIfStatusMatchesCurrentStatus(order, Order.BEING_COOKED, Order.HAS_BEEN_COOKED);
 	}
 
 	/**
@@ -61,8 +59,7 @@ public class DatabaseWriter {
 	 */
 	public static void markOrderAsBeingDelivered(Order order) {
 		if (order.deliveryMethod.equals(Order.DELIVER_AT_HOME)) {
-			updateOrderStatusIfStatusMatchesCurrentStatus(order,
-					Order.HAS_BEEN_COOKED, Order.BEING_DELIVERED);
+			updateOrderStatusIfStatusMatchesCurrentStatus(order, Order.HAS_BEEN_COOKED, Order.BEING_DELIVERED);
 		} else {
 			GUIConstants.showErrorMessage("Orderen har en ugyldig status!");
 		}
@@ -81,11 +78,9 @@ public class DatabaseWriter {
 	 */
 	public static void markOrderAsDelivered(Order order) {
 		if (order.deliveryMethod.equals(Order.DELIVER_AT_HOME)) {
-			updateOrderStatusIfStatusMatchesCurrentStatus(order,
-					Order.BEING_DELIVERED, Order.DELIVERED);
+			updateOrderStatusIfStatusMatchesCurrentStatus(order, Order.BEING_DELIVERED, Order.DELIVERED);
 		} else if (order.deliveryMethod.equals(Order.PICKUP_AT_RESTAURANT)) {
-			updateOrderStatusIfStatusMatchesCurrentStatus(order,
-					Order.HAS_BEEN_COOKED, Order.DELIVERED);
+			updateOrderStatusIfStatusMatchesCurrentStatus(order, Order.HAS_BEEN_COOKED, Order.DELIVERED);
 		}
 	}
 
@@ -120,13 +115,10 @@ public class DatabaseWriter {
 	 */
 	public static void writeNewCustomer(UnaddedCustomer customer) {
 		try {
-			DatabaseConnection
-					.executeWriteQuery("INSERT INTO Customer VALUES (NULL, '"
-							+ customer.firstName + "', '" + customer.lastName
-							+ "', '" + customer.address + "', "
-							+ customer.postalCode + ", '" + customer.city
-							+ "', " + customer.phoneNumber + ", '"
-							+ createCustomerIdentifier(customer) + "');");
+			DatabaseConnection.executeWriteQuery("INSERT INTO Customer VALUES (NULL, '" + customer.firstName
+					+ "', '" + customer.lastName + "', '" + customer.address + "', " + customer.postalCode
+					+ ", '" + customer.city + "', " + customer.phoneNumber + ", '"
+					+ createCustomerIdentifier(customer) + "');");
 			GUIConstants.showConfirmMessage("Kunde lagt til");
 		} catch (SQLException e) {
 			GUIConstants.showErrorMessage("Kunne ikke legge til kunde!");
@@ -144,14 +136,10 @@ public class DatabaseWriter {
 	 */
 	public static void updateCustomerById(Customer customer) {
 		try {
-			DatabaseConnection
-					.executeWriteQuery("REPLACE INTO Customer VALUES ("
-							+ customer.customerID + ", '" + customer.firstName
-							+ "', '" + customer.lastName + "', '"
-							+ customer.address + "', " + customer.postalCode
-							+ ", '" + customer.city + "', "
-							+ customer.phoneNumber + ", '"
-							+ createCustomerIdentifier(customer) + "');");
+			DatabaseConnection.executeWriteQuery("REPLACE INTO Customer VALUES (" + customer.customerID
+					+ ", '" + customer.firstName + "', '" + customer.lastName + "', '" + customer.address
+					+ "', " + customer.postalCode + ", '" + customer.city + "', " + customer.phoneNumber
+					+ ", '" + createCustomerIdentifier(customer) + "');");
 			GUIConstants.showConfirmMessage("Kundedata endret");
 		} catch (SQLException e) {
 			GUIConstants.showErrorMessage("Kunne ikke endre kundedata!");
@@ -167,13 +155,10 @@ public class DatabaseWriter {
 	 */
 	public static void writeNewDish(Dish dish) {
 		try {
-			DatabaseConnection
-					.executeWriteQuery("INSERT INTO " + DatabaseConstants.DISH_TABLE_NAME + " VALUES (NULL, "
-							+ dish.price + ", '" + dish.name + "', "
-							+ dish.containsGluten + ", " + dish.containsNuts
-							+ ", " + dish.containsDairy + ", " + dish.isSpicy
-							+ ", " + dish.isVegetarian + ", '"
-							+ dish.description + "', " + dish.isActive + ");");
+			DatabaseConnection.executeWriteQuery("INSERT INTO " + DatabaseConstants.DISH_TABLE_NAME
+					+ " VALUES (NULL, " + dish.price + ", '" + dish.name + "', " + dish.containsGluten + ", "
+					+ dish.containsNuts + ", " + dish.containsDairy + ", " + dish.isSpicy + ", "
+					+ dish.isVegetarian + ", '" + dish.description + "', " + dish.isActive + ");");
 			GUIConstants.showConfirmMessage("Rett lagt til");
 		} catch (SQLException e) {
 			GUIConstants.showErrorMessage("Kunne ikke legge til rett!");
@@ -191,13 +176,11 @@ public class DatabaseWriter {
 	 */
 	public static void updateDishByDishID(Dish dish) {
 		try {
-			DatabaseConnection.executeWriteQuery("UPDATE " + DatabaseConstants.DISH_TABLE_NAME + " SET Price="
-					+ dish.price + ", Name='" + dish.name
-					+ "', ContainsGluten=" + dish.containsGluten
-					+ ", ContainsNuts=" + dish.containsNuts
-					+ ", ContainsDairy=" + dish.containsDairy + ", IsSpicy="
-					+ dish.isSpicy + ", IsVegetarian=" + dish.isVegetarian
-					+ ", Description='" + dish.description + "', IsActive="
+			DatabaseConnection.executeWriteQuery("UPDATE " + DatabaseConstants.DISH_TABLE_NAME
+					+ " SET Price=" + dish.price + ", Name='" + dish.name + "', ContainsGluten="
+					+ dish.containsGluten + ", ContainsNuts=" + dish.containsNuts + ", ContainsDairy="
+					+ dish.containsDairy + ", IsSpicy=" + dish.isSpicy + ", IsVegetarian="
+					+ dish.isVegetarian + ", Description='" + dish.description + "', IsActive="
 					+ dish.isActive + " WHERE DishID=" + dish.dishID + ";");
 			GUIConstants.showConfirmMessage("Rett endret");
 		} catch (SQLException e) {
@@ -215,9 +198,8 @@ public class DatabaseWriter {
 	public static void updateExtraByExtraID(Extra extra) {
 		try {
 			String price = extra.priceFuncPart + "" + extra.priceValPart;
-			DatabaseConnection.executeWriteQuery("UPDATE Extras SET Name='"
-					+ extra.name + "', Price='" + price + "', IsActive="
-					+ extra.isActive + " WHERE ExtrasID=" + extra.id + ";");
+			DatabaseConnection.executeWriteQuery("UPDATE Extras SET Name='" + extra.name + "', Price='"
+					+ price + "', IsActive=" + extra.isActive + " WHERE ExtrasID=" + extra.id + ";");
 			GUIConstants.showConfirmMessage("Tilbehør endret");
 		} catch (SQLException e) {
 			GUIConstants.showErrorMessage("Kunne ikke endre tilbehør!");
@@ -235,10 +217,8 @@ public class DatabaseWriter {
 	public static void writeNewExtra(Extra extra) {
 		String price = extra.priceFuncPart + "" + extra.priceValPart;
 		try {
-			DatabaseConnection
-					.executeWriteQuery("INSERT INTO Extras VALUES (NULL, '"
-							+ extra.name + "', '" + price + "', "
-							+ extra.isActive + ");");
+			DatabaseConnection.executeWriteQuery("INSERT INTO Extras VALUES (NULL, '" + extra.name + "', '"
+					+ price + "', " + extra.isActive + ");");
 			GUIConstants.showConfirmMessage("Tilbehør lagt til");
 		} catch (SQLException e) {
 			GUIConstants.showErrorMessage("Kunne ikke legge til tilbehør!");
@@ -255,10 +235,8 @@ public class DatabaseWriter {
 	 */
 	public static void updateConfigValue(Setting setting) {
 		try {
-			DatabaseConnection
-					.executeWriteQuery("UPDATE Config SET ConfigValue='"
-							+ setting.value + "' WHERE ConfigKey='"
-							+ setting.key + "'");
+			DatabaseConnection.executeWriteQuery("UPDATE Config SET ConfigValue='" + setting.value
+					+ "' WHERE ConfigKey='" + setting.key + "'");
 		} catch (SQLException e) {
 			GUIConstants.showErrorMessage("Kunne ikke endre" + setting.key);
 			e.printStackTrace();
@@ -279,8 +257,8 @@ public class DatabaseWriter {
 	 * @param newStatus
 	 *            The order status that the order should be updated to
 	 */
-	private static void updateOrderStatusIfStatusMatchesCurrentStatus(
-			Order order, String currentStatus, String newStatus) {
+	private static void updateOrderStatusIfStatusMatchesCurrentStatus(Order order, String currentStatus,
+			String newStatus) {
 		try {
 			lockTablesForUpdatingOrderStatus();
 			String currentOrderStatus = getCurrentStatusOfOrder(order.orderID);
@@ -289,8 +267,7 @@ public class DatabaseWriter {
 				unlockTables();
 			} else {
 				unlockTables();
-				GUIConstants
-						.showConfirmMessage("Kunne ikke endre ordrestatus: uforventet ordrestatus");
+				GUIConstants.showConfirmMessage("Kunne ikke endre ordrestatus: uforventet ordrestatus");
 			}
 		} catch (SQLException e) {
 			GUIConstants.showConfirmMessage("Kunne ikke endre ordrestatus");
@@ -310,10 +287,8 @@ public class DatabaseWriter {
 	 * @throws SQLException
 	 *             Any error raised while retrieving data from the database
 	 */
-	private static String getCurrentStatusOfOrder(int orderID)
-			throws SQLException {
-		String query = "SELECT OrdersStatus FROM Orders AS OrdersRead WHERE OrdersID="
-				+ orderID + ";";
+	private static String getCurrentStatusOfOrder(int orderID) throws SQLException {
+		String query = "SELECT OrdersStatus FROM Orders AS OrdersRead WHERE OrdersID=" + orderID + ";";
 		ResultSet results = DatabaseConnection.fetchData(query);
 		results.next();
 		String currentStatus = results.getString(1);
@@ -331,10 +306,9 @@ public class DatabaseWriter {
 	 * @throws SQLException
 	 *             Any error raised while retrieving the data from the database
 	 */
-	private static void updateOrderStatus(String status, int orderID)
-			throws SQLException {
-		DatabaseConnection.executeWriteQuery("UPDATE Orders SET OrdersStatus='"
-				+ status + "' WHERE OrdersID=" + orderID + ";");
+	private static void updateOrderStatus(String status, int orderID) throws SQLException {
+		DatabaseConnection.executeWriteQuery("UPDATE Orders SET OrdersStatus='" + status
+				+ "' WHERE OrdersID=" + orderID + ";");
 	}
 
 	/**
@@ -345,8 +319,7 @@ public class DatabaseWriter {
 	 *             Any error raised while locking the tables
 	 */
 	private static void lockTablesForUpdatingOrderStatus() throws SQLException {
-		DatabaseConnection
-				.executeWriteQuery("LOCK TABLES Orders WRITE, Orders AS OrdersRead READ;");
+		DatabaseConnection.executeWriteQuery("LOCK TABLES Orders WRITE, Orders AS OrdersRead READ;");
 	}
 
 	/**
@@ -367,8 +340,7 @@ public class DatabaseWriter {
 	 *             Any error raised in the process of adding dishes to the
 	 *             database
 	 */
-	private static void addDishesToOrder(UnaddedOrder order, int orderID)
-			throws SQLException {
+	private static void addDishesToOrder(UnaddedOrder order, int orderID) throws SQLException {
 		for (OrderDish dish : order.orderedDishes) {
 			addDishToOrder(dish, orderID);
 		}
@@ -385,12 +357,9 @@ public class DatabaseWriter {
 	 * @throws SQLException
 	 *             Any error raised while inserting data into the database
 	 */
-	private static void addDishToOrder(OrderDish dish, int orderID)
-			throws SQLException {
-		int orderContentsID = DatabaseConnection
-				.insertIntoDBAndReturnID("INSERT INTO "
-						+ "OrdersContents VALUES (NULL, " + orderID + ", "
-						+ dish.dish.dishID + ");");
+	private static void addDishToOrder(OrderDish dish, int orderID) throws SQLException {
+		int orderContentsID = DatabaseConnection.insertIntoDBAndReturnID("INSERT INTO "
+				+ "OrdersContents VALUES (NULL, " + orderID + ", " + dish.dish.dishID + ");");
 		if (orderContentsID == -1) {
 			return;
 		}
@@ -408,8 +377,8 @@ public class DatabaseWriter {
 	 *            the extra to be linked to the current new order
 	 */
 	private static void addExtraToOrder(int orderContentsID, Extra extra) {
-		DatabaseConnection.insertIntoDB("INSERT INTO DishExtrasChosen VALUES ("
-				+ orderContentsID + ", " + extra.id + ")");
+		DatabaseConnection.insertIntoDB("INSERT INTO DishExtrasChosen VALUES (" + orderContentsID + ", "
+				+ extra.id + ")");
 	}
 
 	/**
@@ -424,8 +393,7 @@ public class DatabaseWriter {
 	 */
 	private static int createOrderComment(String comment) throws SQLException {
 		int commentID = DatabaseConnection
-				.insertIntoDBAndReturnID("INSERT INTO OrderComments VALUES (NULL, '"
-						+ comment + "');");
+				.insertIntoDBAndReturnID("INSERT INTO OrderComments VALUES (NULL, '" + comment + "');");
 		return commentID;
 	}
 
@@ -440,13 +408,16 @@ public class DatabaseWriter {
 	 * @throws SQLException
 	 *             Any error raised while adding the new order.
 	 */
-	private static int createNewOrder(UnaddedOrder order, int commentID)
-			throws SQLException {
-		int orderID = DatabaseConnection
-				.insertIntoDBAndReturnID("INSERT INTO Orders VALUES (NULL, "
-						+ order.customer.customerID + ", NOW(), '"
-						+ Order.REGISTERED + "', '" + order.deliveryMethod
-						+ "', " + commentID + ");");
+	private static int createNewOrder(UnaddedOrder order, int commentID) throws SQLException {
+		System.out.println(order);
+		int orderID = DatabaseConnection.insertIntoDBAndReturnID("INSERT INTO Orders VALUES (NULL, "
+				+ order.customer.customerID 
+				+ ", NOW(), '" 
+				+ Order.REGISTERED 
+				+ "', '" 
+				+ order.deliveryMethod
+				+ "', " 
+				+ commentID + ");");
 		return orderID;
 	}
 
@@ -458,8 +429,7 @@ public class DatabaseWriter {
 	 * @return A string representing the inserted customer
 	 */
 	public static String createCustomerIdentifier(Customer customer) {
-		return customer.firstName.toLowerCase()
-				+ customer.lastName.toLowerCase() + customer.phoneNumber;
+		return customer.firstName.toLowerCase() + customer.lastName.toLowerCase() + customer.phoneNumber;
 	}
 
 	/**
@@ -470,9 +440,8 @@ public class DatabaseWriter {
 	 *            the customer to be deleted
 	 */
 	public static void deleteCustomer(Customer customer) {
-		DatabaseConnection.insertIntoDB("DELETE FROM Customer WHERE "
-				+ DatabaseConstants.CUSTOMER_ID + "=" + customer.customerID
-				+ " LIMIT 1");
+		DatabaseConnection.insertIntoDB("DELETE FROM Customer WHERE " + DatabaseConstants.CUSTOMER_ID + "="
+				+ customer.customerID + " LIMIT 1");
 	}
 
 }// END

@@ -219,34 +219,27 @@ public class DatabaseReader {
 	 *         read and ocnstruct orders
 	 */
 	public static String getOrderSelectionQuery(String whereClause, String extraOptions) {
-		String query = "SELECT "
-				+ DatabaseConstants.CUSTOMER_ALL_COLS
-				+ ", "
-				+ DatabaseConstants.DISHES_ALL_COLS
-				+ ", "
-				+ DatabaseConstants.EXTRAS_ALL_COLS
-				+ ", "
-				+ DatabaseConstants.ORDERS_COMMENT_ALL_COLS
-				+ ", "
-				+ DatabaseConstants.ORDERS_ALL_COLS
-				+ ", "
-				+ DatabaseConstants.ORDERS_CONTENTS_ALL_COLS
-				+ " FROM "
-				+ DatabaseConstants.ORDERS_TABLE_NAME
-				+ " LEFT JOIN "
-				+ DatabaseConstants.ORDERS_COMMENT_TABLE_NAME
-				+ " ON ( "
-				+ DatabaseConstants.ORDERS_TO_ORDERCOMMENT_ID
-				+ " = "
-				+ DatabaseConstants.ORDERS_COMMENT_TO_ORDER_ID
-				+ " ) "
-				+ "INNER JOIN OrdersContents ON ( Orders.OrdersID = OrdersContents.OrdersID ) "
-				+ "INNER JOIN DishExtrasChosen ON ( OrdersContents.OrdersContentsID = DishExtrasChosen.OrdersContentsID ) "
-				+ "LEFT JOIN Customer ON ( Orders.CustomerID = " + DatabaseConstants.CUSTOMER_ID + " ) "
-				+ "LEFT JOIN " + DatabaseConstants.DISH_TABLE_NAME + " ON ( OrdersContents.DishID = "
-				+ DatabaseConstants.DISH_ID + " ) "
-				+ "LEFT JOIN Extras ON ( Extras.ExtrasID = DishExtrasChosen.DishExtraID ) " + "WHERE ("
-				+ whereClause + ") " + extraOptions + " ;";
+		String query = "SELECT " + DatabaseConstants.CUSTOMER_ALL_COLS + ", "
+				+ DatabaseConstants.DISHES_ALL_COLS + ", " + DatabaseConstants.EXTRAS_ALL_COLS + ", "
+				+ DatabaseConstants.ORDERS_COMMENT_ALL_COLS + ", " + DatabaseConstants.ORDERS_ALL_COLS + ", "
+				+ DatabaseConstants.ORDERS_CONTENTS_ALL_COLS + ", "
+				+ DatabaseConstants.DISH_EXTRAS_CHOSEN_ALL_COLS + " FROM "
+				+ DatabaseConstants.ORDERS_TABLE_NAME + " LEFT JOIN "
+				+ DatabaseConstants.ORDERS_COMMENT_TABLE_NAME + " ON ( "
+				+ DatabaseConstants.ORDERS_TO_ORDERCOMMENT_ID + " = "
+				+ DatabaseConstants.ORDERS_COMMENT_TO_ORDER_ID + " ) " + "INNER JOIN "
+				+ DatabaseConstants.ORDERS_CONTENTS_TABLE_NAME + " ON ( " + DatabaseConstants.ORDERS_ID
+				+ " = " + DatabaseConstants.ORDERS_CONTENTS_TO_ORDER_ID + " ) " + "LEFT JOIN "
+				+ DatabaseConstants.DISH_EXTRAS_CHOSEN_TABLE_NAME + " ON ( "
+				+ DatabaseConstants.ORDERS_CONTENTS_ID + " = "
+				+ DatabaseConstants.DISH_EXTRAS_TO_ORDERCONTENTS + " ) " + "LEFT JOIN "
+				+ DatabaseConstants.CUSTOMER_TABLE_NAME + " ON ( " + DatabaseConstants.ORDERS_TO_CUSTOMER_ID
+				+ " = " + DatabaseConstants.CUSTOMER_ID + " ) " + "LEFT JOIN "
+				+ DatabaseConstants.DISH_TABLE_NAME + " ON ( " + DatabaseConstants.ORDERS_CONTENTS_TO_DISH_ID
+				+ " = " + DatabaseConstants.DISH_ID + " ) " + "LEFT JOIN Extras ON ( "
+				+ DatabaseConstants.EXTRAS_ID + " = " + DatabaseConstants.DISH_EXTRAS_CHOSEN_TO_EXTRAS_ID
+				+ " ) " + "WHERE (" + whereClause + ") " + extraOptions + " ;";
+		System.out.println(query);
 		return query;
 	}
 

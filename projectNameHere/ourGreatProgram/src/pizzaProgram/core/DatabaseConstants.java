@@ -50,6 +50,7 @@ public class DatabaseConstants {
 	public static final String ORDERS_STATUS = ORDERS_TABLE_NAME + ".OrdersStatus";
 	public static final String ORDERS_DELIVERY_METHOD = ORDERS_TABLE_NAME + ".DeliveryMethod";
 	public static final String ORDERS_TO_ORDERCOMMENT_ID = ORDERS_TABLE_NAME + ".CommentID";
+	public static final String ORDERS_TO_CUSTOMER_ID = ORDERS_TABLE_NAME + ".CustomerID";
 	public static final String ORDERS_ALL_COLS = ORDERS_TABLE_NAME + ".*";
 	/*
 	 * Constants pertaining to the OrdersComments Table of the database
@@ -70,7 +71,16 @@ public class DatabaseConstants {
 	 */
 	public static final String ORDERS_CONTENTS_TABLE_NAME = "OrdersContents"; 
 	public static final String ORDERS_CONTENTS_ID = ORDERS_CONTENTS_TABLE_NAME + ".OrdersContentsID";
+	public static final String ORDERS_CONTENTS_TO_ORDER_ID = ORDERS_CONTENTS_TABLE_NAME + ".OrdersID";
+	public static final String ORDERS_CONTENTS_TO_DISH_ID = ORDERS_CONTENTS_TABLE_NAME + ".DishID";
 	public static final String ORDERS_CONTENTS_ALL_COLS = ORDERS_CONTENTS_TABLE_NAME + ".*"; 
+	/*
+	 * Constants pertaining to the DishExtrasChosen Table of the database 
+	 */
+	public static final String DISH_EXTRAS_CHOSEN_TABLE_NAME = "DishExtrasChosen";
+	public static final String DISH_EXTRAS_TO_ORDERCONTENTS = DISH_EXTRAS_CHOSEN_TABLE_NAME + ".OrdersContentsID";
+	public static final String DISH_EXTRAS_CHOSEN_TO_EXTRAS_ID = DISH_EXTRAS_CHOSEN_TABLE_NAME + ".DishExtraID";
+	public static final String DISH_EXTRAS_CHOSEN_ALL_COLS = DISH_EXTRAS_CHOSEN_TABLE_NAME + ".*";
 	/*
 	 * Constants pertaining to the values in the key fields of the Config table
 	 */

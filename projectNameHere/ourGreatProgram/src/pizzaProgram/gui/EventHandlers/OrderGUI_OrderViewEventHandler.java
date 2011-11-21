@@ -360,6 +360,8 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler
 		
 		UnaddedOrder orderToConfirm = this.temporaryOrderData.convertToOrderObjectAndReset();
 		
+		System.out.println(orderToConfirm.customer);
+		
 		this.dispatchEvent(new Event<UnaddedOrder>(EventType.DATABASE_ADD_NEW_ORDER, orderToConfirm));
 		this.resetUI();
 	}
