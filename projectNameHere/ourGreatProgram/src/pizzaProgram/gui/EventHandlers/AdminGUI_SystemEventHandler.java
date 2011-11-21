@@ -16,7 +16,13 @@ import pizzaProgram.gui.views.AdminView;
 import pizzaProgram.utils.PriceCalculators;
 
 public class AdminGUI_SystemEventHandler implements EventHandler {
+	/**
+	 * A reference to the system's main event dispatcher
+	 */
 	private EventDispatcher eventDispatcher;
+	/**
+	 * A reference to the admin GUI module
+	 */
 	private AdminGUI adminGUI;
 	
 	/**

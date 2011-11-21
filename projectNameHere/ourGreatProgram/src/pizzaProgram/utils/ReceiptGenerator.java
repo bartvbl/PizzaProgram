@@ -5,7 +5,11 @@ import pizzaProgram.dataObjects.Extra;
 import pizzaProgram.dataObjects.Order;
 import pizzaProgram.dataObjects.OrderDish;
 import pizzaProgram.gui.views.ReceiptWindow;
-
+/**
+ * Generates a receipt from a given Order instance, and shows it inside a window
+ * @author Bart
+ *
+ */
 public class ReceiptGenerator {
 
 	/**

@@ -31,7 +31,13 @@ public class ProgramWindow implements EventHandler {
 	 * A constant holding the name as it will appear inside the window
 	 */
 	public static final String MAIN_WINDOW_NAME = "Pizza Manager";
+	/**
+	 * An instance of the CardLayout layout manager that manages the various views of the program
+	 */
 	private CardLayout cardLayoutManager;
+	/**
+	 * A main JPanel that acts as the main frame's content pane
+	 */
 	private JPanel mainJPanel;
 
 	private JFrame jframe;

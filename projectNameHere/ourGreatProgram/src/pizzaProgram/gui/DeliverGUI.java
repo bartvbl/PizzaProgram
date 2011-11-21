@@ -20,11 +20,21 @@ import pizzaProgram.modules.GUIModule;
  * should not be edited, all initalisation and hiding/showing is handled by this class
  */
 public class DeliverGUI extends GUIModule implements EventHandler {
-
+	/**
+	 * Holds a reference to the DeliveryView instance so that it can be used to display and hide it
+	 */
 	private DeliveryView deliverView;
+	/**
+	 * A reference to the program's main window
+	 */
 	private ProgramWindow programWindow;
-
+	/**
+	 * A list of the orders that are currently being displayed in the delivery view
+	 */
 	public ArrayList<Order> currentOrderList;
+	/**
+	 * The order that is currently being displayed in the delivery GUI
+	 */
 	public Order currentOrder;
 
 	/**
@@ -81,7 +91,10 @@ public class DeliverGUI extends GUIModule implements EventHandler {
 		this.programWindow.hidePanel(this.deliverView);
 
 	}
-
+	
+	/**
+	 * Handles events that are directed at the delivery GUI module, and calls the appropiate internal event handling functions
+	 */
 	@Override
 	public void handleEvent(Event<?> event) {
 		if (event.eventType.equals(EventType.DELIVERY_GUI_REQUESTED)) {
