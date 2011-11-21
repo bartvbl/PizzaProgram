@@ -19,7 +19,6 @@ import pizzaProgram.dataObjects.Order;
 import pizzaProgram.dataObjects.OrderDish;
 import pizzaProgram.events.Event;
 import pizzaProgram.events.EventType;
-import pizzaProgram.events.moduleEventHandlers.ComponentEventHandler;
 import pizzaProgram.gui.CookGUI;
 import pizzaProgram.gui.views.CookView;
 

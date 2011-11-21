@@ -26,7 +26,6 @@ import pizzaProgram.dataObjects.Order;
 import pizzaProgram.dataObjects.UnaddedOrder;
 import pizzaProgram.events.Event;
 import pizzaProgram.events.EventType;
-import pizzaProgram.events.moduleEventHandlers.ComponentEventHandler;
 import pizzaProgram.gui.NewCustomerWindow;
 import pizzaProgram.gui.OrderGUI;
 import pizzaProgram.gui.views.OrderView;

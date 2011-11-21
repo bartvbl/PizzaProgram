@@ -5,10 +5,10 @@
 package pizzaProgram.database;
 
 import pizzaProgram.database.DatabaseConnection;
+import pizzaProgram.database.eventHandlers.Database_SystemEventHandler;
 import pizzaProgram.events.Event;
 import pizzaProgram.events.EventDispatcher;
 import pizzaProgram.modules.Module;
-import pizzaProgram.events.moduleEventHandlers.Database_SystemEventHandler;
 
 /**
  * The main database module. Its main task is to hold references to the various database event handlers, and the connection to the database. It also initializes all of these at the start of the program.

@@ -14,7 +14,6 @@ import javax.swing.event.ListSelectionListener;
 import pizzaProgram.dataObjects.Order;
 import pizzaProgram.events.Event;
 import pizzaProgram.events.EventType;
-import pizzaProgram.events.moduleEventHandlers.ComponentEventHandler;
 import pizzaProgram.gui.DeliverGUI;
 import pizzaProgram.gui.utils.DeliveryGUIUpdater;
 import pizzaProgram.gui.views.DeliveryView;
@@ -111,7 +110,7 @@ public class DeliveryGUI_DeliveryViewEventHandler extends ComponentEventHandler 
 	private void markOrderAsDelivered(){
 		this.dispatchEvent(new Event<Order>(EventType.DATABASE_MARK_ORDER_DELIVERED, this.deliveryGUI.currentOrder));
 		this.resetUI();
-		this.showAllOrders();
+		showOrdersBasedOnSearchBox();
 	}
 
 	private void showReceipt() {
