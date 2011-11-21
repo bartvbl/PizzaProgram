@@ -155,16 +155,16 @@ public class DatabaseSearcher {
 	 *         keywords
 	 */
 	private static String generateDishSearchQuery(String searchQuery) {
-		String query = "SELECT * FROM Dishes WHERE (";
+		String query = "SELECT * FROM " + DatabaseConstants.DISH_TABLE_NAME + " WHERE (";
 		String[] keywords = searchQuery.split(" ");
 		int counter = 0;
 		for (String keyword : keywords) {
 			if (counter != 0) {
 				query += "OR";
 			}
-			query += "(Dishes.Price LIKE '%" + keyword + "%') OR ";
-			query += "(Dishes.Name LIKE '%" + keyword + "%') OR ";
-			query += "(Dishes.Description LIKE '%" + keyword + "%')";
+			query += "(" + DatabaseConstants.DISH_PRICE + " LIKE '%" + keyword + "%') OR ";
+			query += "(" + DatabaseConstants.DISH_NAME + " LIKE '%" + keyword + "%') OR ";
+			query += "(" + DatabaseConstants.DISH_DESCRIPTION + " LIKE '%" + keyword + "%')";
 			counter++;
 		}
 		query += ") LIMIT 30;";

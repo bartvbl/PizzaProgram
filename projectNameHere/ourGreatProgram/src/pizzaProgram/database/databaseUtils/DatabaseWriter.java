@@ -168,7 +168,7 @@ public class DatabaseWriter {
 	public static void writeNewDish(Dish dish) {
 		try {
 			DatabaseConnection
-					.executeWriteQuery("INSERT INTO Dishes VALUES (NULL, "
+					.executeWriteQuery("INSERT INTO " + DatabaseConstants.DISH_TABLE_NAME + " VALUES (NULL, "
 							+ dish.price + ", '" + dish.name + "', "
 							+ dish.containsGluten + ", " + dish.containsNuts
 							+ ", " + dish.containsDairy + ", " + dish.isSpicy
@@ -191,7 +191,7 @@ public class DatabaseWriter {
 	 */
 	public static void updateDishByDishID(Dish dish) {
 		try {
-			DatabaseConnection.executeWriteQuery("UPDATE Dishes SET Price="
+			DatabaseConnection.executeWriteQuery("UPDATE " + DatabaseConstants.DISH_TABLE_NAME + " SET Price="
 					+ dish.price + ", Name='" + dish.name
 					+ "', ContainsGluten=" + dish.containsGluten
 					+ ", ContainsNuts=" + dish.containsNuts

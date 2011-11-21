@@ -27,7 +27,7 @@ public class DatabaseReader {
 	 *         row in the database
 	 */
 	public static ArrayList<Customer> getAllCustomers() {
-		ResultSet results = DatabaseConnection.fetchData("SELECT * FROM Customer;");
+		ResultSet results = DatabaseConnection.fetchData("SELECT * FROM " + DatabaseConstants.CUSTOMER_TABLE_NAME+ ";");
 		ArrayList<Customer> customerList = new ArrayList<Customer>();
 		try {
 			customerList = DatabaseDataObjectGenerator.generateCustomerList(results);
@@ -87,7 +87,7 @@ public class DatabaseReader {
 	 *         active dish.
 	 */
 	public static ArrayList<Dish> getAllActiveDishes() {
-		ResultSet results = DatabaseConnection.fetchData("SELECT * FROM Dishes WHERE (isactive=1);");
+		ResultSet results = DatabaseConnection.fetchData("SELECT * FROM " + DatabaseConstants.DISH_TABLE_NAME + " WHERE (" + DatabaseConstants.DISH_IS_ACTIVE+ "=1);");
 		ArrayList<Dish> dishList = new ArrayList<Dish>();
 		try {
 			dishList = DatabaseDataObjectGenerator.generateDishList(results);
@@ -103,10 +103,10 @@ public class DatabaseReader {
 	 * active or not
 	 * 
 	 * @return An ArrayList containing DIsh instances, where every Dish object
-	 *         is a DIsh in the Dishes table in the database
+	 *         is a Dish in the Dishes table in the database
 	 */
 	public static ArrayList<Dish> getAllDishes() {
-		ResultSet results = DatabaseConnection.fetchData("SELECT * FROM Dishes;");
+		ResultSet results = DatabaseConnection.fetchData("SELECT * FROM " + DatabaseConstants.DISH_TABLE_NAME + ";");
 		ArrayList<Dish> dishList = new ArrayList<Dish>();
 		try {
 			dishList = DatabaseDataObjectGenerator.generateDishList(results);
@@ -191,12 +191,12 @@ public class DatabaseReader {
 	 *         read and ocnstruct orders
 	 */
 	public static String getOrderSelectionQuery(String whereClause, String extraOptions) {
-		String query = "SELECT " + DatabaseConstants.CUSTOMER_ALL_COLS + " , Dishes.* , Extras.* , OrderComments.* , Orders.*, OrdersContents.* FROM Orders "
+		String query = "SELECT " + DatabaseConstants.CUSTOMER_ALL_COLS + " , " + DatabaseConstants.DISHES_ALL_COLS + " , Extras.* , OrderComments.* , Orders.*, OrdersContents.* FROM Orders "
 				+ "LEFT JOIN OrderComments ON ( Orders.CommentID = OrderComments.CommentID ) "
 				+ "INNER JOIN OrdersContents ON ( Orders.OrdersID = OrdersContents.OrdersID ) "
 				+ "INNER JOIN DishExtrasChosen ON ( OrdersContents.OrdersContentsID = DishExtrasChosen.OrdersContentsID ) "
 				+ "LEFT JOIN Customer ON ( Orders.CustomerID = " + DatabaseConstants.CUSTOMER_ID + " ) "
-				+ "LEFT JOIN Dishes ON ( OrdersContents.DishID = Dishes.DishID ) "
+				+ "LEFT JOIN " + DatabaseConstants.DISH_TABLE_NAME + " ON ( OrdersContents.DishID = " + DatabaseConstants.DISH_ID + " ) "
 				+ "LEFT JOIN Extras ON ( Extras.ExtrasID = DishExtrasChosen.DishExtraID ) "
 				+ "WHERE ("
 				+ whereClause + ") " + extraOptions + " ;";
