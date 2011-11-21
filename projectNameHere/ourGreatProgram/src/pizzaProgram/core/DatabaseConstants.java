@@ -40,18 +40,40 @@ public class DatabaseConstants {
 	public static final String EXTRAS_NAME = EXTRAS_TABLE_NAME + ".Name";
 	public static final String EXTRAS_PRICE = EXTRAS_TABLE_NAME + ".Price";
 	public static final String EXTRAS_IS_ACTIVE = EXTRAS_TABLE_NAME + ".isActive";
-
-	public static final String ORDERS_ID = "Orders.OrdersID";
-	public static final String ORDERS_TIME_REGISTERED = "Orders.TimeRegistered";
-	public static final String ORDERS_STATUS = "Orders.OrdersStatus";
-	public static final String ORDERS_DELIVERY_METHOD = "Orders.DeliveryMethod";
-	public static final String ORDERS_COMMENT = "OrderComments.Comment";
-
-	public static final String CONFIG_KEY = "Config.ConfigKey";
-	public static final String CONFIG_VALUE = "Config.ConfigValue";
-
-	public static final String ORDERS_CONTENTS_ID = "OrdersContents.OrdersContentsID";
-
+	public static final String EXTRAS_ALL_COLS = EXTRAS_TABLE_NAME + ".*";
+	/*
+	 * Constants pertaining to the Orders Table of the database
+	 */
+	public static final String ORDERS_TABLE_NAME = "Orders";
+	public static final String ORDERS_ID = ORDERS_TABLE_NAME + ".OrdersID";
+	public static final String ORDERS_TIME_REGISTERED = ORDERS_TABLE_NAME + ".TimeRegistered";
+	public static final String ORDERS_STATUS = ORDERS_TABLE_NAME + ".OrdersStatus";
+	public static final String ORDERS_DELIVERY_METHOD = ORDERS_TABLE_NAME + ".DeliveryMethod";
+	public static final String ORDERS_TO_ORDERCOMMENT_ID = ORDERS_TABLE_NAME + ".CommentID";
+	public static final String ORDERS_ALL_COLS = ORDERS_TABLE_NAME + ".*";
+	/*
+	 * Constants pertaining to the OrdersComments Table of the database
+	 */
+	public static final String ORDERS_COMMENT_TABLE_NAME = "OrderComments";
+	public static final String ORDERS_COMMENT_TO_ORDER_ID = ORDERS_COMMENT_TABLE_NAME + ".CommentID"; 
+	public static final String ORDERS_COMMENT = ORDERS_COMMENT_TABLE_NAME + ".Comment";
+	public static final String ORDERS_COMMENT_ALL_COLS = ORDERS_COMMENT_TABLE_NAME + ".*";
+	/*
+	 * Constants pertaining to the Config Table of the database
+	 */
+	public static final String CONFIG_TABLE_NAME = "Config";
+	public static final String CONFIG_KEY = CONFIG_TABLE_NAME + ".ConfigKey";
+	public static final String CONFIG_VALUE = CONFIG_TABLE_NAME + ".ConfigValue";
+	public static final String CONFIG_ALL_COLS = CONFIG_TABLE_NAME + ".*"; 
+	/*
+	 * Constants pertaining to the OrdersContents Table of the database
+	 */
+	public static final String ORDERS_CONTENTS_TABLE_NAME = "OrdersContents"; 
+	public static final String ORDERS_CONTENTS_ID = ORDERS_CONTENTS_TABLE_NAME + ".OrdersContentsID";
+	public static final String ORDERS_CONTENTS_ALL_COLS = ORDERS_CONTENTS_TABLE_NAME + ".*"; 
+	/*
+	 * Constants pertaining to the values in the key fields of the Config table
+	 */
 	public static final String SETTING_KEY_FREE_DELIVERY_LIMIT = "freeDeliveryLimit";
 	public static final String SETTING_KEY_RESTAURANT_NAME = "restaurantName";
 	public static final String SETTING_KEY_DELIVERY_PRICE = "deliveryPrice";

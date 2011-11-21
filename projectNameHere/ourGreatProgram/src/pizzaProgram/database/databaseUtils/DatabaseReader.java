@@ -49,7 +49,8 @@ public class DatabaseReader {
 	 *         the entered key
 	 */
 	public static Setting getSettingByKey(String key) {
-		ResultSet results = DatabaseConnection.fetchData("SELECT * FROM Config WHERE ConfigKey='" + key
+		ResultSet results = DatabaseConnection.fetchData("SELECT * FROM "
+				+ DatabaseConstants.CONFIG_TABLE_NAME + " WHERE " + DatabaseConstants.CONFIG_KEY + "='" + key
 				+ "';");
 		try {
 			results.next();
@@ -57,7 +58,7 @@ public class DatabaseReader {
 			return setting;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			GUIConstants.showErrorMessage("Kunne ikke hente data fra databasen!");
+			GUIConstants.showErrorMessage("Kunne ikke hente innstillinger fra databasen!");
 		}
 		return null;
 	}
@@ -69,13 +70,14 @@ public class DatabaseReader {
 	 *         setting in the database
 	 */
 	public static ArrayList<Setting> getAllSettings() {
-		ResultSet results = DatabaseConnection.fetchData("SELECT * FROM Config;");
+		ResultSet results = DatabaseConnection.fetchData("SELECT * FROM "
+				+ DatabaseConstants.CONFIG_TABLE_NAME + ";");
 		try {
 			ArrayList<Setting> settings = DatabaseDataObjectGenerator.generateSettingsList(results);
 			return settings;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			GUIConstants.showErrorMessage("Kunne ikke hente data fra databasen!");
+			GUIConstants.showErrorMessage("Kunne ikke hente innstillinger fra databasen!");
 		}
 		return null;
 	}
@@ -128,7 +130,9 @@ public class DatabaseReader {
 	 *         active Extra.
 	 */
 	public static ArrayList<Extra> getAllActiveExtras() {
-		ResultSet results = DatabaseConnection.fetchData("SELECT * FROM Extras WHERE (isactive=1);");
+		ResultSet results = DatabaseConnection.fetchData("SELECT * FROM "
+				+ DatabaseConstants.EXTRAS_TABLE_NAME + " WHERE (" + DatabaseConstants.EXTRAS_IS_ACTIVE
+				+ "=1);");
 		ArrayList<Extra> dishList = new ArrayList<Extra>();
 		try {
 			dishList = DatabaseDataObjectGenerator.generateExtrasList(results);
@@ -147,7 +151,8 @@ public class DatabaseReader {
 	 *         instance represents an Extra in the database
 	 */
 	public static ArrayList<Extra> getAllExtras() {
-		ResultSet results = DatabaseConnection.fetchData("SELECT * FROM Extras;");
+		ResultSet results = DatabaseConnection.fetchData("SELECT * FROM "
+				+ DatabaseConstants.EXTRAS_TABLE_NAME + ";");
 		ArrayList<Extra> dishList = new ArrayList<Extra>();
 		try {
 			dishList = DatabaseDataObjectGenerator.generateExtrasList(results);
@@ -167,8 +172,9 @@ public class DatabaseReader {
 	 *         cooked.
 	 */
 	public static ArrayList<Order> getAllUncookedOrders() {
-		ResultSet result = DatabaseConnection.fetchData(getOrderSelectionQuery("Orders.OrdersStatus = '"
-				+ Order.REGISTERED + "' OR Orders.OrdersStatus = '" + Order.BEING_COOKED + "'", ""));
+		ResultSet result = DatabaseConnection.fetchData(getOrderSelectionQuery(
+				DatabaseConstants.ORDERS_STATUS + " = '" + Order.REGISTERED + "' OR "
+						+ DatabaseConstants.ORDERS_STATUS + " = '" + Order.BEING_COOKED + "'", ""));
 		ArrayList<Order> orderList = new ArrayList<Order>();
 		try {
 			orderList = DatabaseDataObjectGenerator.generateOrderListFromResultSet(result);
@@ -178,6 +184,7 @@ public class DatabaseReader {
 		}
 		return orderList;
 	}
+
 	/**
 	 * Retrieves a list of all orders that have been delivered from the database
 	 * 
@@ -185,8 +192,8 @@ public class DatabaseReader {
 	 *         instance is an order that has been delivered.
 	 */
 	public static ArrayList<Order> getAllDeliveredOrders() {
-		ResultSet result = DatabaseConnection.fetchData(getOrderSelectionQuery("Orders.OrdersStatus = '"
-				+ Order.DELIVERED + "'", ""));
+		ResultSet result = DatabaseConnection.fetchData(getOrderSelectionQuery(
+				DatabaseConstants.ORDERS_STATUS + " = '" + Order.DELIVERED + "'", ""));
 		ArrayList<Order> orderList = new ArrayList<Order>();
 		try {
 			orderList = DatabaseDataObjectGenerator.generateOrderListFromResultSet(result);
@@ -214,10 +221,25 @@ public class DatabaseReader {
 	public static String getOrderSelectionQuery(String whereClause, String extraOptions) {
 		String query = "SELECT "
 				+ DatabaseConstants.CUSTOMER_ALL_COLS
-				+ " , "
+				+ ", "
 				+ DatabaseConstants.DISHES_ALL_COLS
-				+ " , Extras.* , OrderComments.* , Orders.*, OrdersContents.* FROM Orders "
-				+ "LEFT JOIN OrderComments ON ( Orders.CommentID = OrderComments.CommentID ) "
+				+ ", "
+				+ DatabaseConstants.EXTRAS_ALL_COLS
+				+ ", "
+				+ DatabaseConstants.ORDERS_COMMENT_ALL_COLS
+				+ ", "
+				+ DatabaseConstants.ORDERS_ALL_COLS
+				+ ", "
+				+ DatabaseConstants.ORDERS_CONTENTS_ALL_COLS
+				+ " FROM "
+				+ DatabaseConstants.ORDERS_TABLE_NAME
+				+ " LEFT JOIN "
+				+ DatabaseConstants.ORDERS_COMMENT_TABLE_NAME
+				+ " ON ( "
+				+ DatabaseConstants.ORDERS_TO_ORDERCOMMENT_ID
+				+ " = "
+				+ DatabaseConstants.ORDERS_COMMENT_TO_ORDER_ID
+				+ " ) "
 				+ "INNER JOIN OrdersContents ON ( Orders.OrdersID = OrdersContents.OrdersID ) "
 				+ "INNER JOIN DishExtrasChosen ON ( OrdersContents.OrdersContentsID = DishExtrasChosen.OrdersContentsID ) "
 				+ "LEFT JOIN Customer ON ( Orders.CustomerID = " + DatabaseConstants.CUSTOMER_ID + " ) "
