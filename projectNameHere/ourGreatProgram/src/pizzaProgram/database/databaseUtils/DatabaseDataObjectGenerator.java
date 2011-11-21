@@ -201,17 +201,17 @@ public class DatabaseDataObjectGenerator {
 		int customerID = resultSet.getInt(resultSet
 				.findColumn(DatabaseConstants.CUSTOMER_ID));
 		String firstName = resultSet.getString(resultSet
-				.findColumn(DatabaseConstants.FIRST_NAME));
+				.findColumn(DatabaseConstants.CUSTOMER_FIRST_NAME));
 		String lastName = resultSet.getString(resultSet
-				.findColumn(DatabaseConstants.LAST_NAME));
+				.findColumn(DatabaseConstants.CUSTOMER_LAST_NAME));
 		String address = resultSet.getString(resultSet
-				.findColumn(DatabaseConstants.ADDRESS));
+				.findColumn(DatabaseConstants.CUSTOMER_ADDRESS));
 		String postalCode = resultSet.getString(resultSet
-				.findColumn(DatabaseConstants.POSTAL_CODE));
+				.findColumn(DatabaseConstants.CUSTOMER_POSTAL_CODE));
 		String city = resultSet.getString(resultSet
-				.findColumn(DatabaseConstants.CITY));
+				.findColumn(DatabaseConstants.CUSTOMER_CITY));
 		int phoneNumber = resultSet.getInt(resultSet
-				.findColumn(DatabaseConstants.PHONE_NUMBER));
+				.findColumn(DatabaseConstants.CUSTOMER_PHONE_NUMBER));
 		Customer customer = new Customer(customerID, firstName, lastName,
 				address, postalCode, city, phoneNumber);
 		return customer;

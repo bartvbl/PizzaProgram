@@ -1,28 +1,37 @@
 package pizzaProgram.core;
 
 /**
- * Class containing constants used when finding the column index on result sets.
+ * Class containing constants describing the names of the tables and columns in the database.
  */
 public class DatabaseConstants {
-	public static final String CUSTOMER_ID = "Customer.CustomerID";
-	public static final String FIRST_NAME = "Customer.FirstName";
-	public static final String LAST_NAME = "Customer.LastName";
-	public static final String ADDRESS = "Customer.Address";
-	public static final String POSTAL_CODE = "Customer.PostalCode";
-	public static final String CITY = "Customer.City";
-	public static final String PHONE_NUMBER = "Customer.TelephoneNumber";
-	public static final String IDENTIFIER = "Customer.Identifier";
-
-	public static final String DISH_ID = "Dishes.DishID";
-	public static final String DISH_PRICE = "Dishes.Price";
-	public static final String DISH_NAME = "Dishes.Name";
-	public static final String DISH_CONTAINS_GLUTEN = "Dishes.ContainsGluten";
-	public static final String DISH_CONTAINS_NUTS = "Dishes.ContainsNuts";
-	public static final String DISH_CONTAINS_DAIRY = "Dishes.ContainsDairy";
-	public static final String DISH_IS_VEGETARIAN = "Dishes.IsVegetarian";
-	public static final String DISH_IS_SPICY = "Dishes.IsSpicy";
-	public static final String DISH_DESCRIPTION = "Dishes.Description";
-	public static final String DISH_IS_ACTIVE = "Dishes.isActive";
+	/*
+	 * Constants pertaining to the Customer Table of the Database
+	 */
+	public static final String CUSTOMER_TABLE_NAME = "Customer";
+	public static final String CUSTOMER_ID = CUSTOMER_TABLE_NAME + ".CustomerID";
+	public static final String CUSTOMER_FIRST_NAME = CUSTOMER_TABLE_NAME + ".FirstName";
+	public static final String CUSTOMER_LAST_NAME = CUSTOMER_TABLE_NAME + ".LastName";
+	public static final String CUSTOMER_ADDRESS = CUSTOMER_TABLE_NAME + ".Address";
+	public static final String CUSTOMER_POSTAL_CODE = CUSTOMER_TABLE_NAME + ".PostalCode";
+	public static final String CUSTOMER_CITY = CUSTOMER_TABLE_NAME + ".City";
+	public static final String CUSTOMER_PHONE_NUMBER = CUSTOMER_TABLE_NAME + ".TelephoneNumber";
+	public static final String CUSTOMER_IDENTIFIER = CUSTOMER_TABLE_NAME + ".Identifier";
+	public static final String CUSTOMER_ALL_COLS = CUSTOMER_TABLE_NAME + ".*";
+	/*
+	 * Constants pertaining to the Dishes Table of the Database
+	 */
+	public static final String DISH_TABLE_NAME = "Dishes"; 
+	public static final String DISH_ID = DISH_TABLE_NAME + ".DishID";
+	public static final String DISH_PRICE = DISH_TABLE_NAME + ".Price";
+	public static final String DISH_NAME = DISH_TABLE_NAME + ".Name";
+	public static final String DISH_CONTAINS_GLUTEN = DISH_TABLE_NAME + ".ContainsGluten";
+	public static final String DISH_CONTAINS_NUTS = DISH_TABLE_NAME + ".ContainsNuts";
+	public static final String DISH_CONTAINS_DAIRY = DISH_TABLE_NAME + ".ContainsDairy";
+	public static final String DISH_IS_VEGETARIAN = DISH_TABLE_NAME + ".IsVegetarian";
+	public static final String DISH_IS_SPICY = DISH_TABLE_NAME + ".IsSpicy";
+	public static final String DISH_DESCRIPTION = DISH_TABLE_NAME + ".Description";
+	public static final String DISH_IS_ACTIVE = DISH_TABLE_NAME + ".isActive";
+	public static final String DISHES_ALL_COLS = DISH_TABLE_NAME + ".*";
 
 	public static final String EXTRAS_ID = "Extras.ExtrasID";
 	public static final String EXTRAS_NAME = "Extras.Name";
