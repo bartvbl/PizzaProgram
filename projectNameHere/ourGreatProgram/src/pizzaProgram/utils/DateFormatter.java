@@ -24,8 +24,8 @@ public class DateFormatter {
 
 	/**
 	 * Strips away the seconds in the timestring
-	 * @param time
-	 * @return time without seconds
+	 * @param time A time string formatted like "hh:mm:ss"
+	 * @return time formatted like "hh:mm"
 	 */
 	private static String stripSeconds(String time) {
 		String[] timeParts = time.split(":");
@@ -33,9 +33,9 @@ public class DateFormatter {
 	}
 
 	/**
-	 * Strips away the milliseconds in the timestring
-	 * @param time
-	 * @return time without milliseconds
+	 * Strips away the milliseconds in a timestring
+	 * @param time A time string formatted like "hh:mm:ss.mmm"
+	 * @return time without milliseconds, formatted like "hh:mm:ss"
 	 */
 	private static String removeMilliseconds(String time) {
 		int index = time.indexOf('.');
@@ -46,7 +46,11 @@ public class DateFormatter {
 		return time;
 	}
 	
-	
+	/**
+	 * Formats a date string
+	 * @param date Any date string formatted like "yyyy-mm-dd"
+	 * @return A date string formatted like "dd-mm" if the inserted date is 'yesterday' or earlier according to the system time, or "" is the inseted date string IS today
+	 */
 	private static String formatDate(String date) {
 		if(dateIsNotToday(date)){
 			return formatDateOnlyString(date) + " ";
@@ -56,9 +60,9 @@ public class DateFormatter {
 	}
 	
 	/**
-	 * 
-	 * @param date
-	 * @return
+	 * Formats the inserted date string
+	 * @param date A date string, formatted like "yyyy-mm-dd"
+	 * @return A formatted date string, formatted like "dd-mm"
 	 */
 	private static String formatDateOnlyString(String date) {
 		String[] dateParts = date.split("-");
@@ -67,8 +71,8 @@ public class DateFormatter {
 
 	/**
 	 * determines if a date is today or not
-	 * @param date
-	 * @return if the date is today or not
+	 * @param date The date to determine whether it is today, formatted like "yyyy-mm-dd"
+	 * @return returns true if the inserted date is today, and false otherwise
 	 */
 	private static boolean dateIsNotToday(String date){
 		int[] dateParts = convertDateStringToComponentValues(date);
@@ -84,7 +88,8 @@ public class DateFormatter {
 	}
 	
 	/**
-	 * @return the current date
+	 * Returns the current date, according to the system time
+	 * @return an integer string formatted like new int[]{years, months, days}
 	 */
 	private static int[] getCurrentDate(){
 		Calendar cal = Calendar.getInstance();
@@ -96,8 +101,8 @@ public class DateFormatter {
 	
 	/**
 	 * Converts the date to an array containing years, months and days
-	 * @param currentDate
-	 * @return
+	 * @param currentDate A string representing the current date, formatted as "yyyy-mm-dd"
+	 * @return an integer array formatted like new int[]{years, months, days}
 	 */
 	private static int[] convertDateStringToComponentValues(String currentDate){
 		String[] dateParts = currentDate.split("-");

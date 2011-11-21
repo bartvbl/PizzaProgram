@@ -10,10 +10,21 @@ import javax.swing.JLabel;
 import pizzaProgram.core.GUIConstants;
 import pizzaProgram.utils.PrintUtilities;
 
+/**
+ * The receipt window shows a new window containing the receipt of an order
+ * @author Bart
+ *
+ */
 @SuppressWarnings("serial")
 public class ReceiptWindow extends JFrame{
 
+	/**
+	 * A JLabel holding the receipt's text
+	 */
 	private JLabel html;
+	/**
+	 * The button the user can use to print out the receipt
+	 */
 	private JButton printButton;
 	/**
 	 * This class is a window, the window displays a receipt(o0r whatever string it is given as input)
@@ -48,10 +59,11 @@ public class ReceiptWindow extends JFrame{
 		setVisible(true);
 	}
 	
-	
+	/**
+	 * Prints out the receipt
+	 */
 	private void skrivUt() {
-		PrintUtilities printer = new PrintUtilities(html);
-		printer.print();
+		PrintUtilities.printComponent(html);
 	}
 
 }//END
