@@ -88,11 +88,11 @@ public class AdminGUI extends GUIModule implements EventHandler{
 		AdminView.editExtraExtraIsActiveComboBox.addItem(GUIConstants.GUI_TRUE);
 		AdminView.editExtraExtraIsActiveComboBox.addItem(GUIConstants.GUI_FALSE);
 		
-		
 		AdminView.settingsDeliveryPriceTextBox.setText(PriceCalculators.getDeliveryCost());
 		AdminView.settingsEditNameOfRestaurantTextBox.setText(PriceCalculators.getRestaurantName());
+		AdminView.settingsEditAdressOfRestaurantTextBox.setText(PriceCalculators.getRestaurantAddress());
+		AdminView.settingsEditCityOfRestaurantTextBox.setText(PriceCalculators.getRestaurantCity());
 		AdminView.settingsEditMinimumPriceFreeDeliveryTextBox.setText(PriceCalculators.getFreeDeliveryTreshold());
-		
 		
 		//orderhistory
 		DefaultTableModel orderTableModel = (DefaultTableModel) AdminView.ordersTable.getModel();

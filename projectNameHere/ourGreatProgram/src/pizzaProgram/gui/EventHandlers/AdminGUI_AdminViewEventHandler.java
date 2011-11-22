@@ -44,6 +44,7 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 	 */
 	private void addEventListeners(){
 		
+		
 		AdminView.ordersTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
 				handleOrderSelection(e);
@@ -147,6 +148,8 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 	private void handleSettingConfirmedButtonClicked() {
 		String priceText = AdminView.settingsDeliveryPriceTextBox.getText();
 		String nameText = DataCleaner.cleanDbData(AdminView.settingsEditNameOfRestaurantTextBox.getText());
+		String addressText = AdminView.settingsEditAdressOfRestaurantTextBox.getText();
+		String cityText = AdminView.settingsEditCityOfRestaurantTextBox.getText();
 		String delivertTresholdText = AdminView.settingsEditMinimumPriceFreeDeliveryTextBox.getText();
 		
 		int orePrice = 0;
@@ -176,10 +179,24 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 		Setting priceSetting = new Setting(DatabaseConstants.SETTING_KEY_DELIVERY_PRICE, ""+orePrice);
 		
 		if(nameText.length() < 3 || nameText.length() > 18){
-			GUIConstants.showErrorMessage("Navnet på restauranten kan ikke være mindre enn 3 bokstaver lant eller mer enn 10 bokstaver langt");
+			GUIConstants.showErrorMessage("Navnet på restauranten kan ikke være mindre enn 3 bokstaver eller mer enn 10 bokstaver");
 			return;
 		}
 		Setting nameSetting = new Setting(DatabaseConstants.SETTING_KEY_RESTAURANT_NAME, nameText);
+		
+		if(addressText.length() < 3){
+			GUIConstants.showErrorMessage("Addressen til restauranten kan ikke være mindre enn 3 bokstaver");
+			return;
+		}
+		Setting addressSetting = new Setting(DatabaseConstants.SETTING_KEY_RESTAURANT_ADDRESS, addressText);
+		
+		if(cityText.length() < 1){
+			GUIConstants.showErrorMessage("Addressen til restauranten kan ikke være mindre enn 1 bokstav");
+			return;
+		}
+		Setting citySetting = new Setting(DatabaseConstants.SETTING_KEY_RESTAURANT_CITY, cityText);
+		
+		
 		
 		int oreDeliveryTreshold = 0;
 		String[] splittTreshold = delivertTresholdText.split(",");
@@ -219,6 +236,15 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 			Config.updateValueOfSetting(deliveryTresholdSetting);
 			somethingChanged = true;
 		}
+		if(!addressText.equals(PriceCalculators.getRestaurantAddress())){
+			Config.updateValueOfSetting(addressSetting);
+			somethingChanged = true;
+		}
+		if(!cityText.equals(PriceCalculators.getRestaurantCity())){
+			Config.updateValueOfSetting(citySetting);
+			somethingChanged = true;
+		}
+		
 		if(!somethingChanged){
 			GUIConstants.showConfirmMessage("Ingenting å endre");
 		}else{

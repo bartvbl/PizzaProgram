@@ -11,6 +11,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import pizzaProgram.dataObjects.Customer;
+import pizzaProgram.utils.PriceCalculators;
 
 /**
  * this class is a jpanel that can display a map with a customers adress
@@ -39,14 +40,6 @@ public class DeliveryMap extends JPanel {
 	public void paint(Graphics g) {
 		super.paint(g);
 		g.drawImage(kart, 0, 0, drawWidth, drawHeight, null);
-	}
-
-	/**
-	 * this is the adress of the restaurant
-	 */
-	private String address() {
-		String adr = "sem sælandsvei 2,trondheim,no";
-		return adr;
 	}
 
 	/**
@@ -89,9 +82,8 @@ public class DeliveryMap extends JPanel {
 		}
 		
 		try {
-			URL url = new URL(
-					"http://maps.googleapis.com/maps/api/staticmap?size="+requestWidth+"x"+requestHeight+"&sensor=false&markers="
-							+ formatAddress(address())+ "&markers="+ formatAddress(customer.address+","+customer.postalCode));
+			URL url = new URL("http://maps.googleapis.com/maps/api/staticmap?size="+requestWidth+"x"+requestHeight+"&sensor=false&markers="
+							+ formatAddress(PriceCalculators.getRestaurantAddress() + "," + PriceCalculators.getRestaurantCity())+ "&markers="+ formatAddress(customer.address+","+customer.postalCode));
 			kart = ImageIO.read(url);
 
 		} catch (MalformedURLException e) {

@@ -23,6 +23,8 @@ public class PriceCalculators {
 	private static int deliveryCost = -1;
 
 	private static String restaurantName = "";
+	private static String restaurantAddress = "";
+	private static String restaurantCity = "";
 
 	/**
 	 * Generates a priceString on the form "0,00" based on the price of the
@@ -303,24 +305,23 @@ public class PriceCalculators {
 	 * Config table of the database.
 	 */
 	public static void getConstantsFromDataBase() {
-		deliverMoms = Integer
-				.parseInt(DatabaseReader
-						.getSettingByKey(DatabaseConstants.SETTING_KEY_DELIVERY_AT_HOME_TAX).value);
-		pickupMoms = Integer
-				.parseInt(DatabaseReader
-						.getSettingByKey(DatabaseConstants.SETTING_KEY_PICKUP_AT_RESTAURANT_TAX).value);
-		freeDeliveryThreshold = Integer
-				.parseInt(DatabaseReader
-						.getSettingByKey(DatabaseConstants.SETTING_KEY_FREE_DELIVERY_LIMIT).value);
-		deliveryCost = Integer
-				.parseInt(DatabaseReader
-						.getSettingByKey(DatabaseConstants.SETTING_KEY_DELIVERY_PRICE).value);
-		restaurantName = DatabaseReader
-				.getSettingByKey(DatabaseConstants.SETTING_KEY_RESTAURANT_NAME).value;
+		deliverMoms = Integer.parseInt(DatabaseReader.getSettingByKey(DatabaseConstants.SETTING_KEY_DELIVERY_AT_HOME_TAX).value);
+		pickupMoms = Integer.parseInt(DatabaseReader.getSettingByKey(DatabaseConstants.SETTING_KEY_PICKUP_AT_RESTAURANT_TAX).value);
+		freeDeliveryThreshold = Integer.parseInt(DatabaseReader.getSettingByKey(DatabaseConstants.SETTING_KEY_FREE_DELIVERY_LIMIT).value);
+		deliveryCost = Integer.parseInt(DatabaseReader.getSettingByKey(DatabaseConstants.SETTING_KEY_DELIVERY_PRICE).value);
+		restaurantName = DatabaseReader.getSettingByKey(DatabaseConstants.SETTING_KEY_RESTAURANT_NAME).value;
+		restaurantAddress = DatabaseReader.getSettingByKey(DatabaseConstants.SETTING_KEY_RESTAURANT_ADDRESS).value;
+		restaurantCity = DatabaseReader.getSettingByKey(DatabaseConstants.SETTING_KEY_RESTAURANT_CITY).value;
 	}
 
 	public static String getRestaurantName() {
 		return restaurantName;
+	}
+	public static String getRestaurantAddress() {
+		return restaurantAddress;
+	}
+	public static String getRestaurantCity() {
+		return restaurantCity;
 	}
 
 }
