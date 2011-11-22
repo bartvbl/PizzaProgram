@@ -3,6 +3,7 @@ package pizzaProgram.database.databaseUtils;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import pizzaProgram.core.DatabaseMessages;
 import pizzaProgram.core.DatabaseQueryConstants;
 import pizzaProgram.core.GUIConstants;
 import pizzaProgram.dataObjects.Customer;
@@ -61,7 +62,7 @@ public class DatabaseWriter {
 		if (order.deliveryMethod.equals(Order.DELIVER_AT_HOME)) {
 			updateOrderStatusIfStatusMatchesCurrentStatus(order, Order.HAS_BEEN_COOKED, Order.BEING_DELIVERED);
 		} else {
-			GUIConstants.showErrorMessage("Orderen har en ugyldig status!");
+			GUIConstants.showErrorMessage(DatabaseMessages.ILLEGAL_STATUS_ON_ORDER);
 		}
 	}
 
@@ -100,9 +101,9 @@ public class DatabaseWriter {
 			if (orderID != -1) {
 				addDishesToOrder(order, orderID);
 			}
-			GUIConstants.showConfirmMessage("Ordere lagt til");
+			GUIConstants.showConfirmMessage(DatabaseMessages.ORDER_ADDED_SUCCESSFULLY);
 		} catch (SQLException e) {
-			GUIConstants.showErrorMessage("Kunne ikke legge til ordere!");
+			GUIConstants.showErrorMessage(DatabaseMessages.UNABLE_TO_ADD_ORDER);
 			e.printStackTrace();
 		}
 	}
@@ -119,9 +120,9 @@ public class DatabaseWriter {
 					+ " VALUES (NULL, '" + customer.firstName + "', '" + customer.lastName + "', '"
 					+ customer.address + "', " + customer.postalCode + ", '" + customer.city + "', "
 					+ customer.phoneNumber + ", '" + createCustomerIdentifier(customer) + "');");
-			GUIConstants.showConfirmMessage("Kunde lagt til");
+			GUIConstants.showConfirmMessage(DatabaseMessages.CUSTOMER_ADDED_SUCCESSFULLY);
 		} catch (SQLException e) {
-			GUIConstants.showErrorMessage("Kunne ikke legge til kunde!");
+			GUIConstants.showErrorMessage(DatabaseMessages.UNABLE_TO_ADD_CUSTOMER);
 			e.printStackTrace();
 		}
 	}
@@ -141,9 +142,9 @@ public class DatabaseWriter {
 					+ customer.lastName + "', '" + customer.address + "', " + customer.postalCode + ", '"
 					+ customer.city + "', " + customer.phoneNumber + ", '"
 					+ createCustomerIdentifier(customer) + "');");
-			GUIConstants.showConfirmMessage("Kundedata endret");
+			GUIConstants.showConfirmMessage(DatabaseMessages.CUSTOMER_EDITED_SUCCESSFULLY);
 		} catch (SQLException e) {
-			GUIConstants.showErrorMessage("Kunne ikke endre kundedata!");
+			GUIConstants.showErrorMessage(DatabaseMessages.UNABLE_TO_EDIT_CUSTOMER);
 			e.printStackTrace();
 		}
 	}
@@ -160,9 +161,9 @@ public class DatabaseWriter {
 					+ " VALUES (NULL, " + dish.price + ", '" + dish.name + "', " + dish.containsGluten + ", "
 					+ dish.containsNuts + ", " + dish.containsDairy + ", " + dish.isSpicy + ", "
 					+ dish.isVegetarian + ", '" + dish.description + "', " + dish.isActive + ");");
-			GUIConstants.showConfirmMessage("Rett lagt til");
+			GUIConstants.showConfirmMessage(DatabaseMessages.DISH_ADDED_SUCCESSFULLY);
 		} catch (SQLException e) {
-			GUIConstants.showErrorMessage("Kunne ikke legge til rett!");
+			GUIConstants.showErrorMessage(DatabaseMessages.UNABLE_TO_ADD_DISH);
 			e.printStackTrace();
 		}
 	}
@@ -187,9 +188,9 @@ public class DatabaseWriter {
 					+ DatabaseQueryConstants.DISH_DESCRIPTION + "='" + dish.description + "', "
 					+ DatabaseQueryConstants.DISH_IS_ACTIVE + "=" + dish.isActive + " WHERE "
 					+ DatabaseQueryConstants.DISH_ID + "=" + dish.dishID + ";");
-			GUIConstants.showConfirmMessage("Rett endret");
+			GUIConstants.showConfirmMessage(DatabaseMessages.DISH_EDITED_SUCCESSFULLY);
 		} catch (SQLException e) {
-			GUIConstants.showErrorMessage("Kunne ikke endre rett!");
+			GUIConstants.showErrorMessage(DatabaseMessages.UNABLE_TO_EDIT_DISH);
 			e.printStackTrace();
 		}
 	}
@@ -208,9 +209,9 @@ public class DatabaseWriter {
 					+ DatabaseQueryConstants.EXTRAS_PRICE + "='" + price + "', "
 					+ DatabaseQueryConstants.EXTRAS_IS_ACTIVE + "=" + extra.isActive + " WHERE "
 					+ DatabaseQueryConstants.EXTRAS_ID + "=" + extra.id + ";");
-			GUIConstants.showConfirmMessage("Tilbehør endret");
+			GUIConstants.showConfirmMessage(DatabaseMessages.EXTRA_EDITED_SUCCESSFULLY);
 		} catch (SQLException e) {
-			GUIConstants.showErrorMessage("Kunne ikke endre tilbehør!");
+			GUIConstants.showErrorMessage(DatabaseMessages.UNABLE_TO_EDIT_EXTRA);
 			e.printStackTrace();
 		}
 	}
@@ -227,9 +228,9 @@ public class DatabaseWriter {
 		try {
 			DatabaseConnection.executeWriteQuery("INSERT INTO " + DatabaseQueryConstants.EXTRAS_TABLE_NAME
 					+ " VALUES (NULL, '" + extra.name + "', '" + price + "', " + extra.isActive + ");");
-			GUIConstants.showConfirmMessage("Tilbehør lagt til");
+			GUIConstants.showConfirmMessage(DatabaseMessages.EXTRA_ADDED_SUCCESSFULLY);
 		} catch (SQLException e) {
-			GUIConstants.showErrorMessage("Kunne ikke legge til tilbehør!");
+			GUIConstants.showErrorMessage(DatabaseMessages.UNABLE_TO_ADD_EXTRA);
 			e.printStackTrace();
 		}
 	}
@@ -247,7 +248,7 @@ public class DatabaseWriter {
 					+ DatabaseQueryConstants.CONFIG_VALUE + "='" + setting.value + "' WHERE "
 					+ DatabaseQueryConstants.CONFIG_KEY + "='" + setting.key + "'");
 		} catch (SQLException e) {
-			GUIConstants.showErrorMessage("Kunne ikke endre" + setting.key);
+			GUIConstants.showErrorMessage(DatabaseMessages.UNABLE_TO_CHANGE_BLANK + setting.key);
 			e.printStackTrace();
 		}
 	}
@@ -276,10 +277,10 @@ public class DatabaseWriter {
 				unlockTables();
 			} else {
 				unlockTables();
-				GUIConstants.showConfirmMessage("Kunne ikke endre ordrestatus: uforventet ordrestatus");
+				GUIConstants.showConfirmMessage(DatabaseMessages.UNEXPECTED_ORDER_STATUS);
 			}
 		} catch (SQLException e) {
-			GUIConstants.showConfirmMessage("Kunne ikke endre ordrestatus");
+			GUIConstants.showConfirmMessage(DatabaseMessages.UNABLE_TO_CHANGE_ORDER_STATUS);
 			e.printStackTrace();
 		} finally {
 			unlockTables();

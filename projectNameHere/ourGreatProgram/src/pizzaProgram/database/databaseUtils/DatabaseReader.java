@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import pizzaProgram.core.DatabaseMessages;
 import pizzaProgram.core.DatabaseQueryConstants;
 import pizzaProgram.core.GUIConstants;
 import pizzaProgram.dataObjects.Customer;
@@ -36,7 +37,7 @@ public class DatabaseReader {
 			return customerList;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			GUIConstants.showErrorMessage("Kunne ikke hente kunder fra databasen!");
+			GUIConstants.showErrorMessage(DatabaseMessages.UNABLE_TO_FETCH_CUSTOMERS);
 		}
 		return null;
 	}
@@ -59,7 +60,7 @@ public class DatabaseReader {
 			return setting;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			GUIConstants.showErrorMessage("Kunne ikke hente innstillinger fra databasen!");
+			GUIConstants.showErrorMessage(DatabaseMessages.UNABLE_TO_FETCH_SETTINGS);
 		}
 		return null;
 	}
@@ -78,7 +79,7 @@ public class DatabaseReader {
 			return settings;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			GUIConstants.showErrorMessage("Kunne ikke hente innstillinger fra databasen!");
+			GUIConstants.showErrorMessage(DatabaseMessages.UNABLE_TO_FETCH_SETTINGS);
 		}
 		return null;
 	}
@@ -98,7 +99,7 @@ public class DatabaseReader {
 			dishList = DatabaseDataObjectGenerator.generateDishList(results);
 		} catch (SQLException e) {
 			e.printStackTrace();
-			GUIConstants.showErrorMessage("Kunne ikke hente retter fra databasen!");
+			GUIConstants.showErrorMessage(DatabaseMessages.UNABLE_TO_FETCH_DISHES);
 		}
 		return dishList;
 	}
@@ -118,7 +119,7 @@ public class DatabaseReader {
 			dishList = DatabaseDataObjectGenerator.generateDishList(results);
 		} catch (SQLException e) {
 			e.printStackTrace();
-			GUIConstants.showErrorMessage("Kunne ikke hente retter fra databasen!");
+			GUIConstants.showErrorMessage(DatabaseMessages.UNABLE_TO_FETCH_DISHES);
 		}
 		return dishList;
 	}
@@ -139,7 +140,7 @@ public class DatabaseReader {
 			dishList = DatabaseDataObjectGenerator.generateExtrasList(results);
 		} catch (SQLException e) {
 			e.printStackTrace();
-			GUIConstants.showErrorMessage("Kunne ikke hente tilbehør fra databasen!");
+			GUIConstants.showErrorMessage(DatabaseMessages.UNABLE_TO_FETCH_EXTRAS);
 		}
 		return dishList;
 	}
@@ -159,7 +160,7 @@ public class DatabaseReader {
 			dishList = DatabaseDataObjectGenerator.generateExtrasList(results);
 		} catch (SQLException e) {
 			e.printStackTrace();
-			GUIConstants.showErrorMessage("Kunne ikke hente tilbehør fra databasen!");
+			GUIConstants.showErrorMessage(DatabaseMessages.UNABLE_TO_FETCH_EXTRAS);
 		}
 		return dishList;
 	}
@@ -183,7 +184,7 @@ public class DatabaseReader {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			GUIConstants.showErrorMessage("Kunne ikke hente ordre fra databasen!");
+			GUIConstants.showErrorMessage(DatabaseMessages.UNABLE_TO_FETCH_ORDERS);
 			return -1;
 		}
 	}
@@ -205,7 +206,7 @@ public class DatabaseReader {
 			orderList = DatabaseDataObjectGenerator.generateOrderListFromResultSet(result);
 		} catch (SQLException e) {
 			e.printStackTrace();
-			GUIConstants.showErrorMessage("Kunne ikke hente ordre fra databasen!");
+			GUIConstants.showErrorMessage(DatabaseMessages.UNABLE_TO_FETCH_ORDERS);
 		}
 		return orderList;
 	}
@@ -224,7 +225,7 @@ public class DatabaseReader {
 			orderList = DatabaseDataObjectGenerator.generateOrderListFromResultSet(result);
 		} catch (SQLException e) {
 			e.printStackTrace();
-			GUIConstants.showErrorMessage("Kunne ikke hente ordre fra databasen!");
+			GUIConstants.showErrorMessage(DatabaseMessages.UNABLE_TO_FETCH_ORDERS);
 		}
 		return orderList;
 	}
@@ -282,7 +283,7 @@ public class DatabaseReader {
 			orderList = DatabaseDataObjectGenerator.generateOrderListFromResultSet(result);
 		} catch (SQLException e) {
 			e.printStackTrace();
-			GUIConstants.showErrorMessage("Kunne ikke hente ordre fra databasen!");
+			GUIConstants.showErrorMessage(DatabaseMessages.UNABLE_TO_FETCH_ORDERS);
 		}
 		return orderList;
 	}

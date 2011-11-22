@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import pizzaProgram.core.DatabaseMessages;
 import pizzaProgram.core.DatabaseQueryConstants;
 import pizzaProgram.core.GUIConstants;
 import pizzaProgram.dataObjects.Customer;
@@ -41,7 +42,7 @@ public class DatabaseSearcher {
 			return customerList;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			GUIConstants.showErrorMessage("Kunne ikke hente kunder fra databasen!");
+			GUIConstants.showErrorMessage(DatabaseMessages.UNABLE_TO_FETCH_CUSTOMERS);
 		}
 		return null;
 	}
@@ -65,7 +66,7 @@ public class DatabaseSearcher {
 			return dishList;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			GUIConstants.showErrorMessage("Kunne ikke hente retter fra databasen!");
+			GUIConstants.showErrorMessage(DatabaseMessages.UNABLE_TO_FETCH_DISHES);
 		}
 		return null;
 	}
@@ -88,7 +89,7 @@ public class DatabaseSearcher {
 			return extrasList;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			GUIConstants.showErrorMessage("Kunne ikke hente tilbehør fra databasen!");
+			GUIConstants.showErrorMessage(DatabaseMessages.UNABLE_TO_FETCH_EXTRAS);
 		}
 		return null;
 	}
@@ -115,7 +116,7 @@ public class DatabaseSearcher {
 			return orderList;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			GUIConstants.showErrorMessage("Kunne ikke hente ordre fra databasen!");
+			GUIConstants.showErrorMessage(DatabaseMessages.UNABLE_TO_FETCH_ORDERS);
 		}
 		return null;
 	}
