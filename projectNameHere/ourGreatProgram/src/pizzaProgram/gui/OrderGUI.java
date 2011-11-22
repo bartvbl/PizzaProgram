@@ -81,12 +81,12 @@ public class OrderGUI extends GUIModule implements EventHandler {
 	}
 	@Override
 	public void show() {
+		this.orderViewEventHandler.resetOrder();
 		this.programWindow.showPanel(this.orderView);
 
 	}
 	@Override
 	public void hide() {
 		this.programWindow.hidePanel(this.orderView);
-		this.orderViewEventHandler.resetOrder();
 	}
 }// END
