@@ -59,9 +59,6 @@ public class OrderGUI extends GUIModule implements EventHandler {
 
 	public OrderGUI(ProgramWindow mainWindow, EventDispatcher eventDispatcher) {
 		super(eventDispatcher);
-		eventDispatcher.addEventListener(this, EventType.COOK_GUI_REQUESTED);
-		eventDispatcher.addEventListener(this, EventType.ORDER_GUI_REQUESTED);
-		eventDispatcher.addEventListener(this, EventType.DELIVERY_GUI_REQUESTED);
 		this.orderView = new OrderView();
 		mainWindow.addJPanel(orderView);
 		this.orderView.addPropertyChangeListener(null);
@@ -70,6 +67,19 @@ public class OrderGUI extends GUIModule implements EventHandler {
 		orderSystemEventHandler = new OrderGUI_SystemEventHandler(eventDispatcher, this);
 		this.setupComponents();
 		hide();
+		this.addEventListeners(eventDispatcher);
+	}
+	
+	/**
+	 * Adds event listeners for all events that this class listens for
+	 * @param eventDispatcher The system's main event dispatcher
+	 */
+	private void addEventListeners(EventDispatcher eventDispatcher)
+	{
+		eventDispatcher.addEventListener(this, EventType.COOK_GUI_REQUESTED);
+		eventDispatcher.addEventListener(this, EventType.ORDER_GUI_REQUESTED);
+		eventDispatcher.addEventListener(this, EventType.DELIVERY_GUI_REQUESTED);
+		eventDispatcher.addEventListener(this, EventType.DATA_REFRESH_REQUESTED);
 	}
 	
 	/**
@@ -116,6 +126,14 @@ public class OrderGUI extends GUIModule implements EventHandler {
 		if(event.eventType.equals(EventType.ORDER_GUI_REQUESTED)){
 			show();
 			this.dispatchEvent(new Event<Object>(EventType.DATABASE_UPDATE_ORDER_GUI_SEND_ALL_CUSTOMERS));
+		} else if(event.eventType.equals(EventType.DATA_REFRESH_REQUESTED)){
+			if(this.programWindow.panelIsCurrentlyVisible(this.orderView))
+			{
+				//woo! broke the record for longest function name! :D
+				this.orderViewEventHandler.handleCustomerSearchTypingBasedOnSearchBoxContents();
+				this.orderViewEventHandler.handleDishSearchTyping();
+				this.orderViewEventHandler.handleExtrasSearchTyping();
+			}
 		}
 	}
 	

@@ -111,7 +111,7 @@ public class DeliveryGUI_DeliveryViewEventHandler extends ComponentEventHandler 
 	/**
 	 * Searches for orders in the database if the search box is not empty, or shows all orders when it is
 	 */
-	private void showOrdersBasedOnSearchBox(){
+	public void showOrdersBasedOnSearchBox(){
 		if(DeliveryView.orderSearchTextField.getText().equals("")){
 			showAllOrders();
 		}

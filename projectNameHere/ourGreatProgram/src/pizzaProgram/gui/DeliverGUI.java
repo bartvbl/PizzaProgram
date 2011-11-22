@@ -36,6 +36,11 @@ public class DeliverGUI extends GUIModule implements EventHandler {
 	 * The order that is currently being displayed in the delivery GUI
 	 */
 	public Order currentOrder;
+	
+	/**
+	 * Holds a reference to the delivery view event handler for later reference
+	 */
+	private DeliveryGUI_DeliveryViewEventHandler deliveryViewEventHandler;
 
 	/**
 	 * The constructor, creates the deliveryView Jpanel, creates event handlers and registers the JPanel at the program's main window
@@ -53,7 +58,7 @@ public class DeliverGUI extends GUIModule implements EventHandler {
 		this.programWindow = mainWindow;
 		hide();
 		this.setupComponents();
-		new DeliveryGUI_DeliveryViewEventHandler(this);
+		this.deliveryViewEventHandler = new DeliveryGUI_DeliveryViewEventHandler(this);
 		new DeliveryGUI_SystemEventHandler(eventDispatcher, this);
 	}
 
@@ -99,6 +104,11 @@ public class DeliverGUI extends GUIModule implements EventHandler {
 	public void handleEvent(Event<?> event) {
 		if (event.eventType.equals(EventType.DELIVERY_GUI_REQUESTED)) {
 			show();
-		}
+		} else if (event.eventType.equals(EventType.DATA_REFRESH_REQUESTED)) {
+			if(this.programWindow.panelIsCurrentlyVisible(this.deliverView))
+			{
+				this.deliveryViewEventHandler.showOrdersBasedOnSearchBox();
+			}
+		} 
 	}
 }

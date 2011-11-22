@@ -39,6 +39,8 @@ public class ProgramWindow implements EventHandler {
 	 * A main JPanel that acts as the main frame's content pane
 	 */
 	private JPanel mainJPanel;
+	
+	private String currentActivePanelName = "";
 
 	private JFrame jframe;
 
@@ -117,6 +119,7 @@ public class ProgramWindow implements EventHandler {
 	 */
 	public void showPanel(JPanel panel) {
 		this.refreshFrame();
+		this.currentActivePanelName = panel.toString();
 		this.cardLayoutManager.show(this.mainJPanel, panel.toString());																// panel.toString());
 	}
 
@@ -126,6 +129,16 @@ public class ProgramWindow implements EventHandler {
 	public void refreshFrame() {
 		this.jframe.validate();
 		this.jframe.repaint();
+	}
+	
+	/**
+	 * Returns whether the inserted JPanel is currently being displayed on the screen (which is determined by whether the result of the toString() method matches the one of the currently active JPanel)
+	 * @param panel The panel to check against whether it is active
+	 * @return true if the panel is active, false otherwise
+	 */
+	public boolean panelIsCurrentlyVisible(JPanel panel)
+	{
+		return this.currentActivePanelName.equals(panel.toString());
 	}
 
 }// END

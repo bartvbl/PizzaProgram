@@ -37,6 +37,10 @@ public class CookGUI extends GUIModule implements EventHandler{
 	 * The order that is currently selected by the user
 	 */
 	public Order currentSelectedOrder;
+	/**
+	 * Stores the reference to the cookViewEventHandler for later use (internally)
+	 */
+	private CookGUI_CookViewEventHandler cookViewEventHandler;
 
 	/**
 	 * The constructor, creates the cookView Jpanel, creates event handlers and registers the JPanel at the program's main window
@@ -52,7 +56,7 @@ public class CookGUI extends GUIModule implements EventHandler{
 		mainWindow.addJPanel(this.cookView);
 		this.programWindow = mainWindow;
 		this.hide();
-		new CookGUI_CookViewEventHandler(this);
+		this.cookViewEventHandler = new CookGUI_CookViewEventHandler(this);
 		new CookGUI_SystemEventHandler(eventDispatcher, this);
 		this.setupComponents();
 	}
@@ -80,6 +84,12 @@ public class CookGUI extends GUIModule implements EventHandler{
 		if(event.eventType.equals(EventType.COOK_GUI_REQUESTED)){
 			show();
 			this.dispatchEvent(new Event<Object>(EventType.DATABASE_UPDATE_COOK_GUI_SEND_ALL_ORDERS));
+		} else if(event.eventType.equals(EventType.DATA_REFRESH_REQUESTED))
+		{
+			if(this.programWindow.panelIsCurrentlyVisible(this.cookView))
+			{
+				this.cookViewEventHandler.showOrdersBasedOnSearchBoxContents();
+			}
 		}
 	}
 

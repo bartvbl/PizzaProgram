@@ -67,11 +67,7 @@ public class CookGUI_CookViewEventHandler extends ComponentEventHandler implemen
 			public void keyPressed(KeyEvent arg0) {}
 			public void keyTyped(KeyEvent arg0) {}
 			public void keyReleased(KeyEvent arg0) {
-				if(CookView.orderSearchTextPane.getText().trim().isEmpty()) {
-					showAllOrders();
-				} else {
-					searchOrdersBySearchBoxQuery();
-				}
+				showOrdersBasedOnSearchBoxContents();
 			}
 		});
 	}
@@ -88,6 +84,19 @@ public class CookGUI_CookViewEventHandler extends ComponentEventHandler implemen
 			this.searchOrdersBySearchBoxQuery();
 		}
 	}
+	
+	/**
+	 * Shows all customers in the cook gui if the search box is empty, otherwise it searches for the contents of the search box in the database
+	 */
+	public void showOrdersBasedOnSearchBoxContents()
+	{
+		if(CookView.orderSearchTextPane.getText().trim().isEmpty()) {
+			showAllOrders();
+		} else {
+			searchOrdersBySearchBoxQuery();
+		}
+	}
+	
 	
 	/**
 	 * Automatically selects all text in the order search text box if the user gives it focus.

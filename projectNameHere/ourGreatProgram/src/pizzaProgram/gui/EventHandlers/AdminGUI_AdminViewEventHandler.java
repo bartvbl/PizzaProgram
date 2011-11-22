@@ -252,7 +252,8 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 		AdminView.searchExtraTextBox.setSelectionEnd(AdminView.searchExtraTextBox.getText().length());
 	}
 	
-	protected void handleDishSearchTyping(){
+	
+	public void handleDishSearchTyping(){
 		String query = AdminView.searchDishTextBox.getText();
 		if(query.length() == 0){
 			showAllDishes();
@@ -261,7 +262,7 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 		}
 	}
 
-	protected void handleExtraSearchTyping(){
+	public void handleExtraSearchTyping(){
 		String query = AdminView.searchExtraTextBox.getText();
 		if(query.length() == 0){
 			this.showAllExtras();

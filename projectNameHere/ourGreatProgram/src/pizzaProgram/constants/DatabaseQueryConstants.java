@@ -133,4 +133,5 @@ public class DatabaseQueryConstants {
 	 * 
 	 */
 	public static final String SETTING_KEY_DB_AUTO_UPDATE_MILLIS =  "autoDataUpdateDelayInMillis";
+	public static final int SETTING_KEY_DISABLE_DATA_AUTO_UPDATE = -1;
 }

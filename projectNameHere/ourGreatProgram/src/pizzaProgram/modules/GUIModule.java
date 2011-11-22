@@ -7,6 +7,7 @@ import pizzaProgram.events.EventDispatcher;
  *
  */
 public abstract class GUIModule extends Module {
+	
 	/**
 	 * The constructor creates a Module instance
 	 * @param eventDispatcher The system's main event dispatcher

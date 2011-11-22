@@ -96,7 +96,7 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler implem
 			}
 
 			public void keyReleased(KeyEvent e) {
-				handleCustomerSearchTyping();
+				handleCustomerSearchTypingBasedOnSearchBoxContents();
 			}
 		});
 
@@ -247,7 +247,7 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler implem
 	 * shows all customers in the customer list when the customer search box is
 	 * clear, and searches for the contents of the search box otherwise
 	 */
-	protected void handleCustomerSearchTyping() {
+	public void handleCustomerSearchTypingBasedOnSearchBoxContents() {
 		if (OrderView.searchCustomerTextArea.getText().equals("")) {
 			showAllCustomers();
 		} else {
@@ -259,7 +259,7 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler implem
 	 * Shows all extras if the extras search box is empty, or searches for the
 	 * contents of the search box otherwise
 	 */
-	protected void handleExtrasSearchTyping() {
+	public void handleExtrasSearchTyping() {
 		if (OrderView.extrasSearchTextField.getText().equals("")) {
 			showAllExtras();
 		} else {
@@ -272,7 +272,7 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler implem
 	 * show all dishes when the search box is empty, or search for dishes if
 	 * not.
 	 */
-	protected void handleDishSearchTyping() {
+	public void handleDishSearchTyping() {
 		if (OrderView.dishSearchTextBox.getText().equals("")) {
 			showAllDishes();
 		} else {

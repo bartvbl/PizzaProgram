@@ -12,6 +12,7 @@ import pizzaProgram.gui.CookGUI;
 import pizzaProgram.gui.DeliverGUI;
 import pizzaProgram.gui.OrderGUI;
 import pizzaProgram.gui.ProgramWindow;
+import pizzaProgram.modules.TimeredDataUpdater;
 import pizzaProgram.utils.PriceCalculators;
 
 /**
@@ -46,6 +47,7 @@ public class Main implements EventHandler {
 		PriceCalculators.getConstantsFromDataBase();
 		this.createMainWindow(mainApplication);
 		this.createGUIModules();
+		this.createDataUpdater();
 		this.eventDispatcher.addEventListener(this,
 				EventType.PROGRAM_EXIT_REQUESTED);
 
@@ -53,6 +55,13 @@ public class Main implements EventHandler {
 				EventType.ORDER_GUI_REQUESTED));
 	}
 	
+	/**
+	 * Creates the timered data updater module that periodically updates the data in the GUI
+	 */
+	private void createDataUpdater() {
+		new TimeredDataUpdater(this.eventDispatcher);
+	}
+
 	/**
 	 * Creates the program's main window
 	 * @param mainApplication The SingleFrameApplication instance, which the program window requires to start
