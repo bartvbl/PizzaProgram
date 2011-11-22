@@ -1,6 +1,6 @@
 package pizzaProgram.utils;
 
-import pizzaProgram.core.GUIConstants;
+import pizzaProgram.constants.GUIConstants;
 import pizzaProgram.dataObjects.Extra;
 import pizzaProgram.dataObjects.Order;
 import pizzaProgram.dataObjects.OrderDish;

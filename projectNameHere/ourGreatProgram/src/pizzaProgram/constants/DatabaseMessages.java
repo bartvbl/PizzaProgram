@@ -1,4 +1,4 @@
-package pizzaProgram.core;
+package pizzaProgram.constants;
 
 /**
  * Class containing String constants containing the contents of information and

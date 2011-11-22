@@ -1,4 +1,4 @@
-package pizzaProgram.core;
+package pizzaProgram.constants;
 
 import javax.swing.JOptionPane;
 

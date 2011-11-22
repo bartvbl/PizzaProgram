@@ -2,7 +2,7 @@ package pizzaProgram.database.eventHandlers;
 
 import java.util.ArrayList;
 
-import pizzaProgram.core.GUIConstants;
+import pizzaProgram.constants.GUIConstants;
 import pizzaProgram.dataObjects.Customer;
 import pizzaProgram.dataObjects.Dish;
 import pizzaProgram.dataObjects.Extra;

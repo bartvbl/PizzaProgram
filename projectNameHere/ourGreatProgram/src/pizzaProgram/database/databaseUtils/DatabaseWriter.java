@@ -3,9 +3,9 @@ package pizzaProgram.database.databaseUtils;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import pizzaProgram.core.DatabaseMessages;
-import pizzaProgram.core.DatabaseQueryConstants;
-import pizzaProgram.core.GUIConstants;
+import pizzaProgram.constants.DatabaseMessages;
+import pizzaProgram.constants.DatabaseQueryConstants;
+import pizzaProgram.constants.GUIConstants;
 import pizzaProgram.dataObjects.Customer;
 import pizzaProgram.dataObjects.Dish;
 import pizzaProgram.dataObjects.Extra;

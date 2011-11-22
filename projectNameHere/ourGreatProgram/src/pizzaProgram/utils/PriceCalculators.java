@@ -2,7 +2,7 @@ package pizzaProgram.utils;
 
 import java.text.DecimalFormat;
 
-import pizzaProgram.core.DatabaseQueryConstants;
+import pizzaProgram.constants.DatabaseQueryConstants;
 import pizzaProgram.dataObjects.Dish;
 import pizzaProgram.dataObjects.Extra;
 import pizzaProgram.dataObjects.Order;

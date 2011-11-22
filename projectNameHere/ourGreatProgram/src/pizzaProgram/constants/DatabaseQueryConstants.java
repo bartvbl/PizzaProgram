@@ -1,4 +1,4 @@
-package pizzaProgram.core;
+package pizzaProgram.constants;
 
 /**
  * Class containing constants describing the names of the tables and columns in
