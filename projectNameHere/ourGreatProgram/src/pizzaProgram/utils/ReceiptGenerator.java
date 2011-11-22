@@ -28,25 +28,35 @@ public class ReceiptGenerator {
 		receiptString.append("<html>");
 		receiptString.append("<table width=\"" + GUIConstants.RECIPT_WIDTH + "\" border=\"0\">");
 		receiptString.append("<tr><td align=\"center\"colspan=\"2\">-" + PriceCalculators.getRestaurantName() + "-</td></tr>");
+		
+		
 		for (OrderDish d : order.orderedDishes) {
 			lastrows++;
 			String dishprice = order.deliveryMethod.equals(Order.DELIVER_AT_HOME) ? PriceCalculators.getPriceForDishDeliver(d.dish) : PriceCalculators.getPriceForDishPickup(d.dish);
 			receiptString.append(createHeaderRow(d.dish.name, dishprice));
+			if(d.dish.name.length() > 16){
+				lastrows++;
+			}
 			
 			for (Extra e : d.getExtras()) {
 				String extraprice = order.deliveryMethod.equals(Order.DELIVER_AT_HOME) ? PriceCalculators.getPriceForExtraOnDishDeliver(d.dish, e) : PriceCalculators.getPriceForExtraOnDishPickup(d.dish, e);
 				receiptString.append(createRow("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + e.name, extraprice));
 				lastrows++;
+				if(e.name.length() > 22){
+					lastrows++;
+				}
 			}
 		}
 
-		receiptString.append(createRow("", ""));
-		receiptString.append(createRow("Alle retter", PriceCalculators.getPriceForOrderWithVAT(order)));
-		receiptString.append(createRow("Herav MVA", PriceCalculators.getVATForOrder(order)));
-		receiptString.append(createRow("Levering",PriceCalculators.getDeliveryCostForOrder(order)));
-		receiptString.append(createHeaderRow("Totalt",PriceCalculators.getPriceForOrderWithVATAndDelivery(order)));
-		receiptString.append("</table>");
-		receiptString.append("</html>");
+		receiptString.append(
+			createRow("", "") +
+			createRow("Alle retter", PriceCalculators.getPriceForOrderWithVAT(order)) +
+			createRow("Herav MVA", PriceCalculators.getVATForOrder(order)) +
+			createRow("Levering",PriceCalculators.getDeliveryCostForOrder(order)) +
+			createHeaderRow("Totalt",PriceCalculators.getPriceForOrderWithVATAndDelivery(order)) +
+			"</table></html>"
+		);
+		
 		return receiptString.toString();
 	}
 
@@ -59,10 +69,8 @@ public class ReceiptGenerator {
 	 *            string that should be added to the secondcolumn
 	 * @return an htmlrow as a string
 	 */
-	private static StringBuilder createRow(String col1, String col2) {
-		StringBuilder sb = new StringBuilder("<tr><td align=\"left\">" + col1
-				+ "</td><td align=\"right\">" + col2 + "</td></tr>");
-		return sb;
+	private static String createRow(String col1, String col2) {
+		return "<tr><td align=\"left\">" + col1 + "</td><td align=\"right\">" + col2 + "</td></tr>";
 	}
 
 	/**
@@ -75,10 +83,8 @@ public class ReceiptGenerator {
 	 *            string that should be added to the secondcolumn
 	 * @return an htmlrow as a string
 	 */
-	private static StringBuilder createHeaderRow(String col1, String col2) {
-		StringBuilder sb = new StringBuilder("<tr><th align=\"left\">" + col1
-				+ "</th><td align=\"right\">" + col2 + "</td></tr>");
-		return sb;
+	private static String createHeaderRow(String col1, String col2) {
+		return "<tr><th align=\"left\">" + col1 + "</th><td align=\"right\">" + col2 + "</td></tr>";
 	}
 
 }// END

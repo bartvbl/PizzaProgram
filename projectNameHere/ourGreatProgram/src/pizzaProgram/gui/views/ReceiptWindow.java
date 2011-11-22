@@ -34,13 +34,13 @@ public class ReceiptWindow extends JFrame{
 	 * @param kvittering
 	 * @param rows
 	 */
-	public ReceiptWindow(String kvittering, int rows) {
+	public ReceiptWindow(CharSequence kvittering, int rows) {
 		setLayout(null);
 		setLocationRelativeTo(null);
 		setResizable(false);
 		setTitle("Kvittering");
 
-		html = new JLabel(kvittering, JLabel.LEFT);
+		html = new JLabel(kvittering.toString(), JLabel.LEFT);
 		html.setBounds(2, 2, GUIConstants.RECIPT_WIDTH, GUIConstants.RECIPT_ROW_HEIGHT * rows);
 		html.setVerticalAlignment(JLabel.TOP);
 		html.setHorizontalTextPosition(JLabel.LEFT);
