@@ -5,6 +5,7 @@ import java.text.DecimalFormat;
 import pizzaProgram.config.Config;
 import pizzaProgram.constants.DatabaseQueryConstants;
 import pizzaProgram.constants.GUIConstants;
+import pizzaProgram.constants.GUIMessages;
 import pizzaProgram.dataObjects.Dish;
 import pizzaProgram.dataObjects.Extra;
 import pizzaProgram.dataObjects.Order;
@@ -33,7 +34,7 @@ public class PriceCalculators {
 	 * return a string which contains "123,45".
 	 * 
 	 * @param d
-	 *            - the {@link pizzaProgram.dataObjects.Dish dish} to get the
+	 *            the {@link pizzaProgram.dataObjects.Dish dish} to get the
 	 *            priceString for.
 	 * @return The priceString as specified above.
 	 */
@@ -57,7 +58,7 @@ public class PriceCalculators {
 	 * øre of 12345 would return a string which contains "123,45".
 	 * 
 	 * @param o
-	 *            - the {@link pizzaProgram.dataObjects.Order order} to get the
+	 *            the {@link pizzaProgram.dataObjects.Order order} to get the
 	 *            priceString for.
 	 * @return The priceString as specified above.
 	 */
@@ -80,7 +81,7 @@ public class PriceCalculators {
 	 * norwegian øre of 12345 would return a string which contains "123,45".
 	 * 
 	 * @param o
-	 *            - the {@link pizzaProgram.dataObjects.Order order} to get the
+	 *            the {@link pizzaProgram.dataObjects.Order order} to get the
 	 *            priceString for.
 	 * @return The priceString as specified above.
 	 */
@@ -95,7 +96,7 @@ public class PriceCalculators {
 	 * norwegian øre of 12345 would return a string which contains "123,45".
 	 * 
 	 * @param o
-	 *            - the {@link pizzaProgram.dataObjects.Order order} to get the
+	 *            the {@link pizzaProgram.dataObjects.Order order} to get the
 	 *            priceString for.
 	 * @return The priceString as specified above.
 	 */
@@ -115,7 +116,7 @@ public class PriceCalculators {
 	 * a string which contains "123,45".
 	 * 
 	 * @param o
-	 *            - the {@link pizzaProgram.dataObjects.Order order} to get the
+	 *            the {@link pizzaProgram.dataObjects.Order order} to get the
 	 *            delivery cost for.
 	 * @return The priceString as specified above.
 	 */
@@ -142,7 +143,7 @@ public class PriceCalculators {
 	 * string which contains "123,45".
 	 * 
 	 * @param o
-	 *            - the {@link pizzaProgram.dataObjects.Order order} to get the
+	 *            the {@link pizzaProgram.dataObjects.Order order} to get the
 	 *            VAT for.
 	 * @return The priceString as specified above.
 	 */
@@ -170,23 +171,23 @@ public class PriceCalculators {
 		int orePrice = 0;
 
 		if (splitt.length > 2 || splitt.length < 2) {
-			GUIConstants.showErrorMessage("Tall skal være på formen 00,00");
+			GUIConstants.showErrorMessage(GUIMessages.TOO_MANY_COMMAS_IN_VALUE);
 			return -1;
 		}
 		try {
 			orePrice = Integer.parseInt(splitt[0]) * 100;
 		} catch (NumberFormatException e) {
-			GUIConstants.showErrorMessage("Du har skrevet inn noe som ikke er et tall");
+			GUIConstants.showErrorMessage(GUIMessages.ILLEGAL_NUMBER_INPUT);
 			return -1;
 		}
 		if (splitt[1].length() > 2 || splitt[1].length() < 2) {
-			GUIConstants.showErrorMessage("Tall må ha nøyaktig to siffer etter komma!");
+			GUIConstants.showErrorMessage(GUIMessages.TOO_MANY_DIGITS_AFTER_COMMA);
 			return -1;
 		}
 		try {
 			orePrice += Integer.parseInt(splitt[1]);
 		} catch (Exception e) {
-			GUIConstants.showErrorMessage("Du har skrevet inn noe som ikke er et tall");
+			GUIConstants.showErrorMessage(GUIMessages.ILLEGAL_NUMBER_INPUT);
 			return -1;
 		}
 		return orePrice;
@@ -198,7 +199,7 @@ public class PriceCalculators {
 	 * VAT or delivery cost.
 	 * 
 	 * @param o
-	 *            - the {@link pizzaProgram.dataObjects.Order order} to get the
+	 *            the {@link pizzaProgram.dataObjects.Order order} to get the
 	 *            value for.
 	 * @return The value of the order in norwegian øre as an int.
 	 */
@@ -216,8 +217,8 @@ public class PriceCalculators {
 	 * VAT.
 	 * 
 	 * @param od
-	 *            - the {@link pizzaProgram.dataObjects.OrderDish ordered dish}
-	 *            to get the value for.
+	 *            the {@link pizzaProgram.dataObjects.OrderDish ordered dish} to
+	 *            get the value for.
 	 * @return The value of the ordered dish in norwegian øre as an int.
 	 */
 	private static int getValueForOrderDish(OrderDish od) {
@@ -240,8 +241,8 @@ public class PriceCalculators {
 	 * a string which contains "123,45".
 	 * 
 	 * @param od
-	 *            - the {@link pizzaProgram.dataObjects.OrderDish ordered dish}
-	 *            to get the priceString for.
+	 *            the {@link pizzaProgram.dataObjects.OrderDish ordered dish} to
+	 *            get the priceString for.
 	 * @return The priceString as specified above.
 	 */
 	public static String getPriceForOrderDish(OrderDish od) {
@@ -252,10 +253,10 @@ public class PriceCalculators {
 	/**
 	 * 
 	 * @param d
-	 *            - the {@link pizzaProgram.dataObjects.Dish dish} the info in
-	 *            the string is to be in relation to.
+	 *            the {@link pizzaProgram.dataObjects.Dish dish} the info in the
+	 *            string is to be in relation to.
 	 * @param e
-	 *            - the {@link pizzaProgram.dataObjects.Extra extra} the info in
+	 *            the {@link pizzaProgram.dataObjects.Extra extra} the info in
 	 *            the string is to be in relation to.
 	 * @return returns an integer øre-price of an extra on a spesific order
 	 *         Extra to the given Dish. used to calculate the price with
@@ -277,10 +278,10 @@ public class PriceCalculators {
 	 * restaurant added.
 	 * 
 	 * @param d
-	 *            - the {@link pizzaProgram.dataObjects.Dish dish} the info in
-	 *            the string is to be in relation to.
+	 *            the {@link pizzaProgram.dataObjects.Dish dish} the info in the
+	 *            string is to be in relation to.
 	 * @param e
-	 *            - the {@link pizzaProgram.dataObjects.Extra extra} the info in
+	 *            the {@link pizzaProgram.dataObjects.Extra extra} the info in
 	 *            the string is to be in relation to.
 	 * @return a string in the form of "+0,00" or "-0,00" depending on wether or
 	 *         not it is a positive or negative price change.
@@ -299,10 +300,10 @@ public class PriceCalculators {
 	 * Extra to the given Dish with the VAT for deliveries added.
 	 * 
 	 * @param d
-	 *            - the {@link pizzaProgram.dataObjects.Dish dish} the info in
-	 *            the string is to be in relation to.
+	 *            the {@link pizzaProgram.dataObjects.Dish dish} the info in the
+	 *            string is to be in relation to.
 	 * @param e
-	 *            - the {@link pizzaProgram.dataObjects.Extra extra} the info in
+	 *            the {@link pizzaProgram.dataObjects.Extra extra} the info in
 	 *            the string is to be in relation to.
 	 * @return a string in the form of "+0,00" or "-0,00" depending on wether or
 	 *         not it is a positive or negative price change.
@@ -321,7 +322,7 @@ public class PriceCalculators {
 	 * price modification adding the given extra will have on a dish.
 	 * 
 	 * @param e
-	 *            - the {@link pizzaProgram.dataObjects.Extra extra} to get the
+	 *            the {@link pizzaProgram.dataObjects.Extra extra} to get the
 	 *            price modification from.
 	 * @return the priceString as specified above.
 	 */

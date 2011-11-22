@@ -92,7 +92,7 @@ public class GUIConstants {
 	 * Shows an error message to the user
 	 * @param message The message of that the error message box should display
 	 */
-	public static void showErrorMessage(String message){
+	public static void showErrorMessage(String message) {
 		JOptionPane.showMessageDialog(null, message, "Feil", JOptionPane.ERROR_MESSAGE);
 	}
 	
