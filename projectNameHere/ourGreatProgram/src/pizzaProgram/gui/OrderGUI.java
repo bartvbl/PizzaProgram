@@ -57,6 +57,9 @@ public class OrderGUI extends GUIModule implements EventHandler {
 		tableModel.addColumn("Rett");
 		tableModel.addColumn("Tilbehør");
 		OrderView.orderContentsTable.removeEditor();
+		OrderView.selectCustomerButton.setEnabled(false);
+		OrderView.deleteCustomerButton.setEnabled(false);
+		OrderView.changeCustomerButton.setEnabled(false);
 	}
 
 	public void createNewCustomer(UnaddedCustomer customer) {
