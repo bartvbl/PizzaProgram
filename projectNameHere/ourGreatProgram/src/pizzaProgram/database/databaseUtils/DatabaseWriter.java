@@ -426,7 +426,6 @@ public class DatabaseWriter {
 	 */
 	private static int createNewOrder(UnaddedOrder order, int commentID) throws SQLException {
 		int orderID = DatabaseReader.customerHasUncookedOrder(order);
-		System.out.println(orderID);
 		if (orderID > 0) {
 			return orderID;
 		}
