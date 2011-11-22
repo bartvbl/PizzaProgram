@@ -128,6 +128,9 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 	 */
 	private void handleOrderSelection(ListSelectionEvent e) {
 		int indexOfSelectedOrder = ((DefaultListSelectionModel)e.getSource()).getMinSelectionIndex();
+		if(indexOfSelectedOrder < 0){
+			return;
+		}
 		Order order = adminGUI.currentOrderList.get(indexOfSelectedOrder);
 		AdminView.orderReceiptLabel.setText(ReceiptGenerator.generateReceipt(order));
 	}

@@ -338,7 +338,7 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler
 	/**
 	 * Handles the the event when a user clicked the "Reset order" button. Resets the UI and the temporary order storage
 	 */
-	private void resetOrder() {
+	public void resetOrder() {
 		this.temporaryOrderData.reset();
 		this.resetUI();
 	}
@@ -439,10 +439,16 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler
 		int indexFromOtherSource = ((JList) event.getSource()).getSelectedIndex();
 		if (event.getFirstIndex() < 0 || indexFromOtherSource < 0) {
 			currentSelecetedCustomer = null;
+			OrderView.selectCustomerButton.setEnabled(false);
+			OrderView.deleteCustomerButton.setEnabled(false);
+			OrderView.changeCustomerButton.setEnabled(false);
 			return;
 		}
 		Customer customer = this.orderGUI.currentCustomerList.get(indexFromOtherSource);
 		currentSelecetedCustomer = customer;
+		OrderView.selectCustomerButton.setEnabled(true);
+		OrderView.deleteCustomerButton.setEnabled(true);
+		OrderView.changeCustomerButton.setEnabled(true);
 
 		this.temporaryOrderData.setCustomer(customer);
 		OrderView.customerInformationTextArea.setText(customer.firstName + " "

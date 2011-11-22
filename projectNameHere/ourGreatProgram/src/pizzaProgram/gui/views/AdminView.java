@@ -93,7 +93,11 @@ public class AdminView extends javax.swing.JPanel {
         mainSplitPane = new javax.swing.JSplitPane();
         orderTablePanel = new javax.swing.JPanel();
         ordersTableScrollPane = new javax.swing.JScrollPane();
-        ordersTable = new javax.swing.JTable();
+        ordersTable = new javax.swing.JTable(){
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                return false; //Disallow the editing of any cell
+            }
+        };
         orderReceiptPanel = new javax.swing.JPanel();
         receiptLabelScrollPane = new javax.swing.JScrollPane();
         orderReceiptLabel = new javax.swing.JLabel();
@@ -134,6 +138,7 @@ public class AdminView extends javax.swing.JPanel {
         allActiveDishesTable.setAutoCreateRowSorter(true);
         allActiveDishesTable.setModel(new DefaultTableModel());
         allActiveDishesTable.setName("allActiveDishesTable"); // NOI18N
+        allActiveDishesTable.getTableHeader().setReorderingAllowed(false);
         allActiveDishesDishTableScrollPane.setViewportView(allActiveDishesTable);
 
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(pizzaProgram.core.PizzaProgram.class).getContext().getResourceMap(AdminView.class);
@@ -426,6 +431,7 @@ public class AdminView extends javax.swing.JPanel {
         allRegisteredExtrasTable.setAutoCreateRowSorter(true);
         allRegisteredExtrasTable.setModel(new DefaultTableModel());
         allRegisteredExtrasTable.setName("allRegisteredExtrasTable"); // NOI18N
+        allRegisteredExtrasTable.getTableHeader().setReorderingAllowed(false);
         allRegisteredExtrasScrollPane.setViewportView(allRegisteredExtrasTable);
 
         searchExtraTextBox.setText(resourceMap.getString("searchExtraTextBox.text")); // NOI18N
@@ -442,14 +448,16 @@ public class AdminView extends javax.swing.JPanel {
         editExtraExtraSelectionJPanelLayout.setHorizontalGroup(
             editExtraExtraSelectionJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(editExtraExtraSelectionJPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(createNewExtraButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(searchExtraTextBox, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(editExtraExtraSelectionJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(editExtraExtraSelectionJPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(createNewExtraButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(searchExtraTextBox, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(allRegisteredExtrasScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
-            .addComponent(allRegisteredExtrasScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 417, Short.MAX_VALUE)
         );
         editExtraExtraSelectionJPanelLayout.setVerticalGroup(
             editExtraExtraSelectionJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -487,8 +495,10 @@ public class AdminView extends javax.swing.JPanel {
 
         ordersTableScrollPane.setName("ordersTableScrollPane"); // NOI18N
 
+        ordersTable.setAutoCreateRowSorter(true);
         ordersTable.setModel(new DefaultTableModel());
         ordersTable.setName("ordersTable"); // NOI18N
+        ordersTable.getTableHeader().setReorderingAllowed(false);
         ordersTableScrollPane.setViewportView(ordersTable);
 
         javax.swing.GroupLayout orderTablePanelLayout = new javax.swing.GroupLayout(orderTablePanel);

@@ -84,6 +84,7 @@ public class ProgramWindow implements EventHandler {
 	private void createFrame() {
 		this.cardLayoutManager = new CardLayout();
 		this.mainJPanel = new JPanel(this.cardLayoutManager);
+		this.mainJPanel.setSize(1000, 600);
 		this.jframe.add(this.mainJPanel);
 	}
 

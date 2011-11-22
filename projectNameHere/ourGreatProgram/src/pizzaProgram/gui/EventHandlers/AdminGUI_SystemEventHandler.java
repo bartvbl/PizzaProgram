@@ -115,6 +115,7 @@ public class AdminGUI_SystemEventHandler implements EventHandler {
 		ArrayList<Order> orderList = (ArrayList<Order>)event.getEventParameterObject();
 		adminGUI.currentOrderList = orderList;
 		DefaultTableModel tableModel = (DefaultTableModel)AdminView.ordersTable.getModel();
+		tableModel.setRowCount(0);
 		for(Order o : orderList){
 			System.out.println("addedorder");
 			tableModel.addRow(new Object[]{o.orderID, o.customer.firstName + " " + o.customer.lastName, GUIConstants.translateDeliveryMethod(o.deliveryMethod)});
