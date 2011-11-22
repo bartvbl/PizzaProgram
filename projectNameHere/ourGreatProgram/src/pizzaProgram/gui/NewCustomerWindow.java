@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 
 import pizzaProgram.constants.GUIConstants;
+import pizzaProgram.constants.GUIMessages;
 import pizzaProgram.dataObjects.Customer;
 import pizzaProgram.dataObjects.UnaddedCustomer;
 import pizzaProgram.database.databaseUtils.DataCleaner;
@@ -122,31 +123,31 @@ public class NewCustomerWindow extends JFrame{
 					}
 					Integer.parseInt(fyllpostnr.getText());
 				}catch(NumberFormatException ex){
-					GUIConstants.showErrorMessage("Postnummer må være et tall med fire siffer!");
+					GUIConstants.showErrorMessage(GUIMessages.ILLEGAL_POSTAL_CODE);
 					return;
 				}
 
 				try{
 					phoneNumber = Integer.parseInt(fylltlf.getText());
 				}catch(NumberFormatException ex){
-					GUIConstants.showErrorMessage("Telefonnummer må være et tall!");
+					GUIConstants.showErrorMessage(GUIMessages.ILLEGAL_PHONE_NUMBER);
 					return;
 				}
 
 				if(!type.equals(NewCustomerWindow.UPDATE_CUSTOMER) && firstName.isEmpty()){
-					GUIConstants.showErrorMessage("Fornavn kan ikke være tomt!");
+					GUIConstants.showErrorMessage(GUIMessages.ILLEGAL_FIRST_NAME);
 					return;
 				}
 				if(!type.equals(NewCustomerWindow.UPDATE_CUSTOMER) && lastName.isEmpty()){
-					GUIConstants.showErrorMessage("Etternavn kan ikke være tomt!");
+					GUIConstants.showErrorMessage(GUIMessages.ILLEGAL_LAST_NAME);
 					return;
 				}
 				if(address.isEmpty()){
-					GUIConstants.showErrorMessage("Adressen kan ikke være tom!");
+					GUIConstants.showErrorMessage(GUIMessages.ILLEGAL_ADDRESS);
 					return;
 				}
 				if(city.isEmpty()){
-					GUIConstants.showErrorMessage("By kan ikke være tomt!");
+					GUIConstants.showErrorMessage(GUIMessages.ILLEGAL_CITY);
 					return;
 				}
 	

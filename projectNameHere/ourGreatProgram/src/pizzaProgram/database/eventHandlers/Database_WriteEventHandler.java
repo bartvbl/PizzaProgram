@@ -1,6 +1,7 @@
 package pizzaProgram.database.eventHandlers;
 
 import pizzaProgram.constants.GUIConstants;
+import pizzaProgram.constants.GUIMessages;
 import pizzaProgram.dataObjects.Customer;
 import pizzaProgram.dataObjects.Dish;
 import pizzaProgram.dataObjects.Extra;
@@ -104,7 +105,7 @@ public class Database_WriteEventHandler implements EventHandler {
 	 */
 	private void deleteCustomer(Event<?> event) {
 		if(!(event.getEventParameterObject() instanceof Customer)){
-			GUIConstants.showErrorMessage("Kunne ikke slette kunde fra databasen!");
+			GUIConstants.showErrorMessage(GUIMessages.UNABLE_TO_DELETE_CUSTOMER_FROM_DATABASE);
 			return;
 		}
 		DatabaseWriter.deleteCustomer((Customer)event.getEventParameterObject());
@@ -116,7 +117,7 @@ public class Database_WriteEventHandler implements EventHandler {
 	 */
 	private void updateExtra(Event<?> event) {
 		if(!(event.getEventParameterObject() instanceof Extra)){
-			GUIConstants.showErrorMessage("Kunne ikke endre tilbehør!");
+			GUIConstants.showErrorMessage(GUIMessages.UNABLE_TO_EDIT_EXTRA);
 			return;
 		}
 		DatabaseWriter.updateExtraByExtraID((Extra)event.getEventParameterObject());
@@ -128,7 +129,7 @@ public class Database_WriteEventHandler implements EventHandler {
 	 */
 	private void updateDish(Event<?> event) {
 		if(!(event.getEventParameterObject() instanceof Dish)){
-			GUIConstants.showErrorMessage("Kunne ikke endre rett!");
+			GUIConstants.showErrorMessage(GUIMessages.UNABLE_TO_EDIT_DISH);
 			return;
 		}
 		DatabaseWriter.updateDishByDishID((Dish)event.getEventParameterObject());
@@ -140,7 +141,7 @@ public class Database_WriteEventHandler implements EventHandler {
 	 */
 	private void updateConfigValue(Event<?> event) {
 		if(!(event.getEventParameterObject() instanceof Setting)){
-			GUIConstants.showErrorMessage("Kunne ikke endre data!");
+			GUIConstants.showErrorMessage(GUIMessages.UNABLE_TO_EDIT_SETTING);
 			return;
 		}
 		DatabaseWriter.updateConfigValue((Setting)event.getEventParameterObject());
@@ -152,7 +153,7 @@ public class Database_WriteEventHandler implements EventHandler {
 	 */
 	private void addNewExtra(Event<?> event) {
 		if(!(event.getEventParameterObject() instanceof Extra)){
-			GUIConstants.showErrorMessage("Kunne ikke legge til tilbehør!");
+			GUIConstants.showErrorMessage(GUIMessages.UNABLE_TO_ADD_EXTRA);
 			return;
 		}
 		DatabaseWriter.writeNewExtra((Extra)event.getEventParameterObject());
@@ -164,7 +165,7 @@ public class Database_WriteEventHandler implements EventHandler {
 	 */
 	private void addNewDish(Event<?> event) {
 		if(!(event.getEventParameterObject() instanceof Dish)){
-			GUIConstants.showErrorMessage("Kunne ikke legge til rett!");
+			GUIConstants.showErrorMessage(GUIMessages.UNABLE_TO_ADD_DISH);
 			return;
 		}
 		DatabaseWriter.writeNewDish((Dish)event.getEventParameterObject());
@@ -176,7 +177,7 @@ public class Database_WriteEventHandler implements EventHandler {
 	 */
 	private void markOrderFinishedCooking(Event<?> event) {
 		if(!(event.getEventParameterObject() instanceof Order)){
-			GUIConstants.showErrorMessage("Kunne ikke endre status på ordre!");
+			GUIConstants.showErrorMessage(GUIMessages.UNABLE_TO_CHANGE_ORDER_STATUS);
 			return;
 		}
 		DatabaseWriter.markOrderAsFinishedCooking((Order)event.getEventParameterObject());
@@ -188,7 +189,7 @@ public class Database_WriteEventHandler implements EventHandler {
 	 */
 	private void markOrderAsBeingDelivered(Event<?> event) {
 		if(!(event.getEventParameterObject() instanceof Order)){
-			GUIConstants.showErrorMessage("Kunne ikke endre status på ordre!");
+			GUIConstants.showErrorMessage(GUIMessages.UNABLE_TO_CHANGE_ORDER_STATUS);
 			return;
 		}
 		DatabaseWriter.markOrderAsBeingDelivered((Order)event.getEventParameterObject());
@@ -200,7 +201,7 @@ public class Database_WriteEventHandler implements EventHandler {
 	 */
 	private void markOrderAsDelivered(Event<?> event) {
 		if(!(event.getEventParameterObject() instanceof Order)){
-			GUIConstants.showErrorMessage("Kunne ikke endre status på ordre!");
+			GUIConstants.showErrorMessage(GUIMessages.UNABLE_TO_CHANGE_ORDER_STATUS);
 			return;
 		}
 		DatabaseWriter.markOrderAsDelivered((Order)event.getEventParameterObject());
@@ -212,7 +213,7 @@ public class Database_WriteEventHandler implements EventHandler {
 	 */
 	private void markOrderInProgress(Event<?> event) {
 		if(!(event.getEventParameterObject() instanceof Order)){
-			GUIConstants.showErrorMessage("Kunne ikke endre status på ordre!");
+			GUIConstants.showErrorMessage(GUIMessages.UNABLE_TO_CHANGE_ORDER_STATUS);
 			return;
 		}
 		DatabaseWriter.markOrderAsInProgress((Order)event.getEventParameterObject());
@@ -224,7 +225,7 @@ public class Database_WriteEventHandler implements EventHandler {
 	 */
 	private void addNewCustomer(Event<?> event) {
 		if(!(event.getEventParameterObject() instanceof UnaddedCustomer)){
-			GUIConstants.showErrorMessage("Kunne ikke legge til kunde!");
+			GUIConstants.showErrorMessage(GUIMessages.UNABLE_TO_ADD_CUSTOMER);
 			return;
 		}
 		DatabaseWriter.writeNewCustomer((UnaddedCustomer)event.getEventParameterObject());
@@ -237,7 +238,7 @@ public class Database_WriteEventHandler implements EventHandler {
 	 */
 	private void updateCustomer(Event<?> event) {
 		if(!(event.getEventParameterObject() instanceof Customer)){
-			GUIConstants.showErrorMessage("Kunne ikke endre kunde!");
+			GUIConstants.showErrorMessage(GUIMessages.UNABLE_TO_EDIT_CUSTOMER);
 			return;
 		}
 		DatabaseWriter.updateCustomerById((Customer)event.getEventParameterObject());
@@ -250,7 +251,7 @@ public class Database_WriteEventHandler implements EventHandler {
 	 */
 	private void addNewOrder(Event<?> event) {
 		if(!(event.getEventParameterObject() instanceof UnaddedOrder)){
-			GUIConstants.showErrorMessage("Kunne ikke legge til ordre!");
+			GUIConstants.showErrorMessage(GUIMessages.UNABLE_TO_ADD_ORDER);
 			return;
 		}
 		DatabaseWriter.writeNewOrder((UnaddedOrder)event.getEventParameterObject());

@@ -14,6 +14,7 @@ import javax.swing.event.ListSelectionListener;
 import pizzaProgram.config.Config;
 import pizzaProgram.constants.DatabaseQueryConstants;
 import pizzaProgram.constants.GUIConstants;
+import pizzaProgram.constants.GUIMessages;
 import pizzaProgram.dataObjects.Dish;
 import pizzaProgram.dataObjects.Extra;
 import pizzaProgram.dataObjects.Order;
@@ -184,21 +185,20 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 		Setting priceSetting = new Setting(DatabaseQueryConstants.SETTING_KEY_DELIVERY_PRICE, "" + orePrice);
 
 		if (nameText.length() < 3 || nameText.length() > 18) {
-			GUIConstants
-					.showErrorMessage("Navnet på restauranten kan ikke være mindre enn 3 bokstaver eller mer enn 10 bokstaver");
+			GUIConstants.showErrorMessage(GUIMessages.ILLEGAL_RESTAURANT_NAME_LENGTH);
 			return;
 		}
 		Setting nameSetting = new Setting(DatabaseQueryConstants.SETTING_KEY_RESTAURANT_NAME, nameText);
 
 		if (addressText.length() < 3) {
-			GUIConstants.showErrorMessage("Addressen til restauranten kan ikke være mindre enn 3 bokstaver");
+			GUIConstants.showErrorMessage(GUIMessages.ILLEGAL_RESTAURANT_ADDRESS_LENGTH);
 			return;
 		}
 		Setting addressSetting = new Setting(DatabaseQueryConstants.SETTING_KEY_RESTAURANT_ADDRESS,
 				addressText);
 
 		if (cityText.length() < 1) {
-			GUIConstants.showErrorMessage("Addressen til restauranten kan ikke være mindre enn 1 bokstav");
+			GUIConstants.showErrorMessage(GUIMessages.ILLEGAL_RESTAURANT_CITY_LENGTH);
 			return;
 		}
 		Setting citySetting = new Setting(DatabaseQueryConstants.SETTING_KEY_RESTAURANT_CITY, cityText);
@@ -233,9 +233,9 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 		}
 
 		if (!somethingChanged) {
-			GUIConstants.showConfirmMessage("Ingenting å endre");
+			GUIConstants.showConfirmMessage(GUIMessages.NOTHING_TO_CHANGE);
 		} else {
-			GUIConstants.showConfirmMessage("Data endret");
+			GUIConstants.showConfirmMessage(GUIMessages.SETTINGS_CHANGED_SUCCESSFULLY);
 		}
 		PriceCalculators.getConstantsFromDataBase();
 		handleSettingResetButtonClicked();
@@ -311,14 +311,13 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 		String priceVal = price.substring(1);
 
 		if (name.isEmpty()) {
-			GUIConstants.showErrorMessage("Feltet med navn kan ikke være tomt!");
+			GUIConstants.showErrorMessage(GUIMessages.NAME_FIELD_CANNOT_BE_EMPTY);
 			return;
 		}
 
 		if (!(priceFunc == '+' || priceFunc == '*' || priceFunc == '-')) {
 			GUIConstants
-					.showErrorMessage("Første tegn i prisen skal være +(pluss) -(minus) eller *(gange)\n"
-							+ "Dette anngir om prisen på ekstraen er pristillegg, prisfradrag, eller en multiplikasjon");
+					.showErrorMessage(GUIMessages.ILLEGAL_EXTRA_OPERAND);
 			return;
 		}
 
@@ -358,12 +357,12 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 		int orePrice = 0;
 
 		if (description.isEmpty()) {
-			GUIConstants.showErrorMessage("Feltet med innhold i retten kan ikke være tomt!");
+			GUIConstants.showErrorMessage(GUIMessages.DISH_DESCRIPTION_CANNOT_BE_EMPTY);
 			return;
 		}
 
 		if (name.isEmpty()) {
-			GUIConstants.showErrorMessage("Feltet med navn kan ikke være tomt!");
+			GUIConstants.showErrorMessage(GUIMessages.NAME_FIELD_CANNOT_BE_EMPTY);
 			return;
 		}
 

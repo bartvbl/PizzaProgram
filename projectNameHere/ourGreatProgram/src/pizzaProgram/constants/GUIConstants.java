@@ -3,6 +3,7 @@ package pizzaProgram.constants;
 import javax.swing.JOptionPane;
 
 import pizzaProgram.dataObjects.Order;
+
 /**
  * Class containing constants used in various areas of the GUI.
  * 
@@ -18,19 +19,23 @@ public class GUIConstants {
 	 */
 	public static final int RECIPT_ROW_HEIGHT = 20;
 	/**
-	 * A value representing the boolean True, in case it should be represented somewhere as text in the user interface
+	 * A value representing the boolean True, in case it should be represented
+	 * somewhere as text in the user interface
 	 */
 	public static final String GUI_TRUE = "Ja";
 	/**
-	 * A value representing the boolean False, in case it should be represented as a String somewhere in the user interface
+	 * A value representing the boolean False, in case it should be represented
+	 * as a String somewhere in the user interface
 	 */
 	public static final String GUI_FALSE = "Nei";
 	/**
-	 * The text of the "Deliver at home" option in the delivery method combobox in the Order GUI. 
+	 * The text of the "Deliver at home" option in the delivery method combobox
+	 * in the Order GUI.
 	 */
 	public static final String GUI_DELIVER = "Lever hjem";
 	/**
-	 * The text of the "Pickup at restaurant" option in the delivery method conbobox in the Order GUI.
+	 * The text of the "Pickup at restaurant" option in the delivery method
+	 * conbobox in the Order GUI.
 	 */
 	public static final String GUI_PICKUP = "Hent selv";
 
@@ -57,11 +62,15 @@ public class GUIConstants {
 	 * The default text that should appear in search boxes.
 	 */
 	public static final String SEARCH_FIELD_DEFAULT = "";
-	
+
 	/**
-	 * Translates an enum string from the delivery method column in the Orders table to a readable String for the user interface
-	 * @param deliveryMethodString The string representing the enum value from the database.
-	 * @return A string representing the way the enum should be shpwn in the user interface
+	 * Translates an enum string from the delivery method column in the Orders
+	 * table to a readable String for the user interface
+	 * 
+	 * @param deliveryMethodString
+	 *            The string representing the enum value from the database.
+	 * @return A string representing the way the enum should be shpwn in the
+	 *         user interface
 	 */
 	public static String translateDeliveryMethod(String deliveryMethodString) {
 		if (deliveryMethodString.equals(Order.DELIVER_AT_HOME)) {
@@ -70,11 +79,16 @@ public class GUIConstants {
 			return GUI_PICKUP;
 		}
 	}
-	
+
 	/**
-	 * Returns a string representing the value of the order status enum column in the database, as the way it should appear in the user interface.
-	 * @param orderStatusString A string representing the order status enum field in the database
-	 * @return A string representing the entered enum value, as a string that can be displayed in the user interface
+	 * Returns a string representing the value of the order status enum column
+	 * in the database, as the way it should appear in the user interface.
+	 * 
+	 * @param orderStatusString
+	 *            A string representing the order status enum field in the
+	 *            database
+	 * @return A string representing the entered enum value, as a string that
+	 *         can be displayed in the user interface
 	 */
 	public static String translateOrderStatus(String orderStatusString) {
 		if (orderStatusString.equals(Order.REGISTERED)) {
@@ -88,20 +102,25 @@ public class GUIConstants {
 		}
 
 	}
+
 	/**
 	 * Shows an error message to the user
-	 * @param message The message of that the error message box should display
+	 * 
+	 * @param message
+	 *            The message of that the error message box should display
 	 */
 	public static void showErrorMessage(String message) {
 		JOptionPane.showMessageDialog(null, message, "Feil", JOptionPane.ERROR_MESSAGE);
 	}
-	
+
 	/**
 	 * Shows an information message to the user
+	 * 
 	 * @param message
+	 *            The message that the information message box should display
 	 */
-	public static void showConfirmMessage(String message){
+	public static void showConfirmMessage(String message) {
 		JOptionPane.showMessageDialog(null, message, "Informasjon", JOptionPane.INFORMATION_MESSAGE);
 	}
-	
+
 }
