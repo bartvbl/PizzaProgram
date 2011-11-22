@@ -129,4 +129,8 @@ public class DatabaseQueryConstants {
 	 * {@link pizzaProgram.dataObjects.Setting setting}
 	 */
 	public static final String SETTING_KEY_PICKUP_AT_RESTAURANT_TAX = "pickupAtRestaurantTax";
+	/**
+	 * 
+	 */
+	public static final String SETTING_KEY_DB_AUTO_UPDATE_MILLIS =  "autoDataUpdateDelayInMillis";
 }
