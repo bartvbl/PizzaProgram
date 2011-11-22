@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
 import pizzaProgram.constants.GUIConstants;
+import pizzaProgram.constants.GUIMessages;
 import pizzaProgram.dataObjects.Order;
 import pizzaProgram.events.Event;
 import pizzaProgram.events.EventDispatcher;
@@ -69,7 +70,7 @@ public class DeliveryGUI_SystemEventHandler implements EventHandler{
 				tableModel.addRow(new Object[]{order.orderID, GUIConstants.translateOrderStatus(order.status), order.timeRegistered, GUIConstants.translateDeliveryMethod(order.deliveryMethod)});
 			}
 		}else{
-			GUIConstants.showErrorMessage("Kunne ikke hente ordre fra databasen!");
+			GUIConstants.showErrorMessage(GUIMessages.UNABLE_TO_GET_ORDERS_FROM_DATABASE);
 			return;
 		}
 	}

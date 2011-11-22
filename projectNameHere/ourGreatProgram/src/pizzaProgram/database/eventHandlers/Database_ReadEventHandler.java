@@ -3,6 +3,7 @@ package pizzaProgram.database.eventHandlers;
 import java.util.ArrayList;
 
 import pizzaProgram.constants.GUIConstants;
+import pizzaProgram.constants.GUIMessages;
 import pizzaProgram.dataObjects.Customer;
 import pizzaProgram.dataObjects.Dish;
 import pizzaProgram.dataObjects.Extra;
@@ -109,7 +110,7 @@ public class Database_ReadEventHandler implements EventHandler {
 	 */
 	private void searchDishesByKeywords(Event<?> event, String sendBackEventOfEventType) {
 		if(!(event.getEventParameterObject() instanceof String)){
-			GUIConstants.showErrorMessage("Kunne ikke hente retter fra databasen!");
+			GUIConstants.showErrorMessage(GUIMessages.UNABLE_TO_GET_DISHES_FROM_DATABASE);
 			return;
 		}
 		String searchQuery = (String)event.getEventParameterObject();
@@ -127,7 +128,7 @@ public class Database_ReadEventHandler implements EventHandler {
 	 */
 	private void searchExtrasByKeywords(Event<?> event, String sendBackEventOfEventType) {
 		if(!(event.getEventParameterObject() instanceof String)){
-			GUIConstants.showErrorMessage("Kunne ikke hente tilbehør fra databasen!");
+			GUIConstants.showErrorMessage(GUIMessages.UNABLE_TO_GET_EXTRAS_FROM_DATABASE);
 			return;
 		}
 		String searchQuery = (String)event.getEventParameterObject();
@@ -144,7 +145,7 @@ public class Database_ReadEventHandler implements EventHandler {
 	 */
 	private void searchUndeliveredOrders(Event<?> event) {
 		if(!(event.getEventParameterObject() instanceof String)){
-			GUIConstants.showErrorMessage("Kunne ikke hente ordre fra databasen!");
+			GUIConstants.showErrorMessage(GUIMessages.UNABLE_TO_GET_ORDERS_FROM_DATABASE);
 			return;
 		}
 		String searchQuery = (String)event.getEventParameterObject();
@@ -165,7 +166,7 @@ public class Database_ReadEventHandler implements EventHandler {
 
 	private void searchUncookedOrders(Event<?> event) {
 		if(!(event.getEventParameterObject() instanceof String)){
-			GUIConstants.showErrorMessage("Kunne ikke hente ordre fra databasen!");
+			GUIConstants.showErrorMessage(GUIMessages.UNABLE_TO_GET_ORDERS_FROM_DATABASE);
 			return;
 		}
 		String searchQuery = (String)event.getEventParameterObject();
@@ -190,7 +191,7 @@ public class Database_ReadEventHandler implements EventHandler {
 	 */
 	private void searchCustomers(Event<?> event) {
 		if(!(event.getEventParameterObject() instanceof String)){
-			GUIConstants.showErrorMessage("Kunne ikke hente kunder fra databasen!");
+			GUIConstants.showErrorMessage(GUIMessages.UNABLE_TO_GET_CUSTOMERS_FROM_DATABASE);
 			return;
 		}
 		String searchQuery = (String)event.getEventParameterObject();

@@ -19,6 +19,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import pizzaProgram.constants.GUIConstants;
+import pizzaProgram.constants.GUIMessages;
 import pizzaProgram.dataObjects.Customer;
 import pizzaProgram.dataObjects.Dish;
 import pizzaProgram.dataObjects.Extra;
@@ -208,7 +209,7 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler implem
 	 */
 	private void handleDeleteCustomerButton() {
 		if (currentSelecetedCustomer == null) {
-			GUIConstants.showErrorMessage("Ingen kunde valgt!");
+			GUIConstants.showErrorMessage(GUIMessages.NO_CUSTOMER_SELECTED);
 			return;
 		}
 		dispatchEvent(new Event<Customer>(EventType.DATABASE_DELETE_CUSTOMER, currentSelecetedCustomer));
@@ -320,7 +321,7 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler implem
 	 */
 	private void handleEditCustomer() {
 		if (currentSelecetedCustomer == null) {
-			GUIConstants.showErrorMessage("Ingen kunde valgt!");
+			GUIConstants.showErrorMessage(GUIMessages.NO_CUSTOMER_SELECTED);
 			return;
 		}
 		new NewCustomerWindow(orderGUI, NewCustomerWindow.UPDATE_CUSTOMER, currentSelecetedCustomer);
@@ -403,7 +404,7 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler implem
 		this.temporaryOrderData.setDeliveryMethod(deliveryMethod);
 
 		if (temporaryOrderData.getNumberOfDishes() < 1) {
-			GUIConstants.showErrorMessage("Orderen må innholde en eller flere retter!");
+			GUIConstants.showErrorMessage(GUIMessages.ORDER_MUST_CONTAIN_ONE_OR_MORE_DISHES);
 			return;
 		}
 
@@ -438,7 +439,7 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler implem
 	private void addDish() {
 		int[] selectedIndices = OrderView.dishSelectionList.getSelectedIndices();
 		if (selectedIndices.length == 0) {
-			GUIConstants.showErrorMessage("Du må velge en rett i tillegg til tilbehør!");
+			GUIConstants.showErrorMessage(GUIMessages.CANNOT_ADD_EXTRA_WHEN_NO_DISH_SELECTED);
 			return;
 		}
 		Dish selectedDish = this.orderGUI.currentDishList.get(selectedIndices[0]);
