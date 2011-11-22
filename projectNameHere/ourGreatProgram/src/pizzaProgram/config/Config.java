@@ -8,9 +8,11 @@ import pizzaProgram.database.databaseUtils.DatabaseWriter;
 
 /**
  * The Config class is a utility class that retrieves config values from the
- * database
+ * database. Valid config keys are stored in the
+ * {@link pizzaProgram.constants.DatabaseQueryConstants DatabaseQueryConstants}
+ * class, all the names starting with the prefix SETTING_KEY_
  * 
- * @author Bart
+ * @author IT1901 Group 3, Fall 2011
  * 
  */
 public class Config {

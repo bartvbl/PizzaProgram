@@ -3,6 +3,8 @@ package pizzaProgram.constants;
 /**
  * Class containing constants describing the names of the tables and columns in
  * the database.
+ * 
+ * @author IT1901 Group 3, Fall 2011
  */
 public class DatabaseQueryConstants {
 	/*
@@ -92,11 +94,39 @@ public class DatabaseQueryConstants {
 	/*
 	 * Constants pertaining to the values in the key fields of the Config table
 	 */
+	/**
+	 * Key value for the free delivery limit
+	 * {@link pizzaProgram.dataObjects.Setting setting}
+	 */
 	public static final String SETTING_KEY_FREE_DELIVERY_LIMIT = "freeDeliveryLimit";
+	/**
+	 * Key value for the restaurant name
+	 * {@link pizzaProgram.dataObjects.Setting setting}
+	 */
 	public static final String SETTING_KEY_RESTAURANT_NAME = "restaurantName";
+	/**
+	 * Key value for the restaurant address
+	 * {@link pizzaProgram.dataObjects.Setting setting}
+	 */
 	public static final String SETTING_KEY_RESTAURANT_ADDRESS = "restaurantAddress";
+	/**
+	 * Key value for the restaurant city
+	 * {@link pizzaProgram.dataObjects.Setting setting}
+	 */
 	public static final String SETTING_KEY_RESTAURANT_CITY = "restaurantCity";
+	/**
+	 * Key value for the delivery price {@link pizzaProgram.dataObjects.Setting
+	 * setting}
+	 */
 	public static final String SETTING_KEY_DELIVERY_PRICE = "deliveryPrice";
+	/**
+	 * Key value for the delivery at home VAT
+	 * {@link pizzaProgram.dataObjects.Setting setting}
+	 */
 	public static final String SETTING_KEY_DELIVERY_AT_HOME_TAX = "deliveryAtHomeTax";
+	/**
+	 * Key value for the pickup at restaurant VAT
+	 * {@link pizzaProgram.dataObjects.Setting setting}
+	 */
 	public static final String SETTING_KEY_PICKUP_AT_RESTAURANT_TAX = "pickupAtRestaurantTax";
 }
