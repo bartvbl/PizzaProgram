@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JScrollPane;
 
 import pizzaProgram.core.GUIConstants;
 import pizzaProgram.utils.PrintUtilities;
@@ -40,22 +41,26 @@ public class ReceiptWindow extends JFrame{
 		setTitle("Kvittering");
 
 		html = new JLabel(kvittering, JLabel.LEFT);
-		html.setBounds(0, 5, GUIConstants.RECIPT_WIDTH, rows * GUIConstants.RECIPT_ROW_HEIGHT);
+		html.setBounds(2, 2, GUIConstants.RECIPT_WIDTH, GUIConstants.RECIPT_ROW_HEIGHT * rows);
 		html.setVerticalAlignment(JLabel.TOP);
 		html.setHorizontalTextPosition(JLabel.LEFT);
 		html.setVerticalTextPosition(JLabel.TOP);
 
+		JScrollPane jsp = new JScrollPane(html);
+		jsp.setBounds(0,0,html.getWidth() + 30, Math.min(400, html.getY() + html.getHeight()));
+		
 		printButton = new JButton("Skriv ut");
-		printButton.setBounds(0, html.getY()+html.getHeight() +5, 80, 22);
+		printButton.setBounds(5, jsp.getY()+jsp.getHeight() + 5, 80, 22);
 		printButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				skrivUt();
 			}
 		});
 		
-		add(html);
+		
+		add(jsp);
 		add(printButton);
-		setSize(html.getWidth() + 10, printButton.getY() + printButton.getHeight() + 40);//40 is the height of the framedecoration 10 is the width
+		setSize(jsp.getWidth() + 6, printButton.getY() + printButton.getHeight() + 35);//35 is the height of the framedecoration 10 is the width
 		setVisible(true);
 	}
 	

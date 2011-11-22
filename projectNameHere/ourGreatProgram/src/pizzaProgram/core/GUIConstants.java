@@ -10,7 +10,7 @@ public class GUIConstants {
 	/**
 	 * The text width of the receipt window, measured in characters
 	 */
-	public static final int RECIPT_WIDTH = 160;
+	public static final int RECIPT_WIDTH = 180;
 	/**
 	 * The row height of each row in the receipt window, measured in pixels
 	 */
