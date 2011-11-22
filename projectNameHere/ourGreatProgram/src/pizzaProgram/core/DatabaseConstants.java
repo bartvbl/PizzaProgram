@@ -86,6 +86,8 @@ public class DatabaseConstants {
 	 */
 	public static final String SETTING_KEY_FREE_DELIVERY_LIMIT = "freeDeliveryLimit";
 	public static final String SETTING_KEY_RESTAURANT_NAME = "restaurantName";
+	public static final String SETTING_KEY_RESTAURANT_ADDRESS = "restaurantAddress";
+	public static final String SETTING_KEY_RESTAURANT_CITY = "restaurantCity";
 	public static final String SETTING_KEY_DELIVERY_PRICE = "deliveryPrice";
 	public static final String SETTING_KEY_DELIVERY_AT_HOME_TAX = "deliveryAtHomeTax";
 	public static final String SETTING_KEY_PICKUP_AT_RESTAURANT_TAX = "pickupAtRestaurantTax";
