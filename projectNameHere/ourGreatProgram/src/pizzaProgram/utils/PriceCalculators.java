@@ -2,7 +2,7 @@ package pizzaProgram.utils;
 
 import java.text.DecimalFormat;
 
-import pizzaProgram.core.DatabaseConstants;
+import pizzaProgram.core.DatabaseQueryConstants;
 import pizzaProgram.dataObjects.Dish;
 import pizzaProgram.dataObjects.Extra;
 import pizzaProgram.dataObjects.Order;
@@ -305,13 +305,13 @@ public class PriceCalculators {
 	 * Config table of the database.
 	 */
 	public static void getConstantsFromDataBase() {
-		deliverMoms = Integer.parseInt(DatabaseReader.getSettingByKey(DatabaseConstants.SETTING_KEY_DELIVERY_AT_HOME_TAX).value);
-		pickupMoms = Integer.parseInt(DatabaseReader.getSettingByKey(DatabaseConstants.SETTING_KEY_PICKUP_AT_RESTAURANT_TAX).value);
-		freeDeliveryThreshold = Integer.parseInt(DatabaseReader.getSettingByKey(DatabaseConstants.SETTING_KEY_FREE_DELIVERY_LIMIT).value);
-		deliveryCost = Integer.parseInt(DatabaseReader.getSettingByKey(DatabaseConstants.SETTING_KEY_DELIVERY_PRICE).value);
-		restaurantName = DatabaseReader.getSettingByKey(DatabaseConstants.SETTING_KEY_RESTAURANT_NAME).value;
-		restaurantAddress = DatabaseReader.getSettingByKey(DatabaseConstants.SETTING_KEY_RESTAURANT_ADDRESS).value;
-		restaurantCity = DatabaseReader.getSettingByKey(DatabaseConstants.SETTING_KEY_RESTAURANT_CITY).value;
+		deliverMoms = Integer.parseInt(DatabaseReader.getSettingByKey(DatabaseQueryConstants.SETTING_KEY_DELIVERY_AT_HOME_TAX).value);
+		pickupMoms = Integer.parseInt(DatabaseReader.getSettingByKey(DatabaseQueryConstants.SETTING_KEY_PICKUP_AT_RESTAURANT_TAX).value);
+		freeDeliveryThreshold = Integer.parseInt(DatabaseReader.getSettingByKey(DatabaseQueryConstants.SETTING_KEY_FREE_DELIVERY_LIMIT).value);
+		deliveryCost = Integer.parseInt(DatabaseReader.getSettingByKey(DatabaseQueryConstants.SETTING_KEY_DELIVERY_PRICE).value);
+		restaurantName = DatabaseReader.getSettingByKey(DatabaseQueryConstants.SETTING_KEY_RESTAURANT_NAME).value;
+		restaurantAddress = DatabaseReader.getSettingByKey(DatabaseQueryConstants.SETTING_KEY_RESTAURANT_ADDRESS).value;
+		restaurantCity = DatabaseReader.getSettingByKey(DatabaseQueryConstants.SETTING_KEY_RESTAURANT_CITY).value;
 	}
 
 	public static String getRestaurantName() {
