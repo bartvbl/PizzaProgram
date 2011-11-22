@@ -12,7 +12,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import pizzaProgram.config.Config;
-import pizzaProgram.core.DatabaseConstants;
+import pizzaProgram.core.DatabaseQueryConstants;
 import pizzaProgram.core.GUIConstants;
 import pizzaProgram.dataObjects.Dish;
 import pizzaProgram.dataObjects.Extra;
@@ -179,25 +179,25 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 			return;
 		}
 		
-		Setting priceSetting = new Setting(DatabaseConstants.SETTING_KEY_DELIVERY_PRICE, ""+orePrice);
+		Setting priceSetting = new Setting(DatabaseQueryConstants.SETTING_KEY_DELIVERY_PRICE, ""+orePrice);
 		
 		if(nameText.length() < 3 || nameText.length() > 18){
 			GUIConstants.showErrorMessage("Navnet på restauranten kan ikke være mindre enn 3 bokstaver eller mer enn 10 bokstaver");
 			return;
 		}
-		Setting nameSetting = new Setting(DatabaseConstants.SETTING_KEY_RESTAURANT_NAME, nameText);
+		Setting nameSetting = new Setting(DatabaseQueryConstants.SETTING_KEY_RESTAURANT_NAME, nameText);
 		
 		if(addressText.length() < 3){
 			GUIConstants.showErrorMessage("Addressen til restauranten kan ikke være mindre enn 3 bokstaver");
 			return;
 		}
-		Setting addressSetting = new Setting(DatabaseConstants.SETTING_KEY_RESTAURANT_ADDRESS, addressText);
+		Setting addressSetting = new Setting(DatabaseQueryConstants.SETTING_KEY_RESTAURANT_ADDRESS, addressText);
 		
 		if(cityText.length() < 1){
 			GUIConstants.showErrorMessage("Addressen til restauranten kan ikke være mindre enn 1 bokstav");
 			return;
 		}
-		Setting citySetting = new Setting(DatabaseConstants.SETTING_KEY_RESTAURANT_CITY, cityText);
+		Setting citySetting = new Setting(DatabaseQueryConstants.SETTING_KEY_RESTAURANT_CITY, cityText);
 		
 		
 		
@@ -224,7 +224,7 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 			return;
 		}
 		
-		Setting deliveryTresholdSetting = new Setting(DatabaseConstants.SETTING_KEY_FREE_DELIVERY_LIMIT, ""+oreDeliveryTreshold);
+		Setting deliveryTresholdSetting = new Setting(DatabaseQueryConstants.SETTING_KEY_FREE_DELIVERY_LIMIT, ""+oreDeliveryTreshold);
 		
 		boolean somethingChanged = false;
 		if(!priceText.equals(PriceCalculators.getDeliveryCost())){

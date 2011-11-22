@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import pizzaProgram.core.DatabaseConstants;
+import pizzaProgram.core.DatabaseQueryConstants;
 import pizzaProgram.core.GUIConstants;
 import pizzaProgram.dataObjects.Customer;
 import pizzaProgram.dataObjects.Dish;
@@ -136,9 +136,9 @@ public class DatabaseSearcher {
 			if (counter != 0) {
 				query += "OR";
 			}
-			query += "(" + DatabaseConstants.CUSTOMER_FIRST_NAME + " LIKE '%" + keyword + "%') OR ";
-			query += "(" + DatabaseConstants.CUSTOMER_LAST_NAME + " LIKE '%" + keyword + "%') OR ";
-			query += "(" + DatabaseConstants.CUSTOMER_PHONE_NUMBER + " LIKE '%" + keyword + "%')";
+			query += "(" + DatabaseQueryConstants.CUSTOMER_FIRST_NAME + " LIKE '%" + keyword + "%') OR ";
+			query += "(" + DatabaseQueryConstants.CUSTOMER_LAST_NAME + " LIKE '%" + keyword + "%') OR ";
+			query += "(" + DatabaseQueryConstants.CUSTOMER_PHONE_NUMBER + " LIKE '%" + keyword + "%')";
 			counter++;
 		}
 		query += ") LIMIT 30;";
@@ -155,16 +155,16 @@ public class DatabaseSearcher {
 	 *         keywords
 	 */
 	private static String generateDishSearchQuery(String searchQuery) {
-		String query = "SELECT * FROM " + DatabaseConstants.DISH_TABLE_NAME + " WHERE (";
+		String query = "SELECT * FROM " + DatabaseQueryConstants.DISH_TABLE_NAME + " WHERE (";
 		String[] keywords = searchQuery.split(" ");
 		int counter = 0;
 		for (String keyword : keywords) {
 			if (counter != 0) {
 				query += "OR";
 			}
-			query += "(" + DatabaseConstants.DISH_PRICE + " LIKE '%" + keyword + "%') OR ";
-			query += "(" + DatabaseConstants.DISH_NAME + " LIKE '%" + keyword + "%') OR ";
-			query += "(" + DatabaseConstants.DISH_DESCRIPTION + " LIKE '%" + keyword + "%')";
+			query += "(" + DatabaseQueryConstants.DISH_PRICE + " LIKE '%" + keyword + "%') OR ";
+			query += "(" + DatabaseQueryConstants.DISH_NAME + " LIKE '%" + keyword + "%') OR ";
+			query += "(" + DatabaseQueryConstants.DISH_DESCRIPTION + " LIKE '%" + keyword + "%')";
 			counter++;
 		}
 		query += ") LIMIT 30;";
@@ -181,15 +181,15 @@ public class DatabaseSearcher {
 	 * @return An query that can be used to search for extras in the database
 	 */
 	private static String generateExtraSearchQuery(String searchQuery) {
-		String query = "SELECT * FROM " + DatabaseConstants.EXTRAS_TABLE_NAME + " WHERE (";
+		String query = "SELECT * FROM " + DatabaseQueryConstants.EXTRAS_TABLE_NAME + " WHERE (";
 		String[] keywords = searchQuery.split(" ");
 		int counter = 0;
 		for (String keyword : keywords) {
 			if (counter != 0) {
 				query += "OR";
 			}
-			query += "(" + DatabaseConstants.EXTRAS_PRICE + " LIKE '%" + keyword + "%') OR ";
-			query += "(" + DatabaseConstants.EXTRAS_NAME + " LIKE '%" + keyword + "%')";
+			query += "(" + DatabaseQueryConstants.EXTRAS_PRICE + " LIKE '%" + keyword + "%') OR ";
+			query += "(" + DatabaseQueryConstants.EXTRAS_NAME + " LIKE '%" + keyword + "%')";
 			counter++;
 		}
 		query += ") LIMIT 30;";
@@ -218,7 +218,7 @@ public class DatabaseSearcher {
 			}
 
 			counter++;
-			whereClause += "(" + DatabaseConstants.ORDERS_STATUS + " = '" + status + "')";
+			whereClause += "(" + DatabaseQueryConstants.ORDERS_STATUS + " = '" + status + "')";
 		}
 
 		whereClause += ") AND (";
@@ -227,9 +227,9 @@ public class DatabaseSearcher {
 			if (counter != 0) {
 				whereClause += "OR ";
 			}
-			whereClause += "(" + DatabaseConstants.ORDERS_STATUS + " LIKE '%" + keyword + "%') OR ";
-			whereClause += "(" + DatabaseConstants.ORDERS_DELIVERY_METHOD + " LIKE '%" + keyword + "%') OR ";
-			whereClause += "(" + DatabaseConstants.ORDERS_ID + " LIKE '%" + keyword + "%') ";
+			whereClause += "(" + DatabaseQueryConstants.ORDERS_STATUS + " LIKE '%" + keyword + "%') OR ";
+			whereClause += "(" + DatabaseQueryConstants.ORDERS_DELIVERY_METHOD + " LIKE '%" + keyword + "%') OR ";
+			whereClause += "(" + DatabaseQueryConstants.ORDERS_ID + " LIKE '%" + keyword + "%') ";
 			counter++;
 		}
 		whereClause += ")";

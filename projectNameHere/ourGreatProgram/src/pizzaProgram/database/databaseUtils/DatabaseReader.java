@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import pizzaProgram.core.DatabaseConstants;
+import pizzaProgram.core.DatabaseQueryConstants;
 import pizzaProgram.core.GUIConstants;
 import pizzaProgram.dataObjects.Customer;
 import pizzaProgram.dataObjects.Dish;
@@ -29,7 +29,7 @@ public class DatabaseReader {
 	 */
 	public static ArrayList<Customer> getAllCustomers() {
 		ResultSet results = DatabaseConnection.fetchData("SELECT * FROM "
-				+ DatabaseConstants.CUSTOMER_TABLE_NAME + ";");
+				+ DatabaseQueryConstants.CUSTOMER_TABLE_NAME + ";");
 		ArrayList<Customer> customerList = new ArrayList<Customer>();
 		try {
 			customerList = DatabaseDataObjectGenerator.generateCustomerList(results);
@@ -51,7 +51,7 @@ public class DatabaseReader {
 	 */
 	public static Setting getSettingByKey(String key) {
 		ResultSet results = DatabaseConnection.fetchData("SELECT * FROM "
-				+ DatabaseConstants.CONFIG_TABLE_NAME + " WHERE " + DatabaseConstants.CONFIG_KEY + "='" + key
+				+ DatabaseQueryConstants.CONFIG_TABLE_NAME + " WHERE " + DatabaseQueryConstants.CONFIG_KEY + "='" + key
 				+ "';");
 		try {
 			results.next();
@@ -72,7 +72,7 @@ public class DatabaseReader {
 	 */
 	public static ArrayList<Setting> getAllSettings() {
 		ResultSet results = DatabaseConnection.fetchData("SELECT * FROM "
-				+ DatabaseConstants.CONFIG_TABLE_NAME + ";");
+				+ DatabaseQueryConstants.CONFIG_TABLE_NAME + ";");
 		try {
 			ArrayList<Setting> settings = DatabaseDataObjectGenerator.generateSettingsList(results);
 			return settings;
@@ -91,8 +91,8 @@ public class DatabaseReader {
 	 *         active dish.
 	 */
 	public static ArrayList<Dish> getAllActiveDishes() {
-		ResultSet results = DatabaseConnection.fetchData("SELECT * FROM " + DatabaseConstants.DISH_TABLE_NAME
-				+ " WHERE (" + DatabaseConstants.DISH_IS_ACTIVE + "=1);");
+		ResultSet results = DatabaseConnection.fetchData("SELECT * FROM " + DatabaseQueryConstants.DISH_TABLE_NAME
+				+ " WHERE (" + DatabaseQueryConstants.DISH_IS_ACTIVE + "=1);");
 		ArrayList<Dish> dishList = new ArrayList<Dish>();
 		try {
 			dishList = DatabaseDataObjectGenerator.generateDishList(results);
@@ -111,7 +111,7 @@ public class DatabaseReader {
 	 *         is a Dish in the Dishes table in the database
 	 */
 	public static ArrayList<Dish> getAllDishes() {
-		ResultSet results = DatabaseConnection.fetchData("SELECT * FROM " + DatabaseConstants.DISH_TABLE_NAME
+		ResultSet results = DatabaseConnection.fetchData("SELECT * FROM " + DatabaseQueryConstants.DISH_TABLE_NAME
 				+ ";");
 		ArrayList<Dish> dishList = new ArrayList<Dish>();
 		try {
@@ -132,7 +132,7 @@ public class DatabaseReader {
 	 */
 	public static ArrayList<Extra> getAllActiveExtras() {
 		ResultSet results = DatabaseConnection.fetchData("SELECT * FROM "
-				+ DatabaseConstants.EXTRAS_TABLE_NAME + " WHERE (" + DatabaseConstants.EXTRAS_IS_ACTIVE
+				+ DatabaseQueryConstants.EXTRAS_TABLE_NAME + " WHERE (" + DatabaseQueryConstants.EXTRAS_IS_ACTIVE
 				+ "=1);");
 		ArrayList<Extra> dishList = new ArrayList<Extra>();
 		try {
@@ -153,7 +153,7 @@ public class DatabaseReader {
 	 */
 	public static ArrayList<Extra> getAllExtras() {
 		ResultSet results = DatabaseConnection.fetchData("SELECT * FROM "
-				+ DatabaseConstants.EXTRAS_TABLE_NAME + ";");
+				+ DatabaseQueryConstants.EXTRAS_TABLE_NAME + ";");
 		ArrayList<Extra> dishList = new ArrayList<Extra>();
 		try {
 			dishList = DatabaseDataObjectGenerator.generateExtrasList(results);
@@ -173,13 +173,13 @@ public class DatabaseReader {
 	 */
 	public static int customerHasUncookedOrder(UnaddedOrder order) {
 		ResultSet result = DatabaseConnection.fetchData(getOrderSelectionQuery(
-				DatabaseConstants.ORDERS_STATUS + " = '" + Order.REGISTERED + "' AND "
-						+ DatabaseConstants.ORDERS_TO_CUSTOMER_ID + " = " + order.customer.customerID, ""));
+				DatabaseQueryConstants.ORDERS_STATUS + " = '" + Order.REGISTERED + "' AND "
+						+ DatabaseQueryConstants.ORDERS_TO_CUSTOMER_ID + " = " + order.customer.customerID, ""));
 		try {
 			if (!result.next()) {
 				return -1;
 			} else {
-				return result.getInt(result.findColumn(DatabaseConstants.ORDERS_ID));
+				return result.getInt(result.findColumn(DatabaseQueryConstants.ORDERS_ID));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -198,8 +198,8 @@ public class DatabaseReader {
 	 */
 	public static ArrayList<Order> getAllUncookedOrders() {
 		ResultSet result = DatabaseConnection.fetchData(getOrderSelectionQuery(
-				DatabaseConstants.ORDERS_STATUS + " = '" + Order.REGISTERED + "' OR "
-						+ DatabaseConstants.ORDERS_STATUS + " = '" + Order.BEING_COOKED + "'", ""));
+				DatabaseQueryConstants.ORDERS_STATUS + " = '" + Order.REGISTERED + "' OR "
+						+ DatabaseQueryConstants.ORDERS_STATUS + " = '" + Order.BEING_COOKED + "'", ""));
 		ArrayList<Order> orderList = new ArrayList<Order>();
 		try {
 			orderList = DatabaseDataObjectGenerator.generateOrderListFromResultSet(result);
@@ -218,7 +218,7 @@ public class DatabaseReader {
 	 */
 	public static ArrayList<Order> getAllDeliveredOrders() {
 		ResultSet result = DatabaseConnection.fetchData(getOrderSelectionQuery(
-				DatabaseConstants.ORDERS_STATUS + " = '" + Order.DELIVERED + "'", ""));
+				DatabaseQueryConstants.ORDERS_STATUS + " = '" + Order.DELIVERED + "'", ""));
 		ArrayList<Order> orderList = new ArrayList<Order>();
 		try {
 			orderList = DatabaseDataObjectGenerator.generateOrderListFromResultSet(result);
@@ -244,27 +244,26 @@ public class DatabaseReader {
 	 *         read and ocnstruct orders
 	 */
 	public static String getOrderSelectionQuery(String whereClause, String extraOptions) {
-		String query = "SELECT " + DatabaseConstants.CUSTOMER_ALL_COLS + ", "
-				+ DatabaseConstants.DISHES_ALL_COLS + ", " + DatabaseConstants.EXTRAS_ALL_COLS + ", "
-				+ DatabaseConstants.ORDERS_COMMENT_ALL_COLS + ", " + DatabaseConstants.ORDERS_ALL_COLS + ", "
-				+ DatabaseConstants.ORDERS_CONTENTS_ALL_COLS + ", "
-				+ DatabaseConstants.DISH_EXTRAS_CHOSEN_ALL_COLS + " FROM "
-				+ DatabaseConstants.ORDERS_TABLE_NAME + " LEFT JOIN "
-				+ DatabaseConstants.ORDERS_COMMENT_TABLE_NAME + " ON ( "
-				+ DatabaseConstants.ORDERS_TO_ORDERCOMMENT_ID + " = "
-				+ DatabaseConstants.ORDERS_COMMENT_TO_ORDER_ID + " ) " + "INNER JOIN "
-				+ DatabaseConstants.ORDERS_CONTENTS_TABLE_NAME + " ON ( " + DatabaseConstants.ORDERS_ID
-				+ " = " + DatabaseConstants.ORDERS_CONTENTS_TO_ORDER_ID + " ) " + "LEFT JOIN "
-				+ DatabaseConstants.DISH_EXTRAS_CHOSEN_TABLE_NAME + " ON ( "
-				+ DatabaseConstants.ORDERS_CONTENTS_ID + " = "
-				+ DatabaseConstants.DISH_EXTRAS_TO_ORDERCONTENTS + " ) " + "LEFT JOIN "
-				+ DatabaseConstants.CUSTOMER_TABLE_NAME + " ON ( " + DatabaseConstants.ORDERS_TO_CUSTOMER_ID
-				+ " = " + DatabaseConstants.CUSTOMER_ID + " ) " + "LEFT JOIN "
-				+ DatabaseConstants.DISH_TABLE_NAME + " ON ( " + DatabaseConstants.ORDERS_CONTENTS_TO_DISH_ID
-				+ " = " + DatabaseConstants.DISH_ID + " ) " + "LEFT JOIN Extras ON ( "
-				+ DatabaseConstants.EXTRAS_ID + " = " + DatabaseConstants.DISH_EXTRAS_CHOSEN_TO_EXTRAS_ID
+		String query = "SELECT " + DatabaseQueryConstants.CUSTOMER_ALL_COLS + ", "
+				+ DatabaseQueryConstants.DISHES_ALL_COLS + ", " + DatabaseQueryConstants.EXTRAS_ALL_COLS + ", "
+				+ DatabaseQueryConstants.ORDERS_COMMENT_ALL_COLS + ", " + DatabaseQueryConstants.ORDERS_ALL_COLS + ", "
+				+ DatabaseQueryConstants.ORDERS_CONTENTS_ALL_COLS + ", "
+				+ DatabaseQueryConstants.DISH_EXTRAS_CHOSEN_ALL_COLS + " FROM "
+				+ DatabaseQueryConstants.ORDERS_TABLE_NAME + " LEFT JOIN "
+				+ DatabaseQueryConstants.ORDERS_COMMENT_TABLE_NAME + " ON ( "
+				+ DatabaseQueryConstants.ORDERS_TO_ORDERCOMMENT_ID + " = "
+				+ DatabaseQueryConstants.ORDERS_COMMENT_TO_ORDER_ID + " ) " + "INNER JOIN "
+				+ DatabaseQueryConstants.ORDERS_CONTENTS_TABLE_NAME + " ON ( " + DatabaseQueryConstants.ORDERS_ID
+				+ " = " + DatabaseQueryConstants.ORDERS_CONTENTS_TO_ORDER_ID + " ) " + "LEFT JOIN "
+				+ DatabaseQueryConstants.DISH_EXTRAS_CHOSEN_TABLE_NAME + " ON ( "
+				+ DatabaseQueryConstants.ORDERS_CONTENTS_ID + " = "
+				+ DatabaseQueryConstants.DISH_EXTRAS_TO_ORDERCONTENTS + " ) " + "LEFT JOIN "
+				+ DatabaseQueryConstants.CUSTOMER_TABLE_NAME + " ON ( " + DatabaseQueryConstants.ORDERS_TO_CUSTOMER_ID
+				+ " = " + DatabaseQueryConstants.CUSTOMER_ID + " ) " + "LEFT JOIN "
+				+ DatabaseQueryConstants.DISH_TABLE_NAME + " ON ( " + DatabaseQueryConstants.ORDERS_CONTENTS_TO_DISH_ID
+				+ " = " + DatabaseQueryConstants.DISH_ID + " ) " + "LEFT JOIN Extras ON ( "
+				+ DatabaseQueryConstants.EXTRAS_ID + " = " + DatabaseQueryConstants.DISH_EXTRAS_CHOSEN_TO_EXTRAS_ID
 				+ " ) " + "WHERE (" + whereClause + ") " + extraOptions + " ;";
-		System.out.println(query);
 		return query;
 	}
 

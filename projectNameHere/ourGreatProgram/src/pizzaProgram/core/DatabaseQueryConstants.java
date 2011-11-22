@@ -4,7 +4,7 @@ package pizzaProgram.core;
  * Class containing constants describing the names of the tables and columns in
  * the database.
  */
-public class DatabaseConstants {
+public class DatabaseQueryConstants {
 	/*
 	 * Constants pertaining to the Customer Table of the database
 	 */
