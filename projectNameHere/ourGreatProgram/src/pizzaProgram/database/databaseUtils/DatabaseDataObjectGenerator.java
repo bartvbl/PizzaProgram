@@ -120,12 +120,12 @@ public class DatabaseDataObjectGenerator {
 	 * @throws SQLException
 	 */
 	public static ArrayList<Order> generateOrderListFromResultSet(ResultSet result) throws SQLException {
-		System.out.println("generating order list");
 		ArrayList<Order> orderList = new ArrayList<Order>();
 		HashMap<Integer, Dish> dishMap = new HashMap<Integer, Dish>();
 		HashMap<Integer, Customer> customerMap = new HashMap<Integer, Customer>();
 		HashMap<Integer, Extra> extraMap = new HashMap<Integer, Extra>();
 		HashMap<Integer, Order> orderMap = new HashMap<Integer, Order>();
+		HashMap<Integer, OrderDish> orderDishMap = new HashMap<Integer, OrderDish>();
 		Order currentOrder = null;
 		OrderDish currentOrderDish = null;
 		Customer currentCustomer = null;
@@ -134,37 +134,36 @@ public class DatabaseDataObjectGenerator {
 		int currentOrderID = -1;
 		int currentOrderContentID = -1;
 		while (result.next()) {
-			if (!orderMap.containsKey(result.getInt(result.findColumn(DatabaseConstants.ORDERS_ID)))) {
-				currentOrderID = result.getInt(result.findColumn(DatabaseConstants.ORDERS_ID));
-				if (!customerMap.containsKey(result.getInt(result.findColumn(DatabaseConstants.CUSTOMER_ID)))) {
-					customerMap.put(result.getInt(result.findColumn(DatabaseConstants.CUSTOMER_ID)),
-							DatabaseDataObjectGenerator.createCustomer(result));
+			currentOrderID = result.getInt(result.findColumn(DatabaseConstants.ORDERS_ID));
+			if (orderMap.get(currentOrderID) == null) {
+				int currentCustomerID = result.getInt(result.findColumn(DatabaseConstants.CUSTOMER_ID));
+				if (customerMap.get(currentCustomerID) == null) {
+					customerMap.put(currentCustomerID, DatabaseDataObjectGenerator.createCustomer(result));
 				}
-				currentCustomer = customerMap.get(result.getInt(result
-						.findColumn(DatabaseConstants.CUSTOMER_ID)));
+				currentCustomer = customerMap.get(currentCustomerID);
 				currentOrder = DatabaseDataObjectGenerator.createOrder(result, currentCustomer);
 				orderList.add(currentOrder);
 				orderMap.put(currentOrderID, currentOrder);
 			}
-			if (currentOrder != null
-					&& result.getInt(result.findColumn(DatabaseConstants.ORDERS_CONTENTS_ID)) != currentOrderContentID) {
-				currentOrderContentID = result
-						.getInt(result.findColumn(DatabaseConstants.ORDERS_CONTENTS_ID));
-				if (!dishMap.containsKey(result.getInt(result.findColumn(DatabaseConstants.DISH_ID)))) {
-					dishMap.put(result.getInt(result.findColumn(DatabaseConstants.DISH_ID)),
-							DatabaseDataObjectGenerator.createDish(result));
+			currentOrder = orderMap.get(currentOrderID);
+			currentOrderContentID = result.getInt(result.findColumn(DatabaseConstants.ORDERS_CONTENTS_ID));
+			if (currentOrder != null && orderDishMap.get(currentOrderContentID) == null) {
+				int currentDishID = result.getInt(result.findColumn(DatabaseConstants.DISH_ID));
+				if (dishMap.get(currentDishID) == null) {
+					dishMap.put(currentDishID, DatabaseDataObjectGenerator.createDish(result));
 				}
-				currentDish = dishMap.get(result.getInt(result.findColumn(DatabaseConstants.DISH_ID)));
+				currentDish = dishMap.get(currentDishID);
 				currentOrderDish = new OrderDish(currentOrder.orderID, currentDish);
 				currentOrder.addOrderDish(currentOrderDish);
+				orderDishMap.put(currentOrderContentID, currentOrderDish);
 			}
-			if (result.getInt(result.findColumn(DatabaseConstants.EXTRAS_ID)) != 0) {
-
-				if (!extraMap.containsKey(result.getInt(result.findColumn(DatabaseConstants.EXTRAS_ID)))) {
-					extraMap.put(result.getInt(result.findColumn(DatabaseConstants.EXTRAS_ID)),
-							DatabaseDataObjectGenerator.createExtra(result));
+			currentOrderDish = orderDishMap.get(currentOrderContentID);
+			int currentExtraID = result.getInt(result.findColumn(DatabaseConstants.EXTRAS_ID));
+			if (currentExtraID != 0) {
+				if (extraMap.get(currentExtraID) == null) {
+					extraMap.put(currentExtraID, DatabaseDataObjectGenerator.createExtra(result));
 				}
-				currentExtra = extraMap.get(result.getInt(result.findColumn(DatabaseConstants.EXTRAS_ID)));
+				currentExtra = extraMap.get(currentExtraID);
 				if (currentOrderDish != null) {
 					currentOrderDish.addExtra(currentExtra);
 				}
