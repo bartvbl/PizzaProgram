@@ -133,10 +133,13 @@ public class DatabaseDataObjectGenerator {
 		Extra currentExtra = null;
 		int currentOrderID = -1;
 		int currentOrderContentID = -1;
+		int currentCustomerID = -1;
+		int currentDishID = -1;
+		int currentExtraID = -1;
 		while (result.next()) {
 			currentOrderID = result.getInt(result.findColumn(DatabaseConstants.ORDERS_ID));
 			if (orderMap.get(currentOrderID) == null) {
-				int currentCustomerID = result.getInt(result.findColumn(DatabaseConstants.CUSTOMER_ID));
+				currentCustomerID = result.getInt(result.findColumn(DatabaseConstants.CUSTOMER_ID));
 				if (customerMap.get(currentCustomerID) == null) {
 					customerMap.put(currentCustomerID, DatabaseDataObjectGenerator.createCustomer(result));
 				}
@@ -148,7 +151,7 @@ public class DatabaseDataObjectGenerator {
 			currentOrder = orderMap.get(currentOrderID);
 			currentOrderContentID = result.getInt(result.findColumn(DatabaseConstants.ORDERS_CONTENTS_ID));
 			if (currentOrder != null && orderDishMap.get(currentOrderContentID) == null) {
-				int currentDishID = result.getInt(result.findColumn(DatabaseConstants.DISH_ID));
+				currentDishID = result.getInt(result.findColumn(DatabaseConstants.DISH_ID));
 				if (dishMap.get(currentDishID) == null) {
 					dishMap.put(currentDishID, DatabaseDataObjectGenerator.createDish(result));
 				}
@@ -158,7 +161,7 @@ public class DatabaseDataObjectGenerator {
 				orderDishMap.put(currentOrderContentID, currentOrderDish);
 			}
 			currentOrderDish = orderDishMap.get(currentOrderContentID);
-			int currentExtraID = result.getInt(result.findColumn(DatabaseConstants.EXTRAS_ID));
+			currentExtraID = result.getInt(result.findColumn(DatabaseConstants.EXTRAS_ID));
 			if (currentExtraID != 0) {
 				if (extraMap.get(currentExtraID) == null) {
 					extraMap.put(currentExtraID, DatabaseDataObjectGenerator.createExtra(result));
