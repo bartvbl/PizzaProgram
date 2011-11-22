@@ -338,7 +338,7 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler
 	/**
 	 * Handles the the event when a user clicked the "Reset order" button. Resets the UI and the temporary order storage
 	 */
-	private void resetOrder() {
+	public void resetOrder() {
 		this.temporaryOrderData.reset();
 		this.resetUI();
 	}
