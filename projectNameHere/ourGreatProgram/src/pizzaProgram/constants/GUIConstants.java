@@ -5,6 +5,8 @@ import javax.swing.JOptionPane;
 import pizzaProgram.dataObjects.Order;
 /**
  * Class containing constants used in various areas of the GUI.
+ * 
+ * @author IT1901 Group 3, Fall 2011
  */
 public class GUIConstants {
 	/**

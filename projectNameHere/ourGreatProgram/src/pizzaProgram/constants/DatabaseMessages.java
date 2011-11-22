@@ -3,6 +3,8 @@ package pizzaProgram.constants;
 /**
  * Class containing String constants containing the contents of information and
  * error messageboxes spawned by the databaseclasses
+ * 
+ * @author IT1901 Group 3, Fall 2011
  */
 public class DatabaseMessages {
 	/*
