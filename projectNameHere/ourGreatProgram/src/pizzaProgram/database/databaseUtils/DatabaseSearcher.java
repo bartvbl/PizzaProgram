@@ -181,15 +181,15 @@ public class DatabaseSearcher {
 	 * @return An query that can be used to search for extras in the database
 	 */
 	private static String generateExtraSearchQuery(String searchQuery) {
-		String query = "SELECT * FROM Extras WHERE (";
+		String query = "SELECT * FROM " + DatabaseConstants.EXTRAS_TABLE_NAME + " WHERE (";
 		String[] keywords = searchQuery.split(" ");
 		int counter = 0;
 		for (String keyword : keywords) {
 			if (counter != 0) {
 				query += "OR";
 			}
-			query += "(Extras.Price LIKE '%" + keyword + "%') OR ";
-			query += "(Extras.Name LIKE '%" + keyword + "%')";
+			query += "(" + DatabaseConstants.EXTRAS_PRICE + " LIKE '%" + keyword + "%') OR ";
+			query += "(" + DatabaseConstants.EXTRAS_NAME + " LIKE '%" + keyword + "%')";
 			counter++;
 		}
 		query += ") LIMIT 30;";
@@ -218,7 +218,7 @@ public class DatabaseSearcher {
 			}
 
 			counter++;
-			whereClause += "(Orders.OrdersStatus = '" + status + "')";
+			whereClause += "(" + DatabaseConstants.ORDERS_STATUS + " = '" + status + "')";
 		}
 
 		whereClause += ") AND (";
@@ -227,13 +227,12 @@ public class DatabaseSearcher {
 			if (counter != 0) {
 				whereClause += "OR ";
 			}
-			whereClause += "(Orders.OrdersStatus LIKE '%" + keyword + "%') OR ";
-			whereClause += "(Orders.DeliveryMethod LIKE '%" + keyword + "%') OR ";
-			whereClause += "(Orders.OrdersID LIKE '%" + keyword + "%') ";
+			whereClause += "(" + DatabaseConstants.ORDERS_STATUS + " LIKE '%" + keyword + "%') OR ";
+			whereClause += "(" + DatabaseConstants.ORDERS_DELIVERY_METHOD + " LIKE '%" + keyword + "%') OR ";
+			whereClause += "(" + DatabaseConstants.ORDERS_ID + " LIKE '%" + keyword + "%') ";
 			counter++;
 		}
 		whereClause += ")";
 		return whereClause;
 	}
-
 }
