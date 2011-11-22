@@ -40,14 +40,14 @@ public class PriceCalculators {
 	public static String getPriceForDish(Dish d) {
 		return d.price / 100 + "," + formatter.format(d.price % 100);
 	}
-	
+
 	public static String getPriceForDishPickup(Dish d) {
-		int price = d.price + (int) (d.price * (pickupMoms/100.0)); 
+		int price = d.price + (int) (d.price * (pickupMoms / 100.0));
 		return price / 100 + "," + formatter.format(price % 100);
 	}
-	
+
 	public static String getPriceForDishDeliver(Dish d) {
-		int price = d.price + (int) (d.price * (deliverMoms/100.0)); 
+		int price = d.price + (int) (d.price * (deliverMoms / 100.0));
 		return price / 100 + "," + formatter.format(price % 100);
 	}
 
@@ -122,10 +122,8 @@ public class PriceCalculators {
 	public static String getDeliveryCostForOrder(Order o) {
 		int totalPrice = getPriceForOrder(o);
 		totalPrice += totalPrice * (deliverMoms / 100.0);
-		if (o.deliveryMethod.equals(Order.DELIVER_AT_HOME)
-				&& totalPrice < freeDeliveryThreshold) {
-			return deliveryCost / 100 + ","
-					+ formatter.format(deliveryCost % 100);
+		if (o.deliveryMethod.equals(Order.DELIVER_AT_HOME) && totalPrice < freeDeliveryThreshold) {
+			return deliveryCost / 100 + "," + formatter.format(deliveryCost % 100);
 		}
 		return "0,00";
 	}
@@ -135,8 +133,7 @@ public class PriceCalculators {
 	}
 
 	public static String getFreeDeliveryTreshold() {
-		return freeDeliveryThreshold / 100 + ","
-				+ formatter.format(freeDeliveryThreshold % 100);
+		return freeDeliveryThreshold / 100 + "," + formatter.format(freeDeliveryThreshold % 100);
 	}
 
 	/**
@@ -158,17 +155,21 @@ public class PriceCalculators {
 		}
 		return totalPrice / 100 + "," + formatter.format(totalPrice % 100);
 	}
-	
+
 	/**
-	 * Verifies input for prices, all prices need to be on the form assured here, it will return the øreprice if the input is correct, else it will return -1 
-	 * @param the pricestring to be formatted
+	 * Verifies input for prices, all prices need to be on the form assured
+	 * here, it will return the øreprice if the input is correct, else it will
+	 * return -1
+	 * 
+	 * @param priceText
+	 *            the pricestring to be formatted
 	 * @return the correct øreprice or -1 if the string is wrong
 	 */
-	public static int priceInputVerifier(String priceText){
-		String[] splitt =priceText.trim().replace(" ", "").split(",");
+	public static int priceInputVerifier(String priceText) {
+		String[] splitt = priceText.trim().replace(" ", "").split(",");
 		int orePrice = 0;
-		
-		if(splitt.length > 2 || splitt.length < 2){
+
+		if (splitt.length > 2 || splitt.length < 2) {
 			GUIConstants.showErrorMessage("Tall skal være på formen 00,00");
 			return -1;
 		}
@@ -178,12 +179,12 @@ public class PriceCalculators {
 			GUIConstants.showErrorMessage("Du har skrevet inn noe som ikke er et tall");
 			return -1;
 		}
-		if(splitt[1].length() > 2 || splitt[1].length() < 2){
+		if (splitt[1].length() > 2 || splitt[1].length() < 2) {
 			GUIConstants.showErrorMessage("Tall må ha nøyaktig to siffer etter komma!");
 			return -1;
 		}
 		try {
-			orePrice +=Integer.parseInt(splitt[1]);
+			orePrice += Integer.parseInt(splitt[1]);
 		} catch (Exception e) {
 			GUIConstants.showErrorMessage("Du har skrevet inn noe som ikke er et tall");
 			return -1;
@@ -256,24 +257,24 @@ public class PriceCalculators {
 	 * @param e
 	 *            - the {@link pizzaProgram.dataObjects.Extra extra} the info in
 	 *            the string is to be in relation to.
-	 * @return 	returns an integer øre-price of an extra on a spesific order
-	 * 			Extra to the given Dish. used to calculate the price with different taxes
+	 * @return returns an integer øre-price of an extra on a spesific order
+	 *         Extra to the given Dish. used to calculate the price with
+	 *         different taxes
 	 */
 	private static int getPriceForExtraOnDish(Dish d, Extra e) {
 		if (e.priceFuncPart == '+') {
 			return e.priceValPart;
-		}
-		else if (e.priceFuncPart == '-') {
+		} else if (e.priceFuncPart == '-') {
 			return -e.priceValPart;
-		}
-		else {
-		return (int) (d.price * ((e.priceValPart - 100) / 100.0));
+		} else {
+			return (int) (d.price * ((e.priceValPart - 100) / 100.0));
 		}
 	}
-	
+
 	/**
 	 * Generates a string displaying the change in price if you add the given
-	 * Extra to the given Dish with the VAT for picking up the order at the restaurant added.
+	 * Extra to the given Dish with the VAT for picking up the order at the
+	 * restaurant added.
 	 * 
 	 * @param d
 	 *            - the {@link pizzaProgram.dataObjects.Dish dish} the info in
@@ -286,14 +287,13 @@ public class PriceCalculators {
 	 */
 	public static String getPriceForExtraOnDishPickup(Dish d, Extra e) {
 		int price = getPriceForExtraOnDish(d, e);
-		price += (int) (price*(pickupMoms / 100.0)); 
+		price += (int) (price * (pickupMoms / 100.0));
 		char func = price >= 0 ? '+' : '-';
 		price = Math.abs(price);
-		return func + "" + price / 100 + ","
-				+ formatter.format(price % 100);
-		
+		return func + "" + price / 100 + "," + formatter.format(price % 100);
+
 	}
-	
+
 	/**
 	 * Generates a string displaying the change in price if you add the given
 	 * Extra to the given Dish with the VAT for deliveries added.
@@ -309,14 +309,12 @@ public class PriceCalculators {
 	 */
 	public static String getPriceForExtraOnDishDeliver(Dish d, Extra e) {
 		int price = getPriceForExtraOnDish(d, e);
-		price += (int) (price*(deliverMoms / 100.0)); 
+		price += (int) (price * (deliverMoms / 100.0));
 		char func = price >= 0 ? '+' : '-';
 		price = Math.abs(price);
-		return func + "" + price / 100 + ","
-				+ formatter.format(price % 100);
-		
-	}
+		return func + "" + price / 100 + "," + formatter.format(price % 100);
 
+	}
 
 	/**
 	 * Generates a string on the form "+0,00", "-0,00" or "*0,00" containing the
@@ -328,8 +326,7 @@ public class PriceCalculators {
 	 * @return the priceString as specified above.
 	 */
 	public static String getPriceForExtra(Extra e) {
-		return e.priceFuncPart + "" + e.priceValPart / 100 + ","
-				+ formatter.format(e.priceValPart % 100);
+		return e.priceFuncPart + "" + e.priceValPart / 100 + "," + formatter.format(e.priceValPart % 100);
 	}
 
 	/**
@@ -337,10 +334,14 @@ public class PriceCalculators {
 	 * Config table of the database.
 	 */
 	public static void getConstantsFromDataBase() {
-		deliverMoms = Integer.parseInt(Config.getConfigValueByKey(DatabaseQueryConstants.SETTING_KEY_DELIVERY_AT_HOME_TAX));
-		pickupMoms = Integer.parseInt(Config.getConfigValueByKey(DatabaseQueryConstants.SETTING_KEY_PICKUP_AT_RESTAURANT_TAX));
-		freeDeliveryThreshold = Integer.parseInt(Config.getConfigValueByKey(DatabaseQueryConstants.SETTING_KEY_FREE_DELIVERY_LIMIT));
-		deliveryCost = Integer.parseInt(Config.getConfigValueByKey(DatabaseQueryConstants.SETTING_KEY_DELIVERY_PRICE));
+		deliverMoms = Integer.parseInt(Config
+				.getConfigValueByKey(DatabaseQueryConstants.SETTING_KEY_DELIVERY_AT_HOME_TAX));
+		pickupMoms = Integer.parseInt(Config
+				.getConfigValueByKey(DatabaseQueryConstants.SETTING_KEY_PICKUP_AT_RESTAURANT_TAX));
+		freeDeliveryThreshold = Integer.parseInt(Config
+				.getConfigValueByKey(DatabaseQueryConstants.SETTING_KEY_FREE_DELIVERY_LIMIT));
+		deliveryCost = Integer.parseInt(Config
+				.getConfigValueByKey(DatabaseQueryConstants.SETTING_KEY_DELIVERY_PRICE));
 		restaurantName = Config.getConfigValueByKey(DatabaseQueryConstants.SETTING_KEY_RESTAURANT_NAME);
 		restaurantAddress = Config.getConfigValueByKey(DatabaseQueryConstants.SETTING_KEY_RESTAURANT_ADDRESS);
 		restaurantCity = Config.getConfigValueByKey(DatabaseQueryConstants.SETTING_KEY_RESTAURANT_CITY);
@@ -349,9 +350,11 @@ public class PriceCalculators {
 	public static String getRestaurantName() {
 		return restaurantName;
 	}
+
 	public static String getRestaurantAddress() {
 		return restaurantAddress;
 	}
+
 	public static String getRestaurantCity() {
 		return restaurantCity;
 	}

@@ -31,31 +31,32 @@ import pizzaProgram.utils.ReceiptGenerator;
  */
 public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implements ActionListener {
 	private AdminGUI adminGUI;
-	
+
 	public AdminGUI_AdminViewEventHandler(AdminGUI adminGUI) {
 		super(adminGUI);
 		this.adminGUI = adminGUI;
 		this.addEventListeners();
 	}
-	
+
 	/**
-	 * This method adds listeners to the desiered components in AdminWiev
-	 * The code to be run when an event is recived is splitt up into different methodes, one for each component/event
+	 * This method adds listeners to the desiered components in AdminWiev The
+	 * code to be run when an event is recived is splitt up into different
+	 * methodes, one for each component/event
 	 */
-	private void addEventListeners(){
-		
-		
+	private void addEventListeners() {
+
 		AdminView.ordersTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
 				handleOrderSelection(e);
 			}
 		});
-		
-		AdminView.allActiveDishesTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-			public void valueChanged(ListSelectionEvent e) {
-				handleDishSelection(e);
-			}
-		});
+
+		AdminView.allActiveDishesTable.getSelectionModel().addListSelectionListener(
+				new ListSelectionListener() {
+					public void valueChanged(ListSelectionEvent e) {
+						handleDishSelection(e);
+					}
+				});
 		AdminView.addNewDishButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				handleNewDishButtonClick();
@@ -66,11 +67,12 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 				handleDishConfirmButtonClick();
 			}
 		});
-		AdminView.allRegisteredExtrasTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-			public void valueChanged(ListSelectionEvent e) {
-				handleExtraSelection(e);
-			}
-		});
+		AdminView.allRegisteredExtrasTable.getSelectionModel().addListSelectionListener(
+				new ListSelectionListener() {
+					public void valueChanged(ListSelectionEvent e) {
+						handleExtraSelection(e);
+					}
+				});
 		AdminView.confirmEditExtraButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				handleExtraConfirmButtonClick();
@@ -81,70 +83,90 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 				handleNewExtraButtonClick();
 			}
 		});
-		
-		AdminView.searchDishTextBox.addKeyListener(new KeyListener(){public void keyPressed(KeyEvent e) {}public void keyTyped(KeyEvent e) {}
+
+		AdminView.searchDishTextBox.addKeyListener(new KeyListener() {
+			public void keyPressed(KeyEvent e) {
+			}
+
+			public void keyTyped(KeyEvent e) {
+			}
+
 			public void keyReleased(KeyEvent e) {
-				handleDishSearchTyping(); 
+				handleDishSearchTyping();
 			}
 		});
-		
-		AdminView.searchExtraTextBox.addKeyListener(new KeyListener(){public void keyPressed(KeyEvent e) {}public void keyTyped(KeyEvent e) {}
+
+		AdminView.searchExtraTextBox.addKeyListener(new KeyListener() {
+			public void keyPressed(KeyEvent e) {
+			}
+
+			public void keyTyped(KeyEvent e) {
+			}
+
 			public void keyReleased(KeyEvent e) {
-				handleExtraSearchTyping(); 
+				handleExtraSearchTyping();
 			}
 		});
-		
-		AdminView.searchDishTextBox.addFocusListener(new FocusListener(){public void focusLost(FocusEvent arg0) {}
+
+		AdminView.searchDishTextBox.addFocusListener(new FocusListener() {
+			public void focusLost(FocusEvent arg0) {
+			}
+
 			public void focusGained(FocusEvent arg0) {
 				handleDishSearchBoxSelection();
 			}
 		});
-		
-		AdminView.searchExtraTextBox.addFocusListener(new FocusListener(){
-			public void focusLost(FocusEvent arg0) {}
+
+		AdminView.searchExtraTextBox.addFocusListener(new FocusListener() {
+			public void focusLost(FocusEvent arg0) {
+			}
+
 			public void focusGained(FocusEvent arg0) {
 				handleExtraSearchBoxSelection();
 			}
-			
+
 		});
-		
+
 		AdminView.settingsApplyChangesButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				handleSettingConfirmedButtonClicked();
 			}
 		});
-		
+
 		AdminView.settingsResetSettingsButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				handleSettingResetButtonClicked();
 			}
 		});
-	
+
 	}
-	
+
 	/**
 	 * called when the user selects an order in the orderhistory
-	 * @param the listSelectionEvent
+	 * 
+	 * @param e
+	 *            the listSelectionEvent
 	 */
 	private void handleOrderSelection(ListSelectionEvent e) {
-		int indexOfSelectedOrder = ((DefaultListSelectionModel)e.getSource()).getMinSelectionIndex();
-		if(indexOfSelectedOrder < 0){
+		int indexOfSelectedOrder = ((DefaultListSelectionModel) e.getSource()).getMinSelectionIndex();
+		if (indexOfSelectedOrder < 0) {
 			return;
 		}
 		Order order = adminGUI.currentOrderList.get(indexOfSelectedOrder);
 		AdminView.orderReceiptLabel.setText(ReceiptGenerator.generateReceipt(order));
 	}
-	
+
 	/**
-	 * called when the user clics reset in the settings-window
-	 * resets all the data in the textfields to their databasevalue
+	 * called when the user clics reset in the settings-window resets all the
+	 * data in the textfields to their databasevalue
 	 */
 	private void handleSettingResetButtonClicked() {
 		AdminView.settingsDeliveryPriceTextBox.setText(PriceCalculators.getDeliveryCost());
 		AdminView.settingsEditNameOfRestaurantTextBox.setText(PriceCalculators.getRestaurantName());
-		AdminView.settingsEditMinimumPriceFreeDeliveryTextBox.setText(PriceCalculators.getFreeDeliveryTreshold());
+		AdminView.settingsEditMinimumPriceFreeDeliveryTextBox.setText(PriceCalculators
+				.getFreeDeliveryTreshold());
 	}
-	
+
 	/**
 	 * called when the user clicks confirm when editing settings
 	 */
@@ -154,231 +176,239 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 		String addressText = AdminView.settingsEditAdressOfRestaurantTextBox.getText();
 		String cityText = AdminView.settingsEditCityOfRestaurantTextBox.getText();
 		String delivertTresholdText = AdminView.settingsEditMinimumPriceFreeDeliveryTextBox.getText();
-		
+
 		int orePrice = PriceCalculators.priceInputVerifier(priceText);
-		if(orePrice < 0){
+		if (orePrice < 0) {
 			return;
 		}
-		Setting priceSetting = new Setting(DatabaseQueryConstants.SETTING_KEY_DELIVERY_PRICE, ""+orePrice);
-		
-		
-		if(nameText.length() < 3 || nameText.length() > 18){
-			GUIConstants.showErrorMessage("Navnet på restauranten kan ikke være mindre enn 3 bokstaver eller mer enn 10 bokstaver");
+		Setting priceSetting = new Setting(DatabaseQueryConstants.SETTING_KEY_DELIVERY_PRICE, "" + orePrice);
+
+		if (nameText.length() < 3 || nameText.length() > 18) {
+			GUIConstants
+					.showErrorMessage("Navnet på restauranten kan ikke være mindre enn 3 bokstaver eller mer enn 10 bokstaver");
 			return;
 		}
 		Setting nameSetting = new Setting(DatabaseQueryConstants.SETTING_KEY_RESTAURANT_NAME, nameText);
-		
-		if(addressText.length() < 3){
+
+		if (addressText.length() < 3) {
 			GUIConstants.showErrorMessage("Addressen til restauranten kan ikke være mindre enn 3 bokstaver");
 			return;
 		}
-		Setting addressSetting = new Setting(DatabaseQueryConstants.SETTING_KEY_RESTAURANT_ADDRESS, addressText);
-		
-		if(cityText.length() < 1){
+		Setting addressSetting = new Setting(DatabaseQueryConstants.SETTING_KEY_RESTAURANT_ADDRESS,
+				addressText);
+
+		if (cityText.length() < 1) {
 			GUIConstants.showErrorMessage("Addressen til restauranten kan ikke være mindre enn 1 bokstav");
 			return;
 		}
 		Setting citySetting = new Setting(DatabaseQueryConstants.SETTING_KEY_RESTAURANT_CITY, cityText);
-		
-		
-		int oreDeliveryTreshold =  PriceCalculators.priceInputVerifier(delivertTresholdText);
-		if(oreDeliveryTreshold < 0){
+
+		int oreDeliveryTreshold = PriceCalculators.priceInputVerifier(delivertTresholdText);
+		if (oreDeliveryTreshold < 0) {
 			return;
 		}
-		Setting deliveryTresholdSetting = new Setting(DatabaseQueryConstants.SETTING_KEY_FREE_DELIVERY_LIMIT, ""+oreDeliveryTreshold);
-		
+		Setting deliveryTresholdSetting = new Setting(DatabaseQueryConstants.SETTING_KEY_FREE_DELIVERY_LIMIT,
+				"" + oreDeliveryTreshold);
+
 		boolean somethingChanged = false;
-		if(!priceText.equals(PriceCalculators.getDeliveryCost())){
+		if (!priceText.equals(PriceCalculators.getDeliveryCost())) {
 			Config.updateValueOfSetting(priceSetting);
 			somethingChanged = true;
 		}
-		if(!nameText.equals(PriceCalculators.getRestaurantName())){
+		if (!nameText.equals(PriceCalculators.getRestaurantName())) {
 			Config.updateValueOfSetting(nameSetting);
 			somethingChanged = true;
 		}
-		if(!delivertTresholdText.equals(PriceCalculators.getFreeDeliveryTreshold())){
+		if (!delivertTresholdText.equals(PriceCalculators.getFreeDeliveryTreshold())) {
 			Config.updateValueOfSetting(deliveryTresholdSetting);
 			somethingChanged = true;
 		}
-		if(!addressText.equals(PriceCalculators.getRestaurantAddress())){
+		if (!addressText.equals(PriceCalculators.getRestaurantAddress())) {
 			Config.updateValueOfSetting(addressSetting);
 			somethingChanged = true;
 		}
-		if(!cityText.equals(PriceCalculators.getRestaurantCity())){
+		if (!cityText.equals(PriceCalculators.getRestaurantCity())) {
 			Config.updateValueOfSetting(citySetting);
 			somethingChanged = true;
 		}
-		
-		if(!somethingChanged){
+
+		if (!somethingChanged) {
 			GUIConstants.showConfirmMessage("Ingenting å endre");
-		}else{
+		} else {
 			GUIConstants.showConfirmMessage("Data endret");
 		}
 		PriceCalculators.getConstantsFromDataBase();
 		handleSettingResetButtonClicked();
 	}
-	
 
 	/**
 	 * The method called when a user selects an extra from the extra-list
+	 * 
 	 * @param e
 	 */
 	private void handleExtraSelection(ListSelectionEvent e) {
-		int selectedIndex = ((DefaultListSelectionModel)e.getSource()).getMinSelectionIndex();
-		if(selectedIndex == -1){
+		int selectedIndex = ((DefaultListSelectionModel) e.getSource()).getMinSelectionIndex();
+		if (selectedIndex == -1) {
 			return;
 		}
-		
+
 		Extra selectedExtra = adminGUI.currentExtraList.get(selectedIndex);
 		adminGUI.currentSelectedExtra = selectedExtra;
-		
-		//tekstbokser
+
+		// tekstbokser
 		AdminView.editExtraExtraNameTextBox.setText(selectedExtra.name);
 		AdminView.editExtraExtraNameTextBox.setEnabled(false);
 		AdminView.editExtraExtraPriceTextArea.setText(PriceCalculators.getPriceForExtra(selectedExtra));
-		
-		char selectchar = selectedExtra.isActive ? GUIConstants.GUI_TRUE.charAt(0) : GUIConstants.GUI_FALSE.charAt(0);
+
+		char selectchar = selectedExtra.isActive ? GUIConstants.GUI_TRUE.charAt(0) : GUIConstants.GUI_FALSE
+				.charAt(0);
 		AdminView.editExtraExtraIsActiveComboBox.selectWithKeyChar(selectchar);
 	}
-	
 
 	protected void handleDishSearchBoxSelection() {
 		AdminView.searchDishTextBox.setSelectionStart(0);
 		AdminView.searchDishTextBox.setSelectionEnd(AdminView.searchDishTextBox.getText().length());
 	}
-	
+
 	protected void handleExtraSearchBoxSelection() {
 		AdminView.searchExtraTextBox.setSelectionStart(0);
 		AdminView.searchExtraTextBox.setSelectionEnd(AdminView.searchExtraTextBox.getText().length());
 	}
-	
-	protected void handleDishSearchTyping(){
+
+	protected void handleDishSearchTyping() {
 		String query = AdminView.searchDishTextBox.getText();
-		if(query.length() == 0){
+		if (query.length() == 0) {
 			showAllDishes();
 		} else {
 			searchDishes(query);
 		}
 	}
 
-	protected void handleExtraSearchTyping(){
+	protected void handleExtraSearchTyping() {
 		String query = AdminView.searchExtraTextBox.getText();
-		if(query.length() == 0){
+		if (query.length() == 0) {
 			this.showAllExtras();
 		} else {
 			this.searchExtras(query);
 		}
 	}
-	
+
 	private void searchExtras(String query) {
 		this.dispatchEvent(new Event<String>(EventType.DATABASE_UPDATE_ADMIN_GUI_SEARCH_EXTRAS, query));
 	}
-	
+
 	private void searchDishes(String query) {
 		this.dispatchEvent(new Event<String>(EventType.DATABASE_UPDATE_ADMIN_GUI_SEARCH_DISHES, query));
 	}
 
 	private void handleExtraConfirmButtonClick() {
-		boolean active = AdminView.editExtraExtraIsActiveComboBox.getSelectedItem().equals(GUIConstants.GUI_TRUE) ? true :false;
+		boolean active = AdminView.editExtraExtraIsActiveComboBox.getSelectedItem().equals(
+				GUIConstants.GUI_TRUE) ? true : false;
 		String name = DataCleaner.cleanDbData(AdminView.editExtraExtraNameTextBox.getText());
 		String price = AdminView.editExtraExtraPriceTextArea.getText().replaceAll(" ", "");
-		
+
 		char priceFunc = price.charAt(0);
 		String priceVal = price.substring(1);
-		
-		if(name.isEmpty()){
+
+		if (name.isEmpty()) {
 			GUIConstants.showErrorMessage("Feltet med navn kan ikke være tomt!");
 			return;
 		}
-		
-		if(!(priceFunc == '+' || priceFunc == '*' || priceFunc == '-')){
-			GUIConstants.showErrorMessage("Første tegn i prisen skal være +(pluss) -(minus) eller *(gange)\n" +
-					"Dette anngir om prisen på ekstraen er pristillegg, prisfradrag, eller en multiplikasjon");
+
+		if (!(priceFunc == '+' || priceFunc == '*' || priceFunc == '-')) {
+			GUIConstants
+					.showErrorMessage("Første tegn i prisen skal være +(pluss) -(minus) eller *(gange)\n"
+							+ "Dette anngir om prisen på ekstraen er pristillegg, prisfradrag, eller en multiplikasjon");
 			return;
 		}
-		
-		
+
 		int orepris = PriceCalculators.priceInputVerifier(priceVal);
-		if(orepris < 0){
+		if (orepris < 0) {
 			return;
 		}
-		
-		if(adminGUI.currentSelectedExtra == null){
+
+		if (adminGUI.currentSelectedExtra == null) {
 			Extra e = new Extra(-1, name, priceFunc + "" + orepris, active);
 			this.dispatchEvent(new Event<Extra>(EventType.DATABASE_ADD_NEW_EXTRA, e));
-		}
-		else{
-			Extra e = new Extra(adminGUI.currentSelectedExtra.id, name,  priceFunc + "" + orepris, active);
+		} else {
+			Extra e = new Extra(adminGUI.currentSelectedExtra.id, name, priceFunc + "" + orepris, active);
 			this.dispatchEvent(new Event<Extra>(EventType.DATABASE_UPDATE_EXTRA_BY_EXTRA_ID, e));
 		}
-		//oppdaterer
+		// oppdaterer
 		showAllExtras();
 	}
+
 	private void handleDishConfirmButtonClick() {
-		boolean diary = AdminView.editDishContainsDairyComboBox.getSelectedItem().equals(GUIConstants.GUI_TRUE) ? true : false;
-		boolean nuts = AdminView.editDIshContainsNutsComboBox.getSelectedItem().equals(GUIConstants.GUI_TRUE) ? true : false;
-		boolean gluten = AdminView.editDIshContainsGlutenComboBox.getSelectedItem().equals(GUIConstants.GUI_TRUE) ? true : false;
-		boolean spicy = AdminView.editDishIsPsicyComboBox.getSelectedItem().equals(GUIConstants.GUI_TRUE) ? true : false;
-		boolean active = AdminView.editDishIsDishActiveComboBox.getSelectedItem().equals(GUIConstants.GUI_TRUE) ? true : false;
-		boolean vegan = AdminView.editDishIsVegetarianComboBox.getSelectedItem().equals(GUIConstants.GUI_TRUE) ? true : false;
-		
+		boolean diary = AdminView.editDishContainsDairyComboBox.getSelectedItem().equals(
+				GUIConstants.GUI_TRUE) ? true : false;
+		boolean nuts = AdminView.editDIshContainsNutsComboBox.getSelectedItem().equals(GUIConstants.GUI_TRUE) ? true
+				: false;
+		boolean gluten = AdminView.editDIshContainsGlutenComboBox.getSelectedItem().equals(
+				GUIConstants.GUI_TRUE) ? true : false;
+		boolean spicy = AdminView.editDishIsPsicyComboBox.getSelectedItem().equals(GUIConstants.GUI_TRUE) ? true
+				: false;
+		boolean active = AdminView.editDishIsDishActiveComboBox.getSelectedItem().equals(
+				GUIConstants.GUI_TRUE) ? true : false;
+		boolean vegan = AdminView.editDishIsVegetarianComboBox.getSelectedItem()
+				.equals(GUIConstants.GUI_TRUE) ? true : false;
+
 		String name = DataCleaner.cleanDbData(AdminView.editDishNameTextBox.getText());
 		String description = DataCleaner.cleanDbData(AdminView.editDishDescriptionTextArea.getText());
 		String price = AdminView.editDishDishPriceTextArea.getText().trim();
 		int orePrice = 0;
-		
-		if(description.isEmpty()){
+
+		if (description.isEmpty()) {
 			GUIConstants.showErrorMessage("Feltet med innhold i retten kan ikke være tomt!");
 			return;
 		}
-		
-		if(name.isEmpty()){
+
+		if (name.isEmpty()) {
 			GUIConstants.showErrorMessage("Feltet med navn kan ikke være tomt!");
 			return;
 		}
-		
+
 		orePrice = PriceCalculators.priceInputVerifier(price);
-		if(orePrice < 0){
+		if (orePrice < 0) {
 			return;
 		}
-		
-		if(adminGUI.currentSelectedDish == null){
+
+		if (adminGUI.currentSelectedDish == null) {
 			Dish d = new Dish(-1, orePrice, name, gluten, nuts, diary, vegan, spicy, description, active);
 			this.dispatchEvent(new Event<Dish>(EventType.DATABASE_ADD_NEW_DISH, d));
-		}
-		else{
-			Dish d = new Dish(adminGUI.currentSelectedDish.dishID, orePrice, name, gluten, nuts, diary, vegan, spicy, description, active);
+		} else {
+			Dish d = new Dish(adminGUI.currentSelectedDish.dishID, orePrice, name, gluten, nuts, diary,
+					vegan, spicy, description, active);
 			this.dispatchEvent(new Event<Dish>(EventType.DATABASE_UPDATE_DISH_BY_DISH_ID, d));
 		}
-		
-		//update lists after update
+
+		// update lists after update
 		showAllDishes();
 	}
-	
+
 	private void handleNewExtraButtonClick() {
 		AdminView.allRegisteredExtrasTable.getSelectionModel().clearSelection();
 		adminGUI.currentSelectedExtra = null;
-		
-		//tekstbokser
+
+		// tekstbokser
 		AdminView.editExtraExtraNameTextBox.setText("Navn på tilbehør");
 		AdminView.editExtraExtraNameTextBox.setEnabled(true);
 		AdminView.editExtraExtraPriceTextArea.setText("+49,90");
-		
+
 		AdminView.editExtraExtraIsActiveComboBox.selectWithKeyChar(GUIConstants.GUI_TRUE.charAt(0));
 	}
-	
+
 	private void handleNewDishButtonClick() {
 		AdminView.allActiveDishesTable.getSelectionModel().clearSelection();
 		adminGUI.currentSelectedDish = null;
-		
+
 		AdminView.editDishNameTextBox.setText("Eksempelpizza");
 		AdminView.editDishNameTextBox.setEnabled(true);
 		AdminView.editDishDescriptionTextArea.setText("Ost - Jarlsberg\nSkinke\nTomatsaus");
 		AdminView.editDishDishPriceTextArea.setText("169,70");
-		
+
 		char trueChar = GUIConstants.GUI_TRUE.charAt(0);
 		char falseChar = GUIConstants.GUI_FALSE.charAt(0);
-		
+
 		AdminView.editDishContainsDairyComboBox.selectWithKeyChar(trueChar);
 		AdminView.editDIshContainsGlutenComboBox.selectWithKeyChar(trueChar);
 		AdminView.editDIshContainsNutsComboBox.selectWithKeyChar(falseChar);
@@ -386,55 +416,55 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 		AdminView.editDishIsVegetarianComboBox.selectWithKeyChar(trueChar);
 		AdminView.editDishIsDishActiveComboBox.selectWithKeyChar(trueChar);
 	}
-	
-	private void showAllDishes(){
+
+	private void showAllDishes() {
 		this.dispatchEvent(new Event<Object>(EventType.DATABASE_UPDATE_ADMINGUI_GUI_SEND_ALL_DISHES));
 	}
-	
-	private void showAllExtras(){
+
+	private void showAllExtras() {
 		this.dispatchEvent(new Event<Object>(EventType.DATABASE_UPDATE_ADMINGUI_GUI_SEND_ALL_EXTRAS));
 	}
-	
+
 	private void handleDishSelection(ListSelectionEvent e) {
-		int selectedIndex = ((DefaultListSelectionModel)e.getSource()).getMinSelectionIndex();
-		if(selectedIndex == -1){
+		int selectedIndex = ((DefaultListSelectionModel) e.getSource()).getMinSelectionIndex();
+		if (selectedIndex == -1) {
 			return;
 		}
 		Dish selectedDish = adminGUI.currentDishList.get(selectedIndex);
 		adminGUI.currentSelectedDish = selectedDish;
-		//tekstbokser
+		// tekstbokser
 		AdminView.editDishNameTextBox.setText(selectedDish.name);
 		AdminView.editDishNameTextBox.setEnabled(false);
 		AdminView.editDishDescriptionTextArea.setText(selectedDish.description);
-		AdminView.editDishDishPriceTextArea.setText(""+PriceCalculators.getPriceForDish(selectedDish));
-		
-		//her resetter vi alle valgboksene til sin defaultverdi
+		AdminView.editDishDishPriceTextArea.setText("" + PriceCalculators.getPriceForDish(selectedDish));
+
+		// her resetter vi alle valgboksene til sin defaultverdi
 		char trueChar = GUIConstants.GUI_TRUE.charAt(0);
 		char falseChar = GUIConstants.GUI_FALSE.charAt(0);
-		
-		char selectDiaryYN = selectedDish.containsDairy ? trueChar: falseChar;
+
+		char selectDiaryYN = selectedDish.containsDairy ? trueChar : falseChar;
 		AdminView.editDishContainsDairyComboBox.selectWithKeyChar(selectDiaryYN);
-		
-		char selectGlutenYN = selectedDish.containsGluten ? trueChar: falseChar;
+
+		char selectGlutenYN = selectedDish.containsGluten ? trueChar : falseChar;
 		AdminView.editDIshContainsGlutenComboBox.selectWithKeyChar(selectGlutenYN);
-		
-		char selectNutsYN = selectedDish.containsNuts ? trueChar: falseChar;
+
+		char selectNutsYN = selectedDish.containsNuts ? trueChar : falseChar;
 		AdminView.editDIshContainsNutsComboBox.selectWithKeyChar(selectNutsYN);
-		
-		char selectSpicyYN = selectedDish.isSpicy ? trueChar: falseChar;
+
+		char selectSpicyYN = selectedDish.isSpicy ? trueChar : falseChar;
 		AdminView.editDishIsPsicyComboBox.selectWithKeyChar(selectSpicyYN);
-		
-		char selectVeganYN = selectedDish.isVegetarian ? trueChar: falseChar;
+
+		char selectVeganYN = selectedDish.isVegetarian ? trueChar : falseChar;
 		AdminView.editDishIsVegetarianComboBox.selectWithKeyChar(selectVeganYN);
 
-		char selectActiveYN = selectedDish.isActive ? trueChar: falseChar;
+		char selectActiveYN = selectedDish.isActive ? trueChar : falseChar;
 		AdminView.editDishIsDishActiveComboBox.selectWithKeyChar(selectActiveYN);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
-}//END
+
+}// END
