@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
-import pizzaProgram.core.GUIConstants;
+import pizzaProgram.constants.GUIConstants;
 import pizzaProgram.dataObjects.Customer;
 import pizzaProgram.dataObjects.UnaddedCustomer;
 import pizzaProgram.database.databaseUtils.DataCleaner;

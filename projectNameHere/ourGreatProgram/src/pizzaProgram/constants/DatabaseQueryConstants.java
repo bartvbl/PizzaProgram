@@ -1,9 +1,12 @@
-package pizzaProgram.core;
+package pizzaProgram.constants;
 
 /**
- * Class containing constants describing the names of the tables and columns in the database.
+ * Class containing constants describing the names of the tables and columns in
+ * the database.
+ * 
+ * @author IT1901 Group 3, Fall 2011
  */
-public class DatabaseConstants {
+public class DatabaseQueryConstants {
 	/*
 	 * Constants pertaining to the Customer Table of the database
 	 */
@@ -20,7 +23,7 @@ public class DatabaseConstants {
 	/*
 	 * Constants pertaining to the Dishes Table of the database
 	 */
-	public static final String DISH_TABLE_NAME = "Dishes"; 
+	public static final String DISH_TABLE_NAME = "Dishes";
 	public static final String DISH_ID = DISH_TABLE_NAME + ".DishID";
 	public static final String DISH_PRICE = DISH_TABLE_NAME + ".Price";
 	public static final String DISH_NAME = DISH_TABLE_NAME + ".Name";
@@ -56,7 +59,7 @@ public class DatabaseConstants {
 	 * Constants pertaining to the OrdersComments Table of the database
 	 */
 	public static final String ORDERS_COMMENT_TABLE_NAME = "OrderComments";
-	public static final String ORDERS_COMMENT_TO_ORDER_ID = ORDERS_COMMENT_TABLE_NAME + ".CommentID"; 
+	public static final String ORDERS_COMMENT_TO_ORDER_ID = ORDERS_COMMENT_TABLE_NAME + ".CommentID";
 	public static final String ORDERS_COMMENT = ORDERS_COMMENT_TABLE_NAME + ".Comment";
 	public static final String ORDERS_COMMENT_ALL_COLS = ORDERS_COMMENT_TABLE_NAME + ".*";
 	/*
@@ -65,30 +68,69 @@ public class DatabaseConstants {
 	public static final String CONFIG_TABLE_NAME = "Config";
 	public static final String CONFIG_KEY = CONFIG_TABLE_NAME + ".ConfigKey";
 	public static final String CONFIG_VALUE = CONFIG_TABLE_NAME + ".ConfigValue";
-	public static final String CONFIG_ALL_COLS = CONFIG_TABLE_NAME + ".*"; 
+	public static final String CONFIG_ALL_COLS = CONFIG_TABLE_NAME + ".*";
 	/*
 	 * Constants pertaining to the OrdersContents Table of the database
 	 */
-	public static final String ORDERS_CONTENTS_TABLE_NAME = "OrdersContents"; 
+	public static final String ORDERS_CONTENTS_TABLE_NAME = "OrdersContents";
 	public static final String ORDERS_CONTENTS_ID = ORDERS_CONTENTS_TABLE_NAME + ".OrdersContentsID";
 	public static final String ORDERS_CONTENTS_TO_ORDER_ID = ORDERS_CONTENTS_TABLE_NAME + ".OrdersID";
 	public static final String ORDERS_CONTENTS_TO_DISH_ID = ORDERS_CONTENTS_TABLE_NAME + ".DishID";
-	public static final String ORDERS_CONTENTS_ALL_COLS = ORDERS_CONTENTS_TABLE_NAME + ".*"; 
+	public static final String ORDERS_CONTENTS_ALL_COLS = ORDERS_CONTENTS_TABLE_NAME + ".*";
 	/*
-	 * Constants pertaining to the DishExtrasChosen Table of the database 
+	 * Constants pertaining to the DishExtrasChosen Table of the database
 	 */
 	public static final String DISH_EXTRAS_CHOSEN_TABLE_NAME = "DishExtrasChosen";
-	public static final String DISH_EXTRAS_TO_ORDERCONTENTS = DISH_EXTRAS_CHOSEN_TABLE_NAME + ".OrdersContentsID";
-	public static final String DISH_EXTRAS_CHOSEN_TO_EXTRAS_ID = DISH_EXTRAS_CHOSEN_TABLE_NAME + ".DishExtraID";
+	public static final String DISH_EXTRAS_TO_ORDERCONTENTS = DISH_EXTRAS_CHOSEN_TABLE_NAME
+			+ ".OrdersContentsID";
+	public static final String DISH_EXTRAS_CHOSEN_TO_EXTRAS_ID = DISH_EXTRAS_CHOSEN_TABLE_NAME + ".ExtrasID";
 	public static final String DISH_EXTRAS_CHOSEN_ALL_COLS = DISH_EXTRAS_CHOSEN_TABLE_NAME + ".*";
+	/*
+	 * Constants pertaining to the OrdersRead (locked Orders) table
+	 */
+	public static final String ORDERS_LOCKED_TABLE_NAME = "OrdersRead";
+	public static final String ORDERS_LOCKED_STATUS = ORDERS_LOCKED_TABLE_NAME + ".OrdersStatus";;
+	public static final String ORDERS_LOCKED_ID = ORDERS_LOCKED_TABLE_NAME + ".OrdersID";
 	/*
 	 * Constants pertaining to the values in the key fields of the Config table
 	 */
+	/**
+	 * Key value for the free delivery limit
+	 * {@link pizzaProgram.dataObjects.Setting setting}
+	 */
 	public static final String SETTING_KEY_FREE_DELIVERY_LIMIT = "freeDeliveryLimit";
+	/**
+	 * Key value for the restaurant name
+	 * {@link pizzaProgram.dataObjects.Setting setting}
+	 */
 	public static final String SETTING_KEY_RESTAURANT_NAME = "restaurantName";
+	/**
+	 * Key value for the restaurant address
+	 * {@link pizzaProgram.dataObjects.Setting setting}
+	 */
 	public static final String SETTING_KEY_RESTAURANT_ADDRESS = "restaurantAddress";
+	/**
+	 * Key value for the restaurant city
+	 * {@link pizzaProgram.dataObjects.Setting setting}
+	 */
 	public static final String SETTING_KEY_RESTAURANT_CITY = "restaurantCity";
+	/**
+	 * Key value for the delivery price {@link pizzaProgram.dataObjects.Setting
+	 * setting}
+	 */
 	public static final String SETTING_KEY_DELIVERY_PRICE = "deliveryPrice";
+	/**
+	 * Key value for the delivery at home VAT
+	 * {@link pizzaProgram.dataObjects.Setting setting}
+	 */
 	public static final String SETTING_KEY_DELIVERY_AT_HOME_TAX = "deliveryAtHomeTax";
+	/**
+	 * Key value for the pickup at restaurant VAT
+	 * {@link pizzaProgram.dataObjects.Setting setting}
+	 */
 	public static final String SETTING_KEY_PICKUP_AT_RESTAURANT_TAX = "pickupAtRestaurantTax";
+	/**
+	 * 
+	 */
+	public static final String SETTING_KEY_DB_AUTO_UPDATE_MILLIS =  "autoDataUpdateDelayInMillis";
 }

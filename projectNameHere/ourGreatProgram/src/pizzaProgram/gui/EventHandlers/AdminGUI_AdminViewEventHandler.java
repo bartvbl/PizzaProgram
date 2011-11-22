@@ -12,8 +12,8 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import pizzaProgram.config.Config;
-import pizzaProgram.core.DatabaseConstants;
-import pizzaProgram.core.GUIConstants;
+import pizzaProgram.constants.DatabaseQueryConstants;
+import pizzaProgram.constants.GUIConstants;
 import pizzaProgram.dataObjects.Dish;
 import pizzaProgram.dataObjects.Extra;
 import pizzaProgram.dataObjects.Order;
@@ -128,6 +128,9 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 	 */
 	private void handleOrderSelection(ListSelectionEvent e) {
 		int indexOfSelectedOrder = ((DefaultListSelectionModel)e.getSource()).getMinSelectionIndex();
+		if(indexOfSelectedOrder < 0){
+			return;
+		}
 		Order order = adminGUI.currentOrderList.get(indexOfSelectedOrder);
 		AdminView.orderReceiptLabel.setText(ReceiptGenerator.generateReceipt(order));
 	}
@@ -152,76 +155,37 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 		String cityText = AdminView.settingsEditCityOfRestaurantTextBox.getText();
 		String delivertTresholdText = AdminView.settingsEditMinimumPriceFreeDeliveryTextBox.getText();
 		
-		int orePrice = 0;
+		int orePrice = PriceCalculators.priceInputVerifier(priceText);
+		if(orePrice < 0){
+			return;
+		}
+		Setting priceSetting = new Setting(DatabaseQueryConstants.SETTING_KEY_DELIVERY_PRICE, ""+orePrice);
 		
-		String[] splitt =priceText.split(",");
-		if(splitt.length > 2 || splitt.length < 2){
-			GUIConstants.showErrorMessage("Det må være nøyaktig et komma i prisen!");
-			return;
-		}
-		try {
-			orePrice = Integer.parseInt(splitt[0]) * 100;
-		} catch (NumberFormatException e) {
-			GUIConstants.showErrorMessage("Prisen må være et tall!");
-			return;
-		}
-		if(splitt[1].length() > 2){
-			GUIConstants.showErrorMessage("Det kan ikke være mer enn to siffer etter komma!");
-			return;
-		}
-		try {
-			orePrice +=Integer.parseInt(splitt[1]);
-		} catch (Exception e) {
-			GUIConstants.showErrorMessage("Prisen må være et tall!");
-			return;
-		}
-		
-		Setting priceSetting = new Setting(DatabaseConstants.SETTING_KEY_DELIVERY_PRICE, ""+orePrice);
 		
 		if(nameText.length() < 3 || nameText.length() > 18){
 			GUIConstants.showErrorMessage("Navnet på restauranten kan ikke være mindre enn 3 bokstaver eller mer enn 10 bokstaver");
 			return;
 		}
-		Setting nameSetting = new Setting(DatabaseConstants.SETTING_KEY_RESTAURANT_NAME, nameText);
+		Setting nameSetting = new Setting(DatabaseQueryConstants.SETTING_KEY_RESTAURANT_NAME, nameText);
 		
 		if(addressText.length() < 3){
 			GUIConstants.showErrorMessage("Addressen til restauranten kan ikke være mindre enn 3 bokstaver");
 			return;
 		}
-		Setting addressSetting = new Setting(DatabaseConstants.SETTING_KEY_RESTAURANT_ADDRESS, addressText);
+		Setting addressSetting = new Setting(DatabaseQueryConstants.SETTING_KEY_RESTAURANT_ADDRESS, addressText);
 		
 		if(cityText.length() < 1){
 			GUIConstants.showErrorMessage("Addressen til restauranten kan ikke være mindre enn 1 bokstav");
 			return;
 		}
-		Setting citySetting = new Setting(DatabaseConstants.SETTING_KEY_RESTAURANT_CITY, cityText);
+		Setting citySetting = new Setting(DatabaseQueryConstants.SETTING_KEY_RESTAURANT_CITY, cityText);
 		
 		
-		
-		int oreDeliveryTreshold = 0;
-		String[] splittTreshold = delivertTresholdText.split(",");
-		if(splittTreshold.length > 2){
-			GUIConstants.showErrorMessage("Det må være nøyaktig et komma i grensen for gratis levering!");
+		int oreDeliveryTreshold =  PriceCalculators.priceInputVerifier(delivertTresholdText);
+		if(oreDeliveryTreshold < 0){
 			return;
 		}
-		try {
-			oreDeliveryTreshold +=Integer.parseInt(splittTreshold[0]) * 100;
-		} catch (Exception e) {
-			GUIConstants.showErrorMessage("Grensen for gratis levering må være et tall!");
-			return;
-		}
-		if(splittTreshold[1].length() > 2){
-			GUIConstants.showErrorMessage("Det kan ikke være mer enn to siffer etter komma!");
-			return;
-		}
-		try {
-			oreDeliveryTreshold +=Integer.parseInt(splittTreshold[1]);
-		} catch (Exception e) {
-			GUIConstants.showErrorMessage("Grensen for gratis levering må være et tall!");
-			return;
-		}
-		
-		Setting deliveryTresholdSetting = new Setting(DatabaseConstants.SETTING_KEY_FREE_DELIVERY_LIMIT, ""+oreDeliveryTreshold);
+		Setting deliveryTresholdSetting = new Setting(DatabaseQueryConstants.SETTING_KEY_FREE_DELIVERY_LIMIT, ""+oreDeliveryTreshold);
 		
 		boolean somethingChanged = false;
 		if(!priceText.equals(PriceCalculators.getDeliveryCost())){
@@ -334,28 +298,11 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 		}
 		
 		
-		String[] splitt = priceVal.split(",");
-		int orepris = 0;
-		if(splitt.length > 2 || splitt.length < 2){
-			GUIConstants.showErrorMessage("Det må være nøyaktig et komma i prisen!");
+		int orepris = PriceCalculators.priceInputVerifier(priceVal);
+		if(orepris < 0){
 			return;
 		}
-		try {
-			orepris = Integer.parseInt(splitt[0]) * 100;
-		} catch (NumberFormatException e) {
-			GUIConstants.showErrorMessage("Prisen må være et tall!");
-			return;
-		}
-		if(splitt[1].length() > 2){
-			GUIConstants.showErrorMessage("Det kan ikke være mer enn to siffer etter komma!");
-			return;
-		}
-		try {
-			orepris +=Integer.parseInt(splitt[1]);
-		} catch (Exception e) {
-			GUIConstants.showErrorMessage("Prisen må være et tall!");
-			return;
-		}
+		
 		if(adminGUI.currentSelectedExtra == null){
 			Extra e = new Extra(-1, name, priceFunc + "" + orepris, active);
 			this.dispatchEvent(new Event<Extra>(EventType.DATABASE_ADD_NEW_EXTRA, e));
@@ -390,26 +337,8 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 			return;
 		}
 		
-		
-		String[] splitt = price.split(",");
-		if(splitt.length > 2 || splitt.length < 2){
-			GUIConstants.showErrorMessage("Det må være nøyaktig et komma i prisen!");
-			return;
-		}
-		try {
-			orePrice = Integer.parseInt(splitt[0]) * 100;
-		} catch (NumberFormatException e) {
-			GUIConstants.showErrorMessage("Prisen må være et tall!");
-			return;
-		}
-		if(splitt[1].length() > 2){
-			GUIConstants.showErrorMessage("Det kan ikke være mer enn to siffer etter komma!");
-			return;
-		}
-		try {
-			orePrice +=Integer.parseInt(splitt[1]);
-		} catch (Exception e) {
-			GUIConstants.showErrorMessage("Prisen må være et tall!");
+		orePrice = PriceCalculators.priceInputVerifier(price);
+		if(orePrice < 0){
 			return;
 		}
 		

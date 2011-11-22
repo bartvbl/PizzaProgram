@@ -17,7 +17,7 @@ public class TimeredDataUpdater extends Module implements ActionListener{
 
 	public TimeredDataUpdater(EventDispatcher eventDispatcher) {
 		super(eventDispatcher);
-		int updateDelay = Integer.parseInt(Config.getConfigValueByKey("autoDataUpdateDelayInMillis"));
+		int updateDelay = Integer.parseInt(Config.getConfigValueByKey());
 		this.updateTimer = new Timer(updateDelay, this);
 		eventDispatcher.addEventListener(this, EventType.DATABASE_UPDATE_ADMIN_GUI_SEARCH_DISHES);
 		this.eventTypesThatUpdateGUI = new ArrayList<String>();

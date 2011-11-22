@@ -3,8 +3,9 @@ package pizzaProgram.database.databaseUtils;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import pizzaProgram.core.DatabaseConstants;
-import pizzaProgram.core.GUIConstants;
+import pizzaProgram.constants.DatabaseMessages;
+import pizzaProgram.constants.DatabaseQueryConstants;
+import pizzaProgram.constants.GUIConstants;
 import pizzaProgram.dataObjects.Customer;
 import pizzaProgram.dataObjects.Dish;
 import pizzaProgram.dataObjects.Extra;
@@ -61,7 +62,7 @@ public class DatabaseWriter {
 		if (order.deliveryMethod.equals(Order.DELIVER_AT_HOME)) {
 			updateOrderStatusIfStatusMatchesCurrentStatus(order, Order.HAS_BEEN_COOKED, Order.BEING_DELIVERED);
 		} else {
-			GUIConstants.showErrorMessage("Orderen har en ugyldig status!");
+			GUIConstants.showErrorMessage(DatabaseMessages.ILLEGAL_STATUS_ON_ORDER);
 		}
 	}
 
@@ -100,9 +101,9 @@ public class DatabaseWriter {
 			if (orderID != -1) {
 				addDishesToOrder(order, orderID);
 			}
-			GUIConstants.showConfirmMessage("Ordere lagt til");
+			GUIConstants.showConfirmMessage(DatabaseMessages.ORDER_ADDED_SUCCESSFULLY);
 		} catch (SQLException e) {
-			GUIConstants.showErrorMessage("Kunne ikke legge til ordere!");
+			GUIConstants.showErrorMessage(DatabaseMessages.UNABLE_TO_ADD_ORDER);
 			e.printStackTrace();
 		}
 	}
@@ -115,13 +116,13 @@ public class DatabaseWriter {
 	 */
 	public static void writeNewCustomer(UnaddedCustomer customer) {
 		try {
-			DatabaseConnection.executeWriteQuery("INSERT INTO Customer VALUES (NULL, '" + customer.firstName
-					+ "', '" + customer.lastName + "', '" + customer.address + "', " + customer.postalCode
-					+ ", '" + customer.city + "', " + customer.phoneNumber + ", '"
-					+ createCustomerIdentifier(customer) + "');");
-			GUIConstants.showConfirmMessage("Kunde lagt til");
+			DatabaseConnection.executeWriteQuery("INSERT INTO " + DatabaseQueryConstants.CUSTOMER_TABLE_NAME
+					+ " VALUES (NULL, '" + customer.firstName + "', '" + customer.lastName + "', '"
+					+ customer.address + "', " + customer.postalCode + ", '" + customer.city + "', "
+					+ customer.phoneNumber + ", '" + createCustomerIdentifier(customer) + "');");
+			GUIConstants.showConfirmMessage(DatabaseMessages.CUSTOMER_ADDED_SUCCESSFULLY);
 		} catch (SQLException e) {
-			GUIConstants.showErrorMessage("Kunne ikke legge til kunde!");
+			GUIConstants.showErrorMessage(DatabaseMessages.UNABLE_TO_ADD_CUSTOMER);
 			e.printStackTrace();
 		}
 	}
@@ -136,13 +137,14 @@ public class DatabaseWriter {
 	 */
 	public static void updateCustomerById(Customer customer) {
 		try {
-			DatabaseConnection.executeWriteQuery("REPLACE INTO Customer VALUES (" + customer.customerID
-					+ ", '" + customer.firstName + "', '" + customer.lastName + "', '" + customer.address
-					+ "', " + customer.postalCode + ", '" + customer.city + "', " + customer.phoneNumber
-					+ ", '" + createCustomerIdentifier(customer) + "');");
-			GUIConstants.showConfirmMessage("Kundedata endret");
+			DatabaseConnection.executeWriteQuery("REPLACE INTO " + DatabaseQueryConstants.CUSTOMER_TABLE_NAME
+					+ " VALUES (" + customer.customerID + ", '" + customer.firstName + "', '"
+					+ customer.lastName + "', '" + customer.address + "', " + customer.postalCode + ", '"
+					+ customer.city + "', " + customer.phoneNumber + ", '"
+					+ createCustomerIdentifier(customer) + "');");
+			GUIConstants.showConfirmMessage(DatabaseMessages.CUSTOMER_EDITED_SUCCESSFULLY);
 		} catch (SQLException e) {
-			GUIConstants.showErrorMessage("Kunne ikke endre kundedata!");
+			GUIConstants.showErrorMessage(DatabaseMessages.UNABLE_TO_EDIT_CUSTOMER);
 			e.printStackTrace();
 		}
 	}
@@ -155,13 +157,13 @@ public class DatabaseWriter {
 	 */
 	public static void writeNewDish(Dish dish) {
 		try {
-			DatabaseConnection.executeWriteQuery("INSERT INTO " + DatabaseConstants.DISH_TABLE_NAME
+			DatabaseConnection.executeWriteQuery("INSERT INTO " + DatabaseQueryConstants.DISH_TABLE_NAME
 					+ " VALUES (NULL, " + dish.price + ", '" + dish.name + "', " + dish.containsGluten + ", "
 					+ dish.containsNuts + ", " + dish.containsDairy + ", " + dish.isSpicy + ", "
 					+ dish.isVegetarian + ", '" + dish.description + "', " + dish.isActive + ");");
-			GUIConstants.showConfirmMessage("Rett lagt til");
+			GUIConstants.showConfirmMessage(DatabaseMessages.DISH_ADDED_SUCCESSFULLY);
 		} catch (SQLException e) {
-			GUIConstants.showErrorMessage("Kunne ikke legge til rett!");
+			GUIConstants.showErrorMessage(DatabaseMessages.UNABLE_TO_ADD_DISH);
 			e.printStackTrace();
 		}
 	}
@@ -176,15 +178,19 @@ public class DatabaseWriter {
 	 */
 	public static void updateDishByDishID(Dish dish) {
 		try {
-			DatabaseConnection.executeWriteQuery("UPDATE " + DatabaseConstants.DISH_TABLE_NAME
-					+ " SET Price=" + dish.price + ", Name='" + dish.name + "', ContainsGluten="
-					+ dish.containsGluten + ", ContainsNuts=" + dish.containsNuts + ", ContainsDairy="
-					+ dish.containsDairy + ", IsSpicy=" + dish.isSpicy + ", IsVegetarian="
-					+ dish.isVegetarian + ", Description='" + dish.description + "', IsActive="
-					+ dish.isActive + " WHERE DishID=" + dish.dishID + ";");
-			GUIConstants.showConfirmMessage("Rett endret");
+			DatabaseConnection.executeWriteQuery("UPDATE " + DatabaseQueryConstants.DISH_TABLE_NAME + " SET "
+					+ DatabaseQueryConstants.DISH_PRICE + "=" + dish.price + ", " + DatabaseQueryConstants.DISH_NAME
+					+ "='" + dish.name + "', " + DatabaseQueryConstants.DISH_CONTAINS_GLUTEN + "="
+					+ dish.containsGluten + ", " + DatabaseQueryConstants.DISH_CONTAINS_NUTS + "="
+					+ dish.containsNuts + ", " + DatabaseQueryConstants.DISH_CONTAINS_DAIRY + "="
+					+ dish.containsDairy + ", " + DatabaseQueryConstants.DISH_IS_SPICY + "=" + dish.isSpicy + ", "
+					+ DatabaseQueryConstants.DISH_IS_VEGETARIAN + "=" + dish.isVegetarian + ", "
+					+ DatabaseQueryConstants.DISH_DESCRIPTION + "='" + dish.description + "', "
+					+ DatabaseQueryConstants.DISH_IS_ACTIVE + "=" + dish.isActive + " WHERE "
+					+ DatabaseQueryConstants.DISH_ID + "=" + dish.dishID + ";");
+			GUIConstants.showConfirmMessage(DatabaseMessages.DISH_EDITED_SUCCESSFULLY);
 		} catch (SQLException e) {
-			GUIConstants.showErrorMessage("Kunne ikke endre rett!");
+			GUIConstants.showErrorMessage(DatabaseMessages.UNABLE_TO_EDIT_DISH);
 			e.printStackTrace();
 		}
 	}
@@ -198,11 +204,14 @@ public class DatabaseWriter {
 	public static void updateExtraByExtraID(Extra extra) {
 		try {
 			String price = extra.priceFuncPart + "" + extra.priceValPart;
-			DatabaseConnection.executeWriteQuery("UPDATE Extras SET Name='" + extra.name + "', Price='"
-					+ price + "', IsActive=" + extra.isActive + " WHERE ExtrasID=" + extra.id + ";");
-			GUIConstants.showConfirmMessage("Tilbehør endret");
+			DatabaseConnection.executeWriteQuery("UPDATE " + DatabaseQueryConstants.EXTRAS_TABLE_NAME + " SET "
+					+ DatabaseQueryConstants.EXTRAS_NAME + "='" + extra.name + "', "
+					+ DatabaseQueryConstants.EXTRAS_PRICE + "='" + price + "', "
+					+ DatabaseQueryConstants.EXTRAS_IS_ACTIVE + "=" + extra.isActive + " WHERE "
+					+ DatabaseQueryConstants.EXTRAS_ID + "=" + extra.id + ";");
+			GUIConstants.showConfirmMessage(DatabaseMessages.EXTRA_EDITED_SUCCESSFULLY);
 		} catch (SQLException e) {
-			GUIConstants.showErrorMessage("Kunne ikke endre tilbehør!");
+			GUIConstants.showErrorMessage(DatabaseMessages.UNABLE_TO_EDIT_EXTRA);
 			e.printStackTrace();
 		}
 	}
@@ -217,11 +226,11 @@ public class DatabaseWriter {
 	public static void writeNewExtra(Extra extra) {
 		String price = extra.priceFuncPart + "" + extra.priceValPart;
 		try {
-			DatabaseConnection.executeWriteQuery("INSERT INTO Extras VALUES (NULL, '" + extra.name + "', '"
-					+ price + "', " + extra.isActive + ");");
-			GUIConstants.showConfirmMessage("Tilbehør lagt til");
+			DatabaseConnection.executeWriteQuery("INSERT INTO " + DatabaseQueryConstants.EXTRAS_TABLE_NAME
+					+ " VALUES (NULL, '" + extra.name + "', '" + price + "', " + extra.isActive + ");");
+			GUIConstants.showConfirmMessage(DatabaseMessages.EXTRA_ADDED_SUCCESSFULLY);
 		} catch (SQLException e) {
-			GUIConstants.showErrorMessage("Kunne ikke legge til tilbehør!");
+			GUIConstants.showErrorMessage(DatabaseMessages.UNABLE_TO_ADD_EXTRA);
 			e.printStackTrace();
 		}
 	}
@@ -235,10 +244,11 @@ public class DatabaseWriter {
 	 */
 	public static void updateConfigValue(Setting setting) {
 		try {
-			DatabaseConnection.executeWriteQuery("UPDATE Config SET ConfigValue='" + setting.value
-					+ "' WHERE ConfigKey='" + setting.key + "'");
+			DatabaseConnection.executeWriteQuery("UPDATE " + DatabaseQueryConstants.CONFIG_TABLE_NAME + " SET "
+					+ DatabaseQueryConstants.CONFIG_VALUE + "='" + setting.value + "' WHERE "
+					+ DatabaseQueryConstants.CONFIG_KEY + "='" + setting.key + "'");
 		} catch (SQLException e) {
-			GUIConstants.showErrorMessage("Kunne ikke endre" + setting.key);
+			GUIConstants.showErrorMessage(DatabaseMessages.UNABLE_TO_CHANGE_BLANK + setting.key);
 			e.printStackTrace();
 		}
 	}
@@ -267,10 +277,10 @@ public class DatabaseWriter {
 				unlockTables();
 			} else {
 				unlockTables();
-				GUIConstants.showConfirmMessage("Kunne ikke endre ordrestatus: uforventet ordrestatus");
+				GUIConstants.showConfirmMessage(DatabaseMessages.UNEXPECTED_ORDER_STATUS);
 			}
 		} catch (SQLException e) {
-			GUIConstants.showConfirmMessage("Kunne ikke endre ordrestatus");
+			GUIConstants.showConfirmMessage(DatabaseMessages.UNABLE_TO_CHANGE_ORDER_STATUS);
 			e.printStackTrace();
 		} finally {
 			unlockTables();
@@ -288,10 +298,12 @@ public class DatabaseWriter {
 	 *             Any error raised while retrieving data from the database
 	 */
 	private static String getCurrentStatusOfOrder(int orderID) throws SQLException {
-		String query = "SELECT OrdersStatus FROM Orders AS OrdersRead WHERE OrdersID=" + orderID + ";";
+		String query = "SELECT " + DatabaseQueryConstants.ORDERS_LOCKED_STATUS + " FROM "
+				+ DatabaseQueryConstants.ORDERS_TABLE_NAME + " AS " + DatabaseQueryConstants.ORDERS_LOCKED_TABLE_NAME
+				+ " WHERE " + DatabaseQueryConstants.ORDERS_LOCKED_ID + "=" + orderID + ";";
 		ResultSet results = DatabaseConnection.fetchData(query);
 		results.next();
-		String currentStatus = results.getString(1);
+		String currentStatus = results.getString(results.findColumn(DatabaseQueryConstants.ORDERS_LOCKED_STATUS));
 		return currentStatus;
 	}
 
@@ -307,8 +319,9 @@ public class DatabaseWriter {
 	 *             Any error raised while retrieving the data from the database
 	 */
 	private static void updateOrderStatus(String status, int orderID) throws SQLException {
-		DatabaseConnection.executeWriteQuery("UPDATE Orders SET OrdersStatus='" + status
-				+ "' WHERE OrdersID=" + orderID + ";");
+		DatabaseConnection.executeWriteQuery("UPDATE " + DatabaseQueryConstants.ORDERS_TABLE_NAME + " SET "
+				+ DatabaseQueryConstants.ORDERS_STATUS + "='" + status + "' WHERE " + DatabaseQueryConstants.ORDERS_ID
+				+ "=" + orderID + ";");
 	}
 
 	/**
@@ -319,7 +332,9 @@ public class DatabaseWriter {
 	 *             Any error raised while locking the tables
 	 */
 	private static void lockTablesForUpdatingOrderStatus() throws SQLException {
-		DatabaseConnection.executeWriteQuery("LOCK TABLES Orders WRITE, Orders AS OrdersRead READ;");
+		DatabaseConnection.executeWriteQuery("LOCK TABLES " + DatabaseQueryConstants.ORDERS_TABLE_NAME
+				+ " WRITE, " + DatabaseQueryConstants.ORDERS_TABLE_NAME + " AS "
+				+ DatabaseQueryConstants.ORDERS_LOCKED_TABLE_NAME + " READ;");
 	}
 
 	/**
@@ -359,7 +374,8 @@ public class DatabaseWriter {
 	 */
 	private static void addDishToOrder(OrderDish dish, int orderID) throws SQLException {
 		int orderContentsID = DatabaseConnection.insertIntoDBAndReturnID("INSERT INTO "
-				+ "OrdersContents VALUES (NULL, " + orderID + ", " + dish.dish.dishID + ");");
+				+ DatabaseQueryConstants.ORDERS_CONTENTS_TABLE_NAME + " VALUES (NULL, " + orderID + ", "
+				+ dish.dish.dishID + ");");
 		if (orderContentsID == -1) {
 			return;
 		}
@@ -377,8 +393,8 @@ public class DatabaseWriter {
 	 *            the extra to be linked to the current new order
 	 */
 	private static void addExtraToOrder(int orderContentsID, Extra extra) {
-		DatabaseConnection.insertIntoDB("INSERT INTO DishExtrasChosen VALUES (" + orderContentsID + ", "
-				+ extra.id + ")");
+		DatabaseConnection.insertIntoDB("INSERT INTO " + DatabaseQueryConstants.DISH_EXTRAS_CHOSEN_TABLE_NAME
+				+ " VALUES (" + orderContentsID + ", " + extra.id + ")");
 	}
 
 	/**
@@ -392,8 +408,8 @@ public class DatabaseWriter {
 	 *             database
 	 */
 	private static int createOrderComment(String comment) throws SQLException {
-		int commentID = DatabaseConnection
-				.insertIntoDBAndReturnID("INSERT INTO OrderComments VALUES (NULL, '" + comment + "');");
+		int commentID = DatabaseConnection.insertIntoDBAndReturnID("INSERT INTO "
+				+ DatabaseQueryConstants.ORDERS_COMMENT_TABLE_NAME + " VALUES (NULL, '" + comment + "');");
 		return commentID;
 	}
 
@@ -410,13 +426,12 @@ public class DatabaseWriter {
 	 */
 	private static int createNewOrder(UnaddedOrder order, int commentID) throws SQLException {
 		int orderID = DatabaseReader.customerHasUncookedOrder(order);
-		System.out.println(orderID);
-		if (orderID>0) {
+		if (orderID > 0) {
 			return orderID;
 		}
-		orderID = DatabaseConnection.insertIntoDBAndReturnID("INSERT INTO Orders VALUES (NULL, "
-				+ order.customer.customerID + ", NOW(), '" + Order.REGISTERED + "', '" + order.deliveryMethod
-				+ "', " + commentID + ");");
+		orderID = DatabaseConnection.insertIntoDBAndReturnID("INSERT INTO "
+				+ DatabaseQueryConstants.ORDERS_TABLE_NAME + " VALUES (NULL, " + order.customer.customerID
+				+ ", NOW(), '" + Order.REGISTERED + "', '" + order.deliveryMethod + "', " + commentID + ");");
 		return orderID;
 	}
 
@@ -439,8 +454,8 @@ public class DatabaseWriter {
 	 *            the customer to be deleted
 	 */
 	public static void deleteCustomer(Customer customer) {
-		DatabaseConnection.insertIntoDB("DELETE FROM Customer WHERE " + DatabaseConstants.CUSTOMER_ID + "="
-				+ customer.customerID + " LIMIT 1");
+		DatabaseConnection.insertIntoDB("DELETE FROM " + DatabaseQueryConstants.CUSTOMER_TABLE_NAME + " WHERE "
+				+ DatabaseQueryConstants.CUSTOMER_ID + "=" + customer.customerID + " LIMIT 1");
 	}
 
 }// END

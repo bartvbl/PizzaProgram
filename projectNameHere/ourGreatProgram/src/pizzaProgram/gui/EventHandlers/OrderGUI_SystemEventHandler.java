@@ -89,7 +89,6 @@ public class OrderGUI_SystemEventHandler implements EventHandler {
 			System.out.println("ERROR: received event containing a wrong data type [order GUI update dish list]");
 			return;
 		}
-		System.out.println("updating dish list");
 		@SuppressWarnings("unchecked")
 		ArrayList<Dish> dishList = (ArrayList<Dish>)event.getEventParameterObject();
 		this.orderGUI.currentDishList = dishList;

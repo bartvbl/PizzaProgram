@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
-import pizzaProgram.core.GUIConstants;
+import pizzaProgram.constants.GUIConstants;
 import pizzaProgram.dataObjects.Customer;
 import pizzaProgram.dataObjects.Dish;
 import pizzaProgram.dataObjects.Extra;
@@ -54,6 +54,9 @@ public class OrderGUI extends GUIModule implements EventHandler {
 	 * @param mainWindow The program's main window
 	 * @param eventDispatcher The system's main event dispatcher
 	 */
+	OrderGUI_OrderViewEventHandler orderViewEventHandler;
+	OrderGUI_SystemEventHandler orderSystemEventHandler;
+
 	public OrderGUI(ProgramWindow mainWindow, EventDispatcher eventDispatcher) {
 		super(eventDispatcher);
 		eventDispatcher.addEventListener(this, EventType.COOK_GUI_REQUESTED);
@@ -63,8 +66,8 @@ public class OrderGUI extends GUIModule implements EventHandler {
 		mainWindow.addJPanel(orderView);
 		this.orderView.addPropertyChangeListener(null);
 		this.programWindow = mainWindow;
-		new OrderGUI_OrderViewEventHandler(this);
-		new OrderGUI_SystemEventHandler(eventDispatcher, this);
+		orderViewEventHandler = new OrderGUI_OrderViewEventHandler(this);
+		orderSystemEventHandler = new OrderGUI_SystemEventHandler(eventDispatcher, this);
 		this.setupComponents();
 		hide();
 	}
@@ -84,6 +87,9 @@ public class OrderGUI extends GUIModule implements EventHandler {
 		tableModel.addColumn("Rett");
 		tableModel.addColumn("Tilbehør");
 		OrderView.orderContentsTable.removeEditor();
+		OrderView.selectCustomerButton.setEnabled(false);
+		OrderView.deleteCustomerButton.setEnabled(false);
+		OrderView.changeCustomerButton.setEnabled(false);
 	}
 
 	/**
@@ -118,6 +124,7 @@ public class OrderGUI extends GUIModule implements EventHandler {
 	 */
 	@Override
 	public void show() {
+		this.orderViewEventHandler.resetOrder();
 		this.programWindow.showPanel(this.orderView);
 	}
 	

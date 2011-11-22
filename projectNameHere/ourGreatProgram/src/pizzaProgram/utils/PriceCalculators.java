@@ -2,12 +2,13 @@ package pizzaProgram.utils;
 
 import java.text.DecimalFormat;
 
-import pizzaProgram.core.DatabaseConstants;
+import pizzaProgram.config.Config;
+import pizzaProgram.constants.DatabaseQueryConstants;
+import pizzaProgram.constants.GUIConstants;
 import pizzaProgram.dataObjects.Dish;
 import pizzaProgram.dataObjects.Extra;
 import pizzaProgram.dataObjects.Order;
 import pizzaProgram.dataObjects.OrderDish;
-import pizzaProgram.database.databaseUtils.DatabaseReader;
 
 /**
  * Class for generating properly formatted strings of the various prices in the
@@ -156,7 +157,38 @@ public class PriceCalculators {
 			totalPrice *= pickupMoms / 100.0;
 		}
 		return totalPrice / 100 + "," + formatter.format(totalPrice % 100);
-
+	}
+	
+	/**
+	 * Verifies input for prices, all prices need to be on the form assured here, it will return the øreprice if the input is correct, else it will return -1 
+	 * @param the pricestring to be formatted
+	 * @return the correct øreprice or -1 if the string is wrong
+	 */
+	public static int priceInputVerifier(String priceText){
+		String[] splitt =priceText.trim().replace(" ", "").split(",");
+		int orePrice = 0;
+		
+		if(splitt.length > 2 || splitt.length < 2){
+			GUIConstants.showErrorMessage("Tall skal være på formen 00,00");
+			return -1;
+		}
+		try {
+			orePrice = Integer.parseInt(splitt[0]) * 100;
+		} catch (NumberFormatException e) {
+			GUIConstants.showErrorMessage("Du har skrevet inn noe som ikke er et tall");
+			return -1;
+		}
+		if(splitt[1].length() > 2 || splitt[1].length() < 2){
+			GUIConstants.showErrorMessage("Tall må ha nøyaktig to siffer etter komma!");
+			return -1;
+		}
+		try {
+			orePrice +=Integer.parseInt(splitt[1]);
+		} catch (Exception e) {
+			GUIConstants.showErrorMessage("Du har skrevet inn noe som ikke er et tall");
+			return -1;
+		}
+		return orePrice;
 	}
 
 	/**
@@ -305,13 +337,13 @@ public class PriceCalculators {
 	 * Config table of the database.
 	 */
 	public static void getConstantsFromDataBase() {
-		deliverMoms = Integer.parseInt(DatabaseReader.getSettingByKey(DatabaseConstants.SETTING_KEY_DELIVERY_AT_HOME_TAX).value);
-		pickupMoms = Integer.parseInt(DatabaseReader.getSettingByKey(DatabaseConstants.SETTING_KEY_PICKUP_AT_RESTAURANT_TAX).value);
-		freeDeliveryThreshold = Integer.parseInt(DatabaseReader.getSettingByKey(DatabaseConstants.SETTING_KEY_FREE_DELIVERY_LIMIT).value);
-		deliveryCost = Integer.parseInt(DatabaseReader.getSettingByKey(DatabaseConstants.SETTING_KEY_DELIVERY_PRICE).value);
-		restaurantName = DatabaseReader.getSettingByKey(DatabaseConstants.SETTING_KEY_RESTAURANT_NAME).value;
-		restaurantAddress = DatabaseReader.getSettingByKey(DatabaseConstants.SETTING_KEY_RESTAURANT_ADDRESS).value;
-		restaurantCity = DatabaseReader.getSettingByKey(DatabaseConstants.SETTING_KEY_RESTAURANT_CITY).value;
+		deliverMoms = Integer.parseInt(Config.getConfigValueByKey(DatabaseQueryConstants.SETTING_KEY_DELIVERY_AT_HOME_TAX));
+		pickupMoms = Integer.parseInt(Config.getConfigValueByKey(DatabaseQueryConstants.SETTING_KEY_PICKUP_AT_RESTAURANT_TAX));
+		freeDeliveryThreshold = Integer.parseInt(Config.getConfigValueByKey(DatabaseQueryConstants.SETTING_KEY_FREE_DELIVERY_LIMIT));
+		deliveryCost = Integer.parseInt(Config.getConfigValueByKey(DatabaseQueryConstants.SETTING_KEY_DELIVERY_PRICE));
+		restaurantName = Config.getConfigValueByKey(DatabaseQueryConstants.SETTING_KEY_RESTAURANT_NAME);
+		restaurantAddress = Config.getConfigValueByKey(DatabaseQueryConstants.SETTING_KEY_RESTAURANT_ADDRESS);
+		restaurantCity = Config.getConfigValueByKey(DatabaseQueryConstants.SETTING_KEY_RESTAURANT_CITY);
 	}
 
 	public static String getRestaurantName() {

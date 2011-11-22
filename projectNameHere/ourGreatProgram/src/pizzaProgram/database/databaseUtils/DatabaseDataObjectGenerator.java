@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import pizzaProgram.core.DatabaseConstants;
+import pizzaProgram.constants.DatabaseQueryConstants;
 import pizzaProgram.dataObjects.Customer;
 import pizzaProgram.dataObjects.Dish;
 import pizzaProgram.dataObjects.Extra;
@@ -137,9 +137,9 @@ public class DatabaseDataObjectGenerator {
 		int currentDishID = -1;
 		int currentExtraID = -1;
 		while (result.next()) {
-			currentOrderID = result.getInt(result.findColumn(DatabaseConstants.ORDERS_ID));
+			currentOrderID = result.getInt(result.findColumn(DatabaseQueryConstants.ORDERS_ID));
 			if (orderMap.get(currentOrderID) == null) {
-				currentCustomerID = result.getInt(result.findColumn(DatabaseConstants.CUSTOMER_ID));
+				currentCustomerID = result.getInt(result.findColumn(DatabaseQueryConstants.CUSTOMER_ID));
 				if (customerMap.get(currentCustomerID) == null) {
 					customerMap.put(currentCustomerID, DatabaseDataObjectGenerator.createCustomer(result));
 				}
@@ -149,9 +149,9 @@ public class DatabaseDataObjectGenerator {
 				orderMap.put(currentOrderID, currentOrder);
 			}
 			currentOrder = orderMap.get(currentOrderID);
-			currentOrderContentID = result.getInt(result.findColumn(DatabaseConstants.ORDERS_CONTENTS_ID));
+			currentOrderContentID = result.getInt(result.findColumn(DatabaseQueryConstants.ORDERS_CONTENTS_ID));
 			if (currentOrder != null && orderDishMap.get(currentOrderContentID) == null) {
-				currentDishID = result.getInt(result.findColumn(DatabaseConstants.DISH_ID));
+				currentDishID = result.getInt(result.findColumn(DatabaseQueryConstants.DISH_ID));
 				if (dishMap.get(currentDishID) == null) {
 					dishMap.put(currentDishID, DatabaseDataObjectGenerator.createDish(result));
 				}
@@ -161,7 +161,7 @@ public class DatabaseDataObjectGenerator {
 				orderDishMap.put(currentOrderContentID, currentOrderDish);
 			}
 			currentOrderDish = orderDishMap.get(currentOrderContentID);
-			currentExtraID = result.getInt(result.findColumn(DatabaseConstants.EXTRAS_ID));
+			currentExtraID = result.getInt(result.findColumn(DatabaseQueryConstants.EXTRAS_ID));
 			if (currentExtraID != 0) {
 				if (extraMap.get(currentExtraID) == null) {
 					extraMap.put(currentExtraID, DatabaseDataObjectGenerator.createExtra(result));
@@ -186,13 +186,13 @@ public class DatabaseDataObjectGenerator {
 	 *             any error raised while reading data from the database
 	 */
 	private static Customer createCustomer(ResultSet resultSet) throws SQLException {
-		int customerID = resultSet.getInt(resultSet.findColumn(DatabaseConstants.CUSTOMER_ID));
-		String firstName = resultSet.getString(resultSet.findColumn(DatabaseConstants.CUSTOMER_FIRST_NAME));
-		String lastName = resultSet.getString(resultSet.findColumn(DatabaseConstants.CUSTOMER_LAST_NAME));
-		String address = resultSet.getString(resultSet.findColumn(DatabaseConstants.CUSTOMER_ADDRESS));
-		String postalCode = resultSet.getString(resultSet.findColumn(DatabaseConstants.CUSTOMER_POSTAL_CODE));
-		String city = resultSet.getString(resultSet.findColumn(DatabaseConstants.CUSTOMER_CITY));
-		int phoneNumber = resultSet.getInt(resultSet.findColumn(DatabaseConstants.CUSTOMER_PHONE_NUMBER));
+		int customerID = resultSet.getInt(resultSet.findColumn(DatabaseQueryConstants.CUSTOMER_ID));
+		String firstName = resultSet.getString(resultSet.findColumn(DatabaseQueryConstants.CUSTOMER_FIRST_NAME));
+		String lastName = resultSet.getString(resultSet.findColumn(DatabaseQueryConstants.CUSTOMER_LAST_NAME));
+		String address = resultSet.getString(resultSet.findColumn(DatabaseQueryConstants.CUSTOMER_ADDRESS));
+		String postalCode = resultSet.getString(resultSet.findColumn(DatabaseQueryConstants.CUSTOMER_POSTAL_CODE));
+		String city = resultSet.getString(resultSet.findColumn(DatabaseQueryConstants.CUSTOMER_CITY));
+		int phoneNumber = resultSet.getInt(resultSet.findColumn(DatabaseQueryConstants.CUSTOMER_PHONE_NUMBER));
 		Customer customer = new Customer(customerID, firstName, lastName, address, postalCode, city,
 				phoneNumber);
 		return customer;
@@ -209,20 +209,20 @@ public class DatabaseDataObjectGenerator {
 	 *             Any error raised while reading the data from the ResultSet
 	 */
 	private static Dish createDish(ResultSet resultSet) throws SQLException {
-		int dishID = resultSet.getInt(resultSet.findColumn(DatabaseConstants.DISH_ID));
-		int price = resultSet.getInt(resultSet.findColumn(DatabaseConstants.DISH_PRICE));
-		String name = resultSet.getString(resultSet.findColumn(DatabaseConstants.DISH_NAME));
+		int dishID = resultSet.getInt(resultSet.findColumn(DatabaseQueryConstants.DISH_ID));
+		int price = resultSet.getInt(resultSet.findColumn(DatabaseQueryConstants.DISH_PRICE));
+		String name = resultSet.getString(resultSet.findColumn(DatabaseQueryConstants.DISH_NAME));
 		boolean containsGluten = resultSet.getBoolean(resultSet
-				.findColumn(DatabaseConstants.DISH_CONTAINS_GLUTEN));
+				.findColumn(DatabaseQueryConstants.DISH_CONTAINS_GLUTEN));
 		boolean containsNuts = resultSet.getBoolean(resultSet
-				.findColumn(DatabaseConstants.DISH_CONTAINS_NUTS));
+				.findColumn(DatabaseQueryConstants.DISH_CONTAINS_NUTS));
 		boolean containsDairy = resultSet.getBoolean(resultSet
-				.findColumn(DatabaseConstants.DISH_CONTAINS_DAIRY));
+				.findColumn(DatabaseQueryConstants.DISH_CONTAINS_DAIRY));
 		boolean isVegetarian = resultSet.getBoolean(resultSet
-				.findColumn(DatabaseConstants.DISH_IS_VEGETARIAN));
-		boolean isSpicy = resultSet.getBoolean(resultSet.findColumn(DatabaseConstants.DISH_IS_SPICY));
-		String description = resultSet.getString(resultSet.findColumn(DatabaseConstants.DISH_DESCRIPTION));
-		boolean isActive = resultSet.getBoolean(resultSet.findColumn(DatabaseConstants.DISH_IS_ACTIVE));
+				.findColumn(DatabaseQueryConstants.DISH_IS_VEGETARIAN));
+		boolean isSpicy = resultSet.getBoolean(resultSet.findColumn(DatabaseQueryConstants.DISH_IS_SPICY));
+		String description = resultSet.getString(resultSet.findColumn(DatabaseQueryConstants.DISH_DESCRIPTION));
+		boolean isActive = resultSet.getBoolean(resultSet.findColumn(DatabaseQueryConstants.DISH_IS_ACTIVE));
 		Dish dish = new Dish(dishID, price, name, containsGluten, containsNuts, containsDairy, isVegetarian,
 				isSpicy, description, isActive);
 		return dish;
@@ -239,10 +239,10 @@ public class DatabaseDataObjectGenerator {
 	 *             Any error raised while reading the data from the ResultSet
 	 */
 	private static Extra createExtra(ResultSet resultSet) throws SQLException {
-		int extrasID = resultSet.getInt(resultSet.findColumn(DatabaseConstants.EXTRAS_ID));
-		String name = resultSet.getString(resultSet.findColumn(DatabaseConstants.EXTRAS_NAME));
-		String price = resultSet.getString(resultSet.findColumn(DatabaseConstants.EXTRAS_PRICE));
-		boolean isActive = resultSet.getBoolean(resultSet.findColumn(DatabaseConstants.EXTRAS_IS_ACTIVE));
+		int extrasID = resultSet.getInt(resultSet.findColumn(DatabaseQueryConstants.EXTRAS_ID));
+		String name = resultSet.getString(resultSet.findColumn(DatabaseQueryConstants.EXTRAS_NAME));
+		String price = resultSet.getString(resultSet.findColumn(DatabaseQueryConstants.EXTRAS_PRICE));
+		boolean isActive = resultSet.getBoolean(resultSet.findColumn(DatabaseQueryConstants.EXTRAS_IS_ACTIVE));
 		Extra extra = new Extra(extrasID, name, price, isActive);
 		return extra;
 	}
@@ -261,13 +261,13 @@ public class DatabaseDataObjectGenerator {
 	 *             Any error raised while reading the data from the resultSet
 	 */
 	private static Order createOrder(ResultSet resultSet, Customer customer) throws SQLException {
-		int orderID = resultSet.getInt(resultSet.findColumn(DatabaseConstants.ORDERS_ID));
+		int orderID = resultSet.getInt(resultSet.findColumn(DatabaseQueryConstants.ORDERS_ID));
 		String timeRegistered = resultSet.getString(resultSet
-				.findColumn(DatabaseConstants.ORDERS_TIME_REGISTERED));
-		String orderStatus = resultSet.getString(resultSet.findColumn(DatabaseConstants.ORDERS_STATUS));
+				.findColumn(DatabaseQueryConstants.ORDERS_TIME_REGISTERED));
+		String orderStatus = resultSet.getString(resultSet.findColumn(DatabaseQueryConstants.ORDERS_STATUS));
 		String deliveryMethod = resultSet.getString(resultSet
-				.findColumn(DatabaseConstants.ORDERS_DELIVERY_METHOD));
-		String comment = resultSet.getString(resultSet.findColumn(DatabaseConstants.ORDERS_COMMENT));
+				.findColumn(DatabaseQueryConstants.ORDERS_DELIVERY_METHOD));
+		String comment = resultSet.getString(resultSet.findColumn(DatabaseQueryConstants.ORDERS_COMMENT));
 		Order order = new Order(orderID, customer, timeRegistered, orderStatus, deliveryMethod, comment);
 		return order;
 	}
@@ -285,8 +285,8 @@ public class DatabaseDataObjectGenerator {
 	 *             data
 	 */
 	public static Setting createSetting(ResultSet results) throws SQLException {
-		String configKey = results.getString(results.findColumn(DatabaseConstants.CONFIG_KEY));
-		String configValue = results.getString(results.findColumn(DatabaseConstants.CONFIG_VALUE));
+		String configKey = results.getString(results.findColumn(DatabaseQueryConstants.CONFIG_KEY));
+		String configValue = results.getString(results.findColumn(DatabaseQueryConstants.CONFIG_VALUE));
 		Setting setting = new Setting(configKey, configValue);
 		return setting;
 	}

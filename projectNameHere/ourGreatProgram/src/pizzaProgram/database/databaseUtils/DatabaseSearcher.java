@@ -4,8 +4,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import pizzaProgram.core.DatabaseConstants;
-import pizzaProgram.core.GUIConstants;
+import pizzaProgram.constants.DatabaseMessages;
+import pizzaProgram.constants.DatabaseQueryConstants;
+import pizzaProgram.constants.GUIConstants;
 import pizzaProgram.dataObjects.Customer;
 import pizzaProgram.dataObjects.Dish;
 import pizzaProgram.dataObjects.Extra;
@@ -41,7 +42,7 @@ public class DatabaseSearcher {
 			return customerList;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			GUIConstants.showErrorMessage("Kunne ikke hente kunder fra databasen!");
+			GUIConstants.showErrorMessage(DatabaseMessages.UNABLE_TO_FETCH_CUSTOMERS);
 		}
 		return null;
 	}
@@ -65,7 +66,7 @@ public class DatabaseSearcher {
 			return dishList;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			GUIConstants.showErrorMessage("Kunne ikke hente retter fra databasen!");
+			GUIConstants.showErrorMessage(DatabaseMessages.UNABLE_TO_FETCH_DISHES);
 		}
 		return null;
 	}
@@ -88,7 +89,7 @@ public class DatabaseSearcher {
 			return extrasList;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			GUIConstants.showErrorMessage("Kunne ikke hente tilbehør fra databasen!");
+			GUIConstants.showErrorMessage(DatabaseMessages.UNABLE_TO_FETCH_EXTRAS);
 		}
 		return null;
 	}
@@ -115,7 +116,7 @@ public class DatabaseSearcher {
 			return orderList;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			GUIConstants.showErrorMessage("Kunne ikke hente ordre fra databasen!");
+			GUIConstants.showErrorMessage(DatabaseMessages.UNABLE_TO_FETCH_ORDERS);
 		}
 		return null;
 	}
@@ -136,9 +137,9 @@ public class DatabaseSearcher {
 			if (counter != 0) {
 				query += "OR";
 			}
-			query += "(" + DatabaseConstants.CUSTOMER_FIRST_NAME + " LIKE '%" + keyword + "%') OR ";
-			query += "(" + DatabaseConstants.CUSTOMER_LAST_NAME + " LIKE '%" + keyword + "%') OR ";
-			query += "(" + DatabaseConstants.CUSTOMER_PHONE_NUMBER + " LIKE '%" + keyword + "%')";
+			query += "(" + DatabaseQueryConstants.CUSTOMER_FIRST_NAME + " LIKE '%" + keyword + "%') OR ";
+			query += "(" + DatabaseQueryConstants.CUSTOMER_LAST_NAME + " LIKE '%" + keyword + "%') OR ";
+			query += "(" + DatabaseQueryConstants.CUSTOMER_PHONE_NUMBER + " LIKE '%" + keyword + "%')";
 			counter++;
 		}
 		query += ") LIMIT 30;";
@@ -155,16 +156,16 @@ public class DatabaseSearcher {
 	 *         keywords
 	 */
 	private static String generateDishSearchQuery(String searchQuery) {
-		String query = "SELECT * FROM " + DatabaseConstants.DISH_TABLE_NAME + " WHERE (";
+		String query = "SELECT * FROM " + DatabaseQueryConstants.DISH_TABLE_NAME + " WHERE (";
 		String[] keywords = searchQuery.split(" ");
 		int counter = 0;
 		for (String keyword : keywords) {
 			if (counter != 0) {
 				query += "OR";
 			}
-			query += "(" + DatabaseConstants.DISH_PRICE + " LIKE '%" + keyword + "%') OR ";
-			query += "(" + DatabaseConstants.DISH_NAME + " LIKE '%" + keyword + "%') OR ";
-			query += "(" + DatabaseConstants.DISH_DESCRIPTION + " LIKE '%" + keyword + "%')";
+			query += "(" + DatabaseQueryConstants.DISH_PRICE + " LIKE '%" + keyword + "%') OR ";
+			query += "(" + DatabaseQueryConstants.DISH_NAME + " LIKE '%" + keyword + "%') OR ";
+			query += "(" + DatabaseQueryConstants.DISH_DESCRIPTION + " LIKE '%" + keyword + "%')";
 			counter++;
 		}
 		query += ") LIMIT 30;";
@@ -181,15 +182,15 @@ public class DatabaseSearcher {
 	 * @return An query that can be used to search for extras in the database
 	 */
 	private static String generateExtraSearchQuery(String searchQuery) {
-		String query = "SELECT * FROM Extras WHERE (";
+		String query = "SELECT * FROM " + DatabaseQueryConstants.EXTRAS_TABLE_NAME + " WHERE (";
 		String[] keywords = searchQuery.split(" ");
 		int counter = 0;
 		for (String keyword : keywords) {
 			if (counter != 0) {
 				query += "OR";
 			}
-			query += "(Extras.Price LIKE '%" + keyword + "%') OR ";
-			query += "(Extras.Name LIKE '%" + keyword + "%')";
+			query += "(" + DatabaseQueryConstants.EXTRAS_PRICE + " LIKE '%" + keyword + "%') OR ";
+			query += "(" + DatabaseQueryConstants.EXTRAS_NAME + " LIKE '%" + keyword + "%')";
 			counter++;
 		}
 		query += ") LIMIT 30;";
@@ -218,7 +219,7 @@ public class DatabaseSearcher {
 			}
 
 			counter++;
-			whereClause += "(Orders.OrdersStatus = '" + status + "')";
+			whereClause += "(" + DatabaseQueryConstants.ORDERS_STATUS + " = '" + status + "')";
 		}
 
 		whereClause += ") AND (";
@@ -227,13 +228,12 @@ public class DatabaseSearcher {
 			if (counter != 0) {
 				whereClause += "OR ";
 			}
-			whereClause += "(Orders.OrdersStatus LIKE '%" + keyword + "%') OR ";
-			whereClause += "(Orders.DeliveryMethod LIKE '%" + keyword + "%') OR ";
-			whereClause += "(Orders.OrdersID LIKE '%" + keyword + "%') ";
+			whereClause += "(" + DatabaseQueryConstants.ORDERS_STATUS + " LIKE '%" + keyword + "%') OR ";
+			whereClause += "(" + DatabaseQueryConstants.ORDERS_DELIVERY_METHOD + " LIKE '%" + keyword + "%') OR ";
+			whereClause += "(" + DatabaseQueryConstants.ORDERS_ID + " LIKE '%" + keyword + "%') ";
 			counter++;
 		}
 		whereClause += ")";
 		return whereClause;
 	}
-
 }

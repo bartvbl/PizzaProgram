@@ -12,19 +12,23 @@ import java.io.IOException;
 public class DatabaseCredentials {
 
 	/**
-	 * The String from the config file denoting that the value coming after the colon is the database's URL
+	 * The String from the config file denoting that the value coming after the
+	 * colon is the database's URL
 	 */
 	private static final String URL_TYPE = "URL";
 	/**
-	 * The String in the config file denoting that the value following the colon is the database's username
+	 * The String in the config file denoting that the value following the colon
+	 * is the database's username
 	 */
 	private static final String USERNAME_TYPE = "USERNAME";
 	/**
-	 * The String found in the config file denoting that the value following the semicolon is the database user's password.
+	 * The String found in the config file denoting that the value following the
+	 * semicolon is the database user's password.
 	 */
 	private static final String PASSWORD_TYPE = "PASSWORD";
 	/**
-	 * A String representing the database URL. It always starts by 'jdbc:', as required by the database driver used.
+	 * A String representing the database URL. It always starts by 'jdbc:', as
+	 * required by the database driver used.
 	 */
 	private String url = "jdbc:";
 	/**
@@ -56,16 +60,11 @@ public class DatabaseCredentials {
 				readLine(read);
 			}
 		} catch (FileNotFoundException e) {
-			System.out
-					.println("Unable to find the configuration file for the database."
-							+ "Please make sure "
-							+ src
-							+ " exists: "
-							+ e.getMessage());
+			System.out.println("Unable to find the configuration file for the database. "
+					+ "Please make sure " + src + " exists: " + e.getMessage());
 			e.printStackTrace();
 		} catch (IOException e) {
-			System.out.println("Unable to read the configuration file: "
-					+ e.getMessage());
+			System.out.println("Unable to read the configuration file: " + e.getMessage());
 			e.printStackTrace();
 		}
 
@@ -73,6 +72,7 @@ public class DatabaseCredentials {
 
 	/**
 	 * Returns the URL of the database the way it was read from the config file
+	 * 
 	 * @return The URL to the database
 	 */
 	String getURL() {
@@ -80,7 +80,9 @@ public class DatabaseCredentials {
 	}
 
 	/**
-	 * Returns the username of the database user as it was read from the database credentials config file
+	 * Returns the username of the database user as it was read from the
+	 * database credentials config file
+	 * 
 	 * @return The database user's username
 	 */
 	String getUsername() {
@@ -88,7 +90,9 @@ public class DatabaseCredentials {
 	}
 
 	/**
-	 * Returns the database user's password as it was read from the database credentials config file
+	 * Returns the database user's password as it was read from the database
+	 * credentials config file
+	 * 
 	 * @return The dataabse user's password
 	 */
 	String getPassword() {
@@ -114,8 +118,7 @@ public class DatabaseCredentials {
 			}
 			typeAndValueStringsArray[0] = typeAndValueStringsArray[0].trim();
 			typeAndValueStringsArray[1] = typeAndValueStringsArray[1].trim();
-			setValueStringByType(typeAndValueStringsArray[0],
-					typeAndValueStringsArray[1]);
+			setValueStringByType(typeAndValueStringsArray[0], typeAndValueStringsArray[1]);
 		}
 	}
 

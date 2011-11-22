@@ -8,42 +8,48 @@ import pizzaProgram.database.databaseUtils.DatabaseWriter;
 
 /**
  * The Config class is a utility class that retrieves config values from the
- * database
+ * database. Valid config keys are stored in the
+ * {@link pizzaProgram.constants.DatabaseQueryConstants DatabaseQueryConstants}
+ * class, and all of the names of these constants start with the prefix
+ * SETTING_KEY_
  * 
- * @author Bart
+ * @author IT1901 Group 3, Fall 2011
  * 
  */
 public class Config {
-	// TODO: add possible config keys to javadoc?
 	/**
-	 * Returns the string value of the config key name inserted
+	 * Returns the String value of the config key provided to the method
 	 * 
-	 * @param keyName
-	 *            The name of the config key
+	 * @param key
+	 *            The config key to find the corresponding value for
 	 * @return the resultant config value as stored in the database
 	 */
-	public static String getConfigValueByKey(String keyName) {
-		Setting setting = fetchSetting(keyName);
+	public static String getConfigValueByKey(String key) {
+		Setting setting = fetchSetting(key);
 		return setting.value;
 	}
 
 	/**
 	 * Retrieves the setting represented by the key from the database, and
-	 * returns the setting's value
+	 * returns a {@link pizzaProgram.dataObjects.Setting Setting} object
+	 * instance
 	 * 
-	 * @param keyName
-	 *            The key name of the setting
-	 * @return The resultant value that this setting currently has
+	 * @param key
+	 *            The key of the setting
+	 * @return A {@link pizzaProgram.dataObjects.Setting Setting} object
+	 *         encapsulating the provided key and its corresponding value as
+	 *         stored in the database
 	 */
-	public static Setting getSettingByKey(String keyName) {
-		return fetchSetting(keyName);
+	public static Setting getSettingByKey(String key) {
+		return fetchSetting(key);
 	}
 
 	/**
 	 * Retrieves a list of all settings from the database
 	 * 
-	 * @return An ArrayList containing all settings found in the database's
-	 *         Config table
+	 * @return An ArrayList containing {@link pizzaProgram.dataObjects.Setting
+	 *         Setting} objects encapsulating all settings found in the Config
+	 *         table of the database
 	 */
 	public static ArrayList<Setting> fetchAllSettings() {
 		ArrayList<Setting> settings = DatabaseReader.getAllSettings();
@@ -56,7 +62,8 @@ public class Config {
 	 * @param key
 	 *            The setting's key, representing the setting that should be
 	 *            retrieved
-	 * @return A Setting instance representing the setting found in the database
+	 * @return A {@link pizzaProgram.dataObjects.Setting Setting} instance
+	 *         representing the setting found in the database
 	 */
 	private static Setting fetchSetting(String key) {
 		Setting setting = DatabaseReader.getSettingByKey(key);
@@ -64,14 +71,15 @@ public class Config {
 	}
 
 	/**
-	 * Updates the setting in the database that has a key of the parameter's
-	 * key, and updates the database's value to the parameter's Setting
-	 * instance's value.
+	 * Updates the row in the database's Config table that has a key equal to
+	 * the provided {@link pizzaProgram.dataObjects.Setting Setting} object's
+	 * key field with the value of the provided
+	 * {@link pizzaProgram.dataObjects.Setting Setting} object's value field.
 	 * 
 	 * @param setting
-	 *            The Setting instance, whose key is used to determine the
-	 *            setting to update, and the value is the new value that has to
-	 *            be written to the database
+	 *            The {@link pizzaProgram.dataObjects.Setting Setting} instance,
+	 *            whose key is used to determine the setting to update, and the
+	 *            value is the new value that has to be written to the database
 	 */
 	public static void updateValueOfSetting(Setting setting) {
 		DatabaseWriter.updateConfigValue(setting);

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
-import pizzaProgram.core.GUIConstants;
+import pizzaProgram.constants.GUIConstants;
 import pizzaProgram.dataObjects.Dish;
 import pizzaProgram.dataObjects.Extra;
 import pizzaProgram.dataObjects.Order;
@@ -99,6 +99,7 @@ public class AdminGUI extends GUIModule implements EventHandler{
 		orderTableModel.addColumn("Id");
 		orderTableModel.addColumn("Kunde");
 		orderTableModel.addColumn("Leveringsmetode");
+		AdminView.ordersTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
 	}
 	
