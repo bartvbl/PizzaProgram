@@ -82,7 +82,7 @@ public class DatabaseQueryConstants {
 	public static final String DISH_EXTRAS_TO_ORDERCONTENTS = DISH_EXTRAS_CHOSEN_TABLE_NAME
 			+ ".OrdersContentsID";
 	public static final String DISH_EXTRAS_CHOSEN_TO_EXTRAS_ID = DISH_EXTRAS_CHOSEN_TABLE_NAME
-			+ ".DishExtraID";
+			+ ".ExtrasID";
 	public static final String DISH_EXTRAS_CHOSEN_ALL_COLS = DISH_EXTRAS_CHOSEN_TABLE_NAME + ".*";
 	/*
 	 * Constants pertaining to the OrdersRead (locked Orders table)
