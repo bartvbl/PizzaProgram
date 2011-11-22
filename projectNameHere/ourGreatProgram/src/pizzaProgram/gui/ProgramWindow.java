@@ -70,7 +70,7 @@ public class ProgramWindow implements EventHandler {
 			public void windowClosing(WindowEvent e) {}
 			public void windowClosed(WindowEvent e) {}
 			public void windowActivated(WindowEvent e) {}
-			public void windowIconified(WindowEvent e) {}
+			public void windowIconified(WindowEvent e) {} 
 		});
 		
 		this.createFrame();
