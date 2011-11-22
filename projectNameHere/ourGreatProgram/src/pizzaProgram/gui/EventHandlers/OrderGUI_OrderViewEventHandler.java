@@ -341,6 +341,8 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler
 	public void resetOrder() {
 		this.temporaryOrderData.reset();
 		this.resetUI();
+		this.setOrderEditingAreaEnabled(false);
+		this.setCustomerSelectionAreaEnabled(true);
 	}
 
 	/**
@@ -375,8 +377,8 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler
 	 * Resets the UI to its initial state
 	 */
 	private void resetUI() {
-		DefaultTableModel model = (DefaultTableModel) OrderView.orderContentsTable.getModel();
-		model.setNumRows(0);
+		DefaultTableModel tmodel = ((DefaultTableModel) OrderView.orderContentsTable.getModel());
+		tmodel.setNumRows(0);
 		((DefaultListModel) OrderView.dishSelectionList.getModel()).clear();
 		((DefaultListModel) OrderView.extrasSelectionList.getModel()).clear();
 		this.setCustomerSelectionAreaEnabled(true);
