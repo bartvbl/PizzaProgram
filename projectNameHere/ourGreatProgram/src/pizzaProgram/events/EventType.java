@@ -1,5 +1,5 @@
 package pizzaProgram.events;
-
+//TODO: finish javadoc!!
 /**
  * A class containing constants representing event types. ALL objects
  * dispatching events should use constants from this class to represent event
@@ -111,8 +111,6 @@ public class EventType {
 	public static final String DATABASE_UPDATE_ORDER_GUI_SEARCH_DISHES = "databaseUpdateOrderGUISearchDishes";
 	
 	public static final String DATABASE_UPDATE_ORDER_GUI_SEARCH_EXTRAS = "databaseUpdateOrderGUISearchExtras";
-	
-	
 	
 	public static final String DATABASE_DELETE_CUSTOMER = "databaseDeleteCustomer";
 	

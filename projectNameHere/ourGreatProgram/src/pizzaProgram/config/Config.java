@@ -17,6 +17,54 @@ import pizzaProgram.database.databaseUtils.DatabaseWriter;
  * 
  */
 public class Config {
+	/*
+	 * Constants pertaining to the values in the key fields of the Config table
+	 */
+	/**
+	 * Key value for the free delivery limit
+	 * {@link pizzaProgram.dataObjects.Setting setting}
+	 */
+	public static final String KEY_FREE_DELIVERY_LIMIT = "freeDeliveryLimit";
+	/**
+	 * Key value for the restaurant name
+	 * {@link pizzaProgram.dataObjects.Setting setting}
+	 */
+	public static final String KEY_RESTAURANT_NAME = "restaurantName";
+	/**
+	 * Key value for the restaurant address
+	 * {@link pizzaProgram.dataObjects.Setting setting}
+	 */
+	public static final String KEY_RESTAURANT_ADDRESS = "restaurantAddress";
+	/**
+	 * Key value for the restaurant city
+	 * {@link pizzaProgram.dataObjects.Setting setting}
+	 */
+	public static final String KEY_RESTAURANT_CITY = "restaurantCity";
+	/**
+	 * Key value for the delivery price {@link pizzaProgram.dataObjects.Setting
+	 * setting}
+	 */
+	public static final String KEY_DELIVERY_PRICE = "deliveryPrice";
+	/**
+	 * Key value for the delivery at home VAT
+	 * {@link pizzaProgram.dataObjects.Setting setting}
+	 */
+	public static final String KEY_DELIVERY_AT_HOME_TAX = "deliveryAtHomeTax";
+	/**
+	 * Key value for the pickup at restaurant VAT
+	 * {@link pizzaProgram.dataObjects.Setting setting}
+	 */
+	public static final String KEY_PICKUP_AT_RESTAURANT_TAX = "pickupAtRestaurantTax";
+	/**
+	 * Key value for the Automatic Data Updates in Milliseconds
+	 * {@link pizzaProgram.dataObjects.Setting setting}
+	 */
+	public static final String KEY_DB_AUTO_UPDATE_MILLIS =  "autoDataUpdateDelayInMillis";
+	/**
+	 * The value that the auto update time must be to disable automatic updating of the data
+	 */
+	public static final int KEY_DISABLE_DATA_AUTO_UPDATE_VALUE = -1;
+	
 	/**
 	 * Returns the String value of the config key provided to the method
 	 * 
@@ -84,4 +132,6 @@ public class Config {
 	public static void updateValueOfSetting(Setting setting) {
 		DatabaseWriter.updateConfigValue(setting);
 	}
+
+	
 }

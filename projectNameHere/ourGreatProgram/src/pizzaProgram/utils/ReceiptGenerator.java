@@ -13,7 +13,7 @@ import pizzaProgram.gui.views.ReceiptWindow;
  * 
  */
 public class ReceiptGenerator {
-
+	//TODO: no clue what this is.
 	private static int lastrows = 0;
 
 	/**
@@ -25,6 +25,11 @@ public class ReceiptGenerator {
 		new ReceiptWindow(generateReceipt(order), lastrows);
 	}
 
+	/**
+	 * Generates a receipt String from an order, formatted with HTML
+	 * @param order The order to generate the receipt of
+	 * @return A String representing the receipt of the order
+	 */
 	public static String generateReceipt(Order order) {
 		lastrows = 6;
 		StringBuilder receiptString = new StringBuilder();
@@ -37,7 +42,7 @@ public class ReceiptGenerator {
 		for (OrderDish d : order.orderedDishes) {
 			lastrows++;
 			String dishprice = order.deliveryMethod.equals(Order.DELIVER_AT_HOME) ? PriceCalculators
-					.getPriceForDishDeliver(d.dish) : PriceCalculators.getPriceForDishPickup(d.dish);
+					.getPriceForDishDeliveryAtHome(d.dish) : PriceCalculators.getPriceForDishPickupAtRestaurant(d.dish);
 			receiptString.append(createHeaderRow(d.dish.name, dishprice));
 			if (d.dish.name.length() > 16) {
 				lastrows++;

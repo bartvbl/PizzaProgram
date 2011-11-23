@@ -97,7 +97,7 @@ public class OrderGUI_SystemEventHandler implements EventHandler {
 		model.clear();
 
 		for (Dish dish : dishList) {
-			model.addElement(dish.name + " (Levert hjem: " + PriceCalculators.getPriceForDishDeliver(dish) + "     Hent selv:  " + PriceCalculators.getPriceForDishPickup(dish) + ")");
+			model.addElement(dish.name + " (Levert hjem: " + PriceCalculators.getPriceForDishDeliveryAtHome(dish) + "     Hent selv:  " + PriceCalculators.getPriceForDishPickupAtRestaurant(dish) + ")");
 		}
 	}
 

@@ -50,13 +50,19 @@ public class OrderGUI extends GUIModule implements EventHandler {
 	public Dish currentSelectedDish;
 	
 	/**
+	 * Holds a reference to the orderViewEventHandler for internal use
+	 */
+	OrderGUI_OrderViewEventHandler orderViewEventHandler;
+	/**
+	 * Keeps a reference to the orderGUISystemEventHandler for internal reference
+	 */
+	OrderGUI_SystemEventHandler orderSystemEventHandler;
+
+	/**
 	 * The constructor initializes the order view and the associated evenr handling classes
 	 * @param mainWindow The program's main window
 	 * @param eventDispatcher The system's main event dispatcher
 	 */
-	OrderGUI_OrderViewEventHandler orderViewEventHandler;
-	OrderGUI_SystemEventHandler orderSystemEventHandler;
-
 	public OrderGUI(ProgramWindow mainWindow, EventDispatcher eventDispatcher) {
 		super(eventDispatcher);
 		this.orderView = new OrderView();

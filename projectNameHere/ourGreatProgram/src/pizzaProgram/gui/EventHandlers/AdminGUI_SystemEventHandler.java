@@ -15,7 +15,11 @@ import pizzaProgram.events.EventType;
 import pizzaProgram.gui.AdminGUI;
 import pizzaProgram.gui.views.AdminView;
 import pizzaProgram.utils.PriceCalculators;
-
+/**
+ * The AdminGUI System event handler handles all events coming from the system, and are directed at the admin GUI.
+ * @author Bart
+ *
+ */
 public class AdminGUI_SystemEventHandler implements EventHandler {
 	/**
 	 * A reference to the system's main event dispatcher

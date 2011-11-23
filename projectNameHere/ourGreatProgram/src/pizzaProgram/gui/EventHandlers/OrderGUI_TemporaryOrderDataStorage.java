@@ -81,6 +81,11 @@ public class OrderGUI_TemporaryOrderDataStorage {
 		this.orderComments = comments;
 	}
 	
+	/**
+	 * Adds a dish to the order that is currently being created
+	 * @param dish The dish to be added
+	 * @param extrasToBeAddedToDish The extras that are to be added, and are related to this dish
+	 */
 	public void addDish(Dish dish, Extra[] extrasToBeAddedToDish){
 		UnaddedOrderDish orderDish = new UnaddedOrderDish(dish);
 		for(Extra extra : extrasToBeAddedToDish){

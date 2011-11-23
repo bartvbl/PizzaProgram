@@ -1,5 +1,9 @@
 package pizzaProgram.constants;
-
+/**
+ * A class containing all the messages for error and information messages that are displayed in the UI
+ * @author Håvard
+ *
+ */
 public class GUIMessages {
 	public static final String TOO_MANY_COMMAS_IN_VALUE = "Tall kan ikke inneholde mer enn ett komma!";
 	public static final String ILLEGAL_NUMBER_INPUT = "Du har skrevet inn noe som ikke er et tall!";

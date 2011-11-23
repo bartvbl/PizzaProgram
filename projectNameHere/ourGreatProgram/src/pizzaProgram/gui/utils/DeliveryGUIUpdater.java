@@ -57,14 +57,10 @@ public class DeliveryGUIUpdater {
 	 * @param order The order to be displayed
 	 */
 	private static void fillDishTable(Order order) {
-//		this.orderPriceCalculator.reset();
 		DefaultTableModel tableModel = (DefaultTableModel)DeliveryView.orderContentsTable.getModel();
 		tableModel.setRowCount(0);
 		ArrayList<OrderDish> dishList = order.getOrderedDishes();
-//		DishPrice currentDishPrice;
 		for(OrderDish dish : dishList){
-//			currentDishPrice = DishPriceCalculator.getPrice(dish);
-//			this.orderPriceCalculator.addDishToTotalPrice(currentDishPrice);
 			tableModel.addRow(new Object[]{dish.dish.name, generateExtrasString(dish.getExtras()), PriceCalculators.getPriceForOrderDish(dish)});
 		}
 	}
@@ -74,7 +70,6 @@ public class DeliveryGUIUpdater {
 	 * @param order The order to be displayed
 	 */
 	private static void fillOrderPriceLabels(Order order) {
-//		OrderPrice orderPrice = this.orderPriceCalculator.getTotalOrderPrice();
 		DeliveryView.orderCostDeliveryCost.setText(PriceCalculators.getDeliveryCostForOrder(order));
 		DeliveryView.orderCostOrderPrice.setText(PriceCalculators.getPriceForOrderWithVAT(order));
 		DeliveryView.orderCostTotalCost.setText(PriceCalculators.getPriceForOrderWithVATAndDelivery(order));

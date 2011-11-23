@@ -3,29 +3,53 @@ package pizzaProgram.utils;
 import java.text.DecimalFormat;
 
 import pizzaProgram.config.Config;
-import pizzaProgram.constants.DatabaseQueryConstants;
 import pizzaProgram.constants.GUIConstants;
 import pizzaProgram.constants.GUIMessages;
 import pizzaProgram.dataObjects.Dish;
 import pizzaProgram.dataObjects.Extra;
 import pizzaProgram.dataObjects.Order;
 import pizzaProgram.dataObjects.OrderDish;
+//NOTE: swiss army knives are bad. For next time, it is better to keep calculators separated, so that you can find the calculator you look for more easily without having to digg into a pile of code
 
 /**
  * Class for generating properly formatted strings of the various prices in the
  * system.
  */
 public class PriceCalculators {
+	/**
+	 * A DecimalFormat instance used to format prices
+	 */
 	private static DecimalFormat formatter = new DecimalFormat("00");
 
+	/**
+	 * VAT value of delivering an order at home
+	 */
 	private static int deliverMoms = -1;
+	/**
+	 * VAT value of picking up the order at the restaurant
+	 */
 	private static int pickupMoms = -1;
 
+	/**
+	 * An integer representing the threshold price after which an order's delivery becomes free, in Øre.
+	 */
 	private static int freeDeliveryThreshold = -1;
+	/**
+	 * An integer represening the delivery cost of the order, in Øre
+	 */
 	private static int deliveryCost = -1;
 
+	/**
+	 * A String that stores the restaurant's name
+	 */
 	private static String restaurantName = "";
+	/**
+	 * A String holding the restaurant's address
+	 */
 	private static String restaurantAddress = "";
+	/**
+	 * A String holding the restaurant's city
+	 */
 	private static String restaurantCity = "";
 
 	/**
@@ -42,13 +66,23 @@ public class PriceCalculators {
 		return d.price / 100 + "," + formatter.format(d.price % 100);
 	}
 
-	public static String getPriceForDishPickup(Dish d) {
-		int price = d.price + (int) (d.price * (pickupMoms / 100.0));
+	/**
+	 * Returns a formatted String for the cost of pickup at the restaurant
+	 * @param d The dish to calculate and format the price for
+	 * @return A formatted String of the price for a dish for picking up at the restaurant
+	 */
+	public static String getPriceForDishPickupAtRestaurant(Dish dish) {
+		int price = dish.price + (int) (dish.price * (pickupMoms / 100.0));
 		return price / 100 + "," + formatter.format(price % 100);
 	}
 
-	public static String getPriceForDishDeliver(Dish d) {
-		int price = d.price + (int) (d.price * (deliverMoms / 100.0));
+	/**
+	 * Returns the formatted price for delivery at home
+	 * @param dish The dish to calculate and format the price for
+	 * @return A formatted Stirng representing the price for delivery at home 
+	 */
+	public static String getPriceForDishDeliveryAtHome(Dish dish) {
+		int price = dish.price + (int) (dish.price * (deliverMoms / 100.0));
 		return price / 100 + "," + formatter.format(price % 100);
 	}
 
@@ -129,10 +163,18 @@ public class PriceCalculators {
 		return "0,00";
 	}
 
+	/**
+	 * Returns a formatted String representing the cost of the delivery of the order
+	 * @return A formatted String representing the cost of the delivery of the order
+	 */
 	public static String getDeliveryCost() {
 		return deliveryCost / 100 + "," + formatter.format(deliveryCost % 100);
 	}
 
+	/**
+	 * Returns a String representing the threshold after which delivery becomes free
+	 * @return A String representing the threshold after which delivery becomes free
+	 */
 	public static String getFreeDeliveryTreshold() {
 		return freeDeliveryThreshold / 100 + "," + formatter.format(freeDeliveryThreshold % 100);
 	}
@@ -336,26 +378,38 @@ public class PriceCalculators {
 	 */
 	public static void getConstantsFromDataBase() {
 		deliverMoms = Integer.parseInt(Config
-				.getConfigValueByKey(DatabaseQueryConstants.SETTING_KEY_DELIVERY_AT_HOME_TAX));
+				.getConfigValueByKey(Config.KEY_DELIVERY_AT_HOME_TAX));
 		pickupMoms = Integer.parseInt(Config
-				.getConfigValueByKey(DatabaseQueryConstants.SETTING_KEY_PICKUP_AT_RESTAURANT_TAX));
+				.getConfigValueByKey(Config.KEY_PICKUP_AT_RESTAURANT_TAX));
 		freeDeliveryThreshold = Integer.parseInt(Config
-				.getConfigValueByKey(DatabaseQueryConstants.SETTING_KEY_FREE_DELIVERY_LIMIT));
+				.getConfigValueByKey(Config.KEY_FREE_DELIVERY_LIMIT));
 		deliveryCost = Integer.parseInt(Config
-				.getConfigValueByKey(DatabaseQueryConstants.SETTING_KEY_DELIVERY_PRICE));
-		restaurantName = Config.getConfigValueByKey(DatabaseQueryConstants.SETTING_KEY_RESTAURANT_NAME);
-		restaurantAddress = Config.getConfigValueByKey(DatabaseQueryConstants.SETTING_KEY_RESTAURANT_ADDRESS);
-		restaurantCity = Config.getConfigValueByKey(DatabaseQueryConstants.SETTING_KEY_RESTAURANT_CITY);
+				.getConfigValueByKey(Config.KEY_DELIVERY_PRICE));
+		restaurantName = Config.getConfigValueByKey(Config.KEY_RESTAURANT_NAME);
+		restaurantAddress = Config.getConfigValueByKey(Config.KEY_RESTAURANT_ADDRESS);
+		restaurantCity = Config.getConfigValueByKey(Config.KEY_RESTAURANT_CITY);
 	}
 
+	/**
+	 * Returns the name of the restaurant
+	 * @return The restaurant's name
+	 */
 	public static String getRestaurantName() {
 		return restaurantName;
 	}
 
+	/**
+	 * Returns a String representing the address of the restaurant
+	 * @return A String representing the restaurant's address
+	 */
 	public static String getRestaurantAddress() {
 		return restaurantAddress;
 	}
 
+	/**
+	 * Returns a String representing the city where the restaurant is located
+	 * @return The city where the restaurant is located
+	 */
 	public static String getRestaurantCity() {
 		return restaurantCity;
 	}

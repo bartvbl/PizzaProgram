@@ -77,17 +77,4 @@ public class Order {
 		orderedDishes.add(orderDish);
 	}
 
-//	public String toString() {
-//		String tempString = "Order ID: " + orderID + ", Name: "
-//				+ customer.firstName + " " + customer.lastName
-//				+ ", Time registered: " + timeRegistered.toString()
-//				+ ", Order status: " + status + ", Delivery method: "
-//				+ deliveryMethod + ". The contents of the order is:\n";
-//		for (OrderDish od : orderedDishes)
-//			if (od != null) {
-//				tempString += od.toString();
-//			}
-//		return tempString;
-//	}
-
 }// /END

@@ -94,7 +94,9 @@ public class Database_ReadEventHandler implements EventHandler {
 		}
 	}
 
-	
+	/**
+	 * Retrieves all delivered orders from the database, and sends them to the Admin GUI
+	 */
 	private void sendListOfAllDeliverdOrdersToAdminGUI() {
 		ArrayList<Order> orderList = DatabaseReader.getAllDeliveredOrders();
 		if(orderList != null){
@@ -164,6 +166,10 @@ public class Database_ReadEventHandler implements EventHandler {
 		this.eventDispatcher.dispatchEvent(new Event<ArrayList<Order>>(EventType.DELIVERY_GUI_UPDATE_ORDER_LIST, orderList));
 	}
 
+	/**
+	 * Searches for uncooked orders in the database based on a keyword string that is attached to the parameter event
+	 * @param event An Event instance containing a String as parameter
+	 */
 	private void searchUncookedOrders(Event<?> event) {
 		if(!(event.getEventParameterObject() instanceof String)){
 			GUIConstants.showErrorMessage(GUIMessages.UNABLE_TO_GET_ORDERS_FROM_DATABASE);

@@ -12,7 +12,6 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import pizzaProgram.config.Config;
-import pizzaProgram.constants.DatabaseQueryConstants;
 import pizzaProgram.constants.GUIConstants;
 import pizzaProgram.constants.GUIMessages;
 import pizzaProgram.dataObjects.Dish;
@@ -31,8 +30,15 @@ import pizzaProgram.utils.ReceiptGenerator;
  * This class hendles events dispatched from the gui-components in AdminWiev
  */
 public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implements ActionListener {
+	/**
+	 * A reference to the AdminGUI
+	 */
 	private AdminGUI adminGUI;
 
+	/**
+	 * The constructor registers all events that this class handles at the various components in the AdminView
+	 * @param adminGUI a reference to the main AdminGUI module
+	 */
 	public AdminGUI_AdminViewEventHandler(AdminGUI adminGUI) {
 		super(adminGUI);
 		this.adminGUI = adminGUI;
@@ -182,32 +188,32 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 		if (orePrice < 0) {
 			return;
 		}
-		Setting priceSetting = new Setting(DatabaseQueryConstants.SETTING_KEY_DELIVERY_PRICE, "" + orePrice);
+		Setting priceSetting = new Setting(Config.KEY_DELIVERY_PRICE, "" + orePrice);
 
 		if (nameText.length() < 3 || nameText.length() > 18) {
 			GUIConstants.showErrorMessage(GUIMessages.ILLEGAL_RESTAURANT_NAME_LENGTH);
 			return;
 		}
-		Setting nameSetting = new Setting(DatabaseQueryConstants.SETTING_KEY_RESTAURANT_NAME, nameText);
+		Setting nameSetting = new Setting(Config.KEY_RESTAURANT_NAME, nameText);
 
 		if (addressText.length() < 3) {
 			GUIConstants.showErrorMessage(GUIMessages.ILLEGAL_RESTAURANT_ADDRESS_LENGTH);
 			return;
 		}
-		Setting addressSetting = new Setting(DatabaseQueryConstants.SETTING_KEY_RESTAURANT_ADDRESS,
+		Setting addressSetting = new Setting(Config.KEY_RESTAURANT_ADDRESS,
 				addressText);
 
 		if (cityText.length() < 1) {
 			GUIConstants.showErrorMessage(GUIMessages.ILLEGAL_RESTAURANT_CITY_LENGTH);
 			return;
 		}
-		Setting citySetting = new Setting(DatabaseQueryConstants.SETTING_KEY_RESTAURANT_CITY, cityText);
+		Setting citySetting = new Setting(Config.KEY_RESTAURANT_CITY, cityText);
 
 		int oreDeliveryTreshold = PriceCalculators.priceInputVerifier(delivertTresholdText);
 		if (oreDeliveryTreshold < 0) {
 			return;
 		}
-		Setting deliveryTresholdSetting = new Setting(DatabaseQueryConstants.SETTING_KEY_FREE_DELIVERY_LIMIT,
+		Setting deliveryTresholdSetting = new Setting(Config.KEY_FREE_DELIVERY_LIMIT,
 				"" + oreDeliveryTreshold);
 
 		boolean somethingChanged = false;
@@ -265,16 +271,25 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 		AdminView.editExtraExtraIsActiveComboBox.selectWithKeyChar(selectchar);
 	}
 
+	/**
+	 * Selects all text in the dish search box when the user gives it focus
+	 */
 	protected void handleDishSearchBoxSelection() {
 		AdminView.searchDishTextBox.setSelectionStart(0);
 		AdminView.searchDishTextBox.setSelectionEnd(AdminView.searchDishTextBox.getText().length());
 	}
 
+	/**
+	 * Selects all text in the extra search box when the user gives it focus
+	 */
 	protected void handleExtraSearchBoxSelection() {
 		AdminView.searchExtraTextBox.setSelectionStart(0);
 		AdminView.searchExtraTextBox.setSelectionEnd(AdminView.searchExtraTextBox.getText().length());
 	}
 
+	/**
+	 * Searches for the contents of the dish search box if something has been written in it. It retrieves all dishes otherwise
+	 */
 	public void handleDishSearchTyping(){
 		String query = AdminView.searchDishTextBox.getText();
 		if (query.length() == 0) {
@@ -284,6 +299,9 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 		}
 	}
 
+	/**
+	 * Searches for the contents of the extra search box if something has been written in it. It retrieves all extras otherwise
+	 */
 	public void handleExtraSearchTyping(){
 		String query = AdminView.searchExtraTextBox.getText();
 		if (query.length() == 0) {
@@ -293,14 +311,25 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 		}
 	}
 
+	/**
+	 * Searches for extras in the database that match the query passed in the parameter
+	 * @param query the query to search for
+	 */
 	private void searchExtras(String query) {
 		this.dispatchEvent(new Event<String>(EventType.DATABASE_UPDATE_ADMIN_GUI_SEARCH_EXTRAS, query));
 	}
 
+	/**
+	 * Searches for dishes in the database that match the query passed in the parameter
+	 * @param query the query to search for
+	 */
 	private void searchDishes(String query) {
 		this.dispatchEvent(new Event<String>(EventType.DATABASE_UPDATE_ADMIN_GUI_SEARCH_DISHES, query));
 	}
 
+	/**
+	 * Updates or creates a new extra, depending on whether the user was in the process or creating a new extra or editing an existing one
+	 */
 	private void handleExtraConfirmButtonClick() {
 		boolean active = AdminView.editExtraExtraIsActiveComboBox.getSelectedItem().equals(
 				GUIConstants.GUI_TRUE) ? true : false;
@@ -337,6 +366,9 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 		showAllExtras();
 	}
 
+	/**
+	 * Updates or creates a dish in the database, depending on whether the user has been creating a new one or editing an existing one
+	 */
 	private void handleDishConfirmButtonClick() {
 		boolean diary = AdminView.editDishContainsDairyComboBox.getSelectedItem().equals(
 				GUIConstants.GUI_TRUE) ? true : false;
@@ -384,6 +416,9 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 		showAllDishes();
 	}
 
+	/**
+	 * Sets up the UI for creating a new extra
+	 */
 	private void handleNewExtraButtonClick() {
 		AdminView.allRegisteredExtrasTable.getSelectionModel().clearSelection();
 		adminGUI.currentSelectedExtra = null;
@@ -396,6 +431,9 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 		AdminView.editExtraExtraIsActiveComboBox.selectWithKeyChar(GUIConstants.GUI_TRUE.charAt(0));
 	}
 
+	/**
+	 * Sets up the UI for creating a new dish
+	 */
 	private void handleNewDishButtonClick() {
 		AdminView.allActiveDishesTable.getSelectionModel().clearSelection();
 		adminGUI.currentSelectedDish = null;
@@ -416,14 +454,24 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 		AdminView.editDishIsDishActiveComboBox.selectWithKeyChar(trueChar);
 	}
 
+	/**
+	 * Shows all dishes in the dish overview table
+	 */
 	private void showAllDishes() {
 		this.dispatchEvent(new Event<Object>(EventType.DATABASE_UPDATE_ADMINGUI_GUI_SEND_ALL_DISHES));
 	}
 
+	/**
+	 * Shows all extras in the extra overview table
+	 */
 	private void showAllExtras() {
 		this.dispatchEvent(new Event<Object>(EventType.DATABASE_UPDATE_ADMINGUI_GUI_SEND_ALL_EXTRAS));
 	}
 
+	/**
+	 * handles the event of the user selecting a dish in the dish overview table. Sets up the dish editing UI so that the dish can be edited
+	 * @param e The listSelectionEvent dispatched by the java AWT thread
+	 */
 	private void handleDishSelection(ListSelectionEvent e) {
 		int selectedIndex = ((DefaultListSelectionModel) e.getSource()).getMinSelectionIndex();
 		if (selectedIndex == -1) {
@@ -460,6 +508,9 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 		AdminView.editDishIsDishActiveComboBox.selectWithKeyChar(selectActiveYN);
 	}
 
+	/**
+	 * An unused, required method
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub

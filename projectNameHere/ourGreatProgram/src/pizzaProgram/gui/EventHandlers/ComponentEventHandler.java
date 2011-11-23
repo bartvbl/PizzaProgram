@@ -14,7 +14,13 @@ import pizzaProgram.modules.Module;
  *
  */
 public abstract class ComponentEventHandler implements ActionListener {
+	/**
+	 * A HashTable for linking swing Components to a String representing the event they represent, so that thechild class can determine what event handling function to call
+	 */
 	private Hashtable<Component, String> eventTypeTable;
+	/**
+	 * A reference to the module that the event handling child class belongs to, so that it can dispatch events
+	 */
 	private Module eventDispatchingModule;
 	/**
 	 * Creates the component event handler class

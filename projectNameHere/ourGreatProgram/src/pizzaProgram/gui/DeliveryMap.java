@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 
 import pizzaProgram.dataObjects.Customer;
 import pizzaProgram.utils.PriceCalculators;
-
+//TODO: finish javadoc!!
 /**
  * this class is a jpanel that can display a map with a customers adress
  * to display the map, call the loadImage(Customer) - method

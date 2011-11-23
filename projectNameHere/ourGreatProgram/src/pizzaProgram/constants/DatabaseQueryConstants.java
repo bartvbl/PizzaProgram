@@ -91,48 +91,4 @@ public class DatabaseQueryConstants {
 	public static final String ORDERS_LOCKED_TABLE_NAME = "OrdersRead";
 	public static final String ORDERS_LOCKED_STATUS = ORDERS_LOCKED_TABLE_NAME + ".OrdersStatus";;
 	public static final String ORDERS_LOCKED_ID = ORDERS_LOCKED_TABLE_NAME + ".OrdersID";
-	/*
-	 * Constants pertaining to the values in the key fields of the Config table
-	 */
-	/**
-	 * Key value for the free delivery limit
-	 * {@link pizzaProgram.dataObjects.Setting setting}
-	 */
-	public static final String SETTING_KEY_FREE_DELIVERY_LIMIT = "freeDeliveryLimit";
-	/**
-	 * Key value for the restaurant name
-	 * {@link pizzaProgram.dataObjects.Setting setting}
-	 */
-	public static final String SETTING_KEY_RESTAURANT_NAME = "restaurantName";
-	/**
-	 * Key value for the restaurant address
-	 * {@link pizzaProgram.dataObjects.Setting setting}
-	 */
-	public static final String SETTING_KEY_RESTAURANT_ADDRESS = "restaurantAddress";
-	/**
-	 * Key value for the restaurant city
-	 * {@link pizzaProgram.dataObjects.Setting setting}
-	 */
-	public static final String SETTING_KEY_RESTAURANT_CITY = "restaurantCity";
-	/**
-	 * Key value for the delivery price {@link pizzaProgram.dataObjects.Setting
-	 * setting}
-	 */
-	public static final String SETTING_KEY_DELIVERY_PRICE = "deliveryPrice";
-	/**
-	 * Key value for the delivery at home VAT
-	 * {@link pizzaProgram.dataObjects.Setting setting}
-	 */
-	public static final String SETTING_KEY_DELIVERY_AT_HOME_TAX = "deliveryAtHomeTax";
-	/**
-	 * Key value for the pickup at restaurant VAT
-	 * {@link pizzaProgram.dataObjects.Setting setting}
-	 */
-	public static final String SETTING_KEY_PICKUP_AT_RESTAURANT_TAX = "pickupAtRestaurantTax";
-	/**
-	 * Key value for the Automatic Data Updates in Milliseconds
-	 * {@link pizzaProgram.dataObjects.Setting setting}
-	 */
-	public static final String SETTING_KEY_DB_AUTO_UPDATE_MILLIS =  "autoDataUpdateDelayInMillis";
-	public static final int SETTING_KEY_DISABLE_DATA_AUTO_UPDATE = -1;
 }

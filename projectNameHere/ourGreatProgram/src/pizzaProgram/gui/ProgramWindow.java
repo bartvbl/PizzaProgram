@@ -39,9 +39,13 @@ public class ProgramWindow implements EventHandler {
 	 * A main JPanel that acts as the main frame's content pane
 	 */
 	private JPanel mainJPanel;
-	
+	/**
+	 * The name of the JPanel that is currently visible in the program window
+	 */
 	private String currentActivePanelName = "";
-
+	/**
+	 * The program window's main window's JFrame
+	 */
 	private JFrame jframe;
 
 	/**
