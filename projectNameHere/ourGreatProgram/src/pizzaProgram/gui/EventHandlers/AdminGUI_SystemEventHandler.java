@@ -96,9 +96,10 @@ public class AdminGUI_SystemEventHandler implements EventHandler {
 		adminGUI.currentExtraList = extraList;
 		DefaultTableModel tableModel = (DefaultTableModel) AdminView.allRegisteredExtrasTable.getModel();
 		tableModel.setRowCount(0);
-		for (Extra e : extraList) {
-			tableModel.addRow(new Object[] { e.name, PriceCalculators.getPriceForExtra(e),
-					e.isActive ? GUIConstants.GUI_TRUE : GUIConstants.GUI_FALSE });
+		for (int i = 0; i < extraList.size(); i++) {
+			Extra extra = extraList.get(i);
+			tableModel.addRow(new Object[] { extra.name, PriceCalculators.getPriceForExtra(extra),
+					extra.isActive ? GUIConstants.GUI_TRUE : GUIConstants.GUI_FALSE });
 		}
 	}
 

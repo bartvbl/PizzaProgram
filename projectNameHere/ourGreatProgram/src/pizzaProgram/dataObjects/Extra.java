@@ -1,5 +1,6 @@
 package pizzaProgram.dataObjects;
 
+
 /**
  * A data object that holds data about an Extra in the database
  * 
@@ -41,5 +42,14 @@ public class Extra {
 	 */
 	public String toString() {
 		return id + " " + priceFuncPart + " " + priceValPart + " " + name;
+	}
+	
+	public boolean equals(Extra extra)
+	{
+		if(extra == null)
+		{
+			return false;
+		}
+		return this.id == extra.id;
 	}
 }

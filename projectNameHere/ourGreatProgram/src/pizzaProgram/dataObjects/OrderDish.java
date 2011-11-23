@@ -2,6 +2,7 @@ package pizzaProgram.dataObjects;
 
 import java.util.ArrayList;
 
+
 /**
  * Represents a dish from the database that is a part of an order
  * 
@@ -57,5 +58,14 @@ public class OrderDish {
 		}
 		tempString += "\n";
 		return tempString;
+	}
+	
+	public boolean equals(OrderDish orderDish)
+	{
+		if(orderDish == null)
+		{
+			return false;
+		}
+		return (this.dish.dishID == orderDish.dish.dishID) && (this.orderID == orderDish.orderID);
 	}
 }

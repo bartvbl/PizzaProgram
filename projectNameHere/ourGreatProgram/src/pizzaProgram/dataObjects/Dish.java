@@ -1,5 +1,6 @@
 package pizzaProgram.dataObjects;
 
+
 /**
  * Class encapsulating all information about any given dish on the restaurants
  * menu. All fields in the object are final, and so cannot be changed after
@@ -7,7 +8,7 @@ package pizzaProgram.dataObjects;
  * 
  * @author IT1901 Group 3, Fall 2011
  */
-public class Dish {
+public class Dish{
 
 	public final int dishID;
 	public final int price;
@@ -58,5 +59,14 @@ public class Dish {
 		this.isSpicy = isSpicy;
 		this.description = description;
 		this.isActive = isActive;
+	}
+	
+	public boolean equals(Dish dish)
+	{
+		if(dish == null)
+		{
+			return false;
+		}
+		return this.dishID == dish.dishID;
 	}
 }

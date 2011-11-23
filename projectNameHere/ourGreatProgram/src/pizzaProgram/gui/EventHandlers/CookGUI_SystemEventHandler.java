@@ -78,12 +78,20 @@ public class CookGUI_SystemEventHandler implements EventHandler {
 			@SuppressWarnings("unchecked")
 			ArrayList<Order> orderList = (ArrayList<Order>) event.getEventParameterObject();
 			this.cookGUI.currentOrderList = orderList;
+			Order currentOrder = this.cookGUI.currentSelectedOrder;
 			DefaultTableModel tableModel = (DefaultTableModel) CookView.orderDetailsTable.getModel();
 			tableModel.setRowCount(0);
-			for (Order order : orderList) {
+			int selectedIndex = -1;
+			for (int i = 0; i < orderList.size(); i++) {
+				Order order = orderList.get(i);
 				tableModel.addRow(new Object[] { order.orderID,
 						GUIConstants.translateOrderStatus(order.status), order.timeRegistered });
+				if(order.equals(currentOrder))
+				{
+					selectedIndex = i;
+				}
 			}
+			CookView.orderDetailsTable.getSelectionModel().setSelectionInterval(selectedIndex, selectedIndex);
 		} else {
 			System.err
 					.println("ERROR: got a list that was not a list of Order instances when trying to update the order list in the cook GUI.");

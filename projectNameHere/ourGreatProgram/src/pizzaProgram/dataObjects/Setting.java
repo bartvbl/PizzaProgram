@@ -1,5 +1,6 @@
 package pizzaProgram.dataObjects;
 
+
 /**
  * A data object representing a setting in the database
  * 
@@ -21,5 +22,14 @@ public class Setting {
 	public Setting(String key, String value) {
 		this.key = key;
 		this.value = value;
+	}
+	
+	public boolean equals(Setting setting)
+	{
+		if(setting == null)
+		{
+			return false;
+		}
+		return this.key.equals(setting.key);
 	}
 }

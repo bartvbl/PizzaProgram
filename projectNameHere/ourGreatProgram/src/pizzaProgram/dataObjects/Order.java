@@ -78,4 +78,13 @@ public class Order {
 	public void addOrderDish(OrderDish orderDish) {
 		orderedDishes.add(orderDish);
 	}
+	
+	public boolean equals(Order order)
+	{
+		if(order == null)
+		{
+			return false;
+		}
+		return this.orderID == order.orderID;
+	}
 }

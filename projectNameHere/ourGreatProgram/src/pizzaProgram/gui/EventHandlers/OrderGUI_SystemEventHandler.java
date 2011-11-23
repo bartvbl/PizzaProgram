@@ -14,6 +14,7 @@ import pizzaProgram.events.EventType;
 import pizzaProgram.gui.OrderGUI;
 import pizzaProgram.gui.views.OrderView;
 import pizzaProgram.utils.PriceCalculators;
+import pizzaProgram.utils.RowSelectionTracker;
 
 /**
  * Handles all the events coming from the system directed at the Order GUI.
@@ -68,13 +69,24 @@ public class OrderGUI_SystemEventHandler implements EventHandler {
 					.println("ERROR: received event containing a wrong data type [order GUI update extras list]");
 			return;
 		}
+		if(!OrderView.extrasSelectionList.isEnabled())
+		{
+			return;
+		}
 		@SuppressWarnings("unchecked")
 		ArrayList<Extra> extrasList = (ArrayList<Extra>) event.getEventParameterObject();
 		this.orderGUI.currentExtrasList = extrasList;
-
+		int currentSelectedRow = OrderView.extrasSelectionList.getSelectedIndex();
+		Extra selectedExtra = null;
+		if(currentSelectedRow != -1)
+		{
+			selectedExtra = this.orderGUI.currentExtrasList.get(currentSelectedRow);
+		}
 		DefaultListModel model = (DefaultListModel) OrderView.extrasSelectionList.getModel();
 		model.clear();
-		for (Extra extra : extrasList) {
+		int selectedRow = -1;
+		for (int i = 0; i < extrasList.size(); i++) {
+			Extra extra = extrasList.get(i);
 			if (orderGUI.currentSelectedDish != null) {
 				model.addElement(extra.name + " (Levert hjem: "
 						+ PriceCalculators.getPriceForExtraOnDishDeliver(orderGUI.currentSelectedDish, extra)
@@ -84,7 +96,12 @@ public class OrderGUI_SystemEventHandler implements EventHandler {
 			} else {
 				model.addElement(extra.name + " ( " + PriceCalculators.getPriceForExtra(extra) + ")");
 			}
+			if(extra.equals(selectedExtra))
+			{
+				selectedRow = i;
+			}
 		}
+		OrderView.extrasSelectionList.setSelectedIndex(selectedRow);
 	}
 
 	/**
@@ -100,18 +117,31 @@ public class OrderGUI_SystemEventHandler implements EventHandler {
 					.println("ERROR: received event containing a wrong data type [order GUI update dish list]");
 			return;
 		}
+		if(!OrderView.dishSelectionList.isEnabled())
+		{
+			return;
+		}
+		
+		Dish selectedDish = this.orderGUI.currentSelectedDish;
 		@SuppressWarnings("unchecked")
 		ArrayList<Dish> dishList = (ArrayList<Dish>) event.getEventParameterObject();
 		this.orderGUI.currentDishList = dishList;
 
 		DefaultListModel model = (DefaultListModel) OrderView.dishSelectionList.getModel();
 		model.clear();
-
-		for (Dish dish : dishList) {
+		int selectedRow = -1;
+		for (int i = 0; i < dishList.size(); i++) {
+			Dish dish = dishList.get(i);
 			model.addElement(dish.name + " (Levert hjem: "
 					+ PriceCalculators.getPriceForDishDeliveryAtHome(dish) + "     Hent selv:  "
 					+ PriceCalculators.getPriceForDishPickupAtRestaurant(dish) + ")");
+			if(dish.equals(selectedDish))
+			{
+				selectedRow = i;
+			}
 		}
+		 OrderView.dishSelectionList.setSelectedIndex(selectedRow);
+		
 	}
 
 	/**
@@ -126,14 +156,27 @@ public class OrderGUI_SystemEventHandler implements EventHandler {
 					.println("ERROR: received event containing a wrong data type [order GUI update customer list]");
 			return;
 		}
+		int currentSelectedRow = OrderView.customerList.getSelectedIndex();
+		Customer selectedCustomer = null;
+		if(currentSelectedRow != -1)
+		{
+			selectedCustomer = this.orderGUI.currentCustomerList.get(currentSelectedRow);
+		}
 		@SuppressWarnings("unchecked")
 		ArrayList<Customer> customerList = (ArrayList<Customer>) event.getEventParameterObject();
 		this.orderGUI.currentCustomerList = customerList;
 		DefaultListModel model = (DefaultListModel) OrderView.customerList.getModel();
 		model.clear();
-
-		for (Customer customer : customerList) {
+		int selectedIndex = -1;
+		for (int i = 0; i < customerList.size(); i++) {
+			Customer customer = customerList.get(i);
+			
+			if(customer.equals(selectedCustomer))
+			{
+				selectedIndex = i;
+			}
 			model.addElement(customer.firstName + " " + customer.lastName);
 		}
+		OrderView.customerList.setSelectedIndex(selectedIndex);
 	}
 }

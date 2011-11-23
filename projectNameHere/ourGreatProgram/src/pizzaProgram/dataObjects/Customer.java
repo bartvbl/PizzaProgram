@@ -6,7 +6,7 @@ package pizzaProgram.dataObjects;
  * @author IT1901 Group 3, Fall 2011
  * 
  */
-public class Customer {
+public class Customer{
 
 	public final int customerID;
 	public final String firstName;
@@ -44,5 +44,14 @@ public class Customer {
 		this.postalCode = postalCode;
 		this.city = city;
 		this.phoneNumber = phoneNumber;
+	}
+
+	public boolean equals(Customer customer)
+	{
+		if(customer == null)
+		{
+			return false;
+		}
+		return this.customerID == customer.customerID;
 	}
 }

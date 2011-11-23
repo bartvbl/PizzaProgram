@@ -12,6 +12,7 @@ import pizzaProgram.events.EventDispatcher;
 import pizzaProgram.events.EventHandler;
 import pizzaProgram.events.EventType;
 import pizzaProgram.gui.DeliverGUI;
+import pizzaProgram.gui.views.CookView;
 import pizzaProgram.gui.views.DeliveryView;
 
 /**
@@ -79,13 +80,21 @@ public class DeliveryGUI_SystemEventHandler implements EventHandler {
 			@SuppressWarnings("unchecked")
 			ArrayList<Order> orderList = (ArrayList<Order>) event.getEventParameterObject();
 			this.deliveryGUI.currentOrderList = orderList;
+			Order currentOrder = this.deliveryGUI.currentOrder;
 			DefaultTableModel tableModel = (DefaultTableModel) DeliveryView.activeOrdersTable.getModel();
 			tableModel.setRowCount(0);
-			for (Order order : orderList) {
+			int selectedIndex = -1;
+			for (int i = 0; i < orderList.size(); i++) {
+				Order order = orderList.get(i);
 				tableModel.addRow(new Object[] { order.orderID,
 						GUIConstants.translateOrderStatus(order.status), order.timeRegistered,
 						GUIConstants.translateDeliveryMethod(order.deliveryMethod) });
+				if(order.equals(currentOrder))
+				{
+					selectedIndex = i;
+				}
 			}
+			DeliveryView.activeOrdersTable.getSelectionModel().setSelectionInterval(selectedIndex, selectedIndex);
 		} else {
 			GUIConstants.showErrorMessage(GUIMessages.UNABLE_TO_GET_ORDERS_FROM_DATABASE);
 			return;
