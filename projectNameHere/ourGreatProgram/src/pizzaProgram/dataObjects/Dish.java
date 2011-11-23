@@ -4,6 +4,8 @@ package pizzaProgram.dataObjects;
  * Class encapsulating all information about any given dish on the restaurants
  * menu. All fields in the object are final, and so cannot be changed after
  * construction. Since the fields are final, they are publically available.
+ * 
+ * @author IT1901 Group 3, Fall 2011
  */
 public class Dish {
 
@@ -44,9 +46,8 @@ public class Dish {
 	 *            Wether or not this Dish is on the restaurants current menu.
 	 */
 
-	public Dish(int dishID, int price, String name, boolean containsGluten,
-			boolean containsNuts, boolean containsDiary, boolean isVegetarian,
-			boolean isSpicy, String description, boolean isActive) {
+	public Dish(int dishID, int price, String name, boolean containsGluten, boolean containsNuts,
+			boolean containsDiary, boolean isVegetarian, boolean isSpicy, String description, boolean isActive) {
 		this.dishID = dishID;
 		this.price = price;
 		this.name = name;

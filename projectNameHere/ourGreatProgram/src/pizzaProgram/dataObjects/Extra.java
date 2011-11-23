@@ -1,8 +1,10 @@
 package pizzaProgram.dataObjects;
+
 /**
  * A data object that holds data about an Extra in the database
- * @author Bart
- *
+ * 
+ * @author IT1901 Group 3, Fall 2011
+ * 
  */
 public class Extra {
 
@@ -14,10 +16,17 @@ public class Extra {
 
 	/**
 	 * Creates a new Extra instance
-	 * @param id The ID of the extra
-	 * @param name The extra's name
-	 * @param priceFunc A char representing the function that should be applied on the dish price (*, /, + or -)
-	 * @param isActive determines whether the Extra is in the restaurant's current assortiment
+	 * 
+	 * @param id
+	 *            The ID of the extra
+	 * @param name
+	 *            The extra's name
+	 * @param priceFunc
+	 *            A char representing the function that should be applied on the
+	 *            dish price (*, /, + or -)
+	 * @param isActive
+	 *            determines whether the Extra is in the restaurant's current
+	 *            assortiment
 	 */
 	public Extra(int id, String name, String priceFunc, boolean isActive) {
 		this.id = id;
@@ -26,12 +35,11 @@ public class Extra {
 		this.priceValPart = Integer.parseInt(priceFunc.substring(1));
 		this.isActive = isActive;
 	}
-	
+
 	/**
 	 * Creates a String from the data in the object
 	 */
 	public String toString() {
 		return id + " " + priceFuncPart + " " + priceValPart + " " + name;
 	}
-
-}// END
+}

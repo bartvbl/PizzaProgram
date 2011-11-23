@@ -3,10 +3,12 @@ package pizzaProgram.dataObjects;
 import java.util.ArrayList;
 
 import pizzaProgram.utils.DateFormatter;
+
 /**
  * Represents an order from the database
- * @author Bart
- *
+ * 
+ * @author IT1901 Group 3, Fall 2011
+ * 
  */
 public class Order {
 
@@ -29,28 +31,27 @@ public class Order {
 
 	/**
 	 * @param id
-	 *            - unique order id, must be > 0
+	 *            unique order id, must be > 0
 	 * @param customer
-	 *            - the customer of the order , not null
+	 *            the customer of the order , not null
 	 * @param timeRegistered
-	 *            - the time the order was registered, not null
+	 *            the time the order was registered, not null
 	 * @param status
-	 *            - the status of the order, must be one of Order.REGISTERED,
+	 *            the status of the order, must be one of Order.REGISTERED,
 	 *            Order.BEING_COOKED, Order.HAS_BEEN_COOKED,
 	 *            Order.BEING_DELIVERED or Order.DELIVERED
 	 * @param deliveryMethod
-	 *            - the method of delivery, must be Order.DELIVER_AT_HOME or
+	 *            the method of delivery, must be Order.DELIVER_AT_HOME or
 	 *            Order.PICKUP_AT_RESTAURANT
 	 * @param comment
-	 *            - a comment for the order, can be empty but not null
+	 *            a comment for the order, can be empty but not null
 	 */
-	public Order(int id, Customer customer, String timeRegistered, String status,
-			String deliveryMethod, String comment) {
-		
+	public Order(int id, Customer customer, String timeRegistered, String status, String deliveryMethod,
+			String comment) {
+
 		this.orderID = id;
 		this.customer = customer;
-		if(timeRegistered != null)
-		{
+		if (timeRegistered != null) {
 			this.timeRegistered = DateFormatter.formatDateString(timeRegistered);
 		} else {
 			this.timeRegistered = timeRegistered;
@@ -60,8 +61,9 @@ public class Order {
 		this.comment = comment;
 		orderedDishes = new ArrayList<OrderDish>();
 	}
+
 	/**
-	 * @return - the list of dishes ordered in this order
+	 * @return the list of dishes ordered in this order
 	 */
 	public ArrayList<OrderDish> getOrderedDishes() {
 		return orderedDishes;
@@ -71,10 +73,9 @@ public class Order {
 	 * Method to add a dish to the dishes ordered in this order
 	 * 
 	 * @param orderDish
-	 *            - the dish to add to the list of ordered items
+	 *            the dish to add to the list of ordered items
 	 */
 	public void addOrderDish(OrderDish orderDish) {
 		orderedDishes.add(orderDish);
 	}
-
-}// /END
+}

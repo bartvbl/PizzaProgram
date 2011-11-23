@@ -21,7 +21,7 @@ import pizzaProgram.gui.views.ProgramWindowFrameView;
  * The ProgramWindow class creates the application's main window, with several
  * features attached to it
  * 
- * @author Bart
+ * @author IT1901 Group 3, Fall 2011
  * 
  */
 public class ProgramWindow implements EventHandler {
@@ -30,9 +30,10 @@ public class ProgramWindow implements EventHandler {
 	/**
 	 * A constant holding the name as it will appear inside the window
 	 */
-	public static final String MAIN_WINDOW_NAME = "Pizza Manager";
+	public static final String MAIN_WINDOW_NAME = "Pizza Program";
 	/**
-	 * An instance of the CardLayout layout manager that manages the various views of the program
+	 * An instance of the CardLayout layout manager that manages the various
+	 * views of the program
 	 */
 	private CardLayout cardLayoutManager;
 	/**
@@ -50,7 +51,9 @@ public class ProgramWindow implements EventHandler {
 
 	/**
 	 * Creates the program's main window and initializes it.
-	 * @param eventDispatcher The system's main event dispatcher
+	 * 
+	 * @param eventDispatcher
+	 *            The system's main event dispatcher
 	 */
 	public ProgramWindow(EventDispatcher eventDispatcher, SingleFrameApplication mainApplication) {
 		this.eventDispatcher = eventDispatcher;
@@ -71,21 +74,33 @@ public class ProgramWindow implements EventHandler {
 			public void windowOpened(WindowEvent e) {
 				jframe.setExtendedState(JFrame.MAXIMIZED_BOTH);
 			}
-			public void windowDeiconified(WindowEvent e) {}
-			public void windowDeactivated(WindowEvent e) {}
-			public void windowClosing(WindowEvent e) {}
-			public void windowClosed(WindowEvent e) {}
-			public void windowActivated(WindowEvent e) {}
-			public void windowIconified(WindowEvent e) {} 
+
+			public void windowDeiconified(WindowEvent e) {
+			}
+
+			public void windowDeactivated(WindowEvent e) {
+			}
+
+			public void windowClosing(WindowEvent e) {
+			}
+
+			public void windowClosed(WindowEvent e) {
+			}
+
+			public void windowActivated(WindowEvent e) {
+			}
+
+			public void windowIconified(WindowEvent e) {
+			}
 		});
-		
+
 		this.createFrame();
 		mainApplication.show(frameView);
 		new MenuBarEventHandler(this.eventDispatcher);
 	}
 
 	/**
-	 * initializes the JFrame of the create FrameView
+	 * Initializes the JFrame of the create FrameView
 	 */
 	private void createFrame() {
 		this.cardLayoutManager = new CardLayout();
@@ -96,7 +111,9 @@ public class ProgramWindow implements EventHandler {
 
 	/**
 	 * Adds a new JPanel to the program's main window.
-	 * @param newPanel The new JPanel to add
+	 * 
+	 * @param newPanel
+	 *            The new JPanel to add
 	 */
 	public void addJPanel(JPanel newPanel) {
 		this.mainJPanel.add(newPanel, newPanel.toString());
@@ -109,22 +126,28 @@ public class ProgramWindow implements EventHandler {
 	public void handleEvent(Event<?> event) {
 
 	}
-	
+
 	/**
-	 * Unused function; does nothing. Can be utilized if the implementation of the main program window ever changes
+	 * Unused function; does nothing. Can be utilized if the implementation of
+	 * the main program window ever changes
 	 */
 	public void hidePanel(JPanel panel) {
 		this.refreshFrame();
 	}
 
 	/**
-	 * Shows the JPanel inserted in the program's main window. NOTE: the panel must be registered first! Call ProgramWindow.addJPanel() to do so.
-	 * @param panel The JPanel to display
+	 * Shows the JPanel inserted in the program's main window.<br>
+	 * <br>
+	 * <b>NOTE:</b> the panel must be registered first! Call
+	 * ProgramWindow.addJPanel() to do so.
+	 * 
+	 * @param panel
+	 *            The JPanel to display
 	 */
 	public void showPanel(JPanel panel) {
 		this.refreshFrame();
 		this.currentActivePanelName = panel.toString();
-		this.cardLayoutManager.show(this.mainJPanel, panel.toString());																// panel.toString());
+		this.cardLayoutManager.show(this.mainJPanel, panel.toString()); // panel.toString());
 	}
 
 	/**
@@ -134,16 +157,17 @@ public class ProgramWindow implements EventHandler {
 		this.jframe.validate();
 		this.jframe.repaint();
 	}
-	
+
 	/**
-	 * Returns whether the inserted JPanel is currently being displayed on the screen (which is determined by whether the result of the toString() method matches the one of the currently active JPanel)
-	 * @param panel The panel to check against whether it is active
+	 * Returns whether the inserted JPanel is currently being displayed on the
+	 * screen (which is determined by whether the result of the toString()
+	 * method matches the one of the currently active JPanel)
+	 * 
+	 * @param panel
+	 *            The panel to check against whether it is active
 	 * @return true if the panel is active, false otherwise
 	 */
-	public boolean panelIsCurrentlyVisible(JPanel panel)
-	{
+	public boolean panelIsCurrentlyVisible(JPanel panel) {
 		return this.currentActivePanelName.equals(panel.toString());
 	}
-
-}// END
-
+}

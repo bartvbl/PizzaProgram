@@ -18,14 +18,18 @@ import pizzaProgram.gui.EventHandlers.OrderGUI_OrderViewEventHandler;
 import pizzaProgram.gui.EventHandlers.OrderGUI_SystemEventHandler;
 import pizzaProgram.gui.views.OrderView;
 import pizzaProgram.modules.GUIModule;
+
 /**
- * The OrderGUI module handles everything that has to do with the Orders view of the program. Its main task is to manage customers and registering new orders
- * @author Bart
- *
+ * The OrderGUI module handles everything that has to do with the Orders view of
+ * the program. Its main task is to manage customers and registering new orders
+ * 
+ * @author IT1901 Group 3, Fall 2011
+ * 
  */
 public class OrderGUI extends GUIModule implements EventHandler {
 	/**
-	 * A reference to the OrderView instance so that it can be used to show or hide it in the main window
+	 * A reference to the OrderView instance so that it can be used to show or
+	 * hide it in the main window
 	 */
 	private OrderView orderView;
 	/**
@@ -33,7 +37,8 @@ public class OrderGUI extends GUIModule implements EventHandler {
 	 */
 	private ProgramWindow programWindow;
 	/**
-	 * A reference to the list of customers currently being displayed in the Order GUI
+	 * A reference to the list of customers currently being displayed in the
+	 * Order GUI
 	 */
 	public ArrayList<Customer> currentCustomerList;
 	/**
@@ -48,20 +53,25 @@ public class OrderGUI extends GUIModule implements EventHandler {
 	 * The dish that is currently selected by the user in the order GUI
 	 */
 	public Dish currentSelectedDish;
-	
+
 	/**
 	 * Holds a reference to the orderViewEventHandler for internal use
 	 */
 	OrderGUI_OrderViewEventHandler orderViewEventHandler;
 	/**
-	 * Keeps a reference to the orderGUISystemEventHandler for internal reference
+	 * Keeps a reference to the orderGUISystemEventHandler for internal
+	 * reference
 	 */
 	OrderGUI_SystemEventHandler orderSystemEventHandler;
 
 	/**
-	 * The constructor initializes the order view and the associated evenr handling classes
-	 * @param mainWindow The program's main window
-	 * @param eventDispatcher The system's main event dispatcher
+	 * The constructor initializes the order view and the associated evenr
+	 * handling classes
+	 * 
+	 * @param mainWindow
+	 *            The program's main window
+	 * @param eventDispatcher
+	 *            The system's main event dispatcher
 	 */
 	public OrderGUI(ProgramWindow mainWindow, EventDispatcher eventDispatcher) {
 		super(eventDispatcher);
@@ -75,23 +85,24 @@ public class OrderGUI extends GUIModule implements EventHandler {
 		hide();
 		this.addEventListeners(eventDispatcher);
 	}
-	
+
 	/**
 	 * Adds event listeners for all events that this class listens for
-	 * @param eventDispatcher The system's main event dispatcher
+	 * 
+	 * @param eventDispatcher
+	 *            The system's main event dispatcher
 	 */
-	private void addEventListeners(EventDispatcher eventDispatcher)
-	{
+	private void addEventListeners(EventDispatcher eventDispatcher) {
 		eventDispatcher.addEventListener(this, EventType.COOK_GUI_REQUESTED);
 		eventDispatcher.addEventListener(this, EventType.ORDER_GUI_REQUESTED);
 		eventDispatcher.addEventListener(this, EventType.DELIVERY_GUI_REQUESTED);
 		eventDispatcher.addEventListener(this, EventType.DATA_REFRESH_REQUESTED);
 	}
-	
+
 	/**
 	 * Sets up a series of components in the order GUi
 	 */
-	private void setupComponents(){
+	private void setupComponents() {
 		OrderView.deliveryMethodComboBox.removeAllItems();
 		OrderView.deliveryMethodComboBox.addItem(GUIConstants.GUI_PICKUP);
 		OrderView.deliveryMethodComboBox.addItem(GUIConstants.GUI_DELIVER);
@@ -99,7 +110,7 @@ public class OrderGUI extends GUIModule implements EventHandler {
 		OrderView.extrasSelectionList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		OrderView.dishSelectionList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		OrderView.customerList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		DefaultTableModel tableModel = (DefaultTableModel)OrderView.orderContentsTable.getModel();
+		DefaultTableModel tableModel = (DefaultTableModel) OrderView.orderContentsTable.getModel();
 		tableModel.addColumn("Rett");
 		tableModel.addColumn("Tilbehør");
 		OrderView.orderContentsTable.removeEditor();
@@ -110,39 +121,43 @@ public class OrderGUI extends GUIModule implements EventHandler {
 
 	/**
 	 * Creates a new customer in the database
-	 * @param customer The customer to create
+	 * 
+	 * @param customer
+	 *            The customer to create
 	 */
 	public void createNewCustomer(UnaddedCustomer customer) {
 		this.dispatchEvent(new Event<UnaddedCustomer>(EventType.DATABASE_ADD_NEW_CUSTOMER, customer));
 	}
-	
+
 	/**
 	 * Updates a customer in the database
-	 * @param customer The customer whose data should be updated
+	 * 
+	 * @param customer
+	 *            The customer whose data should be updated
 	 */
 	public void updateCustomer(Customer customer) {
 		this.dispatchEvent(new Event<Customer>(EventType.DATABASE_UPDATE_CUSTOMER_BY_CUSTOMER_ID, customer));
 	}
 
 	/**
-	 * Handles incoming events directed at the order GUI module and calls the appropiate event handling function
+	 * Handles incoming events directed at the order GUI module and calls the
+	 * appropiate event handling function
 	 */
 	@Override
 	public void handleEvent(Event<?> event) {
-		if(event.eventType.equals(EventType.ORDER_GUI_REQUESTED)){
+		if (event.eventType.equals(EventType.ORDER_GUI_REQUESTED)) {
 			show();
 			this.dispatchEvent(new Event<Object>(EventType.DATABASE_UPDATE_ORDER_GUI_SEND_ALL_CUSTOMERS));
-		} else if(event.eventType.equals(EventType.DATA_REFRESH_REQUESTED)){
-			if(this.programWindow.panelIsCurrentlyVisible(this.orderView))
-			{
-				//woo! broke the record for longest function name! :D
+		} else if (event.eventType.equals(EventType.DATA_REFRESH_REQUESTED)) {
+			if (this.programWindow.panelIsCurrentlyVisible(this.orderView)) {
+				// woo! broke the record for longest function name! :D
 				this.orderViewEventHandler.handleCustomerSearchTypingBasedOnSearchBoxContents();
 				this.orderViewEventHandler.handleDishSearchTyping();
 				this.orderViewEventHandler.handleExtrasSearchTyping();
 			}
 		}
 	}
-	
+
 	/**
 	 * Shows the order view in the main window
 	 */
@@ -151,7 +166,7 @@ public class OrderGUI extends GUIModule implements EventHandler {
 		this.orderViewEventHandler.resetOrder();
 		this.programWindow.showPanel(this.orderView);
 	}
-	
+
 	/**
 	 * Hides the order view in the main window
 	 */
@@ -159,4 +174,4 @@ public class OrderGUI extends GUIModule implements EventHandler {
 	public void hide() {
 		this.programWindow.hidePanel(this.orderView);
 	}
-}// END
+}

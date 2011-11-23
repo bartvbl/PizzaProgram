@@ -68,7 +68,7 @@ public class PriceCalculators {
 
 	/**
 	 * Returns a formatted String for the cost of pickup at the restaurant
-	 * @param d The dish to calculate and format the price for
+	 * @param dish The dish to calculate and format the price for
 	 * @return A formatted String of the price for a dish for picking up at the restaurant
 	 */
 	public static String getPriceForDishPickupAtRestaurant(Dish dish) {

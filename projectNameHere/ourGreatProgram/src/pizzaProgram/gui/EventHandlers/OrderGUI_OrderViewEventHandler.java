@@ -27,7 +27,7 @@ import pizzaProgram.dataObjects.Order;
 import pizzaProgram.dataObjects.UnaddedOrder;
 import pizzaProgram.events.Event;
 import pizzaProgram.events.EventType;
-import pizzaProgram.gui.NewCustomerWindow;
+import pizzaProgram.gui.CustomerWindow;
 import pizzaProgram.gui.OrderGUI;
 import pizzaProgram.gui.views.OrderView;
 
@@ -196,7 +196,7 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler implem
 		} else if (this.getEventNameByComponent((Component) event.getSource()).equals("duplicateSelected")) {
 			this.duplicateOrderDishes();
 		} else if (this.getEventNameByComponent((Component) event.getSource()).equals("newCustomer")) {
-			new NewCustomerWindow(orderGUI, NewCustomerWindow.NEW_CUSTOMER, null);
+			new CustomerWindow(orderGUI, CustomerWindow.NEW_CUSTOMER, null);
 		} else if (this.getEventNameByComponent((Component) event.getSource()).equals("searchCustomers")) {
 			this.searchCustomers();
 		} else if (this.getEventNameByComponent((Component) event.getSource()).equals("editCustomer")) {
@@ -324,7 +324,7 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler implem
 			GUIConstants.showErrorMessage(GUIMessages.NO_CUSTOMER_SELECTED);
 			return;
 		}
-		new NewCustomerWindow(orderGUI, NewCustomerWindow.UPDATE_CUSTOMER, currentSelecetedCustomer);
+		new CustomerWindow(orderGUI, CustomerWindow.UPDATE_CUSTOMER, currentSelecetedCustomer);
 		showAllCustomers();
 		OrderView.customerInformationTextArea.setText("");
 	}
