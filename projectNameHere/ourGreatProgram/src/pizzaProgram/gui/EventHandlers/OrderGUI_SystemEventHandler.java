@@ -14,7 +14,6 @@ import pizzaProgram.events.EventType;
 import pizzaProgram.gui.OrderGUI;
 import pizzaProgram.gui.views.OrderView;
 import pizzaProgram.utils.PriceCalculators;
-import pizzaProgram.utils.RowSelectionTracker;
 
 /**
  * Handles all the events coming from the system directed at the Order GUI.

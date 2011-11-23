@@ -91,16 +91,22 @@ public class AdminGUI_SystemEventHandler implements EventHandler {
 					+ "instances when trying to update the extra list in the admin GUI.");
 			return;
 		}
-		@SuppressWarnings("unchecked")
+		Extra selectedExtra = this.adminGUI.currentSelectedExtra;
 		ArrayList<Extra> extraList = (ArrayList<Extra>) event.getEventParameterObject();
 		adminGUI.currentExtraList = extraList;
 		DefaultTableModel tableModel = (DefaultTableModel) AdminView.allRegisteredExtrasTable.getModel();
 		tableModel.setRowCount(0);
+		int selectedIndex = -1;
 		for (int i = 0; i < extraList.size(); i++) {
 			Extra extra = extraList.get(i);
 			tableModel.addRow(new Object[] { extra.name, PriceCalculators.getPriceForExtra(extra),
 					extra.isActive ? GUIConstants.GUI_TRUE : GUIConstants.GUI_FALSE });
+			if(extra.equals(selectedExtra))
+			{
+				selectedIndex = i;
+			}
 		}
+		AdminView.allRegisteredExtrasTable.getSelectionModel().setSelectionInterval(selectedIndex, selectedIndex);
 	}
 
 	/**
@@ -117,14 +123,22 @@ public class AdminGUI_SystemEventHandler implements EventHandler {
 			return;
 		}
 		@SuppressWarnings("unchecked")
+		Dish selectedDish = this.adminGUI.currentSelectedDish;
 		ArrayList<Dish> dishList = (ArrayList<Dish>) event.getEventParameterObject();
 		adminGUI.currentDishList = dishList;
 		DefaultTableModel tableModel = (DefaultTableModel) AdminView.allActiveDishesTable.getModel();
 		tableModel.setRowCount(0);
-		for (Dish d : dishList) {
+		int selectedIndex = -1;
+		for (int i = 0; i < dishList.size(); i++) {
+			Dish d = dishList.get(i);
 			tableModel.addRow(new Object[] { d.name, PriceCalculators.getPriceForDish(d) + " kr",
 					d.isActive ? GUIConstants.GUI_TRUE : GUIConstants.GUI_FALSE });
+			if(d.equals(selectedDish))
+			{
+				selectedIndex = i;
+			}
 		}
+		AdminView.allActiveDishesTable.getSelectionModel().setSelectionInterval(selectedIndex, selectedIndex);
 	}
 
 	/**
@@ -149,5 +163,6 @@ public class AdminGUI_SystemEventHandler implements EventHandler {
 			tableModel.addRow(new Object[] { o.orderID, o.customer.firstName + " " + o.customer.lastName,
 					GUIConstants.translateDeliveryMethod(o.deliveryMethod) });
 		}
+		System.out.println("udapting orders in admingui");
 	}
 }
