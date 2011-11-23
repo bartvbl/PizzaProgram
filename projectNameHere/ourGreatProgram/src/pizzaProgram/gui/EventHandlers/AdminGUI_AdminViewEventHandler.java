@@ -27,7 +27,9 @@ import pizzaProgram.utils.PriceCalculators;
 import pizzaProgram.utils.ReceiptGenerator;
 
 /**
- * This class hendles events dispatched from the gui-components in AdminWiev
+ * This class handles events dispatched from the gui-components in AdminView
+ * 
+ * @author IT1901 Group 3, Fall 2011
  */
 public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implements ActionListener {
 	/**
@@ -36,8 +38,11 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 	private AdminGUI adminGUI;
 
 	/**
-	 * The constructor registers all events that this class handles at the various components in the AdminView
-	 * @param adminGUI a reference to the main AdminGUI module
+	 * The constructor registers all events that this class handles at the
+	 * various components in the AdminView
+	 * 
+	 * @param adminGUI
+	 *            a reference to the main AdminGUI module
 	 */
 	public AdminGUI_AdminViewEventHandler(AdminGUI adminGUI) {
 		super(adminGUI);
@@ -46,9 +51,9 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 	}
 
 	/**
-	 * This method adds listeners to the desiered components in AdminWiev The
-	 * code to be run when an event is recived is splitt up into different
-	 * methodes, one for each component/event
+	 * This method adds listeners to the desired components in AdminView. The
+	 * code to be run when an event is recived is split up into different
+	 * methods, one for each component/event
 	 */
 	private void addEventListeners() {
 
@@ -149,7 +154,7 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 	}
 
 	/**
-	 * called when the user selects an order in the orderhistory
+	 * Called when the user selects an order in the orderhistory
 	 * 
 	 * @param e
 	 *            the listSelectionEvent
@@ -164,7 +169,7 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 	}
 
 	/**
-	 * called when the user clics reset in the settings-window resets all the
+	 * Called when the user clics reset in the settings-window resets all the
 	 * data in the textfields to their databasevalue
 	 */
 	private void handleSettingResetButtonClicked() {
@@ -175,7 +180,7 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 	}
 
 	/**
-	 * called when the user clicks confirm when editing settings
+	 * Called when the user clicks confirm when editing settings
 	 */
 	private void handleSettingConfirmedButtonClicked() {
 		String priceText = AdminView.settingsDeliveryPriceTextBox.getText();
@@ -200,8 +205,7 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 			GUIConstants.showErrorMessage(GUIMessages.ILLEGAL_RESTAURANT_ADDRESS_LENGTH);
 			return;
 		}
-		Setting addressSetting = new Setting(Config.KEY_RESTAURANT_ADDRESS,
-				addressText);
+		Setting addressSetting = new Setting(Config.KEY_RESTAURANT_ADDRESS, addressText);
 
 		if (cityText.length() < 1) {
 			GUIConstants.showErrorMessage(GUIMessages.ILLEGAL_RESTAURANT_CITY_LENGTH);
@@ -213,8 +217,8 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 		if (oreDeliveryTreshold < 0) {
 			return;
 		}
-		Setting deliveryTresholdSetting = new Setting(Config.KEY_FREE_DELIVERY_LIMIT,
-				"" + oreDeliveryTreshold);
+		Setting deliveryTresholdSetting = new Setting(Config.KEY_FREE_DELIVERY_LIMIT, ""
+				+ oreDeliveryTreshold);
 
 		boolean somethingChanged = false;
 		if (!priceText.equals(PriceCalculators.getDeliveryCost())) {
@@ -251,6 +255,7 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 	 * The method called when a user selects an extra from the extra-list
 	 * 
 	 * @param e
+	 *            the list selection event
 	 */
 	private void handleExtraSelection(ListSelectionEvent e) {
 		int selectedIndex = ((DefaultListSelectionModel) e.getSource()).getMinSelectionIndex();
@@ -288,9 +293,10 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 	}
 
 	/**
-	 * Searches for the contents of the dish search box if something has been written in it. It retrieves all dishes otherwise
+	 * Searches for the contents of the dish search box if something has been
+	 * written in it. It retrieves all dishes otherwise
 	 */
-	public void handleDishSearchTyping(){
+	public void handleDishSearchTyping() {
 		String query = AdminView.searchDishTextBox.getText();
 		if (query.length() == 0) {
 			showAllDishes();
@@ -300,9 +306,10 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 	}
 
 	/**
-	 * Searches for the contents of the extra search box if something has been written in it. It retrieves all extras otherwise
+	 * Searches for the contents of the extra search box if something has been
+	 * written in it. It retrieves all extras otherwise
 	 */
-	public void handleExtraSearchTyping(){
+	public void handleExtraSearchTyping() {
 		String query = AdminView.searchExtraTextBox.getText();
 		if (query.length() == 0) {
 			this.showAllExtras();
@@ -312,23 +319,30 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 	}
 
 	/**
-	 * Searches for extras in the database that match the query passed in the parameter
-	 * @param query the query to search for
+	 * Searches for extras in the database that match the query passed in the
+	 * parameter
+	 * 
+	 * @param query
+	 *            the query to search for
 	 */
 	private void searchExtras(String query) {
 		this.dispatchEvent(new Event<String>(EventType.DATABASE_UPDATE_ADMIN_GUI_SEARCH_EXTRAS, query));
 	}
 
 	/**
-	 * Searches for dishes in the database that match the query passed in the parameter
-	 * @param query the query to search for
+	 * Searches for dishes in the database that match the query passed in the
+	 * parameter
+	 * 
+	 * @param query
+	 *            the query to search for
 	 */
 	private void searchDishes(String query) {
 		this.dispatchEvent(new Event<String>(EventType.DATABASE_UPDATE_ADMIN_GUI_SEARCH_DISHES, query));
 	}
 
 	/**
-	 * Updates or creates a new extra, depending on whether the user was in the process or creating a new extra or editing an existing one
+	 * Updates or creates a new extra, depending on whether the user was in the
+	 * process or creating a new extra or editing an existing one
 	 */
 	private void handleExtraConfirmButtonClick() {
 		boolean active = AdminView.editExtraExtraIsActiveComboBox.getSelectedItem().equals(
@@ -345,8 +359,7 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 		}
 
 		if (!(priceFunc == '+' || priceFunc == '*' || priceFunc == '-')) {
-			GUIConstants
-					.showErrorMessage(GUIMessages.ILLEGAL_EXTRA_OPERAND);
+			GUIConstants.showErrorMessage(GUIMessages.ILLEGAL_EXTRA_OPERAND);
 			return;
 		}
 
@@ -367,7 +380,8 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 	}
 
 	/**
-	 * Updates or creates a dish in the database, depending on whether the user has been creating a new one or editing an existing one
+	 * Updates or creates a dish in the database, depending on whether the user
+	 * has been creating a new one or editing an existing one
 	 */
 	private void handleDishConfirmButtonClick() {
 		boolean diary = AdminView.editDishContainsDairyComboBox.getSelectedItem().equals(
@@ -469,8 +483,11 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 	}
 
 	/**
-	 * handles the event of the user selecting a dish in the dish overview table. Sets up the dish editing UI so that the dish can be edited
-	 * @param e The listSelectionEvent dispatched by the java AWT thread
+	 * handles the event of the user selecting a dish in the dish overview
+	 * table. Sets up the dish editing UI so that the dish can be edited
+	 * 
+	 * @param e
+	 *            The listSelectionEvent dispatched by the java AWT thread
 	 */
 	private void handleDishSelection(ListSelectionEvent e) {
 		int selectedIndex = ((DefaultListSelectionModel) e.getSource()).getMinSelectionIndex();
@@ -513,8 +530,5 @@ public class AdminGUI_AdminViewEventHandler extends ComponentEventHandler implem
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-
 	}
-
-}// END
+}

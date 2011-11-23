@@ -12,10 +12,12 @@ import pizzaProgram.events.EventHandler;
 import pizzaProgram.events.EventType;
 import pizzaProgram.gui.CookGUI;
 import pizzaProgram.gui.views.CookView;
+
 /**
  * Handles all events from the system directed at the cook GUI
- * @author Bart
- *
+ * 
+ * @author IT1901 Group 3, Fall 2011
+ * 
  */
 public class CookGUI_SystemEventHandler implements EventHandler {
 	/**
@@ -26,13 +28,17 @@ public class CookGUI_SystemEventHandler implements EventHandler {
 	 * A reference to the cook GUI module
 	 */
 	private CookGUI cookGUI;
-	
+
 	/**
-	 * Registers all the event listeners at the main event dispatcher that this class handles
-	 * @param eventDispatcher A reference to the system's main event dispatcher
-	 * @param cookGUI A reference to the main cook GUI module
+	 * Registers all the event listeners at the main event dispatcher that this
+	 * class handles
+	 * 
+	 * @param eventDispatcher
+	 *            A reference to the system's main event dispatcher
+	 * @param cookGUI
+	 *            A reference to the main cook GUI module
 	 */
-	public CookGUI_SystemEventHandler(EventDispatcher eventDispatcher, CookGUI cookGUI){
+	public CookGUI_SystemEventHandler(EventDispatcher eventDispatcher, CookGUI cookGUI) {
 		this.eventDispatcher = eventDispatcher;
 		this.cookGUI = cookGUI;
 		this.addEventListeners();
@@ -48,33 +54,40 @@ public class CookGUI_SystemEventHandler implements EventHandler {
 
 	/**
 	 * Handles incoming events and calls the appropiate event handling functions
+	 * 
+	 * @param event
+	 *            The event to be handled
 	 */
 	@Override
 	public void handleEvent(Event<?> event) {
-		if(event.eventType.equals(EventType.COOK_GUI_UPDATE_ORDER_LIST)){
+		if (event.eventType.equals(EventType.COOK_GUI_UPDATE_ORDER_LIST)) {
 			this.updateOrderList(event);
 		}
 	}
 
 	/**
-	 * Updates the order list based on the list of orders attached to the parameter event
-	 * @param event The Event instance, having an ArrayList of Order objects attached to it
+	 * Updates the order list based on the list of orders attached to the
+	 * parameter event
+	 * 
+	 * @param event
+	 *            The Event instance, having an ArrayList of Order objects
+	 *            attached to it
 	 */
 	private void updateOrderList(Event<?> event) {
-		if(event.getEventParameterObject() instanceof ArrayList<?>){
+		if (event.getEventParameterObject() instanceof ArrayList<?>) {
 			@SuppressWarnings("unchecked")
-			ArrayList<Order> orderList = (ArrayList<Order>)event.getEventParameterObject();
+			ArrayList<Order> orderList = (ArrayList<Order>) event.getEventParameterObject();
 			this.cookGUI.currentOrderList = orderList;
-			DefaultTableModel tableModel = (DefaultTableModel)CookView.orderDetailsTable.getModel();
+			DefaultTableModel tableModel = (DefaultTableModel) CookView.orderDetailsTable.getModel();
 			tableModel.setRowCount(0);
-			for(Order order : orderList){
-				tableModel.addRow(new Object[]{order.orderID, GUIConstants.translateOrderStatus(order.status), order.timeRegistered});
+			for (Order order : orderList) {
+				tableModel.addRow(new Object[] { order.orderID,
+						GUIConstants.translateOrderStatus(order.status), order.timeRegistered });
 			}
-		}else{
-			System.err.println("ERROR: got a list that was not a list of Order instances when trying to update the order list in the cook GUI.");
+		} else {
+			System.err
+					.println("ERROR: got a list that was not a list of Order instances when trying to update the order list in the cook GUI.");
 			return;
 		}
-		
 	}
-	
-}//END
+}

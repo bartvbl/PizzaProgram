@@ -13,11 +13,12 @@ import pizzaProgram.utils.PrintUtilities;
 
 /**
  * The receipt window shows a new window containing the receipt of an order
- * @author Bart
- *
+ * 
+ * @author IT1901 Group 3, Fall 2011
+ * 
  */
 @SuppressWarnings("serial")
-public class ReceiptWindow extends JFrame{
+public class ReceiptWindow extends JFrame {
 
 	/**
 	 * A JLabel holding the receipt's text
@@ -27,10 +28,13 @@ public class ReceiptWindow extends JFrame{
 	 * The button the user can use to print out the receipt
 	 */
 	private JButton printButton;
+
 	/**
-	 * This class is a window, the window displays a receipt(o0r whatever string it is given as input)
-	 * The rows parameter is how many rows of text the recipt contains, it is used for calculating height, but 
-	 * will only work properly for html-tables
+	 * This class is a window, the window displays a receipt(or whatever string
+	 * it is given as input) The rows parameter is how many rows of text the
+	 * recipt contains, it is used for calculating height, but will only work
+	 * properly for html-tables
+	 * 
 	 * @param kvittering
 	 * @param rows
 	 */
@@ -47,28 +51,28 @@ public class ReceiptWindow extends JFrame{
 		html.setVerticalTextPosition(JLabel.TOP);
 
 		JScrollPane jsp = new JScrollPane(html);
-		jsp.setBounds(0,0,html.getWidth() + 30, Math.min(400, html.getY() + html.getHeight()));
-		
+		jsp.setBounds(0, 0, html.getWidth() + 30, Math.min(400, html.getY() + html.getHeight()));
+
 		printButton = new JButton("Skriv ut");
-		printButton.setBounds(5, jsp.getY()+jsp.getHeight() + 5, 80, 22);
+		printButton.setBounds(5, jsp.getY() + jsp.getHeight() + 5, 80, 22);
 		printButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				skrivUt();
 			}
 		});
-		
-		
+
 		add(jsp);
 		add(printButton);
-		setSize(jsp.getWidth() + 6, printButton.getY() + printButton.getHeight() + 35);//35 is the height of the framedecoration 10 is the width
+		// 35 is the height of the framedecoration 6 is the width
+		setSize(jsp.getWidth() + 6, printButton.getY() + printButton.getHeight() + 35);
+
 		setVisible(true);
 	}
-	
+
 	/**
 	 * Prints out the receipt
 	 */
 	private void skrivUt() {
 		PrintUtilities.printComponent(html);
 	}
-
-}//END
+}

@@ -15,10 +15,13 @@ import pizzaProgram.events.EventType;
 import pizzaProgram.gui.AdminGUI;
 import pizzaProgram.gui.views.AdminView;
 import pizzaProgram.utils.PriceCalculators;
+
 /**
- * The AdminGUI System event handler handles all events coming from the system, and are directed at the admin GUI.
- * @author Bart
- *
+ * The AdminGUI System event handler handles all events coming from the system,
+ * and are directed at the admin GUI.
+ * 
+ * @author IT1901 Group 3, Fall 2011
+ * 
  */
 public class AdminGUI_SystemEventHandler implements EventHandler {
 	/**
@@ -31,11 +34,13 @@ public class AdminGUI_SystemEventHandler implements EventHandler {
 	private AdminGUI adminGUI;
 
 	/**
-	 * this class recives events from the database and other places and updates
-	 * the admingui accordingly
+	 * Registers all the event listeners at the main event dispatcher that this
+	 * class handles
 	 * 
 	 * @param eventDispatcher
+	 *            A reference to the system's main event dispatcher
 	 * @param adminGUI
+	 *            A reference to the main admin GUI module
 	 */
 	public AdminGUI_SystemEventHandler(EventDispatcher eventDispatcher, AdminGUI adminGUI) {
 		this.eventDispatcher = eventDispatcher;
@@ -44,7 +49,7 @@ public class AdminGUI_SystemEventHandler implements EventHandler {
 	}
 
 	/**
-	 * add events listeners, chooses wich events to listen for
+	 * Add events listeners, chooses wich events to listen for
 	 */
 	private void addEventListeners() {
 		this.eventDispatcher.addEventListener(this, EventType.ADMIN_GUI_UPDATE_DISH_LIST);
@@ -54,8 +59,11 @@ public class AdminGUI_SystemEventHandler implements EventHandler {
 	}
 
 	/**
-	 * handles the incoming events, calls the apropriate method for changing the
+	 * Handles the incoming events, calls the apropriate method for changing the
 	 * gui
+	 * 
+	 * @param event
+	 *            The event to be handled
 	 */
 	@Override
 	public void handleEvent(Event<?> event) {
@@ -71,14 +79,16 @@ public class AdminGUI_SystemEventHandler implements EventHandler {
 	}
 
 	/**
-	 * this method updates the list of extras in the adminview
+	 * This method updates the list of extras in the adminview
 	 * 
 	 * @param event
+	 *            An event with an added payload of an ArrayList containing all
+	 *            the Extras in the database
 	 */
 	private void updateExtraList(Event<?> event) {
 		if (!(event.getEventParameterObject() instanceof ArrayList<?>)) {
-			System.err
-					.println("ERROR: got a list that was not a list of Order instances when trying to update the order list in the cook GUI.");
+			System.err.println("ERROR: got a list that was not a list of Extra "
+					+ "instances when trying to update the extra list in the admin GUI.");
 			return;
 		}
 		@SuppressWarnings("unchecked")
@@ -93,14 +103,16 @@ public class AdminGUI_SystemEventHandler implements EventHandler {
 	}
 
 	/**
-	 * this mentod updates the list of dishes in the adminview
+	 * This method updates the list of dishes in the adminview
 	 * 
 	 * @param event
+	 *            An event with an added payload of an ArrayList containing all
+	 *            the Dishes in the database
 	 */
 	private void updateDishList(Event<?> event) {
 		if (!(event.getEventParameterObject() instanceof ArrayList<?>)) {
-			System.err
-					.println("ERROR: got a list that was not a list of Order instances when trying to update the order list in the cook GUI.");
+			System.err.println("ERROR: got a list that was not a list of Dish "
+					+ "instances when trying to update the dish list in the admin GUI.");
 			return;
 		}
 		@SuppressWarnings("unchecked")
@@ -115,14 +127,16 @@ public class AdminGUI_SystemEventHandler implements EventHandler {
 	}
 
 	/**
-	 * updates the list of order in the orderhistory
+	 * Updates the list of Orders in the orderhistory
 	 * 
 	 * @param event
+	 *            An event with an added payload of an ArrayList containing all
+	 *            the deliverer Orders in the database
 	 */
 	private void updateOrderList(Event<?> event) {
 		if (!(event.getEventParameterObject() instanceof ArrayList<?>)) {
-			System.err
-					.println("ERROR: got a list that was not a list of Order instances when trying to update the order list in the cook GUI.");
+			System.err.println("ERROR: got a list that was not a list of Order "
+					+ "instances when trying to update the order list in the admin GUI.");
 			return;
 		}
 		@SuppressWarnings("unchecked")
@@ -135,5 +149,4 @@ public class AdminGUI_SystemEventHandler implements EventHandler {
 					GUIConstants.translateDeliveryMethod(o.deliveryMethod) });
 		}
 	}
-
 }
