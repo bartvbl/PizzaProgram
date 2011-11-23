@@ -46,6 +46,11 @@ public class Customer{
 		this.phoneNumber = phoneNumber;
 	}
 
+	/**
+	 * Compares this instance to another
+	 * @param customer The customer to compare this instance to
+	 * @return true if the ID's of both objects match.
+	 */
 	public boolean equals(Customer customer)
 	{
 		if(customer == null)

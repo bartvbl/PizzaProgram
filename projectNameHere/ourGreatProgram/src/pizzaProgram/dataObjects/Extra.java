@@ -44,6 +44,11 @@ public class Extra {
 		return id + " " + priceFuncPart + " " + priceValPart + " " + name;
 	}
 	
+	/**
+	 * Compares this instance to another
+	 * @param extra The extra to compare this instance to
+	 * @return true if the ID's of both objects match.
+	 */
 	public boolean equals(Extra extra)
 	{
 		if(extra == null)

@@ -79,6 +79,11 @@ public class Order {
 		orderedDishes.add(orderDish);
 	}
 	
+	/**
+	 * Compares this instance to another
+	 * @param order The order to compare this instance to
+	 * @return true if the ID's of both objects match.
+	 */
 	public boolean equals(Order order)
 	{
 		if(order == null)

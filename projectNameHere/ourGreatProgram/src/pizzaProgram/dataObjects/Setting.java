@@ -24,6 +24,11 @@ public class Setting {
 		this.value = value;
 	}
 	
+	/**
+	 * Compares this instance to another
+	 * @param setting The Setting to compare this instance to
+	 * @return true if the ID's of both objects match.
+	 */
 	public boolean equals(Setting setting)
 	{
 		if(setting == null)

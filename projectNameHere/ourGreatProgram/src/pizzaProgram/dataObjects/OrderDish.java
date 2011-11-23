@@ -60,6 +60,11 @@ public class OrderDish {
 		return tempString;
 	}
 	
+	/**
+	 * Compares this instance to another
+	 * @param orderDish The OrderDish to compare this instance to
+	 * @return true if the ID's of both objects match.
+	 */
 	public boolean equals(OrderDish orderDish)
 	{
 		if(orderDish == null)

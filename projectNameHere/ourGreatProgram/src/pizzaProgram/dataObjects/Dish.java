@@ -61,6 +61,11 @@ public class Dish{
 		this.isActive = isActive;
 	}
 	
+	/**
+	 * Compares this instance to another
+	 * @param dish The dish to compare this instance to
+	 * @return true if the ID's of both objects match.
+	 */
 	public boolean equals(Dish dish)
 	{
 		if(dish == null)
