@@ -19,7 +19,7 @@ import pizzaProgram.utils.PriceCalculators;
  * The Main class acts as the root of the system. Its main task is to hold
  * references and initialize various parts/modules
  * 
- * @author Bart
+ * @author IT1901 Group 3, Fall 2011
  * 
  */
 public class Main implements EventHandler {
@@ -34,7 +34,8 @@ public class Main implements EventHandler {
 	 */
 	private ProgramWindow programWindow;
 	/**
-	 * A reference to the program's database module, so that it can be used to disconnect from the database when a program shutdown is requested.
+	 * A reference to the program's database module, so that it can be used to
+	 * disconnect from the database when a program shutdown is requested.
 	 */
 	private DatabaseModule databaseModule;
 
@@ -48,15 +49,14 @@ public class Main implements EventHandler {
 		this.createMainWindow(mainApplication);
 		this.createGUIModules();
 		this.createDataUpdater();
-		this.eventDispatcher.addEventListener(this,
-				EventType.PROGRAM_EXIT_REQUESTED);
+		this.eventDispatcher.addEventListener(this, EventType.PROGRAM_EXIT_REQUESTED);
 
-		this.eventDispatcher.dispatchEvent(new Event<Object>(
-				EventType.ORDER_GUI_REQUESTED));
+		this.eventDispatcher.dispatchEvent(new Event<Object>(EventType.ORDER_GUI_REQUESTED));
 	}
-	
+
 	/**
-	 * Creates the timered data updater module that periodically updates the data in the GUI
+	 * Creates the timered data updater module that periodically updates the
+	 * data in the GUI
 	 */
 	private void createDataUpdater() {
 		new TimeredDataUpdater(this.eventDispatcher);
@@ -64,15 +64,18 @@ public class Main implements EventHandler {
 
 	/**
 	 * Creates the program's main window
-	 * @param mainApplication The SingleFrameApplication instance, which the program window requires to start
+	 * 
+	 * @param mainApplication
+	 *            The SingleFrameApplication instance, which the program window
+	 *            requires to start
 	 */
 	private void createMainWindow(SingleFrameApplication mainApplication) {
-		this.programWindow = new ProgramWindow(this.eventDispatcher,
-				mainApplication);
+		this.programWindow = new ProgramWindow(this.eventDispatcher, mainApplication);
 	}
-	
+
 	/**
-	 * Creates the database module, and then connects to the database. The database module registers the database event handlers.
+	 * Creates the database module, and then connects to the database. The
+	 * database module registers the database event handlers.
 	 */
 	private void connectToDatabase() {
 		this.databaseModule = new DatabaseModule(this.eventDispatcher);
@@ -90,7 +93,7 @@ public class Main implements EventHandler {
 		new OrderGUI(this.programWindow, this.eventDispatcher);
 		new CookGUI(this.programWindow, this.eventDispatcher);
 	}
-	
+
 	/**
 	 * An event handler for a program exit request
 	 */

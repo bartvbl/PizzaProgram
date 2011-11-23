@@ -17,7 +17,7 @@ import pizzaProgram.database.DatabaseConnection;
  * A class that is used to search for various data objects in the database, by
  * sending a specific String containing a search query
  * 
- * @author Bart
+ * @author IT1901 Group 3, Fall 2011
  * 
  */
 public class DatabaseSearcher {
@@ -30,8 +30,8 @@ public class DatabaseSearcher {
 	 * @param searchQuery
 	 *            A search query consiting of one or more keywords separated by
 	 *            spaces.
-	 * @return An ArrayList containing customers that may be related to the
-	 *         search query
+	 * @return An ArrayList of Customer instances that may be related/match the
+	 *         entered keywords.
 	 */
 	public static ArrayList<Customer> searchCustomerByString(String searchQuery) {
 		String query = DatabaseSearcher.generateCustomerSearchQuery(searchQuery);
@@ -53,9 +53,10 @@ public class DatabaseSearcher {
 	 * name and description
 	 * 
 	 * @param searchQuery
-	 *            A search query of keywords to look for, separated by spaces
-	 * @return A list of Dish instances that may be related/match the entered
-	 *         keywords
+	 *            A search query consiting of one or more keywords separated by
+	 *            spaces.
+	 * @return An ArrayList of Dish instances that may be related/match the
+	 *         entered keywords.
 	 */
 	public static ArrayList<Dish> searchDishByString(String searchQuery) {
 		String query = DatabaseSearcher.generateDishSearchQuery(searchQuery);
@@ -76,9 +77,10 @@ public class DatabaseSearcher {
 	 * the database. Searches by price and name.
 	 * 
 	 * @param searchQuery
-	 *            the search query to search for. The keywords should be
-	 *            separated by spaces
-	 * @return An ArrayList that may match the search query entered.
+	 *            A search query consiting of one or more keywords separated by
+	 *            spaces.
+	 * @return An ArrayList of Extra instances that may be related/match the
+	 *         entered keywords.
 	 */
 	public static ArrayList<Extra> searchExtraByString(String searchQuery) {
 		String query = DatabaseSearcher.generateExtraSearchQuery(searchQuery);
@@ -99,11 +101,12 @@ public class DatabaseSearcher {
 	 * keywords. Searches by delivery method, order ID and Order status
 	 * 
 	 * @param keywordString
-	 *            A string containing keywords to search for, separated by
-	 *            spaces
+	 *            A search query consiting of one or more keywords separated by
+	 *            spaces.
 	 * @param orderStatusStringList
 	 *            The required order status('s) that the orders should have.
-	 * @return An ArrayList of Order instances that match the keywords entered
+	 * @return An ArrayList of Order instances that may be related/match the
+	 *         entered keywords.
 	 */
 	public static ArrayList<Order> getOrdersByKeywords(String keywordString, String[] orderStatusStringList) {
 		String whereClause = DatabaseSearcher.generateOrderSearchWhereClause(keywordString,
@@ -126,8 +129,9 @@ public class DatabaseSearcher {
 	 * 
 	 * @param searchQuery
 	 *            A String containing keywords to search for, separated by
-	 *            spaces
-	 * @return The search query that can be used to search the database
+	 *            spaces.
+	 * @return The search query that can be used to search the Customer table of
+	 *         the database.
 	 */
 	private static String generateCustomerSearchQuery(String searchQuery) {
 		String query = "SELECT * FROM Customer WHERE (";
@@ -151,9 +155,10 @@ public class DatabaseSearcher {
 	 * to search the database for dishes
 	 * 
 	 * @param searchQuery
-	 *            A search query containing keywords separated by spaces
-	 * @return A query that will result in dishes that match the entered
-	 *         keywords
+	 *            A String containing keywords to search for, separated by
+	 *            spaces.
+	 * @return The search query that can be used to search the Dishes table of
+	 *         the database.
 	 */
 	private static String generateDishSearchQuery(String searchQuery) {
 		String query = "SELECT * FROM " + DatabaseQueryConstants.DISH_TABLE_NAME + " WHERE (";
@@ -177,9 +182,10 @@ public class DatabaseSearcher {
 	 * from the given keyword input string
 	 * 
 	 * @param searchQuery
-	 *            A search query string, containing keywords separated by
+	 *            A String containing keywords to search for, separated by
 	 *            spaces.
-	 * @return An query that can be used to search for extras in the database
+	 * @return The search query that can be used to search the Extras table of
+	 *         the database.
 	 */
 	private static String generateExtraSearchQuery(String searchQuery) {
 		String query = "SELECT * FROM " + DatabaseQueryConstants.EXTRAS_TABLE_NAME + " WHERE (";
@@ -203,11 +209,12 @@ public class DatabaseSearcher {
 	 * the orders should have
 	 * 
 	 * @param keywordString
-	 *            A string of keywords to search for, separated by spaces
+	 *            A String containing keywords to search for, separated by
+	 *            spaces.
 	 * @param orderStatus
-	 *            the status that the orders should have
-	 * @return A String the contains a search query that can be used to search
-	 *         for orders
+	 *            the status that the orders should have.
+	 * @return The search query that can be used to search the Orders table of
+	 *         the database.
 	 */
 	private static String generateOrderSearchWhereClause(String keywordString, String[] orderStatus) {
 		String[] keywords = keywordString.split(" ");
@@ -229,7 +236,8 @@ public class DatabaseSearcher {
 				whereClause += "OR ";
 			}
 			whereClause += "(" + DatabaseQueryConstants.ORDERS_STATUS + " LIKE '%" + keyword + "%') OR ";
-			whereClause += "(" + DatabaseQueryConstants.ORDERS_DELIVERY_METHOD + " LIKE '%" + keyword + "%') OR ";
+			whereClause += "(" + DatabaseQueryConstants.ORDERS_DELIVERY_METHOD + " LIKE '%" + keyword
+					+ "%') OR ";
 			whereClause += "(" + DatabaseQueryConstants.ORDERS_ID + " LIKE '%" + keyword + "%') ";
 			counter++;
 		}

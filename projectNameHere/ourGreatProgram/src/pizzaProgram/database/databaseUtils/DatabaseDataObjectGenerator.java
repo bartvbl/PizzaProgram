@@ -16,19 +16,23 @@ import pizzaProgram.dataObjects.Setting;
 /**
  * Class to generate dataObjects based on {@link java.sql.ResultSet ResultSets}
  * sent to the methods of the class. All methods in the class are static.
+ * 
+ * @author IT1901 Group 3, Fall 2011
  */
 public class DatabaseDataObjectGenerator {
 	/**
-	 * Method to populate an {@link java.util.ArrayList ArrayList} with
+	 * Method to populate an ArrayList with
 	 * {@link pizzaProgram.dataObjects.Dish dishes} based on the provided
 	 * {@link java.sql.ResultSet ResultSet}
 	 * 
 	 * @param results
-	 *            - a {@link java.sql.ResultSet ResultSet} containing data from
+	 *            a {@link java.sql.ResultSet ResultSet} containing data from
 	 *            the Dishes table of the database
-	 * @return The populated {@link java.util.ArrayList ArrayList} of
-	 *         {@link pizzaProgram.dataObjects.Dish dishes}
+	 * @return The populated ArrayList of {@link pizzaProgram.dataObjects.Dish
+	 *         dishes}
 	 * @throws SQLException
+	 *             if a database access error occurs or this method is called on
+	 *             a closed result set
 	 */
 	public static ArrayList<Dish> generateDishList(ResultSet results) throws SQLException {
 		ArrayList<Dish> dishList = new ArrayList<Dish>();
@@ -41,16 +45,18 @@ public class DatabaseDataObjectGenerator {
 	}
 
 	/**
-	 * Method to populate an {@link java.util.ArrayList ArrayList} with
+	 * Method to populate an ArrayList with
 	 * {@link pizzaProgram.dataObjects.Customer customers} based on the provided
 	 * {@link java.sql.ResultSet ResultSet}
 	 * 
 	 * @param results
-	 *            - a {@link java.sql.ResultSet ResultSet} containing data from
+	 *            a {@link java.sql.ResultSet ResultSet} containing data from
 	 *            the Customers table of the database
-	 * @return The populated {@link java.util.ArrayList ArrayList} of
+	 * @return The populated ArrayList of
 	 *         {@link pizzaProgram.dataObjects.Customer customers}
 	 * @throws SQLException
+	 *             if a database access error occurs or this method is called on
+	 *             a closed result set
 	 */
 	public static ArrayList<Customer> generateCustomerList(ResultSet results) throws SQLException {
 		ArrayList<Customer> customerList = new ArrayList<Customer>();
@@ -63,16 +69,18 @@ public class DatabaseDataObjectGenerator {
 	}
 
 	/**
-	 * Method to populate an {@link java.util.ArrayList ArrayList} with
+	 * Method to populate an ArrayList with
 	 * {@link pizzaProgram.dataObjects.Extra extras} based on the provided
 	 * {@link java.sql.ResultSet ResultSet}
 	 * 
 	 * @param results
-	 *            - a {@link java.sql.ResultSet ResultSet} containing data from
+	 *            a {@link java.sql.ResultSet ResultSet} containing data from
 	 *            the Extras table of the database
-	 * @return The populated {@link java.util.ArrayList ArrayList} of
-	 *         {@link pizzaProgram.dataObjects.Extra extras}
+	 * @return The populated ArrayList of {@link pizzaProgram.dataObjects.Extra
+	 *         extras}
 	 * @throws SQLException
+	 *             if a database access error occurs or this method is called on
+	 *             a closed result set
 	 */
 	public static ArrayList<Extra> generateExtrasList(ResultSet results) throws SQLException {
 		ArrayList<Extra> extrasList = new ArrayList<Extra>();
@@ -85,16 +93,18 @@ public class DatabaseDataObjectGenerator {
 	}
 
 	/**
-	 * Method to populate an {@link java.util.ArrayList ArrayList} with
+	 * Method to populate an ArrayList with
 	 * {@link pizzaProgram.dataObjects.Setting settings} based on the provided
 	 * {@link java.sql.ResultSet ResultSet}
 	 * 
 	 * @param results
-	 *            - a {@link java.sql.ResultSet ResultSet} containing data from
+	 *            a {@link java.sql.ResultSet ResultSet} containing data from
 	 *            the Config table of the database
-	 * @return The populated {@link java.util.ArrayList ArrayList} of
+	 * @return The populated ArrayList of
 	 *         {@link pizzaProgram.dataObjects.Setting settings}
 	 * @throws SQLException
+	 *             if a database access error occurs or this method is called on
+	 *             a closed result set
 	 */
 	public static ArrayList<Setting> generateSettingsList(ResultSet results) throws SQLException {
 		ArrayList<Setting> settingsList = new ArrayList<Setting>();
@@ -107,17 +117,19 @@ public class DatabaseDataObjectGenerator {
 	}
 
 	/**
-	 * Method to populate an {@link java.util.ArrayList ArrayList} with
+	 * Method to populate an ArrayList with
 	 * {@link pizzaProgram.dataObjects.Order orders} based on the provided
 	 * {@link java.sql.ResultSet ResultSet}
 	 * 
 	 * @param result
-	 *            - a {@link java.sql.ResultSet ResultSet} containing data from
-	 *            the Customer, Dishes, Extras, OrdersContents and Orders table
-	 *            of the database
-	 * @return The populated {@link java.util.ArrayList ArrayList} of
-	 *         {@link pizzaProgram.dataObjects.Order orders}
+	 *            a {@link java.sql.ResultSet ResultSet} containing data from
+	 *            the Customer, Dishes, Extras, OrdersContents, OrderComments
+	 *            and Orders table of the database
+	 * @return The populated ArrayList of {@link pizzaProgram.dataObjects.Order
+	 *         orders}
 	 * @throws SQLException
+	 *             if a database access error occurs or this method is called on
+	 *             a closed result set
 	 */
 	public static ArrayList<Order> generateOrderListFromResultSet(ResultSet result) throws SQLException {
 		ArrayList<Order> orderList = new ArrayList<Order>();
@@ -149,7 +161,8 @@ public class DatabaseDataObjectGenerator {
 				orderMap.put(currentOrderID, currentOrder);
 			}
 			currentOrder = orderMap.get(currentOrderID);
-			currentOrderContentID = result.getInt(result.findColumn(DatabaseQueryConstants.ORDERS_CONTENTS_ID));
+			currentOrderContentID = result.getInt(result
+					.findColumn(DatabaseQueryConstants.ORDERS_CONTENTS_ID));
 			if (currentOrder != null && orderDishMap.get(currentOrderContentID) == null) {
 				currentDishID = result.getInt(result.findColumn(DatabaseQueryConstants.DISH_ID));
 				if (dishMap.get(currentDishID) == null) {
@@ -187,12 +200,16 @@ public class DatabaseDataObjectGenerator {
 	 */
 	private static Customer createCustomer(ResultSet resultSet) throws SQLException {
 		int customerID = resultSet.getInt(resultSet.findColumn(DatabaseQueryConstants.CUSTOMER_ID));
-		String firstName = resultSet.getString(resultSet.findColumn(DatabaseQueryConstants.CUSTOMER_FIRST_NAME));
-		String lastName = resultSet.getString(resultSet.findColumn(DatabaseQueryConstants.CUSTOMER_LAST_NAME));
+		String firstName = resultSet.getString(resultSet
+				.findColumn(DatabaseQueryConstants.CUSTOMER_FIRST_NAME));
+		String lastName = resultSet
+				.getString(resultSet.findColumn(DatabaseQueryConstants.CUSTOMER_LAST_NAME));
 		String address = resultSet.getString(resultSet.findColumn(DatabaseQueryConstants.CUSTOMER_ADDRESS));
-		String postalCode = resultSet.getString(resultSet.findColumn(DatabaseQueryConstants.CUSTOMER_POSTAL_CODE));
+		String postalCode = resultSet.getString(resultSet
+				.findColumn(DatabaseQueryConstants.CUSTOMER_POSTAL_CODE));
 		String city = resultSet.getString(resultSet.findColumn(DatabaseQueryConstants.CUSTOMER_CITY));
-		int phoneNumber = resultSet.getInt(resultSet.findColumn(DatabaseQueryConstants.CUSTOMER_PHONE_NUMBER));
+		int phoneNumber = resultSet
+				.getInt(resultSet.findColumn(DatabaseQueryConstants.CUSTOMER_PHONE_NUMBER));
 		Customer customer = new Customer(customerID, firstName, lastName, address, postalCode, city,
 				phoneNumber);
 		return customer;
@@ -204,7 +221,7 @@ public class DatabaseDataObjectGenerator {
 	 * @param resultSet
 	 *            The ResultSet, containing all columns from the Dishes table,
 	 *            from which the Dish object should be created
-	 * @return The resulting DIsh instance from the current row in the ResultSet
+	 * @return The resulting Dish instance from the current row in the ResultSet
 	 * @throws SQLException
 	 *             Any error raised while reading the data from the ResultSet
 	 */
@@ -221,7 +238,8 @@ public class DatabaseDataObjectGenerator {
 		boolean isVegetarian = resultSet.getBoolean(resultSet
 				.findColumn(DatabaseQueryConstants.DISH_IS_VEGETARIAN));
 		boolean isSpicy = resultSet.getBoolean(resultSet.findColumn(DatabaseQueryConstants.DISH_IS_SPICY));
-		String description = resultSet.getString(resultSet.findColumn(DatabaseQueryConstants.DISH_DESCRIPTION));
+		String description = resultSet.getString(resultSet
+				.findColumn(DatabaseQueryConstants.DISH_DESCRIPTION));
 		boolean isActive = resultSet.getBoolean(resultSet.findColumn(DatabaseQueryConstants.DISH_IS_ACTIVE));
 		Dish dish = new Dish(dishID, price, name, containsGluten, containsNuts, containsDairy, isVegetarian,
 				isSpicy, description, isActive);
@@ -242,7 +260,8 @@ public class DatabaseDataObjectGenerator {
 		int extrasID = resultSet.getInt(resultSet.findColumn(DatabaseQueryConstants.EXTRAS_ID));
 		String name = resultSet.getString(resultSet.findColumn(DatabaseQueryConstants.EXTRAS_NAME));
 		String price = resultSet.getString(resultSet.findColumn(DatabaseQueryConstants.EXTRAS_PRICE));
-		boolean isActive = resultSet.getBoolean(resultSet.findColumn(DatabaseQueryConstants.EXTRAS_IS_ACTIVE));
+		boolean isActive = resultSet
+				.getBoolean(resultSet.findColumn(DatabaseQueryConstants.EXTRAS_IS_ACTIVE));
 		Extra extra = new Extra(extrasID, name, price, isActive);
 		return extra;
 	}
@@ -290,5 +309,4 @@ public class DatabaseDataObjectGenerator {
 		Setting setting = new Setting(configKey, configValue);
 		return setting;
 	}
-
 }

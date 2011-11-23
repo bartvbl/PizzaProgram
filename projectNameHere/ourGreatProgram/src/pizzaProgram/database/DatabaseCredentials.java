@@ -8,6 +8,8 @@ import java.io.IOException;
 /**
  * Class for reading the URL, password and username of the database from a
  * locally stored configuration file.
+ * 
+ * @author IT1901 Group 3, Fall 2011
  */
 public class DatabaseCredentials {
 
@@ -93,7 +95,7 @@ public class DatabaseCredentials {
 	 * Returns the database user's password as it was read from the database
 	 * credentials config file
 	 * 
-	 * @return The dataabse user's password
+	 * @return The dataabase user's password
 	 */
 	String getPassword() {
 		return this.password;

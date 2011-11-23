@@ -5,7 +5,9 @@ import org.jdesktop.application.Application;
 import org.jdesktop.application.SingleFrameApplication;
 
 /**
- * The main class of the application.
+ * The entry point of the application.
+ * 
+ * @author IT1901 Group 3, Fall 2011
  */
 public class PizzaProgram extends SingleFrameApplication {
 

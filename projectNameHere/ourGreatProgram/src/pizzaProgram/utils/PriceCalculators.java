@@ -213,7 +213,7 @@ public class PriceCalculators {
 		int orePrice = 0;
 
 		if (splitt.length > 2 || splitt.length < 2) {
-			GUIConstants.showErrorMessage(GUIMessages.TOO_MANY_COMMAS_IN_VALUE);
+			GUIConstants.showErrorMessage(GUIMessages.TOO_MANY_DECIMAL_SEPARATORS_IN_VALUE);
 			return -1;
 		}
 		try {
@@ -223,7 +223,7 @@ public class PriceCalculators {
 			return -1;
 		}
 		if (splitt[1].length() > 2 || splitt[1].length() < 2) {
-			GUIConstants.showErrorMessage(GUIMessages.TOO_MANY_DIGITS_AFTER_COMMA);
+			GUIConstants.showErrorMessage(GUIMessages.TOO_MANY_DIGITS_AFTER_DECIMAL_SEPARATOR);
 			return -1;
 		}
 		try {

@@ -122,5 +122,4 @@ public class GUIConstants {
 	public static void showConfirmMessage(String message) {
 		JOptionPane.showMessageDialog(null, message, "Informasjon", JOptionPane.INFORMATION_MESSAGE);
 	}
-
 }

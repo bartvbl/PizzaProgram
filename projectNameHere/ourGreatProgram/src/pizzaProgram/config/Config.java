@@ -59,12 +59,13 @@ public class Config {
 	 * Key value for the Automatic Data Updates in Milliseconds
 	 * {@link pizzaProgram.dataObjects.Setting setting}
 	 */
-	public static final String KEY_DB_AUTO_UPDATE_MILLIS =  "autoDataUpdateDelayInMillis";
+	public static final String KEY_DB_AUTO_UPDATE_MILLIS = "autoDataUpdateDelayInMillis";
 	/**
-	 * The value that the auto update time must be to disable automatic updating of the data
+	 * The value that the auto update time must be to disable automatic updating
+	 * of the data
 	 */
 	public static final int KEY_DISABLE_DATA_AUTO_UPDATE_VALUE = -1;
-	
+
 	/**
 	 * Returns the String value of the config key provided to the method
 	 * 
@@ -132,6 +133,4 @@ public class Config {
 	public static void updateValueOfSetting(Setting setting) {
 		DatabaseWriter.updateConfigValue(setting);
 	}
-
-	
 }

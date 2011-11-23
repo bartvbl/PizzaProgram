@@ -15,12 +15,13 @@ import java.sql.Statement;
  * as methods to send queries to and receive {@link java.sql.ResultSet
  * ResultSets} from the database.
  * 
- * @author Håvard Eidheim, Henning M. Wold
+ * @author IT1901 Group 3, Fall 2011
  * 
  */
 public class DatabaseConnection {
 	/**
-	 * The default timeout period for database transactions, in case the connection is lost for any reason
+	 * The default timeout period for database transactions, in case the
+	 * connection is lost for any reason
 	 */
 	public static final int DEFAULT_TIMEOUT = 3000;
 	/**
@@ -37,7 +38,7 @@ public class DatabaseConnection {
 	 * database
 	 */
 	static final int VARCHAR_MAX_LENGTH_LONG = 100;
-	
+
 	/**
 	 * A field that holds the connection to the database
 	 */
@@ -50,30 +51,25 @@ public class DatabaseConnection {
 	 */
 	public static void connect() {
 		try {
-			
+
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			DatabaseCredentials credentials = new DatabaseCredentials();
 			credentials.loadFromFile(DatabaseConnection.DATABASE_CREDENTIALS_CONFIG_FILE_PATH);
-			connection = DriverManager.getConnection(	credentials.getURL(), 
-														credentials.getUsername(), 
-														credentials.getPassword());
+			connection = DriverManager.getConnection(credentials.getURL(), credentials.getUsername(),
+					credentials.getPassword());
 			System.out.println("The connection was a success!");
 
 		} catch (SQLException e) {
 			System.out.println("Connection failed: " + e.getMessage());
 		} catch (ClassNotFoundException e) {
-			System.out.println("Failed during driverinitialization: "
-					+ e.getMessage());
+			System.out.println("Failed during driverinitialization: " + e.getMessage());
 		} catch (InstantiationException e) {
-			System.out.println("Failed during driverinstantiation: "
-					+ e.getMessage());
+			System.out.println("Failed during driverinstantiation: " + e.getMessage());
 		} catch (IllegalAccessException e) {
-			System.out.println("Failed during driverinstantiation: "
-					+ e.getMessage());
+			System.out.println("Failed during driverinstantiation: " + e.getMessage());
 		}
 	}
-	
-	
+
 	/**
 	 * Method that tries to disconnect from the database if there is a valid
 	 * connection
@@ -83,13 +79,11 @@ public class DatabaseConnection {
 	 *         database.
 	 */
 	public static boolean disconnect() {
-		if (connection != null
-				&& isConnected(DatabaseConnection.DEFAULT_TIMEOUT)) {
+		if (connection != null && isConnected(DatabaseConnection.DEFAULT_TIMEOUT)) {
 			try {
 				connection.close();
 			} catch (SQLException e) {
-				System.out.println("Failed to close MySQL connection: "
-						+ e.getMessage());
+				System.out.println("Failed to close MySQL connection: " + e.getMessage());
 				return false;
 			}
 		}
@@ -109,8 +103,7 @@ public class DatabaseConnection {
 			try {
 				return connection.isValid(timeoutInMilliseconds);
 			} catch (SQLException e) {
-				System.err.println("Something is wrong with the connection: "
-						+ e.getMessage());
+				System.err.println("Something is wrong with the connection: " + e.getMessage());
 				return false;
 			}
 		}
@@ -121,8 +114,8 @@ public class DatabaseConnection {
 	 * Method to fetch data from the the mySQL database using the provided query
 	 * 
 	 * @param query
-	 *            - a {@link java.lang.String String} containing the query that
-	 *            is to be sent to the database
+	 *            a String containing the query that is to be sent to the
+	 *            database
 	 * @return a {@link java.sql.ResultSet ResultSet} containing the result of
 	 *         the query
 	 */
@@ -139,8 +132,8 @@ public class DatabaseConnection {
 	 * Method to insert data into the mySQL database using the provided query
 	 * 
 	 * @param query
-	 *            - a {@link java.lang.String String} containing the query that
-	 *            is to be sent to the database
+	 *            a String containing the query that is to be sent to the
+	 *            database
 	 * @return true if the insertion was a success, false in all other cases
 	 */
 	public static boolean insertIntoDB(String query) {
@@ -151,29 +144,37 @@ public class DatabaseConnection {
 			return false;
 		}
 	}
-	
+
 	/**
-	 * Executes a write query like insertIntoDb(), but instead throws any errors such that they can be handled by any class that uses the function
-	 * @param query The query to be executed by the database
-	 * @return returns true if the query execution was a success, and false otherwise
-	 * @throws SQLException Throws an SQLException if an error is raised during tge execution of the query.
+	 * Executes a write query like insertIntoDb(), but instead throws any errors
+	 * such that they can be handled by any class that uses the function
+	 * 
+	 * @param query
+	 *            The query to be executed by the database
+	 * @return returns true if the query execution was a success, and false
+	 *         otherwise
+	 * @throws SQLException
+	 *             Throws an SQLException if an error is raised during the
+	 *             execution of the query.
 	 */
 	public static boolean executeWriteQuery(String query) throws SQLException {
-			return connection.createStatement().execute(query);
+		return connection.createStatement().execute(query);
 	}
-	
+
 	/**
-	 * Executes a write query in the database, and returns the row ID of the element inserted
-	 * @param query The query to be executed in the database
+	 * Executes a write query in the database, and returns the row ID of the
+	 * element inserted
+	 * 
+	 * @param query
+	 *            The query to be executed in the database
 	 * @return The ID of the last row inserted by the query
-	 * @throws SQLException Throws an exception if an error is raised during the process
+	 * @throws SQLException
+	 *             Throws an exception if an error is raised during the process
 	 */
-	public static int insertIntoDBAndReturnID(String query) throws SQLException
-	{
+	public static int insertIntoDBAndReturnID(String query) throws SQLException {
 		PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 		int numberOfRowsAffected = statement.executeUpdate();
-		if(numberOfRowsAffected == 0)
-		{
+		if (numberOfRowsAffected == 0) {
 			System.err.println("Query Failed (0 rows affected) ");
 		}
 		ResultSet generatedKey = statement.getGeneratedKeys();

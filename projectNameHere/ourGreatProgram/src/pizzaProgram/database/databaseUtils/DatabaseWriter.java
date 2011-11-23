@@ -19,7 +19,7 @@ import pizzaProgram.database.DatabaseConnection;
 /**
  * A class that writes or updates the database
  * 
- * @author Bart
+ * @author IT1901 Group 3, Fall 2011
  * 
  */
 public class DatabaseWriter {
@@ -179,11 +179,12 @@ public class DatabaseWriter {
 	public static void updateDishByDishID(Dish dish) {
 		try {
 			DatabaseConnection.executeWriteQuery("UPDATE " + DatabaseQueryConstants.DISH_TABLE_NAME + " SET "
-					+ DatabaseQueryConstants.DISH_PRICE + "=" + dish.price + ", " + DatabaseQueryConstants.DISH_NAME
-					+ "='" + dish.name + "', " + DatabaseQueryConstants.DISH_CONTAINS_GLUTEN + "="
-					+ dish.containsGluten + ", " + DatabaseQueryConstants.DISH_CONTAINS_NUTS + "="
-					+ dish.containsNuts + ", " + DatabaseQueryConstants.DISH_CONTAINS_DAIRY + "="
-					+ dish.containsDairy + ", " + DatabaseQueryConstants.DISH_IS_SPICY + "=" + dish.isSpicy + ", "
+					+ DatabaseQueryConstants.DISH_PRICE + "=" + dish.price + ", "
+					+ DatabaseQueryConstants.DISH_NAME + "='" + dish.name + "', "
+					+ DatabaseQueryConstants.DISH_CONTAINS_GLUTEN + "=" + dish.containsGluten + ", "
+					+ DatabaseQueryConstants.DISH_CONTAINS_NUTS + "=" + dish.containsNuts + ", "
+					+ DatabaseQueryConstants.DISH_CONTAINS_DAIRY + "=" + dish.containsDairy + ", "
+					+ DatabaseQueryConstants.DISH_IS_SPICY + "=" + dish.isSpicy + ", "
 					+ DatabaseQueryConstants.DISH_IS_VEGETARIAN + "=" + dish.isVegetarian + ", "
 					+ DatabaseQueryConstants.DISH_DESCRIPTION + "='" + dish.description + "', "
 					+ DatabaseQueryConstants.DISH_IS_ACTIVE + "=" + dish.isActive + " WHERE "
@@ -204,8 +205,8 @@ public class DatabaseWriter {
 	public static void updateExtraByExtraID(Extra extra) {
 		try {
 			String price = extra.priceFuncPart + "" + extra.priceValPart;
-			DatabaseConnection.executeWriteQuery("UPDATE " + DatabaseQueryConstants.EXTRAS_TABLE_NAME + " SET "
-					+ DatabaseQueryConstants.EXTRAS_NAME + "='" + extra.name + "', "
+			DatabaseConnection.executeWriteQuery("UPDATE " + DatabaseQueryConstants.EXTRAS_TABLE_NAME
+					+ " SET " + DatabaseQueryConstants.EXTRAS_NAME + "='" + extra.name + "', "
 					+ DatabaseQueryConstants.EXTRAS_PRICE + "='" + price + "', "
 					+ DatabaseQueryConstants.EXTRAS_IS_ACTIVE + "=" + extra.isActive + " WHERE "
 					+ DatabaseQueryConstants.EXTRAS_ID + "=" + extra.id + ";");
@@ -244,8 +245,8 @@ public class DatabaseWriter {
 	 */
 	public static void updateConfigValue(Setting setting) {
 		try {
-			DatabaseConnection.executeWriteQuery("UPDATE " + DatabaseQueryConstants.CONFIG_TABLE_NAME + " SET "
-					+ DatabaseQueryConstants.CONFIG_VALUE + "='" + setting.value + "' WHERE "
+			DatabaseConnection.executeWriteQuery("UPDATE " + DatabaseQueryConstants.CONFIG_TABLE_NAME
+					+ " SET " + DatabaseQueryConstants.CONFIG_VALUE + "='" + setting.value + "' WHERE "
 					+ DatabaseQueryConstants.CONFIG_KEY + "='" + setting.key + "'");
 		} catch (SQLException e) {
 			GUIConstants.showErrorMessage(DatabaseMessages.UNABLE_TO_CHANGE_BLANK + setting.key);
@@ -299,11 +300,13 @@ public class DatabaseWriter {
 	 */
 	private static String getCurrentStatusOfOrder(int orderID) throws SQLException {
 		String query = "SELECT " + DatabaseQueryConstants.ORDERS_LOCKED_STATUS + " FROM "
-				+ DatabaseQueryConstants.ORDERS_TABLE_NAME + " AS " + DatabaseQueryConstants.ORDERS_LOCKED_TABLE_NAME
-				+ " WHERE " + DatabaseQueryConstants.ORDERS_LOCKED_ID + "=" + orderID + ";";
+				+ DatabaseQueryConstants.ORDERS_TABLE_NAME + " AS "
+				+ DatabaseQueryConstants.ORDERS_LOCKED_TABLE_NAME + " WHERE "
+				+ DatabaseQueryConstants.ORDERS_LOCKED_ID + "=" + orderID + ";";
 		ResultSet results = DatabaseConnection.fetchData(query);
 		results.next();
-		String currentStatus = results.getString(results.findColumn(DatabaseQueryConstants.ORDERS_LOCKED_STATUS));
+		String currentStatus = results.getString(results
+				.findColumn(DatabaseQueryConstants.ORDERS_LOCKED_STATUS));
 		return currentStatus;
 	}
 
@@ -320,8 +323,8 @@ public class DatabaseWriter {
 	 */
 	private static void updateOrderStatus(String status, int orderID) throws SQLException {
 		DatabaseConnection.executeWriteQuery("UPDATE " + DatabaseQueryConstants.ORDERS_TABLE_NAME + " SET "
-				+ DatabaseQueryConstants.ORDERS_STATUS + "='" + status + "' WHERE " + DatabaseQueryConstants.ORDERS_ID
-				+ "=" + orderID + ";");
+				+ DatabaseQueryConstants.ORDERS_STATUS + "='" + status + "' WHERE "
+				+ DatabaseQueryConstants.ORDERS_ID + "=" + orderID + ";");
 	}
 
 	/**
@@ -454,8 +457,7 @@ public class DatabaseWriter {
 	 *            the customer to be deleted
 	 */
 	public static void deleteCustomer(Customer customer) {
-		DatabaseConnection.insertIntoDB("DELETE FROM " + DatabaseQueryConstants.CUSTOMER_TABLE_NAME + " WHERE "
-				+ DatabaseQueryConstants.CUSTOMER_ID + "=" + customer.customerID + " LIMIT 1");
+		DatabaseConnection.insertIntoDB("DELETE FROM " + DatabaseQueryConstants.CUSTOMER_TABLE_NAME
+				+ " WHERE " + DatabaseQueryConstants.CUSTOMER_ID + "=" + customer.customerID + " LIMIT 1");
 	}
-
-}// END
+}
