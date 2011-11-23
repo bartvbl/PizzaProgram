@@ -9,15 +9,18 @@ import pizzaProgram.gui.ReceiptWindow;
 /**
  * Generates a receipt from a given Order instance, and shows it inside a window
  * 
- * @author Bart
+ * @author IT1901 Group 3, Fall 2011
  * 
  */
 public class ReceiptGenerator {
-	//TODO: no clue what this is.
+	/**
+	 * Stores the amount rows in the last receipt generated. Used when showing
+	 * the receipt in the GUI.
+	 */
 	private static int lastrows = 0;
 
 	/**
-	 * This method takes an order and creates an html-receipt form its data
+	 * This method takes an order and creates an html-receipt from its data
 	 * 
 	 * @param order
 	 */
@@ -27,7 +30,9 @@ public class ReceiptGenerator {
 
 	/**
 	 * Generates a receipt String from an order, formatted with HTML
-	 * @param order The order to generate the receipt of
+	 * 
+	 * @param order
+	 *            The order to generate the receipt of
 	 * @return A String representing the receipt of the order
 	 */
 	public static String generateReceipt(Order order) {
@@ -42,7 +47,8 @@ public class ReceiptGenerator {
 		for (OrderDish d : order.orderedDishes) {
 			lastrows++;
 			String dishprice = order.deliveryMethod.equals(Order.DELIVER_AT_HOME) ? PriceCalculators
-					.getPriceForDishDeliveryAtHome(d.dish) : PriceCalculators.getPriceForDishPickupAtRestaurant(d.dish);
+					.getPriceForDishDeliveryAtHome(d.dish) : PriceCalculators
+					.getPriceForDishPickupAtRestaurant(d.dish);
 			receiptString.append(createHeaderRow(d.dish.name, dishprice));
 			if (d.dish.name.length() > 16) {
 				lastrows++;
@@ -71,12 +77,12 @@ public class ReceiptGenerator {
 	}
 
 	/**
-	 * creates an htmlrow with 2 columns from two strings
+	 * Creates an htmlrow with two columns from two strings
 	 * 
 	 * @param col1
-	 *            the string that should be added to the firstcolumn
+	 *            the string that should be added to the first column
 	 * @param col2
-	 *            the string that should be added to the secondcolumn
+	 *            the string that should be added to the second column
 	 * @return an htmlrow as a string
 	 */
 	private static String createRow(String col1, String col2) {
@@ -84,7 +90,7 @@ public class ReceiptGenerator {
 	}
 
 	/**
-	 * creates an htmlrow with 2 columns from two strings where the elemets are
+	 * Creates an htmlrow with two columns from two strings where the elements are
 	 * bold
 	 * 
 	 * @param col1
@@ -96,5 +102,4 @@ public class ReceiptGenerator {
 	private static String createHeaderRow(String col1, String col2) {
 		return "<tr><th align=\"left\">" + col1 + "</th><td align=\"right\">" + col2 + "</td></tr>";
 	}
-
-}// END
+}

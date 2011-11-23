@@ -9,11 +9,12 @@ import pizzaProgram.dataObjects.Dish;
 import pizzaProgram.dataObjects.Extra;
 import pizzaProgram.dataObjects.Order;
 import pizzaProgram.dataObjects.OrderDish;
-//NOTE: swiss army knives are bad. For next time, it is better to keep calculators separated, so that you can find the calculator you look for more easily without having to digg into a pile of code
 
 /**
  * Class for generating properly formatted strings of the various prices in the
  * system.
+ * 
+ * @author IT1901 Group 3, Fall 2011
  */
 public class PriceCalculators {
 	/**
@@ -31,7 +32,8 @@ public class PriceCalculators {
 	private static int pickupMoms = -1;
 
 	/**
-	 * An integer representing the threshold price after which an order's delivery becomes free, in Øre.
+	 * An integer representing the threshold price after which an order's
+	 * delivery becomes free, in Øre.
 	 */
 	private static int freeDeliveryThreshold = -1;
 	/**
@@ -68,8 +70,11 @@ public class PriceCalculators {
 
 	/**
 	 * Returns a formatted String for the cost of pickup at the restaurant
-	 * @param dish The dish to calculate and format the price for
-	 * @return A formatted String of the price for a dish for picking up at the restaurant
+	 * 
+	 * @param dish
+	 *            The dish to calculate and format the price for
+	 * @return A formatted String of the price for a dish for picking up at the
+	 *         restaurant
 	 */
 	public static String getPriceForDishPickupAtRestaurant(Dish dish) {
 		int price = dish.price + (int) (dish.price * (pickupMoms / 100.0));
@@ -78,8 +83,10 @@ public class PriceCalculators {
 
 	/**
 	 * Returns the formatted price for delivery at home
-	 * @param dish The dish to calculate and format the price for
-	 * @return A formatted Stirng representing the price for delivery at home 
+	 * 
+	 * @param dish
+	 *            The dish to calculate and format the price for
+	 * @return A formatted Stirng representing the price for delivery at home
 	 */
 	public static String getPriceForDishDeliveryAtHome(Dish dish) {
 		int price = dish.price + (int) (dish.price * (deliverMoms / 100.0));
@@ -164,16 +171,22 @@ public class PriceCalculators {
 	}
 
 	/**
-	 * Returns a formatted String representing the cost of the delivery of the order
-	 * @return A formatted String representing the cost of the delivery of the order
+	 * Returns a formatted String representing the cost of the delivery of the
+	 * order
+	 * 
+	 * @return A formatted String representing the cost of the delivery of the
+	 *         order
 	 */
 	public static String getDeliveryCost() {
 		return deliveryCost / 100 + "," + formatter.format(deliveryCost % 100);
 	}
 
 	/**
-	 * Returns a String representing the threshold after which delivery becomes free
-	 * @return A String representing the threshold after which delivery becomes free
+	 * Returns a String representing the threshold after which delivery becomes
+	 * free
+	 * 
+	 * @return A String representing the threshold after which delivery becomes
+	 *         free
 	 */
 	public static String getFreeDeliveryTreshold() {
 		return freeDeliveryThreshold / 100 + "," + formatter.format(freeDeliveryThreshold % 100);
@@ -377,14 +390,10 @@ public class PriceCalculators {
 	 * Config table of the database.
 	 */
 	public static void getConstantsFromDataBase() {
-		deliverMoms = Integer.parseInt(Config
-				.getConfigValueByKey(Config.KEY_DELIVERY_AT_HOME_TAX));
-		pickupMoms = Integer.parseInt(Config
-				.getConfigValueByKey(Config.KEY_PICKUP_AT_RESTAURANT_TAX));
-		freeDeliveryThreshold = Integer.parseInt(Config
-				.getConfigValueByKey(Config.KEY_FREE_DELIVERY_LIMIT));
-		deliveryCost = Integer.parseInt(Config
-				.getConfigValueByKey(Config.KEY_DELIVERY_PRICE));
+		deliverMoms = Integer.parseInt(Config.getConfigValueByKey(Config.KEY_DELIVERY_AT_HOME_TAX));
+		pickupMoms = Integer.parseInt(Config.getConfigValueByKey(Config.KEY_PICKUP_AT_RESTAURANT_TAX));
+		freeDeliveryThreshold = Integer.parseInt(Config.getConfigValueByKey(Config.KEY_FREE_DELIVERY_LIMIT));
+		deliveryCost = Integer.parseInt(Config.getConfigValueByKey(Config.KEY_DELIVERY_PRICE));
 		restaurantName = Config.getConfigValueByKey(Config.KEY_RESTAURANT_NAME);
 		restaurantAddress = Config.getConfigValueByKey(Config.KEY_RESTAURANT_ADDRESS);
 		restaurantCity = Config.getConfigValueByKey(Config.KEY_RESTAURANT_CITY);
@@ -392,6 +401,7 @@ public class PriceCalculators {
 
 	/**
 	 * Returns the name of the restaurant
+	 * 
 	 * @return The restaurant's name
 	 */
 	public static String getRestaurantName() {
@@ -400,6 +410,7 @@ public class PriceCalculators {
 
 	/**
 	 * Returns a String representing the address of the restaurant
+	 * 
 	 * @return A String representing the restaurant's address
 	 */
 	public static String getRestaurantAddress() {
@@ -408,10 +419,10 @@ public class PriceCalculators {
 
 	/**
 	 * Returns a String representing the city where the restaurant is located
+	 * 
 	 * @return The city where the restaurant is located
 	 */
 	public static String getRestaurantCity() {
 		return restaurantCity;
 	}
-
 }

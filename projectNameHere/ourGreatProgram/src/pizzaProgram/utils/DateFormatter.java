@@ -5,11 +5,13 @@ import java.util.Calendar;
 
 /**
  * This class is used to make strings that represent dates, used in the gui
+ * 
+ * @author IT1901 Group 3, Fall 2011
  */
 public class DateFormatter {
 
 	/**
-	 * Formats the stringrepresentation of a date If the date is today, it will
+	 * Formats the stringrepresentation of a date. If the date is today, it will
 	 * return only the time, else it will return the full date
 	 * 
 	 * @param databaseDateTimeResultString
