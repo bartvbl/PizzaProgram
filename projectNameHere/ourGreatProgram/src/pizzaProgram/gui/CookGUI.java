@@ -52,6 +52,7 @@ public class CookGUI extends GUIModule implements EventHandler{
 		eventDispatcher.addEventListener(this, EventType.COOK_GUI_REQUESTED);
 		eventDispatcher.addEventListener(this, EventType.ORDER_GUI_REQUESTED);
 		eventDispatcher.addEventListener(this, EventType.DELIVERY_GUI_REQUESTED);
+		eventDispatcher.addEventListener(this, EventType.DATA_REFRESH_REQUESTED);
 		this.cookView = new CookView();
 		mainWindow.addJPanel(this.cookView);
 		this.programWindow = mainWindow;

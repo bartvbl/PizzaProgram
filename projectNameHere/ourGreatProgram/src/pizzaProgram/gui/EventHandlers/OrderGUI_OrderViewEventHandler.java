@@ -391,11 +391,8 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler implem
 	 * afterwards. Handles a user click on the "Confirm order" button.
 	 */
 	private void confirmOrder() {
-		int indexFromOtherSource = OrderView.customerList.getSelectedIndex();
-		Customer customer = this.orderGUI.currentCustomerList.get(indexFromOtherSource);
-		currentSelecetedCustomer = customer;
+		
 
-		this.temporaryOrderData.setCustomer(customer);
 		this.temporaryOrderData.setOrderComments(OrderView.orderCommentsTextArea.getText());
 
 		String selectedDeliveryMethod = (String) OrderView.deliveryMethodComboBox.getSelectedItem();
@@ -467,6 +464,11 @@ public class OrderGUI_OrderViewEventHandler extends ComponentEventHandler implem
 	 * a new order
 	 */
 	private void selectCustomer() {
+		int indexFromOtherSource = OrderView.customerList.getSelectedIndex();
+		Customer customer = this.orderGUI.currentCustomerList.get(indexFromOtherSource);
+		currentSelecetedCustomer = customer;
+
+		this.temporaryOrderData.setCustomer(customer);
 		this.setCustomerSelectionAreaEnabled(false);
 		this.setOrderEditingAreaEnabled(true);
 		this.dispatchEvent(new Event<Object>(EventType.DATABASE_UPDATE_ORDER_GUI_DISH_LIST));
