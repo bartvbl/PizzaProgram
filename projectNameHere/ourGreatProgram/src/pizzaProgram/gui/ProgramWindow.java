@@ -30,7 +30,7 @@ public class ProgramWindow implements EventHandler {
 	/**
 	 * A constant holding the name as it will appear inside the window
 	 */
-	public static final String MAIN_WINDOW_NAME = "Pizza Program";
+	public static final String MAIN_WINDOW_NAME = "Pizza Heaven";
 	/**
 	 * An instance of the CardLayout layout manager that manages the various
 	 * views of the program

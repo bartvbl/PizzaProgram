@@ -16,31 +16,40 @@ import pizzaProgram.gui.views.DeliveryView;
 //import pizzaProgram.utils.OrderPrice;
 //import pizzaProgram.utils.OrderPriceCalculator;
 import pizzaProgram.utils.PriceCalculators;
+
 /**
  * A class that populates the Delivery GUI.
- * @author Bart
- *
+ * 
+ * @author IT1901 Group 3, Fall 2011
+ * 
  */
 public class DeliveryGUIUpdater {
 	/**
 	 * Shows the order passed in the argument in the delivery UI.
-	 * @param order The Order instance to be displayed
+	 * 
+	 * @param order
+	 *            The Order instance to be displayed
 	 */
-	public static void showOrder(Order order){
+	public static void showOrder(Order order) {
 		fillDishTable(order);
 		fillOrderPriceLabels(order);
 		showComments(order);
 		enableMarkButtons(order);
 		showMapImage(order);
 	}
-	
+
 	/**
-	 * Downloads a map image showing the location of the restaurant and the location of the destination of the delivery in the map area of the delivery UI.
-	 * @param order The order to use to display the map
+	 * Downloads a map image showing the location of the restaurant and the
+	 * location of the destination of the delivery in the map area of the
+	 * delivery UI.
+	 * 
+	 * @param order
+	 *            The order to use to display the map
 	 */
 	private static void showMapImage(Order order) {
 		DeliveryMap map = new DeliveryMap();
-		map.loadImage(order.customer, DeliveryView.mapImagePanel.getWidth(), DeliveryView.mapImagePanel.getHeight());
+		map.loadImage(order.customer, DeliveryView.mapImagePanel.getWidth(),
+				DeliveryView.mapImagePanel.getHeight());
 		DeliveryView.mapImagePanel.setLayout(new BorderLayout());
 		DeliveryView.mapImagePanel.removeAll();
 		DeliveryView.mapImagePanel.add(map, BorderLayout.CENTER);
@@ -54,20 +63,26 @@ public class DeliveryGUIUpdater {
 
 	/**
 	 * Shows the dishes the order contains in the dish table in the delivery GUI
-	 * @param order The order to be displayed
+	 * 
+	 * @param order
+	 *            The order to be displayed
 	 */
 	private static void fillDishTable(Order order) {
-		DefaultTableModel tableModel = (DefaultTableModel)DeliveryView.orderContentsTable.getModel();
+		DefaultTableModel tableModel = (DefaultTableModel) DeliveryView.orderContentsTable.getModel();
 		tableModel.setRowCount(0);
 		ArrayList<OrderDish> dishList = order.getOrderedDishes();
-		for(OrderDish dish : dishList){
-			tableModel.addRow(new Object[]{dish.dish.name, generateExtrasString(dish.getExtras()), PriceCalculators.getPriceForOrderDish(dish)});
+		for (OrderDish dish : dishList) {
+			tableModel.addRow(new Object[] { dish.dish.name, generateExtrasString(dish.getExtras()),
+					PriceCalculators.getPriceForOrderDish(dish) });
 		}
 	}
 
 	/**
-	 * Calculates the various prices related to the order, and displays them in the delivery GUI
-	 * @param order The order to be displayed
+	 * Calculates the various prices related to the order, and displays them in
+	 * the delivery GUI
+	 * 
+	 * @param order
+	 *            The order to be displayed
 	 */
 	private static void fillOrderPriceLabels(Order order) {
 		DeliveryView.orderCostDeliveryCost.setText(PriceCalculators.getDeliveryCostForOrder(order));
@@ -77,7 +92,9 @@ public class DeliveryGUIUpdater {
 
 	/**
 	 * Shows the order comments and customer details in the delivery GUI
-	 * @param order The order to be displayed
+	 * 
+	 * @param order
+	 *            The order to be displayed
 	 */
 	private static void showComments(Order order) {
 		DeliveryView.orderCommentsTextArea.setText(order.comment);
@@ -89,21 +106,26 @@ public class DeliveryGUIUpdater {
 		customerAddress += customer.postalCode + " " + customer.city;
 		DeliveryView.orderAddressTextArea.setText(customerAddress);
 	}
-	
+
 	/**
-	 * Enables the "mark order as being delivered" and "mark order as delivered" buttons, depending on the order's state and delivery mthod.
-	 * @param order The order to vbe displayed
+	 * Enables the "mark order as being delivered" and "mark order as delivered"
+	 * buttons, depending on the order's state and delivery mthod.
+	 * 
+	 * @param order
+	 *            The order to vbe displayed
 	 */
-	private static void enableMarkButtons(Order order){
+	private static void enableMarkButtons(Order order) {
 		DeliveryView.showReceiptButton.setEnabled(true);
-		
-		if(order.status.equals(Order.HAS_BEEN_COOKED) && order.deliveryMethod.equals(Order.DELIVER_AT_HOME)){
+
+		if (order.status.equals(Order.HAS_BEEN_COOKED) && order.deliveryMethod.equals(Order.DELIVER_AT_HOME)) {
 			DeliveryView.markOrderBeingDeliveredButton.setEnabled(true);
 			DeliveryView.markOrderDeliveredButton.setEnabled(false);
-		} else if(order.status.equals(Order.HAS_BEEN_COOKED) && order.deliveryMethod.equals(Order.PICKUP_AT_RESTAURANT)){
+		} else if (order.status.equals(Order.HAS_BEEN_COOKED)
+				&& order.deliveryMethod.equals(Order.PICKUP_AT_RESTAURANT)) {
 			DeliveryView.markOrderBeingDeliveredButton.setEnabled(false);
 			DeliveryView.markOrderDeliveredButton.setEnabled(true);
-		} else if(order.status.equals(Order.BEING_DELIVERED) && order.deliveryMethod.equals(Order.DELIVER_AT_HOME)){
+		} else if (order.status.equals(Order.BEING_DELIVERED)
+				&& order.deliveryMethod.equals(Order.DELIVER_AT_HOME)) {
 			DeliveryView.markOrderBeingDeliveredButton.setEnabled(false);
 			DeliveryView.markOrderDeliveredButton.setEnabled(true);
 		} else {
@@ -114,14 +136,16 @@ public class DeliveryGUIUpdater {
 
 	/**
 	 * Generates a string for displaying in the order details table.
-	 * @param extras The array of dishes to generate the string from
+	 * 
+	 * @param extras
+	 *            The array of dishes to generate the string from
 	 * @return The resulting string representing the list of extras.
 	 */
 	private static String generateExtrasString(ArrayList<Extra> extras) {
 		String output = "";
 		int counter = 0;
-		for(Extra extra : extras){
-			if(counter != 0){
+		for (Extra extra : extras) {
+			if (counter != 0) {
 				output += ", ";
 			}
 			counter++;
