@@ -156,19 +156,19 @@ public class CustomerWindow extends JFrame {
 					return;
 				}
 
-				if (!type.equals(CustomerWindow.UPDATE_CUSTOMER) && firstName.isEmpty()) {
+				if (!type.equals(CustomerWindow.UPDATE_CUSTOMER) && firstName.isEmpty() && firstName.length() < 50) {
 					GUIConstants.showErrorMessage(GUIMessages.ILLEGAL_FIRST_NAME);
 					return;
 				}
-				if (!type.equals(CustomerWindow.UPDATE_CUSTOMER) && lastName.isEmpty()) {
+				if (!type.equals(CustomerWindow.UPDATE_CUSTOMER) && lastName.isEmpty() && lastName.length() < 50) {
 					GUIConstants.showErrorMessage(GUIMessages.ILLEGAL_LAST_NAME);
 					return;
 				}
-				if (address.isEmpty()) {
+				if (address.isEmpty() && address.length() < 50) {
 					GUIConstants.showErrorMessage(GUIMessages.ILLEGAL_ADDRESS);
 					return;
 				}
-				if (city.isEmpty()) {
+				if (city.isEmpty() && city.length() < 50) {
 					GUIConstants.showErrorMessage(GUIMessages.ILLEGAL_CITY);
 					return;
 				}
