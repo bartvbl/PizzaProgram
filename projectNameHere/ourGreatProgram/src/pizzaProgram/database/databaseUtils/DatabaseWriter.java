@@ -3,6 +3,8 @@ package pizzaProgram.database.databaseUtils;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.swing.JOptionPane;
+
 import pizzaProgram.constants.DatabaseMessages;
 import pizzaProgram.constants.DatabaseQueryConstants;
 import pizzaProgram.constants.GUIConstants;
@@ -272,6 +274,7 @@ public class DatabaseWriter {
 			String newStatus) {
 		try {
 			lockTablesForUpdatingOrderStatus();
+			//JOptionPane.showMessageDialog(null, "venter..");
 			String currentOrderStatus = getCurrentStatusOfOrder(order.orderID);
 			if (currentOrderStatus.equals(currentStatus)) {
 				updateOrderStatus(newStatus, order.orderID);

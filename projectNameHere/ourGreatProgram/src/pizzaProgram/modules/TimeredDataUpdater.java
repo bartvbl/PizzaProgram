@@ -10,6 +10,7 @@ import pizzaProgram.config.Config;
 import pizzaProgram.events.Event;
 import pizzaProgram.events.EventDispatcher;
 import pizzaProgram.events.EventType;
+import pizzaProgram.utils.PriceCalculators;
 
 /**
  * Periodically dispatches a data refresh request event to the various GUI
@@ -94,6 +95,7 @@ public class TimeredDataUpdater extends Module implements ActionListener {
 	 */
 	public void handleEvent(Event<?> event) {
 		if (this.eventTypesThatUpdateGUI.contains(event.eventType)) {
+			PriceCalculators.getConstantsFromDataBase();
 			this.resetTimer();
 		}
 	}
