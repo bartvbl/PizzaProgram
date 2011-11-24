@@ -58,8 +58,6 @@ public class TimeredDataUpdater extends Module implements ActionListener {
 	 * Adds all events that will reset the timer
 	 */
 	private void addEventListeners() {
-		this.addEvent(EventType.ADMIN_GUI_UPDATE_DISH_LIST);
-		this.addEvent(EventType.ADMIN_GUI_UPDATE_EXTRA_LIST);
 		this.addEvent(EventType.ADMIN_GUI_UPDATE_ORDER_LIST);
 		this.addEvent(EventType.COOK_GUI_UPDATE_ORDER_LIST);
 		this.addEvent(EventType.DELIVERY_GUI_UPDATE_ORDER_LIST);

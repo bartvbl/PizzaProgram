@@ -32,7 +32,7 @@ public class AdminGUI_SystemEventHandler implements EventHandler {
 	 * A reference to the admin GUI module
 	 */
 	private AdminGUI adminGUI;
-
+	
 	/**
 	 * Registers all the event listeners at the main event dispatcher that this
 	 * class handles
@@ -86,6 +86,7 @@ public class AdminGUI_SystemEventHandler implements EventHandler {
 	 *            the Extras in the database
 	 */
 	private void updateExtraList(Event<?> event) {
+		
 		if (!(event.getEventParameterObject() instanceof ArrayList<?>)) {
 			System.err.println("ERROR: got a list that was not a list of Extra "
 					+ "instances when trying to update the extra list in the admin GUI.");
@@ -108,6 +109,7 @@ public class AdminGUI_SystemEventHandler implements EventHandler {
 			}
 		}
 		AdminView.allRegisteredExtrasTable.getSelectionModel().setSelectionInterval(selectedIndex, selectedIndex);
+		
 	}
 
 	/**

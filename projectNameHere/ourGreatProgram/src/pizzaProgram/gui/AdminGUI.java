@@ -13,7 +13,6 @@ import pizzaProgram.events.Event;
 import pizzaProgram.events.EventDispatcher;
 import pizzaProgram.events.EventHandler;
 import pizzaProgram.events.EventType;
-import pizzaProgram.gui.EventHandlers.AdminGUI_AdminViewEventHandler;
 import pizzaProgram.gui.EventHandlers.AdminGUI_SystemEventHandler;
 import pizzaProgram.gui.views.AdminView;
 import pizzaProgram.modules.GUIModule;
@@ -36,7 +35,6 @@ public class AdminGUI extends GUIModule implements EventHandler {
 	public ArrayList<Extra> currentExtraList;
 	public Extra currentSelectedExtra;
 	public ArrayList<Order> currentOrderList;
-	private AdminGUI_AdminViewEventHandler adminViewEventHandler;
 
 	/**
 	 * The constructor, which creates the adminView Jpanel, creates event
@@ -58,7 +56,6 @@ public class AdminGUI extends GUIModule implements EventHandler {
 		this.setupComponents();
 		this.hide();
 
-		this.adminViewEventHandler = new AdminGUI_AdminViewEventHandler(this);
 		new AdminGUI_SystemEventHandler(eventDispatcher, this);
 	}
 
@@ -95,13 +92,6 @@ public class AdminGUI extends GUIModule implements EventHandler {
 		AdminView.editExtraExtraIsActiveComboBox.addItem(GUIConstants.GUI_TRUE);
 		AdminView.editExtraExtraIsActiveComboBox.addItem(GUIConstants.GUI_FALSE);
 
-		AdminView.settingsDeliveryPriceTextBox.setText(PriceCalculators.getDeliveryCost());
-		AdminView.settingsEditNameOfRestaurantTextBox.setText(PriceCalculators.getRestaurantName());
-		AdminView.settingsEditAdressOfRestaurantTextBox.setText(PriceCalculators.getRestaurantAddress());
-		AdminView.settingsEditCityOfRestaurantTextBox.setText(PriceCalculators.getRestaurantCity());
-		AdminView.settingsEditMinimumPriceFreeDeliveryTextBox.setText(PriceCalculators
-				.getFreeDeliveryTreshold());
-
 		// orderhistory
 		DefaultTableModel orderTableModel = (DefaultTableModel) AdminView.ordersTable.getModel();
 		orderTableModel.addColumn("Id");
@@ -115,6 +105,12 @@ public class AdminGUI extends GUIModule implements EventHandler {
 	 */
 	public void show() {
 		this.programWindow.showPanel(this.adminView);
+		PriceCalculators.getConstantsFromDataBase();
+		AdminView.settingsDeliveryPriceTextBox.setText(PriceCalculators.getDeliveryCost());
+		AdminView.settingsEditNameOfRestaurantTextBox.setText(PriceCalculators.getRestaurantName());
+		AdminView.settingsEditAdressOfRestaurantTextBox.setText(PriceCalculators.getRestaurantAddress());
+		AdminView.settingsEditCityOfRestaurantTextBox.setText(PriceCalculators.getRestaurantCity());
+		AdminView.settingsEditMinimumPriceFreeDeliveryTextBox.setText(PriceCalculators.getFreeDeliveryTreshold());
 	}
 
 	/**
@@ -135,10 +131,10 @@ public class AdminGUI extends GUIModule implements EventHandler {
 			this.dispatchEvent(new Event<Object>(EventType.DATABASE_UPDATE_ADMINGUI_GUI_SEND_ALL_DISHES));
 			this.dispatchEvent(new Event<Object>(EventType.DATABASE_UPDATE_ADMINGUI_GUI_SEND_ALL_EXTRAS));
 			this.dispatchEvent(new Event<Object>(EventType.DATABASE_UPDATE_ADMINGUI_GUI_SEND_ALL_ORDERS));
+			PriceCalculators.getConstantsFromDataBase();
 		} else if (event.eventType.equals(EventType.DATA_REFRESH_REQUESTED)) {
 			if (this.programWindow.panelIsCurrentlyVisible(this.adminView)) {
-				this.adminViewEventHandler.handleDishSearchTyping();
-				this.adminViewEventHandler.handleExtraSearchTyping();
+				this.dispatchEvent(new Event<Object>(EventType.DATABASE_UPDATE_ADMINGUI_GUI_SEND_ALL_ORDERS));
 			}
 		}
 	}
