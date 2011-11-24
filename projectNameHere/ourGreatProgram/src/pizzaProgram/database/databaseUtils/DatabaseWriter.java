@@ -3,8 +3,6 @@ package pizzaProgram.database.databaseUtils;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import javax.swing.JOptionPane;
-
 import pizzaProgram.constants.DatabaseMessages;
 import pizzaProgram.constants.DatabaseQueryConstants;
 import pizzaProgram.constants.GUIConstants;
