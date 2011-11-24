@@ -1,5 +1,7 @@
 package pizzaProgram.gui;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -41,6 +43,7 @@ public class ReceiptWindow extends JFrame {
 	public ReceiptWindow(CharSequence kvittering, int rows) {
 		setLayout(null);
 		setLocationRelativeTo(null);
+				
 		setResizable(false);
 		setTitle("Kvittering");
 
@@ -66,6 +69,14 @@ public class ReceiptWindow extends JFrame {
 		// 35 is the height of the framedecoration 6 is the width
 		setSize(jsp.getWidth() + 6, printButton.getY() + printButton.getHeight() + 35);
 
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		//centers the window on screen
+		int w = this.getSize().width;
+		int h = this.getSize().height;
+		int x = (dim.width-w)/2;
+		int y = (dim.height-h)/2;
+		setLocation(x, y);
+		
 		setVisible(true);
 	}
 
