@@ -92,6 +92,7 @@ public class AdminGUI_SystemEventHandler implements EventHandler {
 			return;
 		}
 		Extra selectedExtra = this.adminGUI.currentSelectedExtra;
+		@SuppressWarnings("unchecked")
 		ArrayList<Extra> extraList = (ArrayList<Extra>) event.getEventParameterObject();
 		adminGUI.currentExtraList = extraList;
 		DefaultTableModel tableModel = (DefaultTableModel) AdminView.allRegisteredExtrasTable.getModel();
@@ -122,8 +123,8 @@ public class AdminGUI_SystemEventHandler implements EventHandler {
 					+ "instances when trying to update the dish list in the admin GUI.");
 			return;
 		}
-		@SuppressWarnings("unchecked")
 		Dish selectedDish = this.adminGUI.currentSelectedDish;
+		@SuppressWarnings("unchecked")
 		ArrayList<Dish> dishList = (ArrayList<Dish>) event.getEventParameterObject();
 		adminGUI.currentDishList = dishList;
 		DefaultTableModel tableModel = (DefaultTableModel) AdminView.allActiveDishesTable.getModel();
