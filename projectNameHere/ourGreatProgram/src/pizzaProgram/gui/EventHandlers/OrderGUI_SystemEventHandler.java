@@ -75,15 +75,24 @@ public class OrderGUI_SystemEventHandler implements EventHandler {
 		@SuppressWarnings("unchecked")
 		ArrayList<Extra> extrasList = (ArrayList<Extra>) event.getEventParameterObject();
 		this.orderGUI.currentExtrasList = extrasList;
+		
+		
 		int currentSelectedRow = OrderView.extrasSelectionList.getSelectedIndex();
-		Extra selectedExtra = null;
-		if(currentSelectedRow != -1)
-		{
-			selectedExtra = this.orderGUI.currentExtrasList.get(currentSelectedRow);
+		
+		
+		
+		ArrayList<Extra> selectedExtras = new ArrayList<Extra>();
+		int[] indexes = OrderView.extrasSelectionList.getSelectedIndices();
+		if(currentSelectedRow != -1){
+			for (int i : indexes) {
+				selectedExtras.add(this.orderGUI.currentExtrasList.get(i));
+			}
 		}
+		
 		DefaultListModel model = (DefaultListModel) OrderView.extrasSelectionList.getModel();
 		model.clear();
-		int selectedRow = -1;
+		ArrayList<Integer> selectedRows = new ArrayList<Integer>();
+		
 		for (int i = 0; i < extrasList.size(); i++) {
 			Extra extra = extrasList.get(i);
 			if (orderGUI.currentSelectedDish != null) {
@@ -95,12 +104,18 @@ public class OrderGUI_SystemEventHandler implements EventHandler {
 			} else {
 				model.addElement(extra.name + " ( " + PriceCalculators.getPriceForExtra(extra) + ")");
 			}
-			if(extra.equals(selectedExtra))
-			{
-				selectedRow = i;
+			if(selectedExtras.contains(extra)){
+				selectedRows.add(i);
 			}
 		}
-		OrderView.extrasSelectionList.setSelectedIndex(selectedRow);
+		
+		int[] selectTheese = new int[selectedRows.size()];
+		for (int i = 0; i < selectTheese.length; i++) {
+			selectTheese[i] = selectedRows.get(i);
+		}
+		
+		OrderView.extrasSelectionList.setSelectedIndices(selectTheese);
+		
 	}
 
 	/**
