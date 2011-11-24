@@ -12,7 +12,6 @@ import pizzaProgram.events.EventDispatcher;
 import pizzaProgram.events.EventHandler;
 import pizzaProgram.events.EventType;
 import pizzaProgram.gui.DeliverGUI;
-import pizzaProgram.gui.views.CookView;
 import pizzaProgram.gui.views.DeliveryView;
 
 /**
