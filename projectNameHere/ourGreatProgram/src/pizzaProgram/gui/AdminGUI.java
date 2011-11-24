@@ -108,7 +108,6 @@ public class AdminGUI extends GUIModule implements EventHandler {
 		orderTableModel.addColumn("Kunde");
 		orderTableModel.addColumn("Leveringsmetode");
 		AdminView.ordersTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
 	}
 
 	/**
